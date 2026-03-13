@@ -1,0 +1,214 @@
+asyncapi: 2.6.0
+info:
+  title: SendGrid Inbound Parse Webhook
+  description: >-
+    The SendGrid Inbound Parse Webhook processes all incoming email for a
+    domain or subdomain, parses the contents and attachments, and then
+    POSTs multipart/form-data to a URL that you specify. You can use
+    this webhook to receive and process incoming emails programmatically,
+    enabling use cases such as support ticket creation, automated
+    replies, and email-to-application workflows.
+  version: '3.0.0'
+  contact:
+    name: Twilio SendGrid Support
+    url: https://support.sendgrid.com/hc/en-us
+  license:
+    name: MIT
+  termsOfService: https://www.twilio.com/legal/tos
+  externalDocs:
+    description: Inbound Parse Webhook Documentation
+    url: https://www.twilio.com/docs/sendgrid/for-developers/parsing-email/inbound-email
+servers:
+  customerEndpoint:
+    url: '{parseWebhookUrl}'
+    protocol: https
+    description: >-
+      The customer-configured HTTPS endpoint that receives inbound
+      parsed email data from SendGrid. You configure this URL in
+      the SendGrid Inbound Parse settings for your receiving domain.
+    variables:
+      parseWebhookUrl:
+        description: Your Inbound Parse webhook receiver URL
+channels:
+  /webhook/inbound-parse:
+    description: >-
+      SendGrid posts parsed inbound email data to your configured
+      webhook URL as multipart/form-data. The parsed payload includes
+      email headers, body content (text and HTML), attachments, envelope
+      information, and optionally spam scoring data. The total message
+      size including attachments must not exceed 30 MB. Your endpoint
+      must respond with a 2xx HTTP status code to acknowledge receipt
+      and prevent retries.
+    publish:
+      operationId: receiveInboundEmail
+      summary: Receive parsed inbound email data
+      description: >-
+        SendGrid sends an HTTP POST request containing the parsed
+        email data as multipart/form-data to your webhook URL. The
+        payload includes the sender and recipient information, subject
+        line, plain text and HTML body content, attachments as file
+        uploads, DKIM and SPF verification results, and the raw SMTP
+        envelope. If spam checking is enabled, the payload also includes
+        a spam score and spam report.
+      message:
+        oneOf:
+          - $ref: '#/components/messages/ParsedEmail'
+          - $ref: '#/components/messages/RawEmail'
+components:
+  messages:
+    ParsedEmail:
+      name: ParsedEmail
+      title: Parsed Inbound Email
+      summary: >-
+        A fully parsed inbound email with separate fields for headers,
+        body content, and attachments delivered as multipart/form-data.
+      contentType: multipart/form-data
+      payload:
+        $ref: '#/components/schemas/ParsedEmailPayload'
+    RawEmail:
+      name: RawEmail
+      title: Raw Inbound Email
+      summary: >-
+        An inbound email delivered as a raw MIME message when the Send
+        Raw option is enabled in your Inbound Parse settings.
+      contentType: multipart/form-data
+      payload:
+        $ref: '#/components/schemas/RawEmailPayload'
+  schemas:
+    ParsedEmailPayload:
+      type: object
+      description: >-
+        The default parsed format of an inbound email. SendGrid extracts
+        and decodes each component of the email into separate fields.
+      required:
+        - from
+        - to
+        - subject
+        - envelope
+      properties:
+        from:
+          type: string
+          description: >-
+            The sender email address and display name, in RFC 5322
+            format (e.g., "John Doe <john@example.com>").
+        to:
+          type: string
+          description: >-
+            The recipient email address(es) and display names, in
+            RFC 5322 format. Multiple recipients are comma-separated.
+        cc:
+          type: string
+          description: >-
+            The carbon copy recipient email address(es) and display
+            names, if present in the original email.
+        subject:
+          type: string
+          description: >-
+            The subject line of the email.
+        text:
+          type: string
+          description: >-
+            The plain text body of the email, if a text/plain part
+            was included.
+        html:
+          type: string
+          description: >-
+            The HTML body of the email, if a text/html part was
+            included.
+        sender_ip:
+          type: string
+          description: >-
+            The IP address of the SMTP client that connected to
+            SendGrid to deliver the email.
+        envelope:
+          type: string
+          description: >-
+            A JSON string containing the SMTP envelope with "from"
+            (string) and "to" (array of strings) keys representing
+            the envelope sender and recipients.
+        charsets:
+          type: string
+          description: >-
+            A JSON-encoded object mapping field names to their
+            respective character set encodings (e.g., {"to":"UTF-8",
+            "subject":"UTF-8","from":"UTF-8","text":"iso-8859-1"}).
+        dkim:
+          type: string
+          description: >-
+            The DKIM verification results for the inbound email,
+            indicating whether the message signature is valid.
+        SPF:
+          type: string
+          description: >-
+            The Sender Policy Framework verification result for the
+            inbound email (e.g., "pass", "fail", "softfail", "none").
+        attachments:
+          type: integer
+          minimum: 0
+          description: >-
+            The number of file attachments included with the email.
+            Each attachment is sent as a separate file field in the
+            multipart/form-data payload.
+        attachment-info:
+          type: string
+          description: >-
+            A JSON-encoded object containing metadata about each
+            attachment, keyed by attachment field name. Each entry
+            includes the filename, type (MIME type), and content-id
+            if applicable.
+        spam_report:
+          type: string
+          description: >-
+            The full SpamAssassin spam report for the email. Only
+            included when spam checking is enabled in your Inbound
+            Parse settings.
+        spam_score:
+          type: string
+          description: >-
+            The SpamAssassin spam score for the email. Only included
+            when spam checking is enabled in your Inbound Parse
+            settings.
+    RawEmailPayload:
+      type: object
+      description: >-
+        The raw MIME format of an inbound email, sent when the Send Raw
+        option is enabled in your Inbound Parse settings. The full MIME
+        message is URL-encoded in the email field.
+      required:
+        - email
+        - envelope
+      properties:
+        email:
+          type: string
+          description: >-
+            The full raw MIME message content, URL-encoded. This
+            includes all headers, body parts, and inline attachments
+            as a single MIME document.
+        envelope:
+          type: string
+          description: >-
+            A JSON string containing the SMTP envelope with "from"
+            (string) and "to" (array of strings) keys representing
+            the envelope sender and recipients.
+        sender_ip:
+          type: string
+          description: >-
+            The IP address of the SMTP client that connected to
+            SendGrid to deliver the email.
+        charsets:
+          type: string
+          description: >-
+            A JSON-encoded object mapping field names to their
+            respective character set encodings.
+        spam_report:
+          type: string
+          description: >-
+            The full SpamAssassin spam report for the email. Only
+            included when spam checking is enabled in your Inbound
+            Parse settings.
+        spam_score:
+          type: string
+          description: >-
+            The SpamAssassin spam score for the email. Only included
+            when spam checking is enabled in your Inbound Parse
+            settings.

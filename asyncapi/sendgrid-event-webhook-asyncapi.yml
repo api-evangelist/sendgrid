@@ -1,0 +1,496 @@
+asyncapi: 2.6.0
+info:
+  title: SendGrid Event Webhook
+  description: >-
+    The SendGrid Event Webhook delivers near real-time event data about
+    your email activity via HTTP POST requests. SendGrid batches events
+    into arrays and sends them to your configured webhook URL. Events
+    cover the full email lifecycle including delivery, engagement, and
+    suppression actions. You can use this data to monitor deliverability,
+    track recipient engagement, and maintain suppression lists.
+  version: '3.0.0'
+  contact:
+    name: Twilio SendGrid Support
+    url: https://support.sendgrid.com/hc/en-us
+  license:
+    name: MIT
+  termsOfService: https://www.twilio.com/legal/tos
+  externalDocs:
+    description: Event Webhook Reference
+    url: https://www.twilio.com/docs/sendgrid/for-developers/tracking-events/event
+servers:
+  customerEndpoint:
+    url: '{webhookUrl}'
+    protocol: https
+    description: >-
+      The customer-configured HTTPS endpoint that receives webhook POST
+      requests from SendGrid. You configure this URL in the SendGrid
+      Event Webhook settings.
+    variables:
+      webhookUrl:
+        description: Your webhook receiver URL
+    security:
+      - signedWebhook: []
+      - oAuth2: []
+channels:
+  /webhook/event:
+    description: >-
+      SendGrid posts batched email event data to your configured webhook
+      URL. Each POST request contains a JSON array of up to 1000 or more
+      event objects. Events include delivery events (processed, dropped,
+      delivered, deferred, bounce) and engagement events (open, click,
+      spam report, unsubscribe, group unsubscribe, group resubscribe).
+    publish:
+      operationId: receiveEmailEvents
+      summary: Receive batched email event notifications
+      description: >-
+        SendGrid sends HTTP POST requests containing a JSON array of
+        event objects to your webhook URL. Each event object includes
+        common fields such as the recipient email, timestamp, event
+        type, and SendGrid message identifiers. Event-specific fields
+        provide additional context such as bounce reasons, clicked URLs,
+        or user agent strings.
+      message:
+        oneOf:
+          - $ref: '#/components/messages/ProcessedEvent'
+          - $ref: '#/components/messages/DroppedEvent'
+          - $ref: '#/components/messages/DeliveredEvent'
+          - $ref: '#/components/messages/DeferredEvent'
+          - $ref: '#/components/messages/BounceEvent'
+          - $ref: '#/components/messages/OpenEvent'
+          - $ref: '#/components/messages/ClickEvent'
+          - $ref: '#/components/messages/SpamReportEvent'
+          - $ref: '#/components/messages/UnsubscribeEvent'
+          - $ref: '#/components/messages/GroupUnsubscribeEvent'
+          - $ref: '#/components/messages/GroupResubscribeEvent'
+components:
+  securitySchemes:
+    signedWebhook:
+      type: httpApiKey
+      name: X-Twilio-Email-Event-Webhook-Signature
+      in: header
+      description: >-
+        ECDSA signature for verifying the authenticity of webhook
+        requests. Enable Signed Event Webhook in your SendGrid
+        settings to use this verification method.
+    oAuth2:
+      type: oauth2
+      description: >-
+        OAuth 2.0 client credentials flow for authenticating webhook
+        requests. Configure OAuth client ID, client secret, and token
+        URL in your Event Webhook settings.
+      flows:
+        clientCredentials:
+          tokenUrl: '{oauthTokenUrl}'
+          scopes: {}
+  messages:
+    ProcessedEvent:
+      name: Processed
+      title: Processed Event
+      summary: >-
+        SendGrid accepted the message and will attempt delivery.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/ProcessedEvent'
+    DroppedEvent:
+      name: Dropped
+      title: Dropped Event
+      summary: >-
+        SendGrid dropped the message due to invalid headers, spam
+        content, unsubscribed recipient, bounced address, or quota
+        limits.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/DroppedEvent'
+    DeliveredEvent:
+      name: Delivered
+      title: Delivered Event
+      summary: >-
+        SendGrid successfully delivered the message to the receiving
+        mail server.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/DeliveredEvent'
+    DeferredEvent:
+      name: Deferred
+      title: Deferred Event
+      summary: >-
+        The receiving server temporarily rejected the message and
+        SendGrid will retry delivery.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/DeferredEvent'
+    BounceEvent:
+      name: Bounce
+      title: Bounce Event
+      summary: >-
+        The receiving server permanently or temporarily rejected the
+        message.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/BounceEvent'
+    OpenEvent:
+      name: Open
+      title: Open Event
+      summary: >-
+        The recipient opened the HTML email message.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/OpenEvent'
+    ClickEvent:
+      name: Click
+      title: Click Event
+      summary: >-
+        The recipient clicked a link within the email message.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/ClickEvent'
+    SpamReportEvent:
+      name: SpamReport
+      title: Spam Report Event
+      summary: >-
+        The recipient marked the email as spam.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/SpamReportEvent'
+    UnsubscribeEvent:
+      name: Unsubscribe
+      title: Unsubscribe Event
+      summary: >-
+        The recipient unsubscribed from all emails.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/UnsubscribeEvent'
+    GroupUnsubscribeEvent:
+      name: GroupUnsubscribe
+      title: Group Unsubscribe Event
+      summary: >-
+        The recipient unsubscribed from a specific suppression group.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/GroupUnsubscribeEvent'
+    GroupResubscribeEvent:
+      name: GroupResubscribe
+      title: Group Resubscribe Event
+      summary: >-
+        The recipient resubscribed to a specific suppression group.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/GroupResubscribeEvent'
+  schemas:
+    BaseEvent:
+      type: object
+      description: >-
+        Common fields present on all SendGrid Event Webhook events.
+      required:
+        - email
+        - event
+        - sg_event_id
+        - sg_message_id
+        - timestamp
+      properties:
+        email:
+          type: string
+          format: email
+          description: >-
+            The email address of the recipient.
+        event:
+          type: string
+          description: >-
+            The type of event that occurred.
+        sg_event_id:
+          type: string
+          description: >-
+            A unique identifier for this event generated by SendGrid.
+        sg_message_id:
+          type: string
+          description: >-
+            A unique identifier for the message associated with this
+            event, generated by SendGrid.
+        timestamp:
+          type: integer
+          description: >-
+            The Unix timestamp of when the event occurred.
+        smtp-id:
+          type: string
+          description: >-
+            A unique identifier attached to the message by the
+            originating SMTP server.
+        category:
+          oneOf:
+            - type: string
+            - type: array
+              items:
+                type: string
+          description: >-
+            Categories assigned to the message for tracking purposes.
+            May be a single string or an array of strings.
+        asm_group_id:
+          type: integer
+          description: >-
+            The ID of the suppression group that the recipient is
+            associated with.
+        unique_args:
+          type: object
+          additionalProperties: true
+          description: >-
+            Custom key-value pairs passed with the message using
+            unique_args (SMTP API / v2 Mail Send) or custom_args
+            (v3 Mail Send).
+        marketing_campaign_id:
+          type: integer
+          description: >-
+            The ID of the Marketing Campaign that generated this event,
+            if applicable.
+        marketing_campaign_name:
+          type: string
+          description: >-
+            The name of the Marketing Campaign that generated this
+            event, if applicable.
+    ProcessedEvent:
+      description: >-
+        Indicates that SendGrid has accepted the message and will
+        attempt to deliver it.
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            event:
+              type: string
+              const: processed
+            pool:
+              type: object
+              description: >-
+                Information about the IP pool used for sending.
+              properties:
+                name:
+                  type: string
+                  description: >-
+                    The name of the IP pool.
+                id:
+                  type: integer
+                  description: >-
+                    The ID of the IP pool.
+    DroppedEvent:
+      description: >-
+        Indicates that SendGrid dropped the message and will not
+        deliver it. Messages are dropped due to invalid headers,
+        spam content, an unsubscribed recipient, a previously bounced
+        address, or exceeding sending quotas.
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            event:
+              type: string
+              const: dropped
+            reason:
+              type: string
+              description: >-
+                The reason why the message was dropped.
+            status:
+              type: string
+              description: >-
+                The SMTP status code associated with the drop.
+    DeliveredEvent:
+      description: >-
+        Indicates that the receiving mail server accepted the message
+        for delivery to the recipient.
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            event:
+              type: string
+              const: delivered
+            response:
+              type: string
+              description: >-
+                The full SMTP response string from the receiving server,
+                such as "250 OK".
+    DeferredEvent:
+      description: >-
+        Indicates that the receiving server temporarily rejected the
+        message. SendGrid will continue to retry delivery.
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            event:
+              type: string
+              const: deferred
+            attempt:
+              type: integer
+              minimum: 1
+              description: >-
+                The number of delivery attempts SendGrid has made for
+                this message.
+            response:
+              type: string
+              description: >-
+                The full response string from the receiving server
+                explaining the deferral.
+    BounceEvent:
+      description: >-
+        Indicates that the receiving server rejected the message. A
+        hard bounce means the address is permanently invalid. A blocked
+        bounce is a temporary or soft rejection.
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            event:
+              type: string
+              const: bounce
+            bounce_classification:
+              type: string
+              enum:
+                - Invalid Address
+                - Technical
+                - Content
+                - Reputation
+                - Frequency/Volume
+                - Mailbox Unavailable
+                - Unclassified
+              description: >-
+                The classification of the bounce indicating the
+                general category of the rejection reason.
+            reason:
+              type: string
+              description: >-
+                The detailed rejection reason provided by the
+                receiving server.
+            status:
+              type: string
+              description: >-
+                The SMTP status code associated with the bounce.
+            type:
+              type: string
+              enum:
+                - bounce
+                - blocked
+              description: >-
+                The type of bounce. A value of "bounce" indicates a
+                hard bounce (permanent failure). A value of "blocked"
+                indicates a soft bounce (temporary failure).
+    OpenEvent:
+      description: >-
+        Indicates that the recipient opened the HTML email message.
+        Open tracking requires a transparent tracking pixel embedded
+        in the HTML content.
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            event:
+              type: string
+              const: open
+            sg_machine_open:
+              type: boolean
+              description: >-
+                Indicates whether the open was detected as an
+                automated or machine-generated open rather than a
+                human interaction.
+            useragent:
+              type: string
+              description: >-
+                The user agent string of the client that opened
+                the email.
+    ClickEvent:
+      description: >-
+        Indicates that the recipient clicked on a link within the
+        email message.
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            event:
+              type: string
+              const: click
+            ip:
+              type: string
+              description: >-
+                The IP address of the recipient who clicked the link.
+            url:
+              type: string
+              format: uri
+              description: >-
+                The URL that was clicked by the recipient.
+            url_offset:
+              type: object
+              description: >-
+                The position and type of the clicked link within
+                the message body.
+              properties:
+                index:
+                  type: integer
+                  minimum: 0
+                  description: >-
+                    The zero-based index of the link in the message.
+                type:
+                  type: string
+                  enum:
+                    - html
+                    - text
+                  description: >-
+                    Whether the link was in the HTML or plain text
+                    body of the message.
+            useragent:
+              type: string
+              description: >-
+                The user agent string of the client that clicked
+                the link.
+    SpamReportEvent:
+      description: >-
+        Indicates that the recipient marked the email as spam using
+        their email client.
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            event:
+              type: string
+              const: spamreport
+    UnsubscribeEvent:
+      description: >-
+        Indicates that the recipient clicked the unsubscribe link
+        and opted out of all future emails from the sender.
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            event:
+              type: string
+              const: unsubscribe
+    GroupUnsubscribeEvent:
+      description: >-
+        Indicates that the recipient unsubscribed from a specific
+        suppression group rather than all emails.
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            event:
+              type: string
+              const: group_unsubscribe
+            asm_group_id:
+              type: integer
+              description: >-
+                The ID of the suppression group the recipient
+                unsubscribed from.
+    GroupResubscribeEvent:
+      description: >-
+        Indicates that the recipient resubscribed to a specific
+        suppression group after having previously unsubscribed.
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            event:
+              type: string
+              const: group_resubscribe
+            asm_group_id:
+              type: integer
+              description: >-
+                The ID of the suppression group the recipient
+                resubscribed to.
