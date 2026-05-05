@@ -1,0 +1,53 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: SendGrid
+providerId: sendgrid
+created: '2026-05-04'
+modified: '2026-05-04'
+reconciled: true
+tags:
+  - Rate Limiting
+  - Email
+description: SendGrid v3 API enforces per-account, per-endpoint rate limits.
+sources:
+  - https://sendgrid.com/en-us/pricing
+  - https://www.twilio.com/en-us/products/email-api/pricing
+  - https://www.twilio.com/docs/sendgrid/api-reference/how-to-use-the-sendgrid-v3-api/rate-limits
+headers:
+  limit: X-RateLimit-Limit
+  remaining: X-RateLimit-Remaining
+  reset: X-RateLimit-Reset
+responseCodes:
+  throttled: 429
+limits:
+  - name: Mail Send v3 (Free)
+    scope: account
+    metric: requests_per_minute
+    limit: 100
+    timeFrame: minute
+  - name: Mail Send v3 (Paid)
+    scope: account
+    metric: requests_per_minute
+    limit: 600
+    timeFrame: minute
+  - name: Marketing Single Send
+    scope: account
+    metric: requests_per_hour
+    limit: 60
+    timeFrame: hour
+  - name: Contacts API
+    scope: account
+    metric: requests_per_minute
+    limit: 100
+    timeFrame: minute
+  - name: Stats API
+    scope: account
+    metric: requests_per_minute
+    limit: 600
+    timeFrame: minute
+policies:
+  - name: IP warm-up
+    description: Dedicated IPs need gradual ramp.
+  - name: Reputation throttling
+    description: Bounce/complaint rates can trigger ISP-level throttling.

@@ -1,0 +1,130 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: SendGrid
+providerId: sendgrid
+created: '2026-05-04'
+modified: '2026-05-04'
+reconciled: true
+tags:
+  - Email
+  - Transactional
+  - Marketing
+description: 'Twilio SendGrid Email API tiers: Free Trial / Essentials / Pro / Premier.'
+sources:
+  - https://sendgrid.com/en-us/pricing
+  - https://www.twilio.com/en-us/products/email-api/pricing
+plans:
+  - id: sendgrid-free
+    name: Free Trial
+    type: freemium
+    description: '60-day trial: 100 emails/day.'
+    entries:
+      - label: Emails per day
+        name: emails_day
+        type: quota
+        metric: email
+        limit: 100
+        timeFrame: day
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: Trial duration
+        name: trial
+        type: subscription
+        metric: day
+        limit: 60
+        timeFrame: one-time
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: API and SMTP relay
+      - name: 60-day duration
+  - id: sendgrid-essentials
+    name: Essentials
+    type: paid
+    description: $19.95/month for up to 100,000 emails.
+    entries:
+      - label: Monthly base
+        name: base
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '19.95'
+        userMultiplied: false
+      - label: Emails included
+        name: emails
+        type: quota
+        metric: email
+        limit: 100000
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: Email API
+      - name: SMTP relay
+      - name: Email validation
+      - name: SPF/DKIM/DMARC
+      - name: 3-day activity feed
+  - id: sendgrid-pro
+    name: Pro
+    type: paid
+    description: $89.95/month starting; up to 2.5M emails. Dedicated IP.
+    entries:
+      - label: Monthly base
+        name: base
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '89.95'
+        userMultiplied: false
+      - label: Emails included
+        name: emails
+        type: quota
+        metric: email
+        limit: 2500000
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: Dedicated IP
+      - name: Subusers
+      - name: Advanced stats
+      - name: 7-day activity feed
+      - name: Send Time Optimization
+      - name: SSO
+  - id: sendgrid-premier
+    name: Premier
+    type: enterprise
+    description: Custom pricing; $12,000/year minimum for invoicing.
+    entries:
+      - label: Annual minimum
+        name: minimum
+        type: subscription
+        metric: year
+        limit: -1
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: '12000.00'
+        userMultiplied: false
+    elements:
+      - name: Custom volume
+      - name: Multiple dedicated IPs
+      - name: Tiered IP warm-up
+      - name: CSM
+      - name: Priority support
+      - name: Email expert services

@@ -1,0 +1,62 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: SendGrid
+providerId: sendgrid
+created: '2026-05-04'
+modified: '2026-05-04'
+reconciled: true
+tags:
+  - FinOps
+  - FOCUS
+  - Email
+description: FOCUS-aligned FinOps for SendGrid.
+sources:
+  - https://sendgrid.com/en-us/pricing
+  - https://www.twilio.com/en-us/products/email-api/pricing
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Twilio Inc. (SendGrid)
+serviceCategory: Email Delivery
+billingModel:
+  pricingCategory: Subscription + Tiered Volume
+  billingFrequency: Monthly
+  billingCurrency: USD
+focusColumns:
+  ServiceName: SendGrid
+  ServiceCategory: Email Delivery
+  ProviderName: SendGrid
+  PublisherName: Twilio Inc.
+  BillingCurrency: USD
+meters:
+  - name: transactional_emails
+    unit: email
+    aggregation: sum
+    dimensions:
+      - category
+      - subuser
+  - name: marketing_emails
+    unit: email
+    aggregation: sum
+  - name: marketing_contacts
+    unit: contact
+    aggregation: max
+  - name: dedicated_ips
+    unit: ip-month
+    aggregation: max
+  - name: email_validations
+    unit: validation
+    aggregation: sum
+principles:
+  - name: Visibility
+    description: Pull Stats API and Subuser stats daily; alert on bounce/spam-rate spikes.
+  - name: Allocation
+    description: Use Subuser per team/product for billing isolation; tag emails with custom_args.
+  - name: Optimization
+    description: Pre-validate emails; right-size IP count; suppress non-engaged contacts.
+  - name: Accountability
+    description: Quarterly tier review; downgrade if monthly volume below next-lower tier.
