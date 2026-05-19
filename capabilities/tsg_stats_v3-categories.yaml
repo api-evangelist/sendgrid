@@ -1,0 +1,226 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Twilio SendGrid Statistics API — Categories
+  description: 'Twilio SendGrid Statistics API — Categories. 3 operations. Lead operation: Retrieve all categories. Self-contained
+    Naftiko capability covering one Sendgrid business surface.'
+  tags:
+  - Sendgrid
+  - Categories
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SENDGRID_API_KEY: SENDGRID_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: tsg_stats_v3-categories
+    baseUri: https://api.sendgrid.com
+    description: Twilio SendGrid Statistics API — Categories business capability. Self-contained, no shared references.
+    resources:
+    - name: v3-categories
+      path: /v3/categories
+      operations:
+      - name: listcategory
+        method: GET
+        description: Retrieve all categories
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: integer
+          description: '`limit` sets the page size, i.e. maximum number of items from the list to be returned for a single
+            API request. If omitted, the default page size is used.'
+        - name: category
+          in: query
+          type: string
+          description: Allows you to perform a prefix search on this particular category.
+    - name: v3-categories-stats
+      path: /v3/categories/stats
+      operations:
+      - name: listcategorystat
+        method: GET
+        description: Retrieve Email Statistics for Categories
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: start_date
+          in: query
+          type: string
+          description: The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD
+          required: true
+        - name: end_date
+          in: query
+          type: string
+          description: The end date of the statistics to retrieve. Defaults to today. Must follow format YYYY-MM-DD.
+        - name: categories
+          in: query
+          type: string
+          description: The individual categories that you want to retrieve statistics for. You may include up to 10 different
+            categories.
+          required: true
+        - name: aggregated_by
+          in: query
+          type: string
+          description: How to group the statistics. Must be either "day", "week", or "month".
+    - name: v3-categories-stats-sums
+      path: /v3/categories/stats/sums
+      operations:
+      - name: listcategorystatsum
+        method: GET
+        description: Retrieve sums of email stats for each category.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: sort_by_metric
+          in: query
+          type: string
+          description: The metric that you want to sort by.  Must be a single metric.
+        - name: sort_by_direction
+          in: query
+          type: string
+          description: The direction you want to sort.
+        - name: start_date
+          in: query
+          type: string
+          description: The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD.
+          required: true
+        - name: end_date
+          in: query
+          type: string
+          description: The end date of the statistics to retrieve. Defaults to today. Must follow format YYYY-MM-DD.
+        - name: limit
+          in: query
+          type: integer
+          description: Limits the number of results returned.
+        - name: offset
+          in: query
+          type: integer
+          description: The point in the list to begin retrieving results.
+        - name: aggregated_by
+          in: query
+          type: string
+          description: How to group the statistics. Must be either "day", "week", or "month".
+    authentication:
+      type: bearer
+      token: '{{env.SENDGRID_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: tsg_stats_v3-categories-rest
+    port: 8080
+    description: REST adapter for Twilio SendGrid Statistics API — Categories. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/v3/categories
+      name: v3-categories
+      description: REST surface for v3-categories.
+      operations:
+      - method: GET
+        name: listcategory
+        description: Retrieve all categories
+        call: tsg_stats_v3-categories.listcategory
+        with:
+          limit: rest.limit
+          category: rest.category
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/categories/stats
+      name: v3-categories-stats
+      description: REST surface for v3-categories-stats.
+      operations:
+      - method: GET
+        name: listcategorystat
+        description: Retrieve Email Statistics for Categories
+        call: tsg_stats_v3-categories.listcategorystat
+        with:
+          start_date: rest.start_date
+          end_date: rest.end_date
+          categories: rest.categories
+          aggregated_by: rest.aggregated_by
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/categories/stats/sums
+      name: v3-categories-stats-sums
+      description: REST surface for v3-categories-stats-sums.
+      operations:
+      - method: GET
+        name: listcategorystatsum
+        description: Retrieve sums of email stats for each category.
+        call: tsg_stats_v3-categories.listcategorystatsum
+        with:
+          sort_by_metric: rest.sort_by_metric
+          sort_by_direction: rest.sort_by_direction
+          start_date: rest.start_date
+          end_date: rest.end_date
+          limit: rest.limit
+          offset: rest.offset
+          aggregated_by: rest.aggregated_by
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: tsg_stats_v3-categories-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Twilio SendGrid Statistics API — Categories. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: retrieve-all-categories
+      description: Retrieve all categories
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_stats_v3-categories.listcategory
+      with:
+        limit: tools.limit
+        category: tools.category
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-email-statistics-categories
+      description: Retrieve Email Statistics for Categories
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_stats_v3-categories.listcategorystat
+      with:
+        start_date: tools.start_date
+        end_date: tools.end_date
+        categories: tools.categories
+        aggregated_by: tools.aggregated_by
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-sums-email-stats-each
+      description: Retrieve sums of email stats for each category.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_stats_v3-categories.listcategorystatsum
+      with:
+        sort_by_metric: tools.sort_by_metric
+        sort_by_direction: tools.sort_by_direction
+        start_date: tools.start_date
+        end_date: tools.end_date
+        limit: tools.limit
+        offset: tools.offset
+        aggregated_by: tools.aggregated_by
+      outputParameters:
+      - type: object
+        mapping: $.

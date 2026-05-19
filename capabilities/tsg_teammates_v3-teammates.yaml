@@ -1,0 +1,335 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Twilio SendGrid Teammates API — Teammates
+  description: 'Twilio SendGrid Teammates API — Teammates. 9 operations. Lead operation: Invite teammate. Self-contained Naftiko
+    capability covering one Sendgrid business surface.'
+  tags:
+  - Sendgrid
+  - Teammates
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SENDGRID_API_KEY: SENDGRID_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: tsg_teammates_v3-teammates
+    baseUri: https://api.sendgrid.com
+    description: Twilio SendGrid Teammates API — Teammates business capability. Self-contained, no shared references.
+    resources:
+    - name: v3-teammates
+      path: /v3/teammates
+      operations:
+      - name: inviteteammate
+        method: POST
+        description: Invite teammate
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: listteammate
+        method: GET
+        description: Retrieve all teammates
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: integer
+          description: '`limit` sets the page size, i.e. maximum number of items from the list to be returned for a single
+            API request. If omitted, the default page size is used. The m'
+    - name: v3-teammates-pending
+      path: /v3/teammates/pending
+      operations:
+      - name: listpendingteammate
+        method: GET
+        description: Retrieve all pending teammates
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v3-teammates-pending-token
+      path: /v3/teammates/pending/{token}
+      operations:
+      - name: deletependingteammate
+        method: DELETE
+        description: Delete pending teammate
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v3-teammates-pending-token-resend
+      path: /v3/teammates/pending/{token}/resend
+      operations:
+      - name: resendteammateinvite
+        method: POST
+        description: Resend teammate invite
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v3-teammates-teammate_name-subuser_access
+      path: /v3/teammates/{teammate_name}/subuser_access
+      operations:
+      - name: listsubuserbytemplate
+        method: GET
+        description: Get Teammate Subuser Access
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v3-teammates-username
+      path: /v3/teammates/{username}
+      operations:
+      - name: getteammate
+        method: GET
+        description: Retrieve specific teammate
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateteammate
+        method: PATCH
+        description: Update teammate's permissions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: deleteteammate
+        method: DELETE
+        description: Delete teammate
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.SENDGRID_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: tsg_teammates_v3-teammates-rest
+    port: 8080
+    description: REST adapter for Twilio SendGrid Teammates API — Teammates. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/v3/teammates
+      name: v3-teammates
+      description: REST surface for v3-teammates.
+      operations:
+      - method: POST
+        name: inviteteammate
+        description: Invite teammate
+        call: tsg_teammates_v3-teammates.inviteteammate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: listteammate
+        description: Retrieve all teammates
+        call: tsg_teammates_v3-teammates.listteammate
+        with:
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/teammates/pending
+      name: v3-teammates-pending
+      description: REST surface for v3-teammates-pending.
+      operations:
+      - method: GET
+        name: listpendingteammate
+        description: Retrieve all pending teammates
+        call: tsg_teammates_v3-teammates.listpendingteammate
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/teammates/pending/{token}
+      name: v3-teammates-pending-token
+      description: REST surface for v3-teammates-pending-token.
+      operations:
+      - method: DELETE
+        name: deletependingteammate
+        description: Delete pending teammate
+        call: tsg_teammates_v3-teammates.deletependingteammate
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/teammates/pending/{token}/resend
+      name: v3-teammates-pending-token-resend
+      description: REST surface for v3-teammates-pending-token-resend.
+      operations:
+      - method: POST
+        name: resendteammateinvite
+        description: Resend teammate invite
+        call: tsg_teammates_v3-teammates.resendteammateinvite
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/teammates/{teammate-name}/subuser-access
+      name: v3-teammates-teammate-name-subuser-access
+      description: REST surface for v3-teammates-teammate_name-subuser_access.
+      operations:
+      - method: GET
+        name: listsubuserbytemplate
+        description: Get Teammate Subuser Access
+        call: tsg_teammates_v3-teammates.listsubuserbytemplate
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/teammates/{username}
+      name: v3-teammates-username
+      description: REST surface for v3-teammates-username.
+      operations:
+      - method: GET
+        name: getteammate
+        description: Retrieve specific teammate
+        call: tsg_teammates_v3-teammates.getteammate
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updateteammate
+        description: Update teammate's permissions
+        call: tsg_teammates_v3-teammates.updateteammate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteteammate
+        description: Delete teammate
+        call: tsg_teammates_v3-teammates.deleteteammate
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: tsg_teammates_v3-teammates-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Twilio SendGrid Teammates API — Teammates. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: invite-teammate
+      description: Invite teammate
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: tsg_teammates_v3-teammates.inviteteammate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-all-teammates
+      description: Retrieve all teammates
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_teammates_v3-teammates.listteammate
+      with:
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-all-pending-teammates
+      description: Retrieve all pending teammates
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_teammates_v3-teammates.listpendingteammate
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-pending-teammate
+      description: Delete pending teammate
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: tsg_teammates_v3-teammates.deletependingteammate
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: resend-teammate-invite
+      description: Resend teammate invite
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: tsg_teammates_v3-teammates.resendteammateinvite
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-teammate-subuser-access
+      description: Get Teammate Subuser Access
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_teammates_v3-teammates.listsubuserbytemplate
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-specific-teammate
+      description: Retrieve specific teammate
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_teammates_v3-teammates.getteammate
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-teammate-s-permissions
+      description: Update teammate's permissions
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: tsg_teammates_v3-teammates.updateteammate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-teammate
+      description: Delete teammate
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: tsg_teammates_v3-teammates.deleteteammate
+      outputParameters:
+      - type: object
+        mapping: $.

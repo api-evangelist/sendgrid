@@ -1,0 +1,176 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Twilio SendGrid Scopes API — Scopes
+  description: 'Twilio SendGrid Scopes API — Scopes. 4 operations. Lead operation: Retrieve a list of scopes for which this
+    user has access.. Self-contained Naftiko capability covering one Sendgrid business surface.'
+  tags:
+  - Sendgrid
+  - Scopes
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SENDGRID_API_KEY: SENDGRID_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: tsg_scopes_v3-scopes
+    baseUri: https://api.sendgrid.com
+    description: Twilio SendGrid Scopes API — Scopes business capability. Self-contained, no shared references.
+    resources:
+    - name: v3-scopes
+      path: /v3/scopes
+      operations:
+      - name: listscope
+        method: GET
+        description: Retrieve a list of scopes for which this user has access.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v3-scopes-requests
+      path: /v3/scopes/requests
+      operations:
+      - name: listscoperequest
+        method: GET
+        description: Retrieve access requests
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: integer
+          description: '`limit` sets the page size, i.e. maximum number of items from the list to be returned for a single
+            API request. If omitted, the default page size is used.'
+    - name: v3-scopes-requests-request_id
+      path: /v3/scopes/requests/{request_id}
+      operations:
+      - name: denyscoperequest
+        method: DELETE
+        description: Deny access request
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v3-scopes-requests-request_id-approve
+      path: /v3/scopes/requests/{request_id}/approve
+      operations:
+      - name: approvescoperequest
+        method: PATCH
+        description: Approve access request
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.SENDGRID_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: tsg_scopes_v3-scopes-rest
+    port: 8080
+    description: REST adapter for Twilio SendGrid Scopes API — Scopes. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/v3/scopes
+      name: v3-scopes
+      description: REST surface for v3-scopes.
+      operations:
+      - method: GET
+        name: listscope
+        description: Retrieve a list of scopes for which this user has access.
+        call: tsg_scopes_v3-scopes.listscope
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/scopes/requests
+      name: v3-scopes-requests
+      description: REST surface for v3-scopes-requests.
+      operations:
+      - method: GET
+        name: listscoperequest
+        description: Retrieve access requests
+        call: tsg_scopes_v3-scopes.listscoperequest
+        with:
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/scopes/requests/{request-id}
+      name: v3-scopes-requests-request-id
+      description: REST surface for v3-scopes-requests-request_id.
+      operations:
+      - method: DELETE
+        name: denyscoperequest
+        description: Deny access request
+        call: tsg_scopes_v3-scopes.denyscoperequest
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/scopes/requests/{request-id}/approve
+      name: v3-scopes-requests-request-id-approve
+      description: REST surface for v3-scopes-requests-request_id-approve.
+      operations:
+      - method: PATCH
+        name: approvescoperequest
+        description: Approve access request
+        call: tsg_scopes_v3-scopes.approvescoperequest
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: tsg_scopes_v3-scopes-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Twilio SendGrid Scopes API — Scopes. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: retrieve-list-scopes-which-this
+      description: Retrieve a list of scopes for which this user has access.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_scopes_v3-scopes.listscope
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-access-requests
+      description: Retrieve access requests
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_scopes_v3-scopes.listscoperequest
+      with:
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deny-access-request
+      description: Deny access request
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: tsg_scopes_v3-scopes.denyscoperequest
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: approve-access-request
+      description: Approve access request
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: tsg_scopes_v3-scopes.approvescoperequest
+      outputParameters:
+      - type: object
+        mapping: $.

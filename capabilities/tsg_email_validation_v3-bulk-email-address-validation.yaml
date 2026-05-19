@@ -1,0 +1,139 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Twilio SendGrid Email Address Validation API — Bulk Email Address Validation
+  description: 'Twilio SendGrid Email Address Validation API — Bulk Email Address Validation. 3 operations. Lead operation:
+    Request a presigned URL and headers for Bulk Email Address Validation list upload.. Self-contained Naftiko capability
+    covering one Sendgrid business surface.'
+  tags:
+  - Sendgrid
+  - Bulk Email Address Validation
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SENDGRID_API_KEY: SENDGRID_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: tsg_email_validation_v3-bulk-email-address-validation
+    baseUri: https://api.sendgrid.com
+    description: Twilio SendGrid Email Address Validation API — Bulk Email Address Validation business capability. Self-contained,
+      no shared references.
+    resources:
+    - name: v3-validations-email-jobs
+      path: /v3/validations/email/jobs
+      operations:
+      - name: listemailjobforverification
+        method: PUT
+        description: Request a presigned URL and headers for Bulk Email Address Validation list upload.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: getvalidationsemailjobs
+        method: GET
+        description: This request lists all of a user's Bulk Email Validation Jobs.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v3-validations-email-jobs-job_id
+      path: /v3/validations/email/jobs/{job_id}
+      operations:
+      - name: getemailjobforverification
+        method: GET
+        description: This request returns a single Bulk Email Validation Job.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.SENDGRID_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: tsg_email_validation_v3-bulk-email-address-validation-rest
+    port: 8080
+    description: REST adapter for Twilio SendGrid Email Address Validation API — Bulk Email Address Validation. One Spectral-compliant
+      resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/v3/validations/email/jobs
+      name: v3-validations-email-jobs
+      description: REST surface for v3-validations-email-jobs.
+      operations:
+      - method: PUT
+        name: listemailjobforverification
+        description: Request a presigned URL and headers for Bulk Email Address Validation list upload.
+        call: tsg_email_validation_v3-bulk-email-address-validation.listemailjobforverification
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getvalidationsemailjobs
+        description: This request lists all of a user's Bulk Email Validation Jobs.
+        call: tsg_email_validation_v3-bulk-email-address-validation.getvalidationsemailjobs
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/validations/email/jobs/{job-id}
+      name: v3-validations-email-jobs-job-id
+      description: REST surface for v3-validations-email-jobs-job_id.
+      operations:
+      - method: GET
+        name: getemailjobforverification
+        description: This request returns a single Bulk Email Validation Job.
+        call: tsg_email_validation_v3-bulk-email-address-validation.getemailjobforverification
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: tsg_email_validation_v3-bulk-email-address-validation-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Twilio SendGrid Email Address Validation API — Bulk Email Address Validation. One tool per
+      consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: request-presigned-url-and-headers
+      description: Request a presigned URL and headers for Bulk Email Address Validation list upload.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: tsg_email_validation_v3-bulk-email-address-validation.listemailjobforverification
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-request-lists-all-user-s
+      description: This request lists all of a user's Bulk Email Validation Jobs.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_email_validation_v3-bulk-email-address-validation.getvalidationsemailjobs
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-request-returns-single-bulk
+      description: This request returns a single Bulk Email Validation Job.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_email_validation_v3-bulk-email-address-validation.getemailjobforverification
+      outputParameters:
+      - type: object
+        mapping: $.

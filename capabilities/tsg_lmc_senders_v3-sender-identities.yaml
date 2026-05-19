@@ -1,0 +1,230 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Twilio SendGrid Legacy Marketing Campaigns Sender Identities API — Sender Identities
+  description: 'Twilio SendGrid Legacy Marketing Campaigns Sender Identities API — Sender Identities. 6 operations. Lead operation:
+    Create a Sender Identity. Self-contained Naftiko capability covering one Sendgrid business surface.'
+  tags:
+  - Sendgrid
+  - Sender Identities
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SENDGRID_API_KEY: SENDGRID_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: tsg_lmc_senders_v3-sender-identities
+    baseUri: https://api.sendgrid.com
+    description: Twilio SendGrid Legacy Marketing Campaigns Sender Identities API — Sender Identities business capability.
+      Self-contained, no shared references.
+    resources:
+    - name: v3-senders
+      path: /v3/senders
+      operations:
+      - name: createsender
+        method: POST
+        description: Create a Sender Identity
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: listsender
+        method: GET
+        description: Get all Sender Identities
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v3-senders-sender_id
+      path: /v3/senders/{sender_id}
+      operations:
+      - name: getsender
+        method: GET
+        description: View a Sender Identity
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatesender
+        method: PATCH
+        description: Update a Sender Identity
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: deletesender
+        method: DELETE
+        description: Delete a Sender Identity
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v3-senders-sender_id-resend_verification
+      path: /v3/senders/{sender_id}/resend_verification
+      operations:
+      - name: resetsenderverification
+        method: POST
+        description: Resend Sender Identity Verification
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.SENDGRID_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: tsg_lmc_senders_v3-sender-identities-rest
+    port: 8080
+    description: REST adapter for Twilio SendGrid Legacy Marketing Campaigns Sender Identities API — Sender Identities. One
+      Spectral-compliant resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/v3/senders
+      name: v3-senders
+      description: REST surface for v3-senders.
+      operations:
+      - method: POST
+        name: createsender
+        description: Create a Sender Identity
+        call: tsg_lmc_senders_v3-sender-identities.createsender
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: listsender
+        description: Get all Sender Identities
+        call: tsg_lmc_senders_v3-sender-identities.listsender
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/senders/{sender-id}
+      name: v3-senders-sender-id
+      description: REST surface for v3-senders-sender_id.
+      operations:
+      - method: GET
+        name: getsender
+        description: View a Sender Identity
+        call: tsg_lmc_senders_v3-sender-identities.getsender
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatesender
+        description: Update a Sender Identity
+        call: tsg_lmc_senders_v3-sender-identities.updatesender
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletesender
+        description: Delete a Sender Identity
+        call: tsg_lmc_senders_v3-sender-identities.deletesender
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/senders/{sender-id}/resend-verification
+      name: v3-senders-sender-id-resend-verification
+      description: REST surface for v3-senders-sender_id-resend_verification.
+      operations:
+      - method: POST
+        name: resetsenderverification
+        description: Resend Sender Identity Verification
+        call: tsg_lmc_senders_v3-sender-identities.resetsenderverification
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: tsg_lmc_senders_v3-sender-identities-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Twilio SendGrid Legacy Marketing Campaigns Sender Identities API — Sender Identities. One
+      tool per consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: create-sender-identity
+      description: Create a Sender Identity
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: tsg_lmc_senders_v3-sender-identities.createsender
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-all-sender-identities
+      description: Get all Sender Identities
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_lmc_senders_v3-sender-identities.listsender
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: view-sender-identity
+      description: View a Sender Identity
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_lmc_senders_v3-sender-identities.getsender
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-sender-identity
+      description: Update a Sender Identity
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: tsg_lmc_senders_v3-sender-identities.updatesender
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-sender-identity
+      description: Delete a Sender Identity
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: tsg_lmc_senders_v3-sender-identities.deletesender
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: resend-sender-identity-verification
+      description: Resend Sender Identity Verification
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: tsg_lmc_senders_v3-sender-identities.resetsenderverification
+      outputParameters:
+      - type: object
+        mapping: $.

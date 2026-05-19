@@ -1,0 +1,161 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Twilio SendGrid Marketing Campaigns Segments API — Segmenting Contacts
+  description: 'Twilio SendGrid Marketing Campaigns Segments API — Segmenting Contacts. 3 operations. Lead operation: Get
+    List of Segments. Self-contained Naftiko capability covering one Sendgrid business surface.'
+  tags:
+  - Sendgrid
+  - Segmenting Contacts
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SENDGRID_API_KEY: SENDGRID_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: tsg_mc_segments_v3-segmenting-contacts
+    baseUri: https://api.sendgrid.com
+    description: Twilio SendGrid Marketing Campaigns Segments API — Segmenting Contacts business capability. Self-contained,
+      no shared references.
+    resources:
+    - name: v3-marketing-segments
+      path: /v3/marketing/segments
+      operations:
+      - name: listsegment
+        method: GET
+        description: Get List of Segments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: ids
+          in: query
+          type: array
+          description: A list of segment IDs to retrieve. When this parameter is included, the `no_parent_list_ids` and `parent_list_ids`
+            parameters are ignored and only segments with
+        - name: parent_list_ids
+          in: query
+          type: string
+          description: A comma separated list of list ids to be used when searching for segments with the specified parent_list_id,
+            no more than 50 is allowed
+        - name: no_parent_list_id
+          in: query
+          type: boolean
+          description: If set to `true` segments with an empty value of `parent_list_id` will be returned in the filter.  If
+            the value is not present it defaults to 'false'.
+    - name: v3-marketing-segments-segment_id
+      path: /v3/marketing/segments/{segment_id}
+      operations:
+      - name: getsegment
+        method: GET
+        description: Get Segment by ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: query_json
+          in: query
+          type: boolean
+          description: Defaults to `false`.  Set to `true` to return the parsed SQL AST as a JSON object in the field `query_json`
+      - name: deletesegment
+        method: DELETE
+        description: Delete Segment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.SENDGRID_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: tsg_mc_segments_v3-segmenting-contacts-rest
+    port: 8080
+    description: REST adapter for Twilio SendGrid Marketing Campaigns Segments API — Segmenting Contacts. One Spectral-compliant
+      resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/v3/marketing/segments
+      name: v3-marketing-segments
+      description: REST surface for v3-marketing-segments.
+      operations:
+      - method: GET
+        name: listsegment
+        description: Get List of Segments
+        call: tsg_mc_segments_v3-segmenting-contacts.listsegment
+        with:
+          ids: rest.ids
+          parent_list_ids: rest.parent_list_ids
+          no_parent_list_id: rest.no_parent_list_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/marketing/segments/{segment-id}
+      name: v3-marketing-segments-segment-id
+      description: REST surface for v3-marketing-segments-segment_id.
+      operations:
+      - method: GET
+        name: getsegment
+        description: Get Segment by ID
+        call: tsg_mc_segments_v3-segmenting-contacts.getsegment
+        with:
+          query_json: rest.query_json
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletesegment
+        description: Delete Segment
+        call: tsg_mc_segments_v3-segmenting-contacts.deletesegment
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: tsg_mc_segments_v3-segmenting-contacts-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Twilio SendGrid Marketing Campaigns Segments API — Segmenting Contacts. One tool per consumed
+      operation, routed inline through this capability's consumes block.
+    tools:
+    - name: get-list-segments
+      description: Get List of Segments
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_mc_segments_v3-segmenting-contacts.listsegment
+      with:
+        ids: tools.ids
+        parent_list_ids: tools.parent_list_ids
+        no_parent_list_id: tools.no_parent_list_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-segment-id
+      description: Get Segment by ID
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_mc_segments_v3-segmenting-contacts.getsegment
+      with:
+        query_json: tools.query_json
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-segment
+      description: Delete Segment
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: tsg_mc_segments_v3-segmenting-contacts.deletesegment
+      outputParameters:
+      - type: object
+        mapping: $.

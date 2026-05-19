@@ -1,0 +1,191 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Twilio SendGrid Email Activity API — Email Activity
+  description: 'Twilio SendGrid Email Activity API — Email Activity. 4 operations. Lead operation: Filter all messages. Self-contained
+    Naftiko capability covering one Sendgrid business surface.'
+  tags:
+  - Sendgrid
+  - Email Activity
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SENDGRID_API_KEY: SENDGRID_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: tsg_email_activity_v3-email-activity
+    baseUri: https://api.sendgrid.com
+    description: Twilio SendGrid Email Activity API — Email Activity business capability. Self-contained, no shared references.
+    resources:
+    - name: v3-messages
+      path: /v3/messages
+      operations:
+      - name: listmessage
+        method: GET
+        description: Filter all messages
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: query
+          in: query
+          type: string
+          description: Use the query syntax  to filter your email activity.
+          required: true
+        - name: limit
+          in: query
+          type: number
+          description: The number of messages returned. This parameter must be greater than 0 and less than or equal to 1000
+    - name: v3-messages-download
+      path: /v3/messages/download
+      operations:
+      - name: requestcsv
+        method: POST
+        description: Request CSV
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: query
+          in: query
+          type: string
+          description: Uses a SQL like syntax to indicate which messages to include in the CSV
+    - name: v3-messages-download-download_uuid
+      path: /v3/messages/download/{download_uuid}
+      operations:
+      - name: downloadcsv
+        method: GET
+        description: Download CSV
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v3-messages-msg_id
+      path: /v3/messages/{msg_id}
+      operations:
+      - name: getmessage
+        method: GET
+        description: Filter messages by message ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.SENDGRID_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: tsg_email_activity_v3-email-activity-rest
+    port: 8080
+    description: REST adapter for Twilio SendGrid Email Activity API — Email Activity. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/v3/messages
+      name: v3-messages
+      description: REST surface for v3-messages.
+      operations:
+      - method: GET
+        name: listmessage
+        description: Filter all messages
+        call: tsg_email_activity_v3-email-activity.listmessage
+        with:
+          query: rest.query
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/messages/download
+      name: v3-messages-download
+      description: REST surface for v3-messages-download.
+      operations:
+      - method: POST
+        name: requestcsv
+        description: Request CSV
+        call: tsg_email_activity_v3-email-activity.requestcsv
+        with:
+          query: rest.query
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/messages/download/{download-uuid}
+      name: v3-messages-download-download-uuid
+      description: REST surface for v3-messages-download-download_uuid.
+      operations:
+      - method: GET
+        name: downloadcsv
+        description: Download CSV
+        call: tsg_email_activity_v3-email-activity.downloadcsv
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/messages/{msg-id}
+      name: v3-messages-msg-id
+      description: REST surface for v3-messages-msg_id.
+      operations:
+      - method: GET
+        name: getmessage
+        description: Filter messages by message ID
+        call: tsg_email_activity_v3-email-activity.getmessage
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: tsg_email_activity_v3-email-activity-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Twilio SendGrid Email Activity API — Email Activity. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: filter-all-messages
+      description: Filter all messages
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_email_activity_v3-email-activity.listmessage
+      with:
+        query: tools.query
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: request-csv
+      description: Request CSV
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: tsg_email_activity_v3-email-activity.requestcsv
+      with:
+        query: tools.query
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: download-csv
+      description: Download CSV
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_email_activity_v3-email-activity.downloadcsv
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: filter-messages-message-id
+      description: Filter messages by message ID
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_email_activity_v3-email-activity.getmessage
+      outputParameters:
+      - type: object
+        mapping: $.

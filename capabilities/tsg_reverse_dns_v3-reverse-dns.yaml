@@ -1,0 +1,210 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Twilio SendGrid Reverse DNS API — Reverse DNS
+  description: 'Twilio SendGrid Reverse DNS API — Reverse DNS. 5 operations. Lead operation: Set up reverse DNS. Self-contained
+    Naftiko capability covering one Sendgrid business surface.'
+  tags:
+  - Sendgrid
+  - Reverse DNS
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SENDGRID_API_KEY: SENDGRID_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: tsg_reverse_dns_v3-reverse-dns
+    baseUri: https://api.sendgrid.com
+    description: Twilio SendGrid Reverse DNS API — Reverse DNS business capability. Self-contained, no shared references.
+    resources:
+    - name: v3-whitelabel-ips
+      path: /v3/whitelabel/ips
+      operations:
+      - name: setupreversedns
+        method: POST
+        description: Set up reverse DNS
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: listreversedns
+        method: GET
+        description: Retrieve all reverse DNS records
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: integer
+          description: '`limit` sets the page size, i.e. maximum number of items from the list to be returned for a single
+            API request. If omitted, the default page size is used.'
+        - name: ip
+          in: query
+          type: string
+          description: The IP address segment that you'd like to use in a prefix search.
+    - name: v3-whitelabel-ips-id
+      path: /v3/whitelabel/ips/{id}
+      operations:
+      - name: getreversedns
+        method: GET
+        description: Retrieve a reverse DNS record
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletereversedns
+        method: DELETE
+        description: Delete a reverse DNS record
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v3-whitelabel-ips-id-validate
+      path: /v3/whitelabel/ips/{id}/validate
+      operations:
+      - name: validatereversedns
+        method: POST
+        description: Validate a reverse DNS record
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.SENDGRID_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: tsg_reverse_dns_v3-reverse-dns-rest
+    port: 8080
+    description: REST adapter for Twilio SendGrid Reverse DNS API — Reverse DNS. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/v3/whitelabel/ips
+      name: v3-whitelabel-ips
+      description: REST surface for v3-whitelabel-ips.
+      operations:
+      - method: POST
+        name: setupreversedns
+        description: Set up reverse DNS
+        call: tsg_reverse_dns_v3-reverse-dns.setupreversedns
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: listreversedns
+        description: Retrieve all reverse DNS records
+        call: tsg_reverse_dns_v3-reverse-dns.listreversedns
+        with:
+          limit: rest.limit
+          ip: rest.ip
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/whitelabel/ips/{id}
+      name: v3-whitelabel-ips-id
+      description: REST surface for v3-whitelabel-ips-id.
+      operations:
+      - method: GET
+        name: getreversedns
+        description: Retrieve a reverse DNS record
+        call: tsg_reverse_dns_v3-reverse-dns.getreversedns
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletereversedns
+        description: Delete a reverse DNS record
+        call: tsg_reverse_dns_v3-reverse-dns.deletereversedns
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/whitelabel/ips/{id}/validate
+      name: v3-whitelabel-ips-id-validate
+      description: REST surface for v3-whitelabel-ips-id-validate.
+      operations:
+      - method: POST
+        name: validatereversedns
+        description: Validate a reverse DNS record
+        call: tsg_reverse_dns_v3-reverse-dns.validatereversedns
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: tsg_reverse_dns_v3-reverse-dns-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Twilio SendGrid Reverse DNS API — Reverse DNS. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: set-up-reverse-dns
+      description: Set up reverse DNS
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: tsg_reverse_dns_v3-reverse-dns.setupreversedns
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-all-reverse-dns-records
+      description: Retrieve all reverse DNS records
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_reverse_dns_v3-reverse-dns.listreversedns
+      with:
+        limit: tools.limit
+        ip: tools.ip
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-reverse-dns-record
+      description: Retrieve a reverse DNS record
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_reverse_dns_v3-reverse-dns.getreversedns
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-reverse-dns-record
+      description: Delete a reverse DNS record
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: tsg_reverse_dns_v3-reverse-dns.deletereversedns
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: validate-reverse-dns-record
+      description: Validate a reverse DNS record
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: tsg_reverse_dns_v3-reverse-dns.validatereversedns
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,235 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Twilio SendGrid IP Address API — IP Addresses
+  description: 'Twilio SendGrid IP Address API — IP Addresses. 5 operations. Lead operation: Add IPs. Self-contained Naftiko
+    capability covering one Sendgrid business surface.'
+  tags:
+  - Sendgrid
+  - IP Addresses
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SENDGRID_API_KEY: SENDGRID_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: tsg_ips_v3-ip-addresses
+    baseUri: https://api.sendgrid.com
+    description: Twilio SendGrid IP Address API — IP Addresses business capability. Self-contained, no shared references.
+    resources:
+    - name: v3-ips
+      path: /v3/ips
+      operations:
+      - name: addip
+        method: POST
+        description: Add IPs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: listip
+        method: GET
+        description: Retrieve all IP addresses
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: ip
+          in: query
+          type: string
+          description: The IP address to get
+        - name: exclude_whitelabels
+          in: query
+          type: boolean
+          description: Should we exclude reverse DNS records (whitelabels)?
+        - name: limit
+          in: query
+          type: integer
+          description: '`limit` sets the page size, i.e. maximum number of items from the list to be returned for a single
+            API request. If omitted, the default page size is used.'
+        - name: subuser
+          in: query
+          type: string
+          description: The subuser you are requesting for.
+        - name: sort_by_direction
+          in: query
+          type: string
+          description: The direction to sort the results.
+    - name: v3-ips-assigned
+      path: /v3/ips/assigned
+      operations:
+      - name: listassignedip
+        method: GET
+        description: Retrieve all assigned IPs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v3-ips-remaining
+      path: /v3/ips/remaining
+      operations:
+      - name: listremainingipcount
+        method: GET
+        description: Get remaining IPs count
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v3-ips-ip_address
+      path: /v3/ips/{ip_address}
+      operations:
+      - name: getip
+        method: GET
+        description: Retrieve all IP pools an IP address belongs to
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.SENDGRID_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: tsg_ips_v3-ip-addresses-rest
+    port: 8080
+    description: REST adapter for Twilio SendGrid IP Address API — IP Addresses. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/v3/ips
+      name: v3-ips
+      description: REST surface for v3-ips.
+      operations:
+      - method: POST
+        name: addip
+        description: Add IPs
+        call: tsg_ips_v3-ip-addresses.addip
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: listip
+        description: Retrieve all IP addresses
+        call: tsg_ips_v3-ip-addresses.listip
+        with:
+          ip: rest.ip
+          exclude_whitelabels: rest.exclude_whitelabels
+          limit: rest.limit
+          subuser: rest.subuser
+          sort_by_direction: rest.sort_by_direction
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/ips/assigned
+      name: v3-ips-assigned
+      description: REST surface for v3-ips-assigned.
+      operations:
+      - method: GET
+        name: listassignedip
+        description: Retrieve all assigned IPs
+        call: tsg_ips_v3-ip-addresses.listassignedip
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/ips/remaining
+      name: v3-ips-remaining
+      description: REST surface for v3-ips-remaining.
+      operations:
+      - method: GET
+        name: listremainingipcount
+        description: Get remaining IPs count
+        call: tsg_ips_v3-ip-addresses.listremainingipcount
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/ips/{ip-address}
+      name: v3-ips-ip-address
+      description: REST surface for v3-ips-ip_address.
+      operations:
+      - method: GET
+        name: getip
+        description: Retrieve all IP pools an IP address belongs to
+        call: tsg_ips_v3-ip-addresses.getip
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: tsg_ips_v3-ip-addresses-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Twilio SendGrid IP Address API — IP Addresses. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: add-ips
+      description: Add IPs
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: tsg_ips_v3-ip-addresses.addip
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-all-ip-addresses
+      description: Retrieve all IP addresses
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_ips_v3-ip-addresses.listip
+      with:
+        ip: tools.ip
+        exclude_whitelabels: tools.exclude_whitelabels
+        limit: tools.limit
+        subuser: tools.subuser
+        sort_by_direction: tools.sort_by_direction
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-all-assigned-ips
+      description: Retrieve all assigned IPs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_ips_v3-ip-addresses.listassignedip
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-remaining-ips-count
+      description: Get remaining IPs count
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_ips_v3-ip-addresses.listremainingipcount
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-all-ip-pools-ip
+      description: Retrieve all IP pools an IP address belongs to
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_ips_v3-ip-addresses.getip
+      outputParameters:
+      - type: object
+        mapping: $.

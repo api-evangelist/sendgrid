@@ -1,0 +1,184 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Twilio SendGrid Suppressions API — Global Suppressions
+  description: 'Twilio SendGrid Suppressions API — Global Suppressions. 4 operations. Lead operation: Add recipient addresses
+    to the global suppression group.. Self-contained Naftiko capability covering one Sendgrid business surface.'
+  tags:
+  - Sendgrid
+  - Global Suppressions
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SENDGRID_API_KEY: SENDGRID_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: tsg_suppressions_v3-global-suppressions
+    baseUri: https://api.sendgrid.com
+    description: Twilio SendGrid Suppressions API — Global Suppressions business capability. Self-contained, no shared references.
+    resources:
+    - name: v3-asm-suppressions-global
+      path: /v3/asm/suppressions/global
+      operations:
+      - name: createglobalsuppression
+        method: POST
+        description: Add recipient addresses to the global suppression group.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: v3-asm-suppressions-global-email
+      path: /v3/asm/suppressions/global/{email}
+      operations:
+      - name: getglobalsuppression
+        method: GET
+        description: Retrieve a Global Suppression
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deleteglobalsuppression
+        method: DELETE
+        description: Delete a Global Suppression
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v3-suppression-unsubscribes
+      path: /v3/suppression/unsubscribes
+      operations:
+      - name: listglobalsuppression
+        method: GET
+        description: Retrieve all global suppressions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: start_time
+          in: query
+          type: integer
+          description: Refers start of the time range in unix timestamp when an unsubscribe email was created (inclusive).
+        - name: end_time
+          in: query
+          type: integer
+          description: Refers end of the time range in unix timestamp when an unsubscribe email was created (inclusive).
+    authentication:
+      type: bearer
+      token: '{{env.SENDGRID_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: tsg_suppressions_v3-global-suppressions-rest
+    port: 8080
+    description: REST adapter for Twilio SendGrid Suppressions API — Global Suppressions. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/v3/asm/suppressions/global
+      name: v3-asm-suppressions-global
+      description: REST surface for v3-asm-suppressions-global.
+      operations:
+      - method: POST
+        name: createglobalsuppression
+        description: Add recipient addresses to the global suppression group.
+        call: tsg_suppressions_v3-global-suppressions.createglobalsuppression
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/asm/suppressions/global/{email}
+      name: v3-asm-suppressions-global-email
+      description: REST surface for v3-asm-suppressions-global-email.
+      operations:
+      - method: GET
+        name: getglobalsuppression
+        description: Retrieve a Global Suppression
+        call: tsg_suppressions_v3-global-suppressions.getglobalsuppression
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteglobalsuppression
+        description: Delete a Global Suppression
+        call: tsg_suppressions_v3-global-suppressions.deleteglobalsuppression
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/suppression/unsubscribes
+      name: v3-suppression-unsubscribes
+      description: REST surface for v3-suppression-unsubscribes.
+      operations:
+      - method: GET
+        name: listglobalsuppression
+        description: Retrieve all global suppressions
+        call: tsg_suppressions_v3-global-suppressions.listglobalsuppression
+        with:
+          start_time: rest.start_time
+          end_time: rest.end_time
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: tsg_suppressions_v3-global-suppressions-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Twilio SendGrid Suppressions API — Global Suppressions. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: add-recipient-addresses-global-suppression
+      description: Add recipient addresses to the global suppression group.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: tsg_suppressions_v3-global-suppressions.createglobalsuppression
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-global-suppression
+      description: Retrieve a Global Suppression
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_suppressions_v3-global-suppressions.getglobalsuppression
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-global-suppression
+      description: Delete a Global Suppression
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: tsg_suppressions_v3-global-suppressions.deleteglobalsuppression
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-all-global-suppressions
+      description: Retrieve all global suppressions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_suppressions_v3-global-suppressions.listglobalsuppression
+      with:
+        start_time: tools.start_time
+        end_time: tools.end_time
+      outputParameters:
+      - type: object
+        mapping: $.

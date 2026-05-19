@@ -1,0 +1,314 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Twilio SendGrid Webhook Configuration API — Event Webhook
+  description: 'Twilio SendGrid Webhook Configuration API — Event Webhook. 8 operations. Lead operation: Create a new Event
+    Webhook. Self-contained Naftiko capability covering one Sendgrid business surface.'
+  tags:
+  - Sendgrid
+  - Event Webhook
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SENDGRID_API_KEY: SENDGRID_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: tsg_webhooks_v3-event-webhook
+    baseUri: https://api.sendgrid.com
+    description: Twilio SendGrid Webhook Configuration API — Event Webhook business capability. Self-contained, no shared
+      references.
+    resources:
+    - name: v3-user-webhooks-event-settings
+      path: /v3/user/webhooks/event/settings
+      operations:
+      - name: createeventwebhook
+        method: POST
+        description: Create a new Event Webhook
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: v3-user-webhooks-event-settings-all
+      path: /v3/user/webhooks/event/settings/all
+      operations:
+      - name: listeventwebhook
+        method: GET
+        description: Retrieve all of your Event Webhooks.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v3-user-webhooks-event-settings-signed-id
+      path: /v3/user/webhooks/event/settings/signed/{id}
+      operations:
+      - name: getsignedeventwebhook
+        method: GET
+        description: Get Signed Event Webhook's Public Key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatesignedeventwebhook
+        method: PATCH
+        description: Toggle signature verification for a single Event Webhook by ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: v3-user-webhooks-event-settings-id
+      path: /v3/user/webhooks/event/settings/{id}
+      operations:
+      - name: geteventwebhook
+        method: GET
+        description: Get the settings for a single Event Webhook.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateeventwebhook
+        method: PATCH
+        description: Update a single Event Webhook by ID.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: deleteeventwebhook
+        method: DELETE
+        description: Delete a single Event Webhook by ID.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v3-user-webhooks-event-test
+      path: /v3/user/webhooks/event/test
+      operations:
+      - name: testeventwebhook
+        method: POST
+        description: Test an Event Webhook's settings
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    authentication:
+      type: bearer
+      token: '{{env.SENDGRID_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: tsg_webhooks_v3-event-webhook-rest
+    port: 8080
+    description: REST adapter for Twilio SendGrid Webhook Configuration API — Event Webhook. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/v3/user/webhooks/event/settings
+      name: v3-user-webhooks-event-settings
+      description: REST surface for v3-user-webhooks-event-settings.
+      operations:
+      - method: POST
+        name: createeventwebhook
+        description: Create a new Event Webhook
+        call: tsg_webhooks_v3-event-webhook.createeventwebhook
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/user/webhooks/event/settings/all
+      name: v3-user-webhooks-event-settings-all
+      description: REST surface for v3-user-webhooks-event-settings-all.
+      operations:
+      - method: GET
+        name: listeventwebhook
+        description: Retrieve all of your Event Webhooks.
+        call: tsg_webhooks_v3-event-webhook.listeventwebhook
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/user/webhooks/event/settings/signed/{id}
+      name: v3-user-webhooks-event-settings-signed-id
+      description: REST surface for v3-user-webhooks-event-settings-signed-id.
+      operations:
+      - method: GET
+        name: getsignedeventwebhook
+        description: Get Signed Event Webhook's Public Key
+        call: tsg_webhooks_v3-event-webhook.getsignedeventwebhook
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatesignedeventwebhook
+        description: Toggle signature verification for a single Event Webhook by ID
+        call: tsg_webhooks_v3-event-webhook.updatesignedeventwebhook
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/user/webhooks/event/settings/{id}
+      name: v3-user-webhooks-event-settings-id
+      description: REST surface for v3-user-webhooks-event-settings-id.
+      operations:
+      - method: GET
+        name: geteventwebhook
+        description: Get the settings for a single Event Webhook.
+        call: tsg_webhooks_v3-event-webhook.geteventwebhook
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updateeventwebhook
+        description: Update a single Event Webhook by ID.
+        call: tsg_webhooks_v3-event-webhook.updateeventwebhook
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteeventwebhook
+        description: Delete a single Event Webhook by ID.
+        call: tsg_webhooks_v3-event-webhook.deleteeventwebhook
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/user/webhooks/event/test
+      name: v3-user-webhooks-event-test
+      description: REST surface for v3-user-webhooks-event-test.
+      operations:
+      - method: POST
+        name: testeventwebhook
+        description: Test an Event Webhook's settings
+        call: tsg_webhooks_v3-event-webhook.testeventwebhook
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: tsg_webhooks_v3-event-webhook-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Twilio SendGrid Webhook Configuration API — Event Webhook. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: create-new-event-webhook
+      description: Create a new Event Webhook
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: tsg_webhooks_v3-event-webhook.createeventwebhook
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-all-your-event-webhooks
+      description: Retrieve all of your Event Webhooks.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_webhooks_v3-event-webhook.listeventwebhook
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-signed-event-webhook-s-public
+      description: Get Signed Event Webhook's Public Key
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_webhooks_v3-event-webhook.getsignedeventwebhook
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: toggle-signature-verification-single-event
+      description: Toggle signature verification for a single Event Webhook by ID
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: tsg_webhooks_v3-event-webhook.updatesignedeventwebhook
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-settings-single-event-webhook
+      description: Get the settings for a single Event Webhook.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_webhooks_v3-event-webhook.geteventwebhook
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-single-event-webhook-id
+      description: Update a single Event Webhook by ID.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: tsg_webhooks_v3-event-webhook.updateeventwebhook
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-single-event-webhook-id
+      description: Delete a single Event Webhook by ID.
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: tsg_webhooks_v3-event-webhook.deleteeventwebhook
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: test-event-webhook-s-settings
+      description: Test an Event Webhook's settings
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: tsg_webhooks_v3-event-webhook.testeventwebhook
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

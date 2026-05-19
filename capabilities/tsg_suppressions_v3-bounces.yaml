@@ -1,0 +1,321 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Twilio SendGrid Suppressions API — Bounces
+  description: 'Twilio SendGrid Suppressions API — Bounces. 6 operations. Lead operation: Retrieve all bounces. Self-contained
+    Naftiko capability covering one Sendgrid business surface.'
+  tags:
+  - Sendgrid
+  - Bounces
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SENDGRID_API_KEY: SENDGRID_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: tsg_suppressions_v3-bounces
+    baseUri: https://api.sendgrid.com
+    description: Twilio SendGrid Suppressions API — Bounces business capability. Self-contained, no shared references.
+    resources:
+    - name: v3-suppression-bounces
+      path: /v3/suppression/bounces
+      operations:
+      - name: listsuppressionbounces
+        method: GET
+        description: Retrieve all bounces
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: start_time
+          in: query
+          type: integer
+          description: Refers start of the time range in unix timestamp when a bounce was created (inclusive).
+        - name: end_time
+          in: query
+          type: integer
+          description: Refers end of the time range in unix timestamp when a bounce was created (inclusive).
+        - name: Accept
+          in: header
+          type: string
+          required: true
+      - name: deletesuppressionbounces
+        method: DELETE
+        description: Delete bounces
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: v3-suppression-bounces-classifications
+      path: /v3/suppression/bounces/classifications
+      operations:
+      - name: listsuppressionbouncesclassifications
+        method: GET
+        description: Retrieve bounce classification totals
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Accept
+          in: header
+          type: string
+          description: Specifies the content type to be returned by this endpoint. You can choose to receive CSV-formatted
+            data by passing "text/csv" in the header.
+          required: true
+        - name: start_date
+          in: query
+          type: string
+          description: The start of the time range, in YYYY-MM-DD format, when a bounce was created (inclusive).
+        - name: end_date
+          in: query
+          type: string
+          description: The end of the time range, in YYYY-MM-DD format, when a bounce was created (inclusive).
+    - name: v3-suppression-bounces-classifications-classification
+      path: /v3/suppression/bounces/classifications/{classification}
+      operations:
+      - name: getsuppressionbouncesclassifications
+        method: GET
+        description: Retrieve bounce classification over time by domain stats
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Accept
+          in: header
+          type: string
+          description: Specifies the content type to be returned by this endpoint. You can choose to receive CSV-formatted
+            data by passing "text/csv" in the header.
+          required: true
+        - name: classification
+          in: path
+          type: string
+          description: 'The classification you want to filter by. Possible values are: `Content`, `Frequency or Volume Too
+            High`, `Invalid Address`, `Mailbox Unavailable`, `Reputation`'
+          required: true
+        - name: start_date
+          in: query
+          type: string
+          description: The start of the time range, in YYYY-MM-DD format, when a bounce was created (inclusive).
+        - name: end_date
+          in: query
+          type: string
+          description: The end of the time range, in YYYY-MM-DD format, when a bounce was created (inclusive).
+    - name: v3-suppression-bounces-email
+      path: /v3/suppression/bounces/{email}
+      operations:
+      - name: getsuppressionbounces
+        method: GET
+        description: Retrieve a Bounce
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: email
+          in: path
+          type: string
+          description: The email address of the specific bounce you would like to retrieve
+          required: true
+      - name: deletesuppressionbounce
+        method: DELETE
+        description: Delete a bounce
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: email
+          in: path
+          type: string
+          description: The email address you would like to remove from the bounce list.
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.SENDGRID_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: tsg_suppressions_v3-bounces-rest
+    port: 8080
+    description: REST adapter for Twilio SendGrid Suppressions API — Bounces. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/v3/suppression/bounces
+      name: v3-suppression-bounces
+      description: REST surface for v3-suppression-bounces.
+      operations:
+      - method: GET
+        name: listsuppressionbounces
+        description: Retrieve all bounces
+        call: tsg_suppressions_v3-bounces.listsuppressionbounces
+        with:
+          start_time: rest.start_time
+          end_time: rest.end_time
+          Accept: rest.Accept
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletesuppressionbounces
+        description: Delete bounces
+        call: tsg_suppressions_v3-bounces.deletesuppressionbounces
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/suppression/bounces/classifications
+      name: v3-suppression-bounces-classifications
+      description: REST surface for v3-suppression-bounces-classifications.
+      operations:
+      - method: GET
+        name: listsuppressionbouncesclassifications
+        description: Retrieve bounce classification totals
+        call: tsg_suppressions_v3-bounces.listsuppressionbouncesclassifications
+        with:
+          Accept: rest.Accept
+          start_date: rest.start_date
+          end_date: rest.end_date
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/suppression/bounces/classifications/{classification}
+      name: v3-suppression-bounces-classifications-classification
+      description: REST surface for v3-suppression-bounces-classifications-classification.
+      operations:
+      - method: GET
+        name: getsuppressionbouncesclassifications
+        description: Retrieve bounce classification over time by domain stats
+        call: tsg_suppressions_v3-bounces.getsuppressionbouncesclassifications
+        with:
+          Accept: rest.Accept
+          classification: rest.classification
+          start_date: rest.start_date
+          end_date: rest.end_date
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/suppression/bounces/{email}
+      name: v3-suppression-bounces-email
+      description: REST surface for v3-suppression-bounces-email.
+      operations:
+      - method: GET
+        name: getsuppressionbounces
+        description: Retrieve a Bounce
+        call: tsg_suppressions_v3-bounces.getsuppressionbounces
+        with:
+          email: rest.email
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletesuppressionbounce
+        description: Delete a bounce
+        call: tsg_suppressions_v3-bounces.deletesuppressionbounce
+        with:
+          email: rest.email
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: tsg_suppressions_v3-bounces-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Twilio SendGrid Suppressions API — Bounces. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: retrieve-all-bounces
+      description: Retrieve all bounces
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_suppressions_v3-bounces.listsuppressionbounces
+      with:
+        start_time: tools.start_time
+        end_time: tools.end_time
+        Accept: tools.Accept
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-bounces
+      description: Delete bounces
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: tsg_suppressions_v3-bounces.deletesuppressionbounces
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-bounce-classification-totals
+      description: Retrieve bounce classification totals
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_suppressions_v3-bounces.listsuppressionbouncesclassifications
+      with:
+        Accept: tools.Accept
+        start_date: tools.start_date
+        end_date: tools.end_date
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-bounce-classification-over-time
+      description: Retrieve bounce classification over time by domain stats
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_suppressions_v3-bounces.getsuppressionbouncesclassifications
+      with:
+        Accept: tools.Accept
+        classification: tools.classification
+        start_date: tools.start_date
+        end_date: tools.end_date
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-bounce
+      description: Retrieve a Bounce
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_suppressions_v3-bounces.getsuppressionbounces
+      with:
+        email: tools.email
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-bounce
+      description: Delete a bounce
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: tsg_suppressions_v3-bounces.deletesuppressionbounce
+      with:
+        email: tools.email
+      outputParameters:
+      - type: object
+        mapping: $.

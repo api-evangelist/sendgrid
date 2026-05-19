@@ -1,0 +1,195 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Twilio SendGrid Legacy Marketing Campaigns Contacts API — Custom Fields
+  description: 'Twilio SendGrid Legacy Marketing Campaigns Contacts API — Custom Fields. 5 operations. Lead operation: Create
+    a Custom Field. Self-contained Naftiko capability covering one Sendgrid business surface.'
+  tags:
+  - Sendgrid
+  - Custom Fields
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SENDGRID_API_KEY: SENDGRID_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: tsg_lmc_contactdb_v3-custom-fields
+    baseUri: https://api.sendgrid.com
+    description: Twilio SendGrid Legacy Marketing Campaigns Contacts API — Custom Fields business capability. Self-contained,
+      no shared references.
+    resources:
+    - name: v3-contactdb-custom_fields
+      path: /v3/contactdb/custom_fields
+      operations:
+      - name: createcustomfield
+        method: POST
+        description: Create a Custom Field
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: listcustomfield
+        method: GET
+        description: Retrieve all custom fields
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v3-contactdb-custom_fields-custom_field_id
+      path: /v3/contactdb/custom_fields/{custom_field_id}
+      operations:
+      - name: getcustomfield
+        method: GET
+        description: Retrieve a Custom Field
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletecustomfield
+        method: DELETE
+        description: Delete a Custom Field
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v3-contactdb-reserved_fields
+      path: /v3/contactdb/reserved_fields
+      operations:
+      - name: listreservedfield
+        method: GET
+        description: Retrieve reserved fields
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.SENDGRID_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: tsg_lmc_contactdb_v3-custom-fields-rest
+    port: 8080
+    description: REST adapter for Twilio SendGrid Legacy Marketing Campaigns Contacts API — Custom Fields. One Spectral-compliant
+      resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/v3/contactdb/custom-fields
+      name: v3-contactdb-custom-fields
+      description: REST surface for v3-contactdb-custom_fields.
+      operations:
+      - method: POST
+        name: createcustomfield
+        description: Create a Custom Field
+        call: tsg_lmc_contactdb_v3-custom-fields.createcustomfield
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: listcustomfield
+        description: Retrieve all custom fields
+        call: tsg_lmc_contactdb_v3-custom-fields.listcustomfield
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/contactdb/custom-fields/{custom-field-id}
+      name: v3-contactdb-custom-fields-custom-field-id
+      description: REST surface for v3-contactdb-custom_fields-custom_field_id.
+      operations:
+      - method: GET
+        name: getcustomfield
+        description: Retrieve a Custom Field
+        call: tsg_lmc_contactdb_v3-custom-fields.getcustomfield
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletecustomfield
+        description: Delete a Custom Field
+        call: tsg_lmc_contactdb_v3-custom-fields.deletecustomfield
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/contactdb/reserved-fields
+      name: v3-contactdb-reserved-fields
+      description: REST surface for v3-contactdb-reserved_fields.
+      operations:
+      - method: GET
+        name: listreservedfield
+        description: Retrieve reserved fields
+        call: tsg_lmc_contactdb_v3-custom-fields.listreservedfield
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: tsg_lmc_contactdb_v3-custom-fields-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Twilio SendGrid Legacy Marketing Campaigns Contacts API — Custom Fields. One tool per consumed
+      operation, routed inline through this capability's consumes block.
+    tools:
+    - name: create-custom-field
+      description: Create a Custom Field
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: tsg_lmc_contactdb_v3-custom-fields.createcustomfield
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-all-custom-fields
+      description: Retrieve all custom fields
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_lmc_contactdb_v3-custom-fields.listcustomfield
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-custom-field
+      description: Retrieve a Custom Field
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_lmc_contactdb_v3-custom-fields.getcustomfield
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-custom-field
+      description: Delete a Custom Field
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: tsg_lmc_contactdb_v3-custom-fields.deletecustomfield
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-reserved-fields
+      description: Retrieve reserved fields
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_lmc_contactdb_v3-custom-fields.listreservedfield
+      outputParameters:
+      - type: object
+        mapping: $.

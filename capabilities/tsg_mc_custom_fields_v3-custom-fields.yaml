@@ -1,0 +1,173 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Twilio SendGrid Marketing Campaigns Custom Fields API — Custom Fields
+  description: 'Twilio SendGrid Marketing Campaigns Custom Fields API — Custom Fields. 4 operations. Lead operation: Create
+    Custom Field Definition. Self-contained Naftiko capability covering one Sendgrid business surface.'
+  tags:
+  - Sendgrid
+  - Custom Fields
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SENDGRID_API_KEY: SENDGRID_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: tsg_mc_custom_fields_v3-custom-fields
+    baseUri: https://api.sendgrid.com
+    description: Twilio SendGrid Marketing Campaigns Custom Fields API — Custom Fields business capability. Self-contained,
+      no shared references.
+    resources:
+    - name: v3-marketing-field_definitions
+      path: /v3/marketing/field_definitions
+      operations:
+      - name: createfielddefinition
+        method: POST
+        description: Create Custom Field Definition
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: listfielddefinition
+        method: GET
+        description: Get All Field Definitions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v3-marketing-field_definitions-custom_field_id
+      path: /v3/marketing/field_definitions/{custom_field_id}
+      operations:
+      - name: updatefielddefinition
+        method: PATCH
+        description: Update Custom Field Definition
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: deletefielddefinition
+        method: DELETE
+        description: Delete Custom Field Definition
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.SENDGRID_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: tsg_mc_custom_fields_v3-custom-fields-rest
+    port: 8080
+    description: REST adapter for Twilio SendGrid Marketing Campaigns Custom Fields API — Custom Fields. One Spectral-compliant
+      resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/v3/marketing/field-definitions
+      name: v3-marketing-field-definitions
+      description: REST surface for v3-marketing-field_definitions.
+      operations:
+      - method: POST
+        name: createfielddefinition
+        description: Create Custom Field Definition
+        call: tsg_mc_custom_fields_v3-custom-fields.createfielddefinition
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: listfielddefinition
+        description: Get All Field Definitions
+        call: tsg_mc_custom_fields_v3-custom-fields.listfielddefinition
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/marketing/field-definitions/{custom-field-id}
+      name: v3-marketing-field-definitions-custom-field-id
+      description: REST surface for v3-marketing-field_definitions-custom_field_id.
+      operations:
+      - method: PATCH
+        name: updatefielddefinition
+        description: Update Custom Field Definition
+        call: tsg_mc_custom_fields_v3-custom-fields.updatefielddefinition
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletefielddefinition
+        description: Delete Custom Field Definition
+        call: tsg_mc_custom_fields_v3-custom-fields.deletefielddefinition
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: tsg_mc_custom_fields_v3-custom-fields-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Twilio SendGrid Marketing Campaigns Custom Fields API — Custom Fields. One tool per consumed
+      operation, routed inline through this capability's consumes block.
+    tools:
+    - name: create-custom-field-definition
+      description: Create Custom Field Definition
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: tsg_mc_custom_fields_v3-custom-fields.createfielddefinition
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-all-field-definitions
+      description: Get All Field Definitions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_mc_custom_fields_v3-custom-fields.listfielddefinition
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-custom-field-definition
+      description: Update Custom Field Definition
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: tsg_mc_custom_fields_v3-custom-fields.updatefielddefinition
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-custom-field-definition
+      description: Delete Custom Field Definition
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: tsg_mc_custom_fields_v3-custom-fields.deletefielddefinition
+      outputParameters:
+      - type: object
+        mapping: $.

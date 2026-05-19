@@ -1,0 +1,122 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Twilio SendGrid Single Sign-On API — SSO Teammates
+  description: 'Twilio SendGrid Single Sign-On API — SSO Teammates. 2 operations. Lead operation: Create an SSO Teammate..
+    Self-contained Naftiko capability covering one Sendgrid business surface.'
+  tags:
+  - Sendgrid
+  - SSO Teammates
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SENDGRID_API_KEY: SENDGRID_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: tsg_sso_v3-sso-teammates
+    baseUri: https://api.sendgrid.com
+    description: Twilio SendGrid Single Sign-On API — SSO Teammates business capability. Self-contained, no shared references.
+    resources:
+    - name: v3-sso-teammates
+      path: /v3/sso/teammates
+      operations:
+      - name: createssoteammate
+        method: POST
+        description: Create an SSO Teammate.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: v3-sso-teammates-username
+      path: /v3/sso/teammates/{username}
+      operations:
+      - name: updatessoteammate
+        method: PATCH
+        description: Edit an SSO Teammate
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    authentication:
+      type: bearer
+      token: '{{env.SENDGRID_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: tsg_sso_v3-sso-teammates-rest
+    port: 8080
+    description: REST adapter for Twilio SendGrid Single Sign-On API — SSO Teammates. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/v3/sso/teammates
+      name: v3-sso-teammates
+      description: REST surface for v3-sso-teammates.
+      operations:
+      - method: POST
+        name: createssoteammate
+        description: Create an SSO Teammate.
+        call: tsg_sso_v3-sso-teammates.createssoteammate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/sso/teammates/{username}
+      name: v3-sso-teammates-username
+      description: REST surface for v3-sso-teammates-username.
+      operations:
+      - method: PATCH
+        name: updatessoteammate
+        description: Edit an SSO Teammate
+        call: tsg_sso_v3-sso-teammates.updatessoteammate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: tsg_sso_v3-sso-teammates-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Twilio SendGrid Single Sign-On API — SSO Teammates. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: create-sso-teammate
+      description: Create an SSO Teammate.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: tsg_sso_v3-sso-teammates.createssoteammate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: edit-sso-teammate
+      description: Edit an SSO Teammate
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: tsg_sso_v3-sso-teammates.updatessoteammate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

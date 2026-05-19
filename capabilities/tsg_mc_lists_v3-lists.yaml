@@ -1,0 +1,303 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Twilio SendGrid Marketing Campaigns Lists API — Lists
+  description: 'Twilio SendGrid Marketing Campaigns Lists API — Lists. 7 operations. Lead operation: Create List. Self-contained
+    Naftiko capability covering one Sendgrid business surface.'
+  tags:
+  - Sendgrid
+  - Lists
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SENDGRID_API_KEY: SENDGRID_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: tsg_mc_lists_v3-lists
+    baseUri: https://api.sendgrid.com
+    description: Twilio SendGrid Marketing Campaigns Lists API — Lists business capability. Self-contained, no shared references.
+    resources:
+    - name: v3-marketing-lists
+      path: /v3/marketing/lists
+      operations:
+      - name: createmarketinglist
+        method: POST
+        description: Create List
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: listmarketinglist
+        method: GET
+        description: Get All Lists
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: page_size
+          in: query
+          type: number
+          description: Maximum number of elements to return. Defaults to 100, returns 1000 max
+        - name: page_token
+          in: query
+          type: string
+    - name: v3-marketing-lists-id
+      path: /v3/marketing/lists/{id}
+      operations:
+      - name: getmarketinglist
+        method: GET
+        description: Get a List by ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: contact_sample
+          in: query
+          type: boolean
+          description: Setting this parameter to the true  will cause the contact_sample to be returned
+      - name: updatemarketinglist
+        method: PATCH
+        description: Update List
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: deletemarketinglist
+        method: DELETE
+        description: Delete a list
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: delete_contacts
+          in: query
+          type: boolean
+          description: Flag indicates that all contacts on the list are also to be deleted.
+    - name: v3-marketing-lists-id-contacts
+      path: /v3/marketing/lists/{id}/contacts
+      operations:
+      - name: deletecontact
+        method: DELETE
+        description: Remove Contacts from a List
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: contact_ids
+          in: query
+          type: string
+          description: Comma separated list of contact IDs that you want to remove from the specified contacts list.
+          required: true
+    - name: v3-marketing-lists-id-contacts-count
+      path: /v3/marketing/lists/{id}/contacts/count
+      operations:
+      - name: listcontactcount
+        method: GET
+        description: Get List Contact Count
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.SENDGRID_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: tsg_mc_lists_v3-lists-rest
+    port: 8080
+    description: REST adapter for Twilio SendGrid Marketing Campaigns Lists API — Lists. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/v3/marketing/lists
+      name: v3-marketing-lists
+      description: REST surface for v3-marketing-lists.
+      operations:
+      - method: POST
+        name: createmarketinglist
+        description: Create List
+        call: tsg_mc_lists_v3-lists.createmarketinglist
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: listmarketinglist
+        description: Get All Lists
+        call: tsg_mc_lists_v3-lists.listmarketinglist
+        with:
+          page_size: rest.page_size
+          page_token: rest.page_token
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/marketing/lists/{id}
+      name: v3-marketing-lists-id
+      description: REST surface for v3-marketing-lists-id.
+      operations:
+      - method: GET
+        name: getmarketinglist
+        description: Get a List by ID
+        call: tsg_mc_lists_v3-lists.getmarketinglist
+        with:
+          contact_sample: rest.contact_sample
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatemarketinglist
+        description: Update List
+        call: tsg_mc_lists_v3-lists.updatemarketinglist
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletemarketinglist
+        description: Delete a list
+        call: tsg_mc_lists_v3-lists.deletemarketinglist
+        with:
+          delete_contacts: rest.delete_contacts
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/marketing/lists/{id}/contacts
+      name: v3-marketing-lists-id-contacts
+      description: REST surface for v3-marketing-lists-id-contacts.
+      operations:
+      - method: DELETE
+        name: deletecontact
+        description: Remove Contacts from a List
+        call: tsg_mc_lists_v3-lists.deletecontact
+        with:
+          contact_ids: rest.contact_ids
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/marketing/lists/{id}/contacts/count
+      name: v3-marketing-lists-id-contacts-count
+      description: REST surface for v3-marketing-lists-id-contacts-count.
+      operations:
+      - method: GET
+        name: listcontactcount
+        description: Get List Contact Count
+        call: tsg_mc_lists_v3-lists.listcontactcount
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: tsg_mc_lists_v3-lists-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Twilio SendGrid Marketing Campaigns Lists API — Lists. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: create-list
+      description: Create List
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: tsg_mc_lists_v3-lists.createmarketinglist
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-all-lists
+      description: Get All Lists
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_mc_lists_v3-lists.listmarketinglist
+      with:
+        page_size: tools.page_size
+        page_token: tools.page_token
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-list-id
+      description: Get a List by ID
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_mc_lists_v3-lists.getmarketinglist
+      with:
+        contact_sample: tools.contact_sample
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-list
+      description: Update List
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: tsg_mc_lists_v3-lists.updatemarketinglist
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-list
+      description: Delete a list
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: tsg_mc_lists_v3-lists.deletemarketinglist
+      with:
+        delete_contacts: tools.delete_contacts
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-contacts-list
+      description: Remove Contacts from a List
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: tsg_mc_lists_v3-lists.deletecontact
+      with:
+        contact_ids: tools.contact_ids
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-list-contact-count
+      description: Get List Contact Count
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_mc_lists_v3-lists.listcontactcount
+      outputParameters:
+      - type: object
+        mapping: $.

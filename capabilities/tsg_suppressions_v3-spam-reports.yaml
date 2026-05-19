@@ -1,0 +1,177 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Twilio SendGrid Suppressions API — Spam Reports
+  description: 'Twilio SendGrid Suppressions API — Spam Reports. 4 operations. Lead operation: Retrieve all spam reports.
+    Self-contained Naftiko capability covering one Sendgrid business surface.'
+  tags:
+  - Sendgrid
+  - Spam Reports
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SENDGRID_API_KEY: SENDGRID_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: tsg_suppressions_v3-spam-reports
+    baseUri: https://api.sendgrid.com
+    description: Twilio SendGrid Suppressions API — Spam Reports business capability. Self-contained, no shared references.
+    resources:
+    - name: v3-suppression-spam_reports
+      path: /v3/suppression/spam_reports
+      operations:
+      - name: listspamreport
+        method: GET
+        description: Retrieve all spam reports
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: start_time
+          in: query
+          type: integer
+          description: The start of the time range when a spam report was created (inclusive). This is a unix timestamp.
+        - name: end_time
+          in: query
+          type: integer
+          description: The end of the time range when a spam report was created (inclusive). This is a unix timestamp.
+      - name: deletespamreports
+        method: DELETE
+        description: Delete spam reports
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: v3-suppression-spam_reports-email
+      path: /v3/suppression/spam_reports/{email}
+      operations:
+      - name: getspamreport
+        method: GET
+        description: Retrieve a specific spam report
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletespamreport
+        method: DELETE
+        description: Delete a specific spam report
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.SENDGRID_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: tsg_suppressions_v3-spam-reports-rest
+    port: 8080
+    description: REST adapter for Twilio SendGrid Suppressions API — Spam Reports. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/v3/suppression/spam-reports
+      name: v3-suppression-spam-reports
+      description: REST surface for v3-suppression-spam_reports.
+      operations:
+      - method: GET
+        name: listspamreport
+        description: Retrieve all spam reports
+        call: tsg_suppressions_v3-spam-reports.listspamreport
+        with:
+          start_time: rest.start_time
+          end_time: rest.end_time
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletespamreports
+        description: Delete spam reports
+        call: tsg_suppressions_v3-spam-reports.deletespamreports
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/suppression/spam-reports/{email}
+      name: v3-suppression-spam-reports-email
+      description: REST surface for v3-suppression-spam_reports-email.
+      operations:
+      - method: GET
+        name: getspamreport
+        description: Retrieve a specific spam report
+        call: tsg_suppressions_v3-spam-reports.getspamreport
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletespamreport
+        description: Delete a specific spam report
+        call: tsg_suppressions_v3-spam-reports.deletespamreport
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: tsg_suppressions_v3-spam-reports-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Twilio SendGrid Suppressions API — Spam Reports. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: retrieve-all-spam-reports
+      description: Retrieve all spam reports
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_suppressions_v3-spam-reports.listspamreport
+      with:
+        start_time: tools.start_time
+        end_time: tools.end_time
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-spam-reports
+      description: Delete spam reports
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: tsg_suppressions_v3-spam-reports.deletespamreports
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-specific-spam-report
+      description: Retrieve a specific spam report
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_suppressions_v3-spam-reports.getspamreport
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-specific-spam-report
+      description: Delete a specific spam report
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: tsg_suppressions_v3-spam-reports.deletespamreport
+      outputParameters:
+      - type: object
+        mapping: $.

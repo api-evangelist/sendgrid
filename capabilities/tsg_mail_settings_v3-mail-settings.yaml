@@ -1,0 +1,482 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Twilio SendGrid Mail Settings API — Mail Settings
+  description: 'Twilio SendGrid Mail Settings API — Mail Settings. 13 operations. Lead operation: Retrieve all mail settings.
+    Self-contained Naftiko capability covering one Sendgrid business surface.'
+  tags:
+  - Sendgrid
+  - Mail Settings
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SENDGRID_API_KEY: SENDGRID_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: tsg_mail_settings_v3-mail-settings
+    baseUri: https://api.sendgrid.com
+    description: Twilio SendGrid Mail Settings API — Mail Settings business capability. Self-contained, no shared references.
+    resources:
+    - name: v3-mail_settings
+      path: /v3/mail_settings
+      operations:
+      - name: listmailsetting
+        method: GET
+        description: Retrieve all mail settings
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: integer
+          description: '`limit` sets the page size, i.e. maximum number of items from the list to be returned for a single
+            API request. If omitted, the default page size is used.'
+    - name: v3-mail_settings-address_whitelist
+      path: /v3/mail_settings/address_whitelist
+      operations:
+      - name: updateaddresswhitelist
+        method: PATCH
+        description: Update address whitelist mail settings
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: listaddresswhitelist
+        method: GET
+        description: Retrieve address whitelist mail settings
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v3-mail_settings-bounce_purge
+      path: /v3/mail_settings/bounce_purge
+      operations:
+      - name: updatebouncepurge
+        method: PATCH
+        description: Update Bounce Purge Mail Settings
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: listbouncepurge
+        method: GET
+        description: Retrieve Bounce Purge Mail Settings
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v3-mail_settings-footer
+      path: /v3/mail_settings/footer
+      operations:
+      - name: updatefooter
+        method: PATCH
+        description: Update footer mail settings
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: listfooter
+        method: GET
+        description: Retrieve footer mail settings
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v3-mail_settings-forward_bounce
+      path: /v3/mail_settings/forward_bounce
+      operations:
+      - name: updateforwardbounce
+        method: PATCH
+        description: Update forward bounce mail settings
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: listforwardbounce
+        method: GET
+        description: Retrieve forward bounce mail settings
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v3-mail_settings-forward_spam
+      path: /v3/mail_settings/forward_spam
+      operations:
+      - name: updateforwardspam
+        method: PATCH
+        description: Update forward spam mail settings
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: listforwardspam
+        method: GET
+        description: Retrieve forward spam mail settings
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v3-mail_settings-template
+      path: /v3/mail_settings/template
+      operations:
+      - name: updatetemplate
+        method: PATCH
+        description: Update template mail settings
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: listtemplate
+        method: GET
+        description: Retrieve legacy template mail settings
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.SENDGRID_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: tsg_mail_settings_v3-mail-settings-rest
+    port: 8080
+    description: REST adapter for Twilio SendGrid Mail Settings API — Mail Settings. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/v3/mail-settings
+      name: v3-mail-settings
+      description: REST surface for v3-mail_settings.
+      operations:
+      - method: GET
+        name: listmailsetting
+        description: Retrieve all mail settings
+        call: tsg_mail_settings_v3-mail-settings.listmailsetting
+        with:
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/mail-settings/address-whitelist
+      name: v3-mail-settings-address-whitelist
+      description: REST surface for v3-mail_settings-address_whitelist.
+      operations:
+      - method: PATCH
+        name: updateaddresswhitelist
+        description: Update address whitelist mail settings
+        call: tsg_mail_settings_v3-mail-settings.updateaddresswhitelist
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: listaddresswhitelist
+        description: Retrieve address whitelist mail settings
+        call: tsg_mail_settings_v3-mail-settings.listaddresswhitelist
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/mail-settings/bounce-purge
+      name: v3-mail-settings-bounce-purge
+      description: REST surface for v3-mail_settings-bounce_purge.
+      operations:
+      - method: PATCH
+        name: updatebouncepurge
+        description: Update Bounce Purge Mail Settings
+        call: tsg_mail_settings_v3-mail-settings.updatebouncepurge
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: listbouncepurge
+        description: Retrieve Bounce Purge Mail Settings
+        call: tsg_mail_settings_v3-mail-settings.listbouncepurge
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/mail-settings/footer
+      name: v3-mail-settings-footer
+      description: REST surface for v3-mail_settings-footer.
+      operations:
+      - method: PATCH
+        name: updatefooter
+        description: Update footer mail settings
+        call: tsg_mail_settings_v3-mail-settings.updatefooter
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: listfooter
+        description: Retrieve footer mail settings
+        call: tsg_mail_settings_v3-mail-settings.listfooter
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/mail-settings/forward-bounce
+      name: v3-mail-settings-forward-bounce
+      description: REST surface for v3-mail_settings-forward_bounce.
+      operations:
+      - method: PATCH
+        name: updateforwardbounce
+        description: Update forward bounce mail settings
+        call: tsg_mail_settings_v3-mail-settings.updateforwardbounce
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: listforwardbounce
+        description: Retrieve forward bounce mail settings
+        call: tsg_mail_settings_v3-mail-settings.listforwardbounce
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/mail-settings/forward-spam
+      name: v3-mail-settings-forward-spam
+      description: REST surface for v3-mail_settings-forward_spam.
+      operations:
+      - method: PATCH
+        name: updateforwardspam
+        description: Update forward spam mail settings
+        call: tsg_mail_settings_v3-mail-settings.updateforwardspam
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: listforwardspam
+        description: Retrieve forward spam mail settings
+        call: tsg_mail_settings_v3-mail-settings.listforwardspam
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/mail-settings/template
+      name: v3-mail-settings-template
+      description: REST surface for v3-mail_settings-template.
+      operations:
+      - method: PATCH
+        name: updatetemplate
+        description: Update template mail settings
+        call: tsg_mail_settings_v3-mail-settings.updatetemplate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: listtemplate
+        description: Retrieve legacy template mail settings
+        call: tsg_mail_settings_v3-mail-settings.listtemplate
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: tsg_mail_settings_v3-mail-settings-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Twilio SendGrid Mail Settings API — Mail Settings. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: retrieve-all-mail-settings
+      description: Retrieve all mail settings
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_mail_settings_v3-mail-settings.listmailsetting
+      with:
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-address-whitelist-mail-settings
+      description: Update address whitelist mail settings
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: tsg_mail_settings_v3-mail-settings.updateaddresswhitelist
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-address-whitelist-mail-settings
+      description: Retrieve address whitelist mail settings
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_mail_settings_v3-mail-settings.listaddresswhitelist
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-bounce-purge-mail-settings
+      description: Update Bounce Purge Mail Settings
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: tsg_mail_settings_v3-mail-settings.updatebouncepurge
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-bounce-purge-mail-settings
+      description: Retrieve Bounce Purge Mail Settings
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_mail_settings_v3-mail-settings.listbouncepurge
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-footer-mail-settings
+      description: Update footer mail settings
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: tsg_mail_settings_v3-mail-settings.updatefooter
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-footer-mail-settings
+      description: Retrieve footer mail settings
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_mail_settings_v3-mail-settings.listfooter
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-forward-bounce-mail-settings
+      description: Update forward bounce mail settings
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: tsg_mail_settings_v3-mail-settings.updateforwardbounce
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-forward-bounce-mail-settings
+      description: Retrieve forward bounce mail settings
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_mail_settings_v3-mail-settings.listforwardbounce
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-forward-spam-mail-settings
+      description: Update forward spam mail settings
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: tsg_mail_settings_v3-mail-settings.updateforwardspam
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-forward-spam-mail-settings
+      description: Retrieve forward spam mail settings
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_mail_settings_v3-mail-settings.listforwardspam
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-template-mail-settings
+      description: Update template mail settings
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: tsg_mail_settings_v3-mail-settings.updatetemplate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-legacy-template-mail-settings
+      description: Retrieve legacy template mail settings
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_mail_settings_v3-mail-settings.listtemplate
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,574 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Twilio SendGrid IP Address Management API — IP Address Management
+  description: 'Twilio SendGrid IP Address Management API — IP Address Management. 15 operations. Lead operation: Get a List
+    of all IP Addresses on your Account. Self-contained Naftiko capability covering one Sendgrid business surface.'
+  tags:
+  - Sendgrid
+  - IP Address Management
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SENDGRID_API_KEY: SENDGRID_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: tsg_ip_address_management_v3-ip-address-management
+    baseUri: https://api.sendgrid.com
+    description: Twilio SendGrid IP Address Management API — IP Address Management business capability. Self-contained, no
+      shared references.
+    resources:
+    - name: v3-send_ips-ips
+      path: /v3/send_ips/ips
+      operations:
+      - name: listip
+        method: GET
+        description: Get a List of all IP Addresses on your Account
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: addip
+        method: POST
+        description: Add a Twilio SendGrid IP Address
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: v3-send_ips-ips-ip
+      path: /v3/send_ips/ips/{ip}
+      operations:
+      - name: getip
+        method: GET
+        description: Get Details for an IP Address
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateip
+        method: PATCH
+        description: Update Details for an IP Address
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: v3-send_ips-ips-ip-subusers
+      path: /v3/send_ips/ips/{ip}/subusers
+      operations:
+      - name: listsubuserassignedtoip
+        method: GET
+        description: Get a List of Subusers Assigned to an IP
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: integer
+          description: Specifies the number of results to be returned by the API. This parameter can be used in combination
+            with the `after_key` parameters to iterate through paginate
+    - name: v3-send_ips-ips-ip-subusers:batchAdd
+      path: /v3/send_ips/ips/{ip}/subusers:batchAdd
+      operations:
+      - name: addsubuserstoip
+        method: POST
+        description: Assign a Batch of Subusers to an IP
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: v3-send_ips-ips-ip-subusers:batchDelete
+      path: /v3/send_ips/ips/{ip}/subusers:batchDelete
+      operations:
+      - name: deletesubusersfromip
+        method: POST
+        description: Delete a Batch of Subusers from an IP
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: v3-send_ips-pools
+      path: /v3/send_ips/pools
+      operations:
+      - name: listippool
+        method: GET
+        description: GET all IP Pools that have Associated IPs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createippool
+        method: POST
+        description: Create an IP Pool with a Name and IP Assignments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: v3-send_ips-pools-poolid
+      path: /v3/send_ips/pools/{poolid}
+      operations:
+      - name: getippool
+        method: GET
+        description: Get Details for an IP Pool
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateippool
+        method: PUT
+        description: Update an IP Pool Name
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: deleteippool
+        method: DELETE
+        description: Delete IP Pool
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v3-send_ips-pools-poolid-ips
+      path: /v3/send_ips/pools/{poolid}/ips
+      operations:
+      - name: listipassignedtoippool
+        method: GET
+        description: Get IPs Assigned to an IP Pool
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v3-send_ips-pools-poolid-ips:batchAdd
+      path: /v3/send_ips/pools/{poolid}/ips:batchAdd
+      operations:
+      - name: addipstoippool
+        method: POST
+        description: Add a Batch of IPs to an IP Pool
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: v3-send_ips-pools-poolid-ips:batchDelete
+      path: /v3/send_ips/pools/{poolid}/ips:batchDelete
+      operations:
+      - name: deleteipsfromippool
+        method: POST
+        description: Delete a Batch of IPs from an IP Pool
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    authentication:
+      type: bearer
+      token: '{{env.SENDGRID_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: tsg_ip_address_management_v3-ip-address-management-rest
+    port: 8080
+    description: REST adapter for Twilio SendGrid IP Address Management API — IP Address Management. One Spectral-compliant
+      resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/v3/send-ips/ips
+      name: v3-send-ips-ips
+      description: REST surface for v3-send_ips-ips.
+      operations:
+      - method: GET
+        name: listip
+        description: Get a List of all IP Addresses on your Account
+        call: tsg_ip_address_management_v3-ip-address-management.listip
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: addip
+        description: Add a Twilio SendGrid IP Address
+        call: tsg_ip_address_management_v3-ip-address-management.addip
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/send-ips/ips/{ip}
+      name: v3-send-ips-ips-ip
+      description: REST surface for v3-send_ips-ips-ip.
+      operations:
+      - method: GET
+        name: getip
+        description: Get Details for an IP Address
+        call: tsg_ip_address_management_v3-ip-address-management.getip
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updateip
+        description: Update Details for an IP Address
+        call: tsg_ip_address_management_v3-ip-address-management.updateip
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/send-ips/ips/{ip}/subusers
+      name: v3-send-ips-ips-ip-subusers
+      description: REST surface for v3-send_ips-ips-ip-subusers.
+      operations:
+      - method: GET
+        name: listsubuserassignedtoip
+        description: Get a List of Subusers Assigned to an IP
+        call: tsg_ip_address_management_v3-ip-address-management.listsubuserassignedtoip
+        with:
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/send-ips/ips/{ip}/subusers-batchadd
+      name: v3-send-ips-ips-ip-subusers-batchadd
+      description: REST surface for v3-send_ips-ips-ip-subusers:batchAdd.
+      operations:
+      - method: POST
+        name: addsubuserstoip
+        description: Assign a Batch of Subusers to an IP
+        call: tsg_ip_address_management_v3-ip-address-management.addsubuserstoip
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/send-ips/ips/{ip}/subusers-batchdelete
+      name: v3-send-ips-ips-ip-subusers-batchdelete
+      description: REST surface for v3-send_ips-ips-ip-subusers:batchDelete.
+      operations:
+      - method: POST
+        name: deletesubusersfromip
+        description: Delete a Batch of Subusers from an IP
+        call: tsg_ip_address_management_v3-ip-address-management.deletesubusersfromip
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/send-ips/pools
+      name: v3-send-ips-pools
+      description: REST surface for v3-send_ips-pools.
+      operations:
+      - method: GET
+        name: listippool
+        description: GET all IP Pools that have Associated IPs
+        call: tsg_ip_address_management_v3-ip-address-management.listippool
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createippool
+        description: Create an IP Pool with a Name and IP Assignments
+        call: tsg_ip_address_management_v3-ip-address-management.createippool
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/send-ips/pools/{poolid}
+      name: v3-send-ips-pools-poolid
+      description: REST surface for v3-send_ips-pools-poolid.
+      operations:
+      - method: GET
+        name: getippool
+        description: Get Details for an IP Pool
+        call: tsg_ip_address_management_v3-ip-address-management.getippool
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateippool
+        description: Update an IP Pool Name
+        call: tsg_ip_address_management_v3-ip-address-management.updateippool
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteippool
+        description: Delete IP Pool
+        call: tsg_ip_address_management_v3-ip-address-management.deleteippool
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/send-ips/pools/{poolid}/ips
+      name: v3-send-ips-pools-poolid-ips
+      description: REST surface for v3-send_ips-pools-poolid-ips.
+      operations:
+      - method: GET
+        name: listipassignedtoippool
+        description: Get IPs Assigned to an IP Pool
+        call: tsg_ip_address_management_v3-ip-address-management.listipassignedtoippool
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/send-ips/pools/{poolid}/ips-batchadd
+      name: v3-send-ips-pools-poolid-ips-batchadd
+      description: REST surface for v3-send_ips-pools-poolid-ips:batchAdd.
+      operations:
+      - method: POST
+        name: addipstoippool
+        description: Add a Batch of IPs to an IP Pool
+        call: tsg_ip_address_management_v3-ip-address-management.addipstoippool
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/send-ips/pools/{poolid}/ips-batchdelete
+      name: v3-send-ips-pools-poolid-ips-batchdelete
+      description: REST surface for v3-send_ips-pools-poolid-ips:batchDelete.
+      operations:
+      - method: POST
+        name: deleteipsfromippool
+        description: Delete a Batch of IPs from an IP Pool
+        call: tsg_ip_address_management_v3-ip-address-management.deleteipsfromippool
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: tsg_ip_address_management_v3-ip-address-management-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Twilio SendGrid IP Address Management API — IP Address Management. One tool per consumed
+      operation, routed inline through this capability's consumes block.
+    tools:
+    - name: get-list-all-ip-addresses
+      description: Get a List of all IP Addresses on your Account
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_ip_address_management_v3-ip-address-management.listip
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: add-twilio-sendgrid-ip-address
+      description: Add a Twilio SendGrid IP Address
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: tsg_ip_address_management_v3-ip-address-management.addip
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-details-ip-address
+      description: Get Details for an IP Address
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_ip_address_management_v3-ip-address-management.getip
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-details-ip-address
+      description: Update Details for an IP Address
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: tsg_ip_address_management_v3-ip-address-management.updateip
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-list-subusers-assigned-ip
+      description: Get a List of Subusers Assigned to an IP
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_ip_address_management_v3-ip-address-management.listsubuserassignedtoip
+      with:
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: assign-batch-subusers-ip
+      description: Assign a Batch of Subusers to an IP
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: tsg_ip_address_management_v3-ip-address-management.addsubuserstoip
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-batch-subusers-ip
+      description: Delete a Batch of Subusers from an IP
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: tsg_ip_address_management_v3-ip-address-management.deletesubusersfromip
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-all-ip-pools-that
+      description: GET all IP Pools that have Associated IPs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_ip_address_management_v3-ip-address-management.listippool
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-ip-pool-name-and
+      description: Create an IP Pool with a Name and IP Assignments
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: tsg_ip_address_management_v3-ip-address-management.createippool
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-details-ip-pool
+      description: Get Details for an IP Pool
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_ip_address_management_v3-ip-address-management.getippool
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-ip-pool-name
+      description: Update an IP Pool Name
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: tsg_ip_address_management_v3-ip-address-management.updateippool
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-ip-pool
+      description: Delete IP Pool
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: tsg_ip_address_management_v3-ip-address-management.deleteippool
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-ips-assigned-ip-pool
+      description: Get IPs Assigned to an IP Pool
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_ip_address_management_v3-ip-address-management.listipassignedtoippool
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: add-batch-ips-ip-pool
+      description: Add a Batch of IPs to an IP Pool
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: tsg_ip_address_management_v3-ip-address-management.addipstoippool
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-batch-ips-ip-pool
+      description: Delete a Batch of IPs from an IP Pool
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: tsg_ip_address_management_v3-ip-address-management.deleteipsfromippool
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,80 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Twilio SendGrid Subusers — Subuser Website Access
+  description: 'Twilio SendGrid Subusers — Subuser Website Access. 1 operations. Lead operation: Enable/Disable website access
+    for a Subuser. Self-contained Naftiko capability covering one Sendgrid business surface.'
+  tags:
+  - Sendgrid
+  - Subuser Website Access
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SENDGRID_API_KEY: SENDGRID_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: tsg_subusers_v3-subuser-website-access
+    baseUri: https://api.sendgrid.com
+    description: Twilio SendGrid Subusers — Subuser Website Access business capability. Self-contained, no shared references.
+    resources:
+    - name: v3-subusers-subuser_name-website_access
+      path: /v3/subusers/{subuser_name}/website_access
+      operations:
+      - name: updatesubuserwebsiteaccess
+        method: PATCH
+        description: Enable/Disable website access for a Subuser
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    authentication:
+      type: bearer
+      token: '{{env.SENDGRID_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: tsg_subusers_v3-subuser-website-access-rest
+    port: 8080
+    description: REST adapter for Twilio SendGrid Subusers — Subuser Website Access. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/v3/subusers/{subuser-name}/website-access
+      name: v3-subusers-subuser-name-website-access
+      description: REST surface for v3-subusers-subuser_name-website_access.
+      operations:
+      - method: PATCH
+        name: updatesubuserwebsiteaccess
+        description: Enable/Disable website access for a Subuser
+        call: tsg_subusers_v3-subuser-website-access.updatesubuserwebsiteaccess
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: tsg_subusers_v3-subuser-website-access-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Twilio SendGrid Subusers — Subuser Website Access. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: enable-disable-website-access-subuser
+      description: Enable/Disable website access for a Subuser
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: tsg_subusers_v3-subuser-website-access.updatesubuserwebsiteaccess
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,255 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Twilio SendGrid Templates API — Templates
+  description: 'Twilio SendGrid Templates API — Templates. 6 operations. Lead operation: Create a transactional template..
+    Self-contained Naftiko capability covering one Sendgrid business surface.'
+  tags:
+  - Sendgrid
+  - Templates
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SENDGRID_API_KEY: SENDGRID_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: tsg_templates_v3-templates
+    baseUri: https://api.sendgrid.com
+    description: Twilio SendGrid Templates API — Templates business capability. Self-contained, no shared references.
+    resources:
+    - name: v3-templates
+      path: /v3/templates
+      operations:
+      - name: createtemplate
+        method: POST
+        description: Create a transactional template.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: listtemplate
+        method: GET
+        description: Retrieve paged transactional templates.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: generations
+          in: query
+          type: string
+          description: Comma-delimited list specifying which generations of templates to return. Options are `legacy`, `dynamic`
+            or `legacy,dynamic`.
+        - name: page_size
+          in: query
+          type: number
+          description: The number of templates to be returned in each page of results
+          required: true
+        - name: page_token
+          in: query
+          type: string
+          description: A token corresponding to a specific page of results, as provided by metadata
+    - name: v3-templates-template_id
+      path: /v3/templates/{template_id}
+      operations:
+      - name: duplicatetemplate
+        method: POST
+        description: Duplicate a transactional template.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: gettemplate
+        method: GET
+        description: Retrieve a single transactional template.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatetemplate
+        method: PATCH
+        description: Edit a transactional template.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: deletetemplate
+        method: DELETE
+        description: Delete a template.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.SENDGRID_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: tsg_templates_v3-templates-rest
+    port: 8080
+    description: REST adapter for Twilio SendGrid Templates API — Templates. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/v3/templates
+      name: v3-templates
+      description: REST surface for v3-templates.
+      operations:
+      - method: POST
+        name: createtemplate
+        description: Create a transactional template.
+        call: tsg_templates_v3-templates.createtemplate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: listtemplate
+        description: Retrieve paged transactional templates.
+        call: tsg_templates_v3-templates.listtemplate
+        with:
+          generations: rest.generations
+          page_size: rest.page_size
+          page_token: rest.page_token
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/templates/{template-id}
+      name: v3-templates-template-id
+      description: REST surface for v3-templates-template_id.
+      operations:
+      - method: POST
+        name: duplicatetemplate
+        description: Duplicate a transactional template.
+        call: tsg_templates_v3-templates.duplicatetemplate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: gettemplate
+        description: Retrieve a single transactional template.
+        call: tsg_templates_v3-templates.gettemplate
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatetemplate
+        description: Edit a transactional template.
+        call: tsg_templates_v3-templates.updatetemplate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletetemplate
+        description: Delete a template.
+        call: tsg_templates_v3-templates.deletetemplate
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: tsg_templates_v3-templates-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Twilio SendGrid Templates API — Templates. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: create-transactional-template
+      description: Create a transactional template.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: tsg_templates_v3-templates.createtemplate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-paged-transactional-templates
+      description: Retrieve paged transactional templates.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_templates_v3-templates.listtemplate
+      with:
+        generations: tools.generations
+        page_size: tools.page_size
+        page_token: tools.page_token
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: duplicate-transactional-template
+      description: Duplicate a transactional template.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: tsg_templates_v3-templates.duplicatetemplate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-single-transactional-template
+      description: Retrieve a single transactional template.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_templates_v3-templates.gettemplate
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: edit-transactional-template
+      description: Edit a transactional template.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: tsg_templates_v3-templates.updatetemplate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-template
+      description: Delete a template.
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: tsg_templates_v3-templates.deletetemplate
+      outputParameters:
+      - type: object
+        mapping: $.

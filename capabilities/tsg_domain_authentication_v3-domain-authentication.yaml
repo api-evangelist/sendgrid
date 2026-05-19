@@ -1,0 +1,665 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Twilio SendGrid Domain Authentication API — Domain Authentication
+  description: 'Twilio SendGrid Domain Authentication API — Domain Authentication. 16 operations. Lead operation: Email DNS
+    records to a co-worker. Self-contained Naftiko capability covering one Sendgrid business surface.'
+  tags:
+  - Sendgrid
+  - Domain Authentication
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SENDGRID_API_KEY: SENDGRID_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: tsg_domain_authentication_v3-domain-authentication
+    baseUri: https://api.sendgrid.com
+    description: Twilio SendGrid Domain Authentication API — Domain Authentication business capability. Self-contained, no
+      shared references.
+    resources:
+    - name: v3-whitelabel-dns-email
+      path: /v3/whitelabel/dns/email
+      operations:
+      - name: emaildnsrecord
+        method: POST
+        description: Email DNS records to a co-worker
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: v3-whitelabel-domains
+      path: /v3/whitelabel/domains
+      operations:
+      - name: listauthenticateddomain
+        method: GET
+        description: List all authenticated domains
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: integer
+          description: '`limit` sets the page size, i.e. maximum number of items from the list to be returned for a single
+            API request. If omitted, the default page size is used.'
+        - name: exclude_subusers
+          in: query
+          type: boolean
+          description: Exclude subuser domains from the result.
+        - name: username
+          in: query
+          type: string
+          description: The username associated with an authenticated domain.
+        - name: domain
+          in: query
+          type: string
+          description: Search for authenticated domains.
+      - name: authenticatedomain
+        method: POST
+        description: Authenticate a domain
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: v3-whitelabel-domains-default
+      path: /v3/whitelabel/domains/default
+      operations:
+      - name: listdefaultauthenticateddomain
+        method: GET
+        description: Get the default authentication
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: domain
+          in: query
+          type: string
+          description: The domain to find a default authentication.
+    - name: v3-whitelabel-domains-subuser
+      path: /v3/whitelabel/domains/subuser
+      operations:
+      - name: listauthenticateddomainwithuser
+        method: GET
+        description: List the authenticated domain associated with the given user.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: username
+          in: query
+          type: string
+          description: Username for the subuser to find associated authenticated domain.
+          required: true
+      - name: disassociateauthenticateddomainfromuser
+        method: DELETE
+        description: Disassociate an authenticated domain from a given user.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: username
+          in: query
+          type: string
+          description: Username for the subuser to find associated authenticated domain.
+    - name: v3-whitelabel-domains-subuser-all
+      path: /v3/whitelabel/domains/subuser/all
+      operations:
+      - name: listallauthenticateddomainwithuser
+        method: GET
+        description: List all the authenticated domains associated with the given user.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: username
+          in: query
+          type: string
+          description: Username for the subuser to find associated authenticated domains.
+          required: true
+    - name: v3-whitelabel-domains-domain_id
+      path: /v3/whitelabel/domains/{domain_id}
+      operations:
+      - name: getauthenticateddomain
+        method: GET
+        description: Retrieve an authenticated domain
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateauthenticateddomain
+        method: PATCH
+        description: Update an authenticated domain
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: deleteauthenticateddomain
+        method: DELETE
+        description: Delete an authenticated domain.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v3-whitelabel-domains-domain_id-subuser
+      path: /v3/whitelabel/domains/{domain_id}/subuser
+      operations:
+      - name: associatesubuserwithdomain
+        method: POST
+        description: Associate an authenticated domain with a given user.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: domain_id
+          in: path
+          type: integer
+          description: ID of the authenticated domain to associate with the subuser.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: disassociatesubuserfromdomain
+        method: DELETE
+        description: Disassociate an authenticated domain from a given user for users with up to five associated domains.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: username
+          in: query
+          type: string
+          description: Username for the subuser to find associated authenticated domain.
+        - name: domain_id
+          in: path
+          type: integer
+          description: ID of the authenticated domain to be disassociated with the subuser.
+          required: true
+    - name: v3-whitelabel-domains-domain_id-subuser:add
+      path: /v3/whitelabel/domains/{domain_id}/subuser:add
+      operations:
+      - name: associatesubuserwithdomainmultiple
+        method: POST
+        description: Associate an authenticated domain with a given user, for up to five domains.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: v3-whitelabel-domains-id-ips
+      path: /v3/whitelabel/domains/{id}/ips
+      operations:
+      - name: addiptoauthenticateddomain
+        method: POST
+        description: Add an IP to an authenticated domain
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: v3-whitelabel-domains-id-ips-ip
+      path: /v3/whitelabel/domains/{id}/ips/{ip}
+      operations:
+      - name: deleteipfromauthenticateddomain
+        method: DELETE
+        description: Remove an IP from an authenticated domain.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v3-whitelabel-domains-id-validate
+      path: /v3/whitelabel/domains/{id}/validate
+      operations:
+      - name: validateauthenticateddomain
+        method: POST
+        description: Validate a domain authentication.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.SENDGRID_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: tsg_domain_authentication_v3-domain-authentication-rest
+    port: 8080
+    description: REST adapter for Twilio SendGrid Domain Authentication API — Domain Authentication. One Spectral-compliant
+      resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/v3/whitelabel/dns/email
+      name: v3-whitelabel-dns-email
+      description: REST surface for v3-whitelabel-dns-email.
+      operations:
+      - method: POST
+        name: emaildnsrecord
+        description: Email DNS records to a co-worker
+        call: tsg_domain_authentication_v3-domain-authentication.emaildnsrecord
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/whitelabel/domains
+      name: v3-whitelabel-domains
+      description: REST surface for v3-whitelabel-domains.
+      operations:
+      - method: GET
+        name: listauthenticateddomain
+        description: List all authenticated domains
+        call: tsg_domain_authentication_v3-domain-authentication.listauthenticateddomain
+        with:
+          limit: rest.limit
+          exclude_subusers: rest.exclude_subusers
+          username: rest.username
+          domain: rest.domain
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: authenticatedomain
+        description: Authenticate a domain
+        call: tsg_domain_authentication_v3-domain-authentication.authenticatedomain
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/whitelabel/domains/default
+      name: v3-whitelabel-domains-default
+      description: REST surface for v3-whitelabel-domains-default.
+      operations:
+      - method: GET
+        name: listdefaultauthenticateddomain
+        description: Get the default authentication
+        call: tsg_domain_authentication_v3-domain-authentication.listdefaultauthenticateddomain
+        with:
+          domain: rest.domain
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/whitelabel/domains/subuser
+      name: v3-whitelabel-domains-subuser
+      description: REST surface for v3-whitelabel-domains-subuser.
+      operations:
+      - method: GET
+        name: listauthenticateddomainwithuser
+        description: List the authenticated domain associated with the given user.
+        call: tsg_domain_authentication_v3-domain-authentication.listauthenticateddomainwithuser
+        with:
+          username: rest.username
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: disassociateauthenticateddomainfromuser
+        description: Disassociate an authenticated domain from a given user.
+        call: tsg_domain_authentication_v3-domain-authentication.disassociateauthenticateddomainfromuser
+        with:
+          username: rest.username
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/whitelabel/domains/subuser/all
+      name: v3-whitelabel-domains-subuser-all
+      description: REST surface for v3-whitelabel-domains-subuser-all.
+      operations:
+      - method: GET
+        name: listallauthenticateddomainwithuser
+        description: List all the authenticated domains associated with the given user.
+        call: tsg_domain_authentication_v3-domain-authentication.listallauthenticateddomainwithuser
+        with:
+          username: rest.username
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/whitelabel/domains/{domain-id}
+      name: v3-whitelabel-domains-domain-id
+      description: REST surface for v3-whitelabel-domains-domain_id.
+      operations:
+      - method: GET
+        name: getauthenticateddomain
+        description: Retrieve an authenticated domain
+        call: tsg_domain_authentication_v3-domain-authentication.getauthenticateddomain
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updateauthenticateddomain
+        description: Update an authenticated domain
+        call: tsg_domain_authentication_v3-domain-authentication.updateauthenticateddomain
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteauthenticateddomain
+        description: Delete an authenticated domain.
+        call: tsg_domain_authentication_v3-domain-authentication.deleteauthenticateddomain
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/whitelabel/domains/{domain-id}/subuser
+      name: v3-whitelabel-domains-domain-id-subuser
+      description: REST surface for v3-whitelabel-domains-domain_id-subuser.
+      operations:
+      - method: POST
+        name: associatesubuserwithdomain
+        description: Associate an authenticated domain with a given user.
+        call: tsg_domain_authentication_v3-domain-authentication.associatesubuserwithdomain
+        with:
+          domain_id: rest.domain_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: disassociatesubuserfromdomain
+        description: Disassociate an authenticated domain from a given user for users with up to five associated domains.
+        call: tsg_domain_authentication_v3-domain-authentication.disassociatesubuserfromdomain
+        with:
+          username: rest.username
+          domain_id: rest.domain_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/whitelabel/domains/{domain-id}/subuser-add
+      name: v3-whitelabel-domains-domain-id-subuser-add
+      description: REST surface for v3-whitelabel-domains-domain_id-subuser:add.
+      operations:
+      - method: POST
+        name: associatesubuserwithdomainmultiple
+        description: Associate an authenticated domain with a given user, for up to five domains.
+        call: tsg_domain_authentication_v3-domain-authentication.associatesubuserwithdomainmultiple
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/whitelabel/domains/{id}/ips
+      name: v3-whitelabel-domains-id-ips
+      description: REST surface for v3-whitelabel-domains-id-ips.
+      operations:
+      - method: POST
+        name: addiptoauthenticateddomain
+        description: Add an IP to an authenticated domain
+        call: tsg_domain_authentication_v3-domain-authentication.addiptoauthenticateddomain
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/whitelabel/domains/{id}/ips/{ip}
+      name: v3-whitelabel-domains-id-ips-ip
+      description: REST surface for v3-whitelabel-domains-id-ips-ip.
+      operations:
+      - method: DELETE
+        name: deleteipfromauthenticateddomain
+        description: Remove an IP from an authenticated domain.
+        call: tsg_domain_authentication_v3-domain-authentication.deleteipfromauthenticateddomain
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/whitelabel/domains/{id}/validate
+      name: v3-whitelabel-domains-id-validate
+      description: REST surface for v3-whitelabel-domains-id-validate.
+      operations:
+      - method: POST
+        name: validateauthenticateddomain
+        description: Validate a domain authentication.
+        call: tsg_domain_authentication_v3-domain-authentication.validateauthenticateddomain
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: tsg_domain_authentication_v3-domain-authentication-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Twilio SendGrid Domain Authentication API — Domain Authentication. One tool per consumed
+      operation, routed inline through this capability's consumes block.
+    tools:
+    - name: email-dns-records-co-worker
+      description: Email DNS records to a co-worker
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: tsg_domain_authentication_v3-domain-authentication.emaildnsrecord
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-all-authenticated-domains
+      description: List all authenticated domains
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_domain_authentication_v3-domain-authentication.listauthenticateddomain
+      with:
+        limit: tools.limit
+        exclude_subusers: tools.exclude_subusers
+        username: tools.username
+        domain: tools.domain
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: authenticate-domain
+      description: Authenticate a domain
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: tsg_domain_authentication_v3-domain-authentication.authenticatedomain
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-default-authentication
+      description: Get the default authentication
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_domain_authentication_v3-domain-authentication.listdefaultauthenticateddomain
+      with:
+        domain: tools.domain
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-authenticated-domain-associated-given
+      description: List the authenticated domain associated with the given user.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_domain_authentication_v3-domain-authentication.listauthenticateddomainwithuser
+      with:
+        username: tools.username
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: disassociate-authenticated-domain-given-user
+      description: Disassociate an authenticated domain from a given user.
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: tsg_domain_authentication_v3-domain-authentication.disassociateauthenticateddomainfromuser
+      with:
+        username: tools.username
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-all-authenticated-domains-associated
+      description: List all the authenticated domains associated with the given user.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_domain_authentication_v3-domain-authentication.listallauthenticateddomainwithuser
+      with:
+        username: tools.username
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-authenticated-domain
+      description: Retrieve an authenticated domain
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_domain_authentication_v3-domain-authentication.getauthenticateddomain
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-authenticated-domain
+      description: Update an authenticated domain
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: tsg_domain_authentication_v3-domain-authentication.updateauthenticateddomain
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-authenticated-domain
+      description: Delete an authenticated domain.
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: tsg_domain_authentication_v3-domain-authentication.deleteauthenticateddomain
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: associate-authenticated-domain-given-user
+      description: Associate an authenticated domain with a given user.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: tsg_domain_authentication_v3-domain-authentication.associatesubuserwithdomain
+      with:
+        domain_id: tools.domain_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: disassociate-authenticated-domain-given-user-2
+      description: Disassociate an authenticated domain from a given user for users with up to five associated domains.
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: tsg_domain_authentication_v3-domain-authentication.disassociatesubuserfromdomain
+      with:
+        username: tools.username
+        domain_id: tools.domain_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: associate-authenticated-domain-given-user-2
+      description: Associate an authenticated domain with a given user, for up to five domains.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: tsg_domain_authentication_v3-domain-authentication.associatesubuserwithdomainmultiple
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: add-ip-authenticated-domain
+      description: Add an IP to an authenticated domain
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: tsg_domain_authentication_v3-domain-authentication.addiptoauthenticateddomain
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-ip-authenticated-domain
+      description: Remove an IP from an authenticated domain.
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: tsg_domain_authentication_v3-domain-authentication.deleteipfromauthenticateddomain
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: validate-domain-authentication
+      description: Validate a domain authentication.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: tsg_domain_authentication_v3-domain-authentication.validateauthenticateddomain
+      outputParameters:
+      - type: object
+        mapping: $.

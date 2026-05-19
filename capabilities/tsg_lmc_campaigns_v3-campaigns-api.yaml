@@ -1,0 +1,409 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Twilio SendGrid Legacy Marketing Campaigns Campaigns API — Campaigns API
+  description: 'Twilio SendGrid Legacy Marketing Campaigns Campaigns API — Campaigns API. 11 operations. Lead operation: Create
+    a Campaign. Self-contained Naftiko capability covering one Sendgrid business surface.'
+  tags:
+  - Sendgrid
+  - Campaigns API
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SENDGRID_API_KEY: SENDGRID_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: tsg_lmc_campaigns_v3-campaigns-api
+    baseUri: https://api.sendgrid.com
+    description: Twilio SendGrid Legacy Marketing Campaigns Campaigns API — Campaigns API business capability. Self-contained,
+      no shared references.
+    resources:
+    - name: v3-campaigns
+      path: /v3/campaigns
+      operations:
+      - name: createcampaign
+        method: POST
+        description: Create a Campaign
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: listcampaign
+        method: GET
+        description: Retrieve all Campaigns
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: integer
+          description: '`limit` sets the page size, i.e. maximum number of items from the list to be returned for a single
+            API request. If omitted, the default page size is used.'
+    - name: v3-campaigns-campaign_id
+      path: /v3/campaigns/{campaign_id}
+      operations:
+      - name: getcampaign
+        method: GET
+        description: Retrieve a single campaign
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletecampaign
+        method: DELETE
+        description: Delete a Campaign
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatecampaign
+        method: PATCH
+        description: Update a Campaign
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: v3-campaigns-campaign_id-schedules
+      path: /v3/campaigns/{campaign_id}/schedules
+      operations:
+      - name: schedulecampaign
+        method: POST
+        description: Schedule a Campaign
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: updatescheduledcampaign
+        method: PATCH
+        description: Update a Scheduled Campaign
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: getscheduledcampaign
+        method: GET
+        description: View Scheduled Time of a Campaign
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: unschedulecampaign
+        method: DELETE
+        description: Unschedule a Scheduled Campaign
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v3-campaigns-campaign_id-schedules-now
+      path: /v3/campaigns/{campaign_id}/schedules/now
+      operations:
+      - name: sendcampaign
+        method: POST
+        description: Send a Campaign
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v3-campaigns-campaign_id-schedules-test
+      path: /v3/campaigns/{campaign_id}/schedules/test
+      operations:
+      - name: sendtestcampaign
+        method: POST
+        description: Send a Test Campaign
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    authentication:
+      type: bearer
+      token: '{{env.SENDGRID_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: tsg_lmc_campaigns_v3-campaigns-api-rest
+    port: 8080
+    description: REST adapter for Twilio SendGrid Legacy Marketing Campaigns Campaigns API — Campaigns API. One Spectral-compliant
+      resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/v3/campaigns
+      name: v3-campaigns
+      description: REST surface for v3-campaigns.
+      operations:
+      - method: POST
+        name: createcampaign
+        description: Create a Campaign
+        call: tsg_lmc_campaigns_v3-campaigns-api.createcampaign
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: listcampaign
+        description: Retrieve all Campaigns
+        call: tsg_lmc_campaigns_v3-campaigns-api.listcampaign
+        with:
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/campaigns/{campaign-id}
+      name: v3-campaigns-campaign-id
+      description: REST surface for v3-campaigns-campaign_id.
+      operations:
+      - method: GET
+        name: getcampaign
+        description: Retrieve a single campaign
+        call: tsg_lmc_campaigns_v3-campaigns-api.getcampaign
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletecampaign
+        description: Delete a Campaign
+        call: tsg_lmc_campaigns_v3-campaigns-api.deletecampaign
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatecampaign
+        description: Update a Campaign
+        call: tsg_lmc_campaigns_v3-campaigns-api.updatecampaign
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/campaigns/{campaign-id}/schedules
+      name: v3-campaigns-campaign-id-schedules
+      description: REST surface for v3-campaigns-campaign_id-schedules.
+      operations:
+      - method: POST
+        name: schedulecampaign
+        description: Schedule a Campaign
+        call: tsg_lmc_campaigns_v3-campaigns-api.schedulecampaign
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatescheduledcampaign
+        description: Update a Scheduled Campaign
+        call: tsg_lmc_campaigns_v3-campaigns-api.updatescheduledcampaign
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getscheduledcampaign
+        description: View Scheduled Time of a Campaign
+        call: tsg_lmc_campaigns_v3-campaigns-api.getscheduledcampaign
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: unschedulecampaign
+        description: Unschedule a Scheduled Campaign
+        call: tsg_lmc_campaigns_v3-campaigns-api.unschedulecampaign
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/campaigns/{campaign-id}/schedules/now
+      name: v3-campaigns-campaign-id-schedules-now
+      description: REST surface for v3-campaigns-campaign_id-schedules-now.
+      operations:
+      - method: POST
+        name: sendcampaign
+        description: Send a Campaign
+        call: tsg_lmc_campaigns_v3-campaigns-api.sendcampaign
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/campaigns/{campaign-id}/schedules/test
+      name: v3-campaigns-campaign-id-schedules-test
+      description: REST surface for v3-campaigns-campaign_id-schedules-test.
+      operations:
+      - method: POST
+        name: sendtestcampaign
+        description: Send a Test Campaign
+        call: tsg_lmc_campaigns_v3-campaigns-api.sendtestcampaign
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: tsg_lmc_campaigns_v3-campaigns-api-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Twilio SendGrid Legacy Marketing Campaigns Campaigns API — Campaigns API. One tool per consumed
+      operation, routed inline through this capability's consumes block.
+    tools:
+    - name: create-campaign
+      description: Create a Campaign
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: tsg_lmc_campaigns_v3-campaigns-api.createcampaign
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-all-campaigns
+      description: Retrieve all Campaigns
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_lmc_campaigns_v3-campaigns-api.listcampaign
+      with:
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-single-campaign
+      description: Retrieve a single campaign
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_lmc_campaigns_v3-campaigns-api.getcampaign
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-campaign
+      description: Delete a Campaign
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: tsg_lmc_campaigns_v3-campaigns-api.deletecampaign
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-campaign
+      description: Update a Campaign
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: tsg_lmc_campaigns_v3-campaigns-api.updatecampaign
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: schedule-campaign
+      description: Schedule a Campaign
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: tsg_lmc_campaigns_v3-campaigns-api.schedulecampaign
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-scheduled-campaign
+      description: Update a Scheduled Campaign
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: tsg_lmc_campaigns_v3-campaigns-api.updatescheduledcampaign
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: view-scheduled-time-campaign
+      description: View Scheduled Time of a Campaign
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_lmc_campaigns_v3-campaigns-api.getscheduledcampaign
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: unschedule-scheduled-campaign
+      description: Unschedule a Scheduled Campaign
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: tsg_lmc_campaigns_v3-campaigns-api.unschedulecampaign
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: send-campaign
+      description: Send a Campaign
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: tsg_lmc_campaigns_v3-campaigns-api.sendcampaign
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: send-test-campaign
+      description: Send a Test Campaign
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: tsg_lmc_campaigns_v3-campaigns-api.sendtestcampaign
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

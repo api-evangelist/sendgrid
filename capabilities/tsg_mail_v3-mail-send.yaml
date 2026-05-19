@@ -1,0 +1,80 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Twilio SendGrid Mail API — Mail Send
+  description: 'Twilio SendGrid Mail API — Mail Send. 1 operations. Lead operation: Send Email with Twilio SendGrid.. Self-contained
+    Naftiko capability covering one Sendgrid business surface.'
+  tags:
+  - Sendgrid
+  - Mail Send
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SENDGRID_API_KEY: SENDGRID_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: tsg_mail_v3-mail-send
+    baseUri: https://api.sendgrid.com
+    description: Twilio SendGrid Mail API — Mail Send business capability. Self-contained, no shared references.
+    resources:
+    - name: v3-mail-send
+      path: /v3/mail/send
+      operations:
+      - name: sendmail
+        method: POST
+        description: Send Email with Twilio SendGrid.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    authentication:
+      type: bearer
+      token: '{{env.SENDGRID_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: tsg_mail_v3-mail-send-rest
+    port: 8080
+    description: REST adapter for Twilio SendGrid Mail API — Mail Send. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/v3/mail/send
+      name: v3-mail-send
+      description: REST surface for v3-mail-send.
+      operations:
+      - method: POST
+        name: sendmail
+        description: Send Email with Twilio SendGrid.
+        call: tsg_mail_v3-mail-send.sendmail
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: tsg_mail_v3-mail-send-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Twilio SendGrid Mail API — Mail Send. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: send-email-twilio-sendgrid
+      description: Send Email with Twilio SendGrid.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: tsg_mail_v3-mail-send.sendmail
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

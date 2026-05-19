@@ -1,0 +1,381 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Twilio SendGrid Legacy Marketing Campaigns Contacts API — Lists
+  description: 'Twilio SendGrid Legacy Marketing Campaigns Contacts API — Lists. 10 operations. Lead operation: Create a List.
+    Self-contained Naftiko capability covering one Sendgrid business surface.'
+  tags:
+  - Sendgrid
+  - Lists
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SENDGRID_API_KEY: SENDGRID_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: tsg_lmc_contactdb_v3-lists
+    baseUri: https://api.sendgrid.com
+    description: Twilio SendGrid Legacy Marketing Campaigns Contacts API — Lists business capability. Self-contained, no shared
+      references.
+    resources:
+    - name: v3-contactdb-lists
+      path: /v3/contactdb/lists
+      operations:
+      - name: createcontactdblist
+        method: POST
+        description: Create a List
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: listcontactdblist
+        method: GET
+        description: Retrieve all lists
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletecontactdblists
+        method: DELETE
+        description: Delete Multiple lists
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: v3-contactdb-lists-list_id
+      path: /v3/contactdb/lists/{list_id}
+      operations:
+      - name: getcontactdblist
+        method: GET
+        description: Retrieve a single list
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatecontactdblist
+        method: PATCH
+        description: Update a List
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: deletecontactdblist
+        method: DELETE
+        description: Delete a List
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: delete_contacts
+          in: query
+          type: boolean
+          description: Adds the ability to delete all contacts on the list in addition to deleting the list.
+    - name: v3-contactdb-lists-list_id-recipients
+      path: /v3/contactdb/lists/{list_id}/recipients
+      operations:
+      - name: listrecipientsfromcontactdblist
+        method: GET
+        description: Retrieve all recipients on a List
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: page
+          in: query
+          type: integer
+          description: Page index of first recipient to return (must be a positive integer)
+        - name: page_size
+          in: query
+          type: integer
+          description: Number of recipients to return at a time (must be a positive integer between 1 and 1000)
+      - name: addrecipientstocontactdblist
+        method: POST
+        description: Add Multiple Recipients to a List
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: v3-contactdb-lists-list_id-recipients-recipient_id
+      path: /v3/contactdb/lists/{list_id}/recipients/{recipient_id}
+      operations:
+      - name: addrecipienttocontactdblist
+        method: POST
+        description: Add a Single Recipient to a List
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deleterecipientfromcontactdblist
+        method: DELETE
+        description: Delete a Single Recipient from a Single List
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.SENDGRID_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: tsg_lmc_contactdb_v3-lists-rest
+    port: 8080
+    description: REST adapter for Twilio SendGrid Legacy Marketing Campaigns Contacts API — Lists. One Spectral-compliant
+      resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/v3/contactdb/lists
+      name: v3-contactdb-lists
+      description: REST surface for v3-contactdb-lists.
+      operations:
+      - method: POST
+        name: createcontactdblist
+        description: Create a List
+        call: tsg_lmc_contactdb_v3-lists.createcontactdblist
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: listcontactdblist
+        description: Retrieve all lists
+        call: tsg_lmc_contactdb_v3-lists.listcontactdblist
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletecontactdblists
+        description: Delete Multiple lists
+        call: tsg_lmc_contactdb_v3-lists.deletecontactdblists
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/contactdb/lists/{list-id}
+      name: v3-contactdb-lists-list-id
+      description: REST surface for v3-contactdb-lists-list_id.
+      operations:
+      - method: GET
+        name: getcontactdblist
+        description: Retrieve a single list
+        call: tsg_lmc_contactdb_v3-lists.getcontactdblist
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatecontactdblist
+        description: Update a List
+        call: tsg_lmc_contactdb_v3-lists.updatecontactdblist
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletecontactdblist
+        description: Delete a List
+        call: tsg_lmc_contactdb_v3-lists.deletecontactdblist
+        with:
+          delete_contacts: rest.delete_contacts
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/contactdb/lists/{list-id}/recipients
+      name: v3-contactdb-lists-list-id-recipients
+      description: REST surface for v3-contactdb-lists-list_id-recipients.
+      operations:
+      - method: GET
+        name: listrecipientsfromcontactdblist
+        description: Retrieve all recipients on a List
+        call: tsg_lmc_contactdb_v3-lists.listrecipientsfromcontactdblist
+        with:
+          page: rest.page
+          page_size: rest.page_size
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: addrecipientstocontactdblist
+        description: Add Multiple Recipients to a List
+        call: tsg_lmc_contactdb_v3-lists.addrecipientstocontactdblist
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/contactdb/lists/{list-id}/recipients/{recipient-id}
+      name: v3-contactdb-lists-list-id-recipients-recipient-id
+      description: REST surface for v3-contactdb-lists-list_id-recipients-recipient_id.
+      operations:
+      - method: POST
+        name: addrecipienttocontactdblist
+        description: Add a Single Recipient to a List
+        call: tsg_lmc_contactdb_v3-lists.addrecipienttocontactdblist
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleterecipientfromcontactdblist
+        description: Delete a Single Recipient from a Single List
+        call: tsg_lmc_contactdb_v3-lists.deleterecipientfromcontactdblist
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: tsg_lmc_contactdb_v3-lists-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Twilio SendGrid Legacy Marketing Campaigns Contacts API — Lists. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: create-list
+      description: Create a List
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: tsg_lmc_contactdb_v3-lists.createcontactdblist
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-all-lists
+      description: Retrieve all lists
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_lmc_contactdb_v3-lists.listcontactdblist
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-multiple-lists
+      description: Delete Multiple lists
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: tsg_lmc_contactdb_v3-lists.deletecontactdblists
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-single-list
+      description: Retrieve a single list
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_lmc_contactdb_v3-lists.getcontactdblist
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-list
+      description: Update a List
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: tsg_lmc_contactdb_v3-lists.updatecontactdblist
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-list
+      description: Delete a List
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: tsg_lmc_contactdb_v3-lists.deletecontactdblist
+      with:
+        delete_contacts: tools.delete_contacts
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-all-recipients-list
+      description: Retrieve all recipients on a List
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tsg_lmc_contactdb_v3-lists.listrecipientsfromcontactdblist
+      with:
+        page: tools.page
+        page_size: tools.page_size
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: add-multiple-recipients-list
+      description: Add Multiple Recipients to a List
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: tsg_lmc_contactdb_v3-lists.addrecipientstocontactdblist
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: add-single-recipient-list
+      description: Add a Single Recipient to a List
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: tsg_lmc_contactdb_v3-lists.addrecipienttocontactdblist
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-single-recipient-single-list
+      description: Delete a Single Recipient from a Single List
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: tsg_lmc_contactdb_v3-lists.deleterecipientfromcontactdblist
+      outputParameters:
+      - type: object
+        mapping: $.
