@@ -1,0 +1,123 @@
+arazzo: 1.0.1
+info:
+  title: SendGrid Create and Schedule Single Send
+  summary: Create a Single Send draft, schedule it for delivery, and read it back.
+  description: >-
+    Drives a Single Send from draft to scheduled. The workflow creates a Single
+    Send targeting a recipient list with inline subject and HTML content, then
+    schedules it for delivery by setting send_at to a future ISO 8601 time (or
+    the keyword now), and finally reads the Single Send back to confirm its
+    scheduled status. The create returns 201, the schedule returns 201, and the
+    read returns 200. Every step inlines its request and bearer token so the
+    flow can be run without the OpenAPI files.
+  version: 1.0.0
+sourceDescriptions:
+- name: singleSendsApi
+  url: ../openapi/tsg_mc_singlesends_v3.yaml
+  type: openapi
+workflows:
+- workflowId: create-and-schedule-single-send
+  summary: Create a Single Send, schedule it, and confirm its status.
+  description: >-
+    Creates a Single Send draft targeting a list, schedules it for delivery, and
+    reads it back to confirm.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - singleSendName
+    - listId
+    - subject
+    - htmlContent
+    - senderId
+    - suppressionGroupId
+    - sendAt
+    properties:
+      apiKey:
+        type: string
+        description: SendGrid API key sent as a bearer token.
+      singleSendName:
+        type: string
+        description: The name for the new Single Send.
+      listId:
+        type: string
+        description: The recipient list ID the Single Send targets.
+      subject:
+        type: string
+        description: The subject line of the Single Send.
+      htmlContent:
+        type: string
+        description: The HTML body content of the Single Send.
+      senderId:
+        type: integer
+        description: The ID of the verified sender.
+      suppressionGroupId:
+        type: integer
+        description: The unsubscribe suppression group ID.
+      sendAt:
+        type: string
+        description: ISO 8601 send time in the future, or the keyword "now".
+  steps:
+  - stepId: createSingleSend
+    description: >-
+      Create a Single Send draft targeting the supplied list with inline subject
+      and HTML content.
+    operationId: CreateSingleSend
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.singleSendName
+        send_to:
+          list_ids:
+          - $inputs.listId
+        email_config:
+          subject: $inputs.subject
+          html_content: $inputs.htmlContent
+          sender_id: $inputs.senderId
+          suppression_group_id: $inputs.suppressionGroupId
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      singleSendId: $response.body#/id
+  - stepId: scheduleSingleSend
+    description: >-
+      Schedule the Single Send for delivery by setting send_at to a future time
+      or the keyword now.
+    operationId: ScheduleSingleSend
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: id
+      in: path
+      value: $steps.createSingleSend.outputs.singleSendId
+    requestBody:
+      contentType: application/json
+      payload:
+        send_at: $inputs.sendAt
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      status: $response.body#/status
+  - stepId: getSingleSend
+    description: Read the Single Send back to confirm its scheduled status.
+    operationId: GetSingleSend
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: id
+      in: path
+      value: $steps.createSingleSend.outputs.singleSendId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/status
+  outputs:
+    singleSendId: $steps.createSingleSend.outputs.singleSendId
+    scheduledStatus: $steps.scheduleSingleSend.outputs.status
+    confirmedStatus: $steps.getSingleSend.outputs.status

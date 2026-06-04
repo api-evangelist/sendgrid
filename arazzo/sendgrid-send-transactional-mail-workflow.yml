@@ -1,0 +1,79 @@
+arazzo: 1.0.1
+info:
+  title: SendGrid Send Transactional Mail
+  summary: Send a single transactional email and branch on whether it was accepted.
+  description: >-
+    The simplest and most common SendGrid flow. The workflow sends one
+    transactional message through the Mail Send endpoint with an inline subject
+    and HTML content body, and branches on the response: SendGrid accepts a
+    valid send asynchronously and returns a 202, which ends the flow
+    successfully. The request and bearer token are inlined so the message can be
+    read and replayed without the OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: mailApi
+  url: ../openapi/tsg_mail_v3.yaml
+  type: openapi
+workflows:
+- workflowId: send-transactional-mail
+  summary: Send one transactional email and confirm it was accepted.
+  description: >-
+    Sends a single message with subject and HTML content and branches on the
+    202 acceptance status.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - fromEmail
+    - toEmail
+    - subject
+    - htmlContent
+    properties:
+      apiKey:
+        type: string
+        description: SendGrid API key sent as a bearer token.
+      fromEmail:
+        type: string
+        description: The verified sender email address messages are sent from.
+      toEmail:
+        type: string
+        description: The recipient email address.
+      subject:
+        type: string
+        description: The subject line of the email.
+      htmlContent:
+        type: string
+        description: The HTML body content of the email.
+  steps:
+  - stepId: sendMail
+    description: >-
+      Send the message. SendGrid accepts a valid send asynchronously and
+      returns a 202 status, which ends the flow.
+    operationId: SendMail
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    requestBody:
+      contentType: application/json
+      payload:
+        from:
+          email: $inputs.fromEmail
+        personalizations:
+        - to:
+          - email: $inputs.toEmail
+        subject: $inputs.subject
+        content:
+        - type: text/html
+          value: $inputs.htmlContent
+    successCriteria:
+    - condition: $statusCode == 202
+    outputs:
+      statusCode: $statusCode
+    onSuccess:
+    - name: accepted
+      type: end
+      criteria:
+      - condition: $statusCode == 202
+  outputs:
+    sendStatus: $steps.sendMail.outputs.statusCode

@@ -1,0 +1,122 @@
+arazzo: 1.0.1
+info:
+  title: SendGrid Template Version Activate
+  summary: Create a template, add a version, activate that version, and read the template back.
+  description: >-
+    Manages the lifecycle of a transactional template version. The workflow
+    creates a template, adds a new version with subject and HTML content,
+    explicitly activates that version so it becomes the one used when the
+    template is sent, and finally reads the template back to confirm the active
+    version. Creates return 201 while the activate and read calls return 200.
+    Every step inlines its request and bearer token so the flow can be read and
+    run without the OpenAPI files.
+  version: 1.0.0
+sourceDescriptions:
+- name: templatesApi
+  url: ../openapi/tsg_templates_v3.yaml
+  type: openapi
+workflows:
+- workflowId: template-version-activate
+  summary: Create a template and version, activate it, and confirm.
+  description: >-
+    Creates a template, adds a version, activates the version, and reads the
+    template back to confirm the active version.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - templateName
+    - versionName
+    - subject
+    - htmlContent
+    properties:
+      apiKey:
+        type: string
+        description: SendGrid API key sent as a bearer token.
+      templateName:
+        type: string
+        description: The name for the new template.
+      versionName:
+        type: string
+        description: The name for the template version.
+      subject:
+        type: string
+        description: The subject line for the template version.
+      htmlContent:
+        type: string
+        description: The HTML content for the template version.
+  steps:
+  - stepId: createTemplate
+    description: Create a new dynamic transactional template.
+    operationId: CreateTemplate
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.templateName
+        generation: dynamic
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      templateId: $response.body#/id
+  - stepId: createVersion
+    description: Add a version carrying the subject and HTML content.
+    operationId: CreateTemplateVersion
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: template_id
+      in: path
+      value: $steps.createTemplate.outputs.templateId
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.versionName
+        subject: $inputs.subject
+        html_content: $inputs.htmlContent
+        generate_plain_content: true
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      versionId: $response.body#/id
+  - stepId: activateVersion
+    description: >-
+      Activate the new version so it becomes the version used when the template
+      is sent.
+    operationId: ActivateTemplateVersion
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: template_id
+      in: path
+      value: $steps.createTemplate.outputs.templateId
+    - name: version_id
+      in: path
+      value: $steps.createVersion.outputs.versionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      active: $response.body#/active
+  - stepId: getTemplate
+    description: Read the template back to confirm the active version.
+    operationId: GetTemplate
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: template_id
+      in: path
+      value: $steps.createTemplate.outputs.templateId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      templateId: $response.body#/id
+  outputs:
+    templateId: $steps.createTemplate.outputs.templateId
+    versionId: $steps.createVersion.outputs.versionId
+    active: $steps.activateVersion.outputs.active

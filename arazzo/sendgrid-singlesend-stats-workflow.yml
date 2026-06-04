@@ -1,0 +1,80 @@
+arazzo: 1.0.1
+info:
+  title: SendGrid Single Send Stats
+  summary: List Single Sends, branch on whether any exist, and pull aggregate stats for one.
+  description: >-
+    A reporting flow over Single Send performance. The workflow lists the
+    account's Single Sends, branches on whether any were returned, and when at
+    least one exists retrieves the aggregate stats for the supplied Single Send
+    ID. Both calls return 200. Each step inlines its request and bearer token so
+    the flow can be read and run without consulting the OpenAPI files.
+  version: 1.0.0
+sourceDescriptions:
+- name: singleSendsApi
+  url: ../openapi/tsg_mc_singlesends_v3.yaml
+  type: openapi
+- name: statsApi
+  url: ../openapi/tsg_mc_stats_v3.yaml
+  type: openapi
+workflows:
+- workflowId: single-send-stats
+  summary: List Single Sends and pull aggregate stats for one when present.
+  description: >-
+    Lists Single Sends and branches: when any exist, retrieves aggregate stats
+    for the supplied Single Send ID.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - singleSendId
+    properties:
+      apiKey:
+        type: string
+        description: SendGrid API key sent as a bearer token.
+      singleSendId:
+        type: string
+        description: The Single Send ID to pull aggregate stats for.
+  steps:
+  - stepId: listSingleSends
+    description: >-
+      List the account's Single Sends and branch on whether any were returned.
+    operationId: ListSingleSend
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      result: $response.body#/result
+    onSuccess:
+    - name: hasSingleSends
+      type: goto
+      stepId: getSingleSendStat
+      criteria:
+      - context: $response.body
+        condition: $.result.length > 0
+        type: jsonpath
+    - name: noSingleSends
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.result.length == 0
+        type: jsonpath
+  - stepId: getSingleSendStat
+    description: Retrieve aggregate stats for the supplied Single Send ID.
+    operationId: GetSingleSendStat
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: id
+      in: path
+      value: $inputs.singleSendId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      results: $response.body#/results
+  outputs:
+    singleSends: $steps.listSingleSends.outputs.result
+    stats: $steps.getSingleSendStat.outputs.results

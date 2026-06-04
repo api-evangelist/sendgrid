@@ -1,0 +1,110 @@
+arazzo: 1.0.1
+info:
+  title: SendGrid Create Segment From List
+  summary: Create a marketing list, build a segment filtered on that list, and refresh it.
+  description: >-
+    Segments are dynamic, query-driven subsets of contacts that are scoped to a
+    parent list. This workflow creates a new contacts list, creates a 2.0
+    segment whose parent_list_ids points at the new list and whose membership is
+    defined by an SGQL query_dsl, and then manually refreshes the segment so its
+    membership is recomputed immediately rather than waiting for the scheduled
+    refresh. The refresh is asynchronous and returns a 202 with a job_id. Each
+    step inlines its request and bearer token so the flow is self-contained.
+  version: 1.0.0
+sourceDescriptions:
+- name: listsApi
+  url: ../openapi/tsg_mc_lists_v3.yaml
+  type: openapi
+- name: segmentsApi
+  url: ../openapi/tsg_mc_segments_2.0_v3.yaml
+  type: openapi
+workflows:
+- workflowId: create-segment-from-list
+  summary: Create a list, build a segment on it, and refresh the segment.
+  description: >-
+    Creates a parent list, creates a query-driven segment scoped to that list,
+    and triggers a manual refresh of the segment.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - listName
+    - segmentName
+    - queryDsl
+    - userTimeZone
+    properties:
+      apiKey:
+        type: string
+        description: SendGrid API key sent as a bearer token.
+      listName:
+        type: string
+        description: The name for the new parent contacts list.
+      segmentName:
+        type: string
+        description: The unique name for the new segment.
+      queryDsl:
+        type: string
+        description: The SGQL query that defines segment membership.
+      userTimeZone:
+        type: string
+        description: IANA timezone used when refreshing the segment (e.g. America/Chicago).
+  steps:
+  - stepId: createList
+    description: Create the parent contacts list the segment will be scoped to.
+    operationId: CreateMarketingList
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.listName
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      listId: $response.body#/id
+  - stepId: createSegment
+    description: >-
+      Create a segment whose parent list is the new list and whose membership is
+      defined by the supplied SGQL query.
+    operationId: CreateSegment
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.segmentName
+        parent_list_ids:
+        - $steps.createList.outputs.listId
+        query_dsl: $inputs.queryDsl
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      segmentId: $response.body#/id
+  - stepId: refreshSegment
+    description: >-
+      Manually refresh the segment so its membership is recomputed. The refresh
+      is queued and returns a 202 with a job_id.
+    operationId: RefreshSegment
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: segment_id
+      in: path
+      value: $steps.createSegment.outputs.segmentId
+    requestBody:
+      contentType: application/json
+      payload:
+        user_time_zone: $inputs.userTimeZone
+    successCriteria:
+    - condition: $statusCode == 202
+    outputs:
+      jobId: $response.body#/job_id
+  outputs:
+    listId: $steps.createList.outputs.listId
+    segmentId: $steps.createSegment.outputs.segmentId
+    refreshJobId: $steps.refreshSegment.outputs.jobId

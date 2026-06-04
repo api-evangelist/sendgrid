@@ -1,0 +1,96 @@
+arazzo: 1.0.1
+info:
+  title: SendGrid Search Contacts and Suppress
+  summary: Find contacts with an SGQL query and add the matched address to the global suppression list.
+  description: >-
+    A compliance flow for honoring opt-outs. The workflow runs a Segmentation
+    Query Language (SGQL) search to locate a contact, branches on whether the
+    search matched any contacts, and when a match is found adds the supplied
+    email address to the account-wide global suppression group so SendGrid will
+    no longer deliver mail to it. When no contact matches, the flow ends without
+    suppressing. Each step inlines its request and bearer token so the flow can
+    be read and run on its own.
+  version: 1.0.0
+sourceDescriptions:
+- name: contactsApi
+  url: ../openapi/tsg_mc_contacts_v3.yaml
+  type: openapi
+- name: suppressionsApi
+  url: ../openapi/tsg_suppressions_v3.yaml
+  type: openapi
+workflows:
+- workflowId: search-contacts-and-suppress
+  summary: Search for a contact and globally suppress its email when found.
+  description: >-
+    Searches contacts with an SGQL query and branches: when at least one contact
+    matches, the supplied email is added to the global suppression list.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - query
+    - email
+    properties:
+      apiKey:
+        type: string
+        description: SendGrid API key sent as a bearer token.
+      query:
+        type: string
+        description: An SGQL search string used to locate the contact.
+      email:
+        type: string
+        description: The email address to add to the global suppression list when matched.
+  steps:
+  - stepId: searchContacts
+    description: >-
+      Search contacts using the supplied SGQL query and branch on whether any
+      contacts were matched.
+    operationId: SearchContact
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    requestBody:
+      contentType: application/json
+      payload:
+        query: $inputs.query
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      contactCount: $response.body#/contact_count
+      result: $response.body#/result
+    onSuccess:
+    - name: contactMatched
+      type: goto
+      stepId: suppressEmail
+      criteria:
+      - context: $response.body
+        condition: $.contact_count > 0
+        type: jsonpath
+    - name: noMatch
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.contact_count == 0
+        type: jsonpath
+  - stepId: suppressEmail
+    description: >-
+      Add the supplied email address to the account's global suppression group
+      so SendGrid will stop delivering mail to it.
+    operationId: CreateGlobalSuppression
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    requestBody:
+      contentType: application/json
+      payload:
+        recipient_emails:
+        - $inputs.email
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      suppressedEmails: $response.body#/recipient_emails
+  outputs:
+    contactCount: $steps.searchContacts.outputs.contactCount
+    suppressedEmails: $steps.suppressEmail.outputs.suppressedEmails

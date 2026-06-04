@@ -1,0 +1,112 @@
+arazzo: 1.0.1
+info:
+  title: SendGrid Create List and Add Contacts
+  summary: Create a marketing list, upsert contacts directly into it, and confirm they landed.
+  description: >-
+    A foundational Marketing Campaigns onboarding flow. The workflow creates a
+    new contacts list, upserts one or more contacts into that list in a single
+    asynchronous request, and then confirms the contacts exist by looking them
+    up with their email identifiers. Because the contact upsert is asynchronous
+    SendGrid returns a 202 with a job_id rather than the finished contact, so
+    the confirmation step branches on whether the lookup found the contacts yet.
+    Every step spells out its request inline, including the inline bearer token,
+    so the flow can be read and executed without opening the OpenAPI files.
+  version: 1.0.0
+sourceDescriptions:
+- name: listsApi
+  url: ../openapi/tsg_mc_lists_v3.yaml
+  type: openapi
+- name: contactsApi
+  url: ../openapi/tsg_mc_contacts_v3.yaml
+  type: openapi
+workflows:
+- workflowId: create-list-and-add-contacts
+  summary: Create a marketing list and upsert contacts into it, then confirm.
+  description: >-
+    Creates a contacts list, upserts the supplied contacts into the new list,
+    and verifies the contacts by looking them up by email identifier.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - listName
+    - contacts
+    - identifiers
+    properties:
+      apiKey:
+        type: string
+        description: SendGrid API key sent as a bearer token.
+      listName:
+        type: string
+        description: The name for the new contacts list.
+      contacts:
+        type: array
+        description: Array of contact objects to upsert (each needs at least an email).
+        items:
+          type: object
+      identifiers:
+        type: array
+        description: Email identifier values to confirm after the upsert.
+        items:
+          type: string
+  steps:
+  - stepId: createList
+    description: Create a new marketing contacts list to receive the contacts.
+    operationId: CreateMarketingList
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.listName
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      listId: $response.body#/id
+  - stepId: upsertContacts
+    description: >-
+      Upsert the supplied contacts and attach them to the new list. SendGrid
+      processes this asynchronously and returns a job_id with a 202 status.
+    operationId: UpdateContact
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    requestBody:
+      contentType: application/json
+      payload:
+        list_ids:
+        - $steps.createList.outputs.listId
+        contacts: $inputs.contacts
+    successCriteria:
+    - condition: $statusCode == 202
+    outputs:
+      jobId: $response.body#/job_id
+  - stepId: confirmContacts
+    description: >-
+      Look up the contacts by their email identifiers to confirm the upsert.
+      Branches on whether the asynchronous job has materialized the contacts.
+    operationId: GetContactByIdentifiers
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    requestBody:
+      contentType: application/json
+      payload:
+        identifiers: $inputs.identifiers
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      result: $response.body#/result
+    onSuccess:
+    - name: contactsFound
+      type: end
+      criteria:
+      - condition: $statusCode == 200
+  outputs:
+    listId: $steps.createList.outputs.listId
+    jobId: $steps.upsertContacts.outputs.jobId
+    result: $steps.confirmContacts.outputs.result

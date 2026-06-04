@@ -1,0 +1,125 @@
+arazzo: 1.0.1
+info:
+  title: SendGrid Campaign Test Then Send
+  summary: Create a campaign, send a test to yourself, and send the campaign for real.
+  description: >-
+    A safe-send flow for legacy Marketing Campaigns. The workflow creates a
+    campaign with content and recipient lists, sends a test message to a single
+    address so the content can be reviewed, and then sends the campaign to its
+    full audience. Campaign creation returns 201, the test send returns 201, and
+    the real send returns 201 with the campaign status. Each step inlines its
+    request and bearer token so the flow can be read and run without the OpenAPI
+    files.
+  version: 1.0.0
+sourceDescriptions:
+- name: campaignsApi
+  url: ../openapi/tsg_lmc_campaigns_v3.yaml
+  type: openapi
+workflows:
+- workflowId: campaign-test-then-send
+  summary: Create a campaign, test it, and send it to the full audience.
+  description: >-
+    Creates a campaign, sends a test to a review address, and then sends the
+    campaign to its recipients.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - title
+    - subject
+    - senderId
+    - listIds
+    - suppressionGroupId
+    - htmlContent
+    - plainContent
+    - testEmail
+    properties:
+      apiKey:
+        type: string
+        description: SendGrid API key sent as a bearer token.
+      title:
+        type: string
+        description: The internal title of the campaign.
+      subject:
+        type: string
+        description: The subject line of the campaign.
+      senderId:
+        type: integer
+        description: The ID of the sender used as the from address.
+      listIds:
+        type: array
+        description: The recipient list IDs the campaign targets.
+        items:
+          type: integer
+      suppressionGroupId:
+        type: integer
+        description: The unsubscribe suppression group ID.
+      htmlContent:
+        type: string
+        description: The HTML content of the campaign.
+      plainContent:
+        type: string
+        description: The plain text content of the campaign.
+      testEmail:
+        type: string
+        description: The address that should receive the test campaign.
+  steps:
+  - stepId: createCampaign
+    description: Create a campaign with content and recipient lists.
+    operationId: CreateCampaign
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    requestBody:
+      contentType: application/json
+      payload:
+        title: $inputs.title
+        subject: $inputs.subject
+        sender_id: $inputs.senderId
+        list_ids: $inputs.listIds
+        suppression_group_id: $inputs.suppressionGroupId
+        html_content: $inputs.htmlContent
+        plain_content: $inputs.plainContent
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      campaignId: $response.body#/id
+  - stepId: sendTest
+    description: >-
+      Send a test of the campaign to the review address so the content can be
+      checked before the full send.
+    operationId: SendTestCampaign
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: campaign_id
+      in: path
+      value: $steps.createCampaign.outputs.campaignId
+    requestBody:
+      contentType: application/json
+      payload:
+        to: $inputs.testEmail
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      testedTo: $response.body#/to
+  - stepId: sendCampaign
+    description: Send the campaign to its full recipient audience.
+    operationId: SendCampaign
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: campaign_id
+      in: path
+      value: $steps.createCampaign.outputs.campaignId
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      status: $response.body#/status
+  outputs:
+    campaignId: $steps.createCampaign.outputs.campaignId
+    testedTo: $steps.sendTest.outputs.testedTo
+    status: $steps.sendCampaign.outputs.status

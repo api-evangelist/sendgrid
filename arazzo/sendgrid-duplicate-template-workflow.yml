@@ -1,0 +1,75 @@
+arazzo: 1.0.1
+info:
+  title: SendGrid Duplicate Template
+  summary: Duplicate an existing transactional template and read the new copy back.
+  description: >-
+    A reuse flow for transactional templates. The workflow duplicates an
+    existing template under a new name, producing an independent copy with its
+    own ID and versions, and then reads the new template back to confirm it
+    exists. The duplicate returns 201 and the read returns 200. Each step inlines
+    its request and bearer token so the flow can be read and run without the
+    OpenAPI files.
+  version: 1.0.0
+sourceDescriptions:
+- name: templatesApi
+  url: ../openapi/tsg_templates_v3.yaml
+  type: openapi
+workflows:
+- workflowId: duplicate-template
+  summary: Duplicate a template and confirm the new copy.
+  description: >-
+    Duplicates an existing template under a new name and reads the resulting
+    template back to confirm.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - templateId
+    - newName
+    properties:
+      apiKey:
+        type: string
+        description: SendGrid API key sent as a bearer token.
+      templateId:
+        type: string
+        description: The ID of the template to duplicate.
+      newName:
+        type: string
+        description: The name for the duplicated template.
+  steps:
+  - stepId: duplicateTemplate
+    description: Duplicate the source template under a new name.
+    operationId: DuplicateTemplate
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: template_id
+      in: path
+      value: $inputs.templateId
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.newName
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      newTemplateId: $response.body#/id
+  - stepId: getTemplate
+    description: Read the duplicated template back to confirm it exists.
+    operationId: GetTemplate
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: template_id
+      in: path
+      value: $steps.duplicateTemplate.outputs.newTemplateId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      templateId: $response.body#/id
+      name: $response.body#/name
+  outputs:
+    newTemplateId: $steps.duplicateTemplate.outputs.newTemplateId
+    name: $steps.getTemplate.outputs.name

@@ -1,0 +1,112 @@
+arazzo: 1.0.1
+info:
+  title: SendGrid List Add Contacts and Count
+  summary: Create a list, upsert contacts into it, and branch on the list's contact count.
+  description: >-
+    Builds a contacts list, populates it, and inspects its size. The workflow
+    creates a new marketing list, upserts contacts into that list (an
+    asynchronous operation that returns a 202 with a job_id), and then reads the
+    list's contact count, branching on whether the list is empty or already has
+    contacts so the caller can decide whether to poll again for the upsert job.
+    Each step inlines its request and bearer token so the flow can be read and
+    run without the OpenAPI files.
+  version: 1.0.0
+sourceDescriptions:
+- name: listsApi
+  url: ../openapi/tsg_mc_lists_v3.yaml
+  type: openapi
+- name: contactsApi
+  url: ../openapi/tsg_mc_contacts_v3.yaml
+  type: openapi
+workflows:
+- workflowId: list-add-contacts-and-count
+  summary: Create a list, upsert contacts, and branch on its contact count.
+  description: >-
+    Creates a list, upserts contacts into it, and reads the list's contact
+    count, branching on whether the list has contacts yet.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - listName
+    - contacts
+    properties:
+      apiKey:
+        type: string
+        description: SendGrid API key sent as a bearer token.
+      listName:
+        type: string
+        description: The name for the new contacts list.
+      contacts:
+        type: array
+        description: Array of contact objects to upsert into the list.
+        items:
+          type: object
+  steps:
+  - stepId: createList
+    description: Create a new marketing contacts list.
+    operationId: CreateMarketingList
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.listName
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      listId: $response.body#/id
+  - stepId: upsertContacts
+    description: >-
+      Upsert the supplied contacts into the new list. The request is queued and
+      returns a 202 with a job_id.
+    operationId: UpdateContact
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    requestBody:
+      contentType: application/json
+      payload:
+        list_ids:
+        - $steps.createList.outputs.listId
+        contacts: $inputs.contacts
+    successCriteria:
+    - condition: $statusCode == 202
+    outputs:
+      jobId: $response.body#/job_id
+  - stepId: countContacts
+    description: >-
+      Read the list's contact count and branch on whether the list already has
+      contacts or is still empty while the upsert job runs.
+    operationId: ListContactCount
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: id
+      in: path
+      value: $steps.createList.outputs.listId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      contactCount: $response.body#/contact_count
+    onSuccess:
+    - name: hasContacts
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.contact_count > 0
+        type: jsonpath
+    - name: stillEmpty
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.contact_count == 0
+        type: jsonpath
+  outputs:
+    listId: $steps.createList.outputs.listId
+    jobId: $steps.upsertContacts.outputs.jobId
+    contactCount: $steps.countContacts.outputs.contactCount

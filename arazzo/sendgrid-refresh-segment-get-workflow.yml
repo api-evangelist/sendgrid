@@ -1,0 +1,103 @@
+arazzo: 1.0.1
+info:
+  title: SendGrid Refresh Segment and Get
+  summary: Create a segment, manually refresh it, then read it back to inspect its membership.
+  description: >-
+    Builds a 2.0 segment from an SGQL query against a known parent list,
+    triggers a manual refresh so its membership is recomputed immediately, and
+    then reads the segment back to inspect its current contact count and
+    definition. The refresh call is asynchronous and returns a 202 with a
+    job_id; the subsequent read returns the current segment state. Each step
+    inlines its request and bearer token so the flow can be executed without
+    consulting the OpenAPI files.
+  version: 1.0.0
+sourceDescriptions:
+- name: segmentsApi
+  url: ../openapi/tsg_mc_segments_2.0_v3.yaml
+  type: openapi
+workflows:
+- workflowId: refresh-segment-and-get
+  summary: Create a segment, refresh it, and read back its current state.
+  description: >-
+    Creates a query-driven segment scoped to an existing list, manually
+    refreshes it, and retrieves the segment to inspect its membership.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - segmentName
+    - parentListId
+    - queryDsl
+    - userTimeZone
+    properties:
+      apiKey:
+        type: string
+        description: SendGrid API key sent as a bearer token.
+      segmentName:
+        type: string
+        description: The unique name for the new segment.
+      parentListId:
+        type: string
+        description: The existing list ID the segment is scoped to.
+      queryDsl:
+        type: string
+        description: The SGQL query that defines segment membership.
+      userTimeZone:
+        type: string
+        description: IANA timezone used when refreshing the segment.
+  steps:
+  - stepId: createSegment
+    description: Create a query-driven segment scoped to the supplied parent list.
+    operationId: CreateSegment
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.segmentName
+        parent_list_ids:
+        - $inputs.parentListId
+        query_dsl: $inputs.queryDsl
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      segmentId: $response.body#/id
+  - stepId: refreshSegment
+    description: Manually refresh the segment so its membership is recomputed.
+    operationId: RefreshSegment
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: segment_id
+      in: path
+      value: $steps.createSegment.outputs.segmentId
+    requestBody:
+      contentType: application/json
+      payload:
+        user_time_zone: $inputs.userTimeZone
+    successCriteria:
+    - condition: $statusCode == 202
+    outputs:
+      jobId: $response.body#/job_id
+  - stepId: getSegment
+    description: Read the segment back to inspect its current definition and count.
+    operationId: GetSegment
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: segment_id
+      in: path
+      value: $steps.createSegment.outputs.segmentId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      segmentId: $response.body#/id
+      name: $response.body#/name
+  outputs:
+    segmentId: $steps.createSegment.outputs.segmentId
+    refreshJobId: $steps.refreshSegment.outputs.jobId
+    name: $steps.getSegment.outputs.name

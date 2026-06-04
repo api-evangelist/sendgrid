@@ -1,0 +1,77 @@
+arazzo: 1.0.1
+info:
+  title: SendGrid Global Suppress and Check
+  summary: Add an address to the global suppression list and read it back to confirm.
+  description: >-
+    A minimal compliance flow for the account-wide do-not-send list. The
+    workflow adds one or more email addresses to the global suppression group so
+    SendGrid stops delivering all mail to them, then reads a specific address
+    back to confirm it is now globally suppressed. The add returns 201 and the
+    read returns 200. Each step inlines its request and bearer token so the flow
+    is self-contained.
+  version: 1.0.0
+sourceDescriptions:
+- name: suppressionsApi
+  url: ../openapi/tsg_suppressions_v3.yaml
+  type: openapi
+workflows:
+- workflowId: global-suppress-and-check
+  summary: Globally suppress addresses and confirm one is suppressed.
+  description: >-
+    Adds email addresses to the global suppression list and reads one back to
+    confirm it is suppressed.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - emails
+    - confirmEmail
+    properties:
+      apiKey:
+        type: string
+        description: SendGrid API key sent as a bearer token.
+      emails:
+        type: array
+        description: Email addresses to add to the global suppression list.
+        items:
+          type: string
+      confirmEmail:
+        type: string
+        description: The email address to read back and confirm is suppressed.
+  steps:
+  - stepId: addGlobalSuppression
+    description: >-
+      Add the supplied email addresses to the account's global suppression
+      group so SendGrid stops delivering all mail to them.
+    operationId: CreateGlobalSuppression
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    requestBody:
+      contentType: application/json
+      payload:
+        recipient_emails: $inputs.emails
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      recipientEmails: $response.body#/recipient_emails
+  - stepId: getGlobalSuppression
+    description: >-
+      Read a specific address back from the global suppression list to confirm
+      it is now suppressed.
+    operationId: GetGlobalSuppression
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: email
+      in: path
+      value: $inputs.confirmEmail
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      suppression: $response.body
+  outputs:
+    suppressedEmails: $steps.addGlobalSuppression.outputs.recipientEmails
+    confirmed: $steps.getGlobalSuppression.outputs.suppression

@@ -1,0 +1,126 @@
+arazzo: 1.0.1
+info:
+  title: SendGrid Create Sender and Resend Verification
+  summary: Create a Marketing Campaigns sender and resend its verification when not auto-verified.
+  description: >-
+    Creates a Marketing Campaigns Sender identity and branches on whether it was
+    auto-verified. When a sender's domain is already authenticated SendGrid
+    auto-verifies the new sender on creation; otherwise a verification email is
+    sent. This workflow creates the sender (201) and, when it is not yet
+    verified, resends the verification email (204) so the recipient can complete
+    the process. When the sender is already verified the flow ends. Each step
+    inlines its request and bearer token so the flow can be run without the
+    OpenAPI files.
+  version: 1.0.0
+sourceDescriptions:
+- name: sendersApi
+  url: ../openapi/tsg_mc_senders_v3.yaml
+  type: openapi
+workflows:
+- workflowId: create-sender-and-resend-verification
+  summary: Create a sender and resend verification when not auto-verified.
+  description: >-
+    Creates a Marketing Campaigns sender and branches: when it is not verified,
+    resends the verification email.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - nickname
+    - fromEmail
+    - fromName
+    - replyToEmail
+    - replyToName
+    - address
+    - city
+    - country
+    properties:
+      apiKey:
+        type: string
+        description: SendGrid API key sent as a bearer token.
+      nickname:
+        type: string
+        description: A nickname for the sender (not used for sending).
+      fromEmail:
+        type: string
+        description: The from email address.
+      fromName:
+        type: string
+        description: The from name shown on sent mail.
+      replyToEmail:
+        type: string
+        description: The reply-to email address.
+      replyToName:
+        type: string
+        description: The reply-to name.
+      address:
+        type: string
+        description: The physical address of the sender.
+      city:
+        type: string
+        description: The city of the sender.
+      country:
+        type: string
+        description: The country of the sender.
+  steps:
+  - stepId: createSender
+    description: >-
+      Create a Marketing Campaigns sender. A sender on an authenticated domain
+      is auto-verified; otherwise a verification email is sent.
+    operationId: CreateSender
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    requestBody:
+      contentType: application/json
+      payload:
+        nickname: $inputs.nickname
+        from:
+          email: $inputs.fromEmail
+          name: $inputs.fromName
+        reply_to:
+          email: $inputs.replyToEmail
+          name: $inputs.replyToName
+        address: $inputs.address
+        city: $inputs.city
+        country: $inputs.country
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      senderId: $response.body#/id
+      verified: $response.body#/verified
+    onSuccess:
+    - name: notVerified
+      type: goto
+      stepId: resendVerification
+      criteria:
+      - context: $response.body
+        condition: $.verified == false
+        type: jsonpath
+    - name: alreadyVerified
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.verified == true
+        type: jsonpath
+  - stepId: resendVerification
+    description: >-
+      Resend the verification email for the new sender so the recipient can
+      complete verification.
+    operationId: ResetSenderVerification
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: id
+      in: path
+      value: $steps.createSender.outputs.senderId
+    successCriteria:
+    - condition: $statusCode == 204
+    outputs:
+      statusCode: $statusCode
+  outputs:
+    senderId: $steps.createSender.outputs.senderId
+    verified: $steps.createSender.outputs.verified
+    resendStatus: $steps.resendVerification.outputs.statusCode

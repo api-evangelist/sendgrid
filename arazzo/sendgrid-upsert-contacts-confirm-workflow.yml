@@ -1,0 +1,86 @@
+arazzo: 1.0.1
+info:
+  title: SendGrid Upsert Contacts and Confirm
+  summary: Upsert contacts asynchronously and branch on whether they can be confirmed yet.
+  description: >-
+    SendGrid's contact upsert endpoint is asynchronous, so a successful call
+    returns a 202 with a job_id rather than the finished contact records. This
+    workflow upserts a batch of contacts and then immediately attempts to
+    confirm them with the Get Contacts by Identifiers endpoint, branching on
+    whether the contacts have already been processed (200) or were not yet found
+    so the caller can decide to poll again later. Each step inlines its request,
+    including the bearer token, so the flow is self-describing.
+  version: 1.0.0
+sourceDescriptions:
+- name: contactsApi
+  url: ../openapi/tsg_mc_contacts_v3.yaml
+  type: openapi
+workflows:
+- workflowId: upsert-contacts-and-confirm
+  summary: Upsert a batch of contacts then confirm them by identifier.
+  description: >-
+    Performs an asynchronous contact upsert and attempts an immediate
+    confirmation by email identifiers, branching on the lookup result.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - contacts
+    - identifiers
+    properties:
+      apiKey:
+        type: string
+        description: SendGrid API key sent as a bearer token.
+      contacts:
+        type: array
+        description: Array of contact objects to upsert.
+        items:
+          type: object
+      identifiers:
+        type: array
+        description: Email identifier values to confirm after the upsert.
+        items:
+          type: string
+  steps:
+  - stepId: upsertContacts
+    description: >-
+      Upsert the supplied contacts. The request is queued and returns a 202
+      with a job_id that can be used to check import status.
+    operationId: UpdateContact
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    requestBody:
+      contentType: application/json
+      payload:
+        contacts: $inputs.contacts
+    successCriteria:
+    - condition: $statusCode == 202
+    outputs:
+      jobId: $response.body#/job_id
+  - stepId: confirmContacts
+    description: >-
+      Attempt to confirm the upserted contacts by their email identifiers.
+      Branches on whether the contacts were found.
+    operationId: GetContactByIdentifiers
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    requestBody:
+      contentType: application/json
+      payload:
+        identifiers: $inputs.identifiers
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      result: $response.body#/result
+    onSuccess:
+    - name: confirmed
+      type: end
+      criteria:
+      - condition: $statusCode == 200
+  outputs:
+    jobId: $steps.upsertContacts.outputs.jobId
+    result: $steps.confirmContacts.outputs.result

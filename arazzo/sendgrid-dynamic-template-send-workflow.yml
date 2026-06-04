@@ -1,0 +1,131 @@
+arazzo: 1.0.1
+info:
+  title: SendGrid Dynamic Template Send
+  summary: Create a dynamic transactional template, add a version, and send mail using it.
+  description: >-
+    The canonical dynamic email flow. The workflow creates a dynamic
+    transactional template, adds an active version containing the subject and
+    Handlebars HTML content, and then sends a message through the Mail Send
+    endpoint referencing the new template by its d- prefixed ID and supplying
+    per-recipient dynamic_template_data. Template and version creation return
+    201; a successful mail send is accepted asynchronously and returns 202.
+    Every step inlines its request and bearer token so the flow is fully
+    self-describing.
+  version: 1.0.0
+sourceDescriptions:
+- name: templatesApi
+  url: ../openapi/tsg_templates_v3.yaml
+  type: openapi
+- name: mailApi
+  url: ../openapi/tsg_mail_v3.yaml
+  type: openapi
+workflows:
+- workflowId: dynamic-template-send
+  summary: Create a dynamic template and version, then send mail using it.
+  description: >-
+    Creates a dynamic transactional template, adds an active version with
+    subject and HTML content, and sends a templated email with dynamic data.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - templateName
+    - versionName
+    - subject
+    - htmlContent
+    - fromEmail
+    - toEmail
+    - dynamicTemplateData
+    properties:
+      apiKey:
+        type: string
+        description: SendGrid API key sent as a bearer token.
+      templateName:
+        type: string
+        description: The name for the new dynamic template.
+      versionName:
+        type: string
+        description: The name for the template version.
+      subject:
+        type: string
+        description: The subject line for the template version.
+      htmlContent:
+        type: string
+        description: The Handlebars HTML content for the template version.
+      fromEmail:
+        type: string
+        description: The verified sender email address messages are sent from.
+      toEmail:
+        type: string
+        description: The recipient email address.
+      dynamicTemplateData:
+        type: object
+        description: Key/value data substituted into the dynamic template.
+  steps:
+  - stepId: createTemplate
+    description: Create a new dynamic transactional template.
+    operationId: CreateTemplate
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.templateName
+        generation: dynamic
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      templateId: $response.body#/id
+  - stepId: createVersion
+    description: >-
+      Add an active version to the template carrying the subject and HTML
+      content that will be rendered when the template is sent.
+    operationId: CreateTemplateVersion
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: template_id
+      in: path
+      value: $steps.createTemplate.outputs.templateId
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.versionName
+        subject: $inputs.subject
+        html_content: $inputs.htmlContent
+        active: 1
+        generate_plain_content: true
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      versionId: $response.body#/id
+  - stepId: sendMail
+    description: >-
+      Send a message that renders the new template, passing per-recipient
+      dynamic_template_data. A successful send is accepted with a 202 status.
+    operationId: SendMail
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    requestBody:
+      contentType: application/json
+      payload:
+        from:
+          email: $inputs.fromEmail
+        personalizations:
+        - to:
+          - email: $inputs.toEmail
+          dynamic_template_data: $inputs.dynamicTemplateData
+        template_id: $steps.createTemplate.outputs.templateId
+    successCriteria:
+    - condition: $statusCode == 202
+    outputs:
+      statusCode: $statusCode
+  outputs:
+    templateId: $steps.createTemplate.outputs.templateId
+    versionId: $steps.createVersion.outputs.versionId
+    sendStatus: $steps.sendMail.outputs.statusCode

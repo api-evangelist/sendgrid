@@ -1,0 +1,112 @@
+arazzo: 1.0.1
+info:
+  title: SendGrid Design to Single Send
+  summary: Create a reusable design, create a recipient list, and build a Single Send that uses both.
+  description: >-
+    Builds a marketing campaign from reusable building blocks. The workflow
+    creates a Design in the Design Library from HTML content, creates a
+    recipient contacts list, and then creates a Single Send draft that
+    references the design by its design_id and targets the new list. Each create
+    returns a 201. The Single Send is left as a draft so it can be reviewed or
+    scheduled separately. Every step inlines its request and bearer token so the
+    flow is self-describing.
+  version: 1.0.0
+sourceDescriptions:
+- name: designsApi
+  url: ../openapi/tsg_mc_designs_v3.yaml
+  type: openapi
+- name: listsApi
+  url: ../openapi/tsg_mc_lists_v3.yaml
+  type: openapi
+- name: singleSendsApi
+  url: ../openapi/tsg_mc_singlesends_v3.yaml
+  type: openapi
+workflows:
+- workflowId: design-to-single-send
+  summary: Create a design and list, then create a Single Send draft using both.
+  description: >-
+    Creates a design from HTML, creates a recipient list, and creates a Single
+    Send draft referencing the design and targeting the list.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - designName
+    - htmlContent
+    - listName
+    - singleSendName
+    properties:
+      apiKey:
+        type: string
+        description: SendGrid API key sent as a bearer token.
+      designName:
+        type: string
+        description: The name for the new design.
+      htmlContent:
+        type: string
+        description: The HTML content of the design.
+      listName:
+        type: string
+        description: The name for the new recipient list.
+      singleSendName:
+        type: string
+        description: The name for the new Single Send.
+  steps:
+  - stepId: createDesign
+    description: Create a reusable design in the Design Library from HTML content.
+    operationId: CreateDesign
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.designName
+        html_content: $inputs.htmlContent
+        editor: code
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      designId: $response.body#/id
+  - stepId: createList
+    description: Create the recipient contacts list the Single Send will target.
+    operationId: CreateMarketingList
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.listName
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      listId: $response.body#/id
+  - stepId: createSingleSend
+    description: >-
+      Create a Single Send draft that renders the new design and targets the new
+      list. The Single Send remains an unscheduled draft.
+    operationId: CreateSingleSend
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.singleSendName
+        send_to:
+          list_ids:
+          - $steps.createList.outputs.listId
+        email_config:
+          design_id: $steps.createDesign.outputs.designId
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      singleSendId: $response.body#/id
+  outputs:
+    designId: $steps.createDesign.outputs.designId
+    listId: $steps.createList.outputs.listId
+    singleSendId: $steps.createSingleSend.outputs.singleSendId

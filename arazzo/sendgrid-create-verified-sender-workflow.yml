@@ -1,0 +1,114 @@
+arazzo: 1.0.1
+info:
+  title: SendGrid Create Verified Sender
+  summary: Create a Single Sender identity and check whether sender verification has completed.
+  description: >-
+    Begins Single Sender Verification, which is required before an identity can
+    send mail. The workflow creates a verified sender request, which triggers a
+    confirmation email to the from_email address, and then checks the account's
+    completed verification steps, branching on whether sender verification has
+    finished. The create returns 201 and the steps check returns 200. Because
+    final verification requires the recipient to click the emailed link, the
+    flow surfaces the current state rather than blocking on it. Each step inlines
+    its request and bearer token so the flow is self-describing.
+  version: 1.0.0
+sourceDescriptions:
+- name: verifiedSendersApi
+  url: ../openapi/tsg_verified_senders_v3.yaml
+  type: openapi
+workflows:
+- workflowId: create-verified-sender
+  summary: Create a Single Sender identity and report verification status.
+  description: >-
+    Creates a verified sender request and checks the account's completed
+    verification steps, branching on whether sender verification is done.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - nickname
+    - fromEmail
+    - fromName
+    - replyTo
+    - address
+    - city
+    - country
+    properties:
+      apiKey:
+        type: string
+        description: SendGrid API key sent as a bearer token.
+      nickname:
+        type: string
+        description: A nickname for the sender identity.
+      fromEmail:
+        type: string
+        description: The from email address to verify.
+      fromName:
+        type: string
+        description: The from name shown on sent mail.
+      replyTo:
+        type: string
+        description: The reply-to email address.
+      address:
+        type: string
+        description: The physical mailing address of the sender.
+      city:
+        type: string
+        description: The city of the sender.
+      country:
+        type: string
+        description: The country of the sender.
+  steps:
+  - stepId: createVerifiedSender
+    description: >-
+      Create the verified sender request, which sends a confirmation email to
+      the from_email address.
+    operationId: CreateVerifiedSender
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    requestBody:
+      contentType: application/json
+      payload:
+        nickname: $inputs.nickname
+        from_email: $inputs.fromEmail
+        from_name: $inputs.fromName
+        reply_to: $inputs.replyTo
+        address: $inputs.address
+        city: $inputs.city
+        country: $inputs.country
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      senderId: $response.body#/id
+      verified: $response.body#/verified
+  - stepId: checkSteps
+    description: >-
+      Check the account's completed verification steps and branch on whether
+      sender verification has finished.
+    operationId: ListVerifiedSenderStepsCompleted
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      senderVerified: $response.body#/results/sender_verified
+    onSuccess:
+    - name: senderVerified
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.results.sender_verified == true
+        type: jsonpath
+    - name: pendingVerification
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.results.sender_verified == false
+        type: jsonpath
+  outputs:
+    senderId: $steps.createVerifiedSender.outputs.senderId
+    senderVerified: $steps.checkSteps.outputs.senderVerified
