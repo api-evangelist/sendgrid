@@ -1,0 +1,1059 @@
+# SendGrid Conceptual GraphQL Schema
+#
+# SendGrid is a REST-only platform. This schema is a conceptual translation
+# of SendGrid's email data model into GraphQL SDL, derived from the official
+# REST API reference at https://docs.sendgrid.com/api-reference.
+#
+# Types covered:
+#   Email, EmailMessage, Template, DynamicTemplate, Contact, List, Segment,
+#   Suppression, SpamReport, UnsubscribeGroup, ApiKey, Category, SubUser,
+#   IpAddress, IpPool, DomainAuth, BrandedLink, Stats, GlobalStats,
+#   CategoryStats, TemplateStats, WebhookEvent, BatchId, Scheduled,
+#   SenderAuth, SingleSend, AutomationEmail
+
+# ---------------------------------------------------------------------------
+# Scalars
+# ---------------------------------------------------------------------------
+
+scalar DateTime
+scalar JSON
+
+# ---------------------------------------------------------------------------
+# Enums
+# ---------------------------------------------------------------------------
+
+enum EmailStatus {
+  PROCESSED
+  DROPPED
+  DELIVERED
+  DEFERRED
+  BOUNCE
+  BLOCKED
+  SPAM_REPORT
+  UNSUBSCRIBE
+  GROUP_UNSUBSCRIBE
+  GROUP_RESUBSCRIBE
+  OPEN
+  CLICK
+}
+
+enum TemplateGeneration {
+  LEGACY
+  DYNAMIC
+}
+
+enum TemplateVersionEditor {
+  CODE
+  DESIGN
+}
+
+enum SegmentStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum SuppressionType {
+  BOUNCE
+  BLOCK
+  SPAM_REPORT
+  INVALID_EMAIL
+  UNSUBSCRIBE
+}
+
+enum ApiKeyScope {
+  MAIL_SEND
+  ALERTS_READ
+  ALERTS_WRITE
+  STATS_READ
+  TEMPLATES_READ
+  TEMPLATES_WRITE
+  MARKETING_CAMPAIGNS_READ
+  MARKETING_CAMPAIGNS_WRITE
+  SUPPRESSIONS_READ
+  SUPPRESSIONS_WRITE
+  CONTACTS_READ
+  CONTACTS_WRITE
+  API_KEYS_READ
+  API_KEYS_WRITE
+  SUBUSERS_READ
+  SUBUSERS_WRITE
+  IP_MANAGEMENT_READ
+  IP_MANAGEMENT_WRITE
+  DOMAIN_AUTH_READ
+  DOMAIN_AUTH_WRITE
+  WEBHOOK_READ
+  WEBHOOK_WRITE
+}
+
+enum SingleSendStatus {
+  DRAFT
+  SCHEDULED
+  TRIGGERED
+  CANCELED
+  DONE
+}
+
+enum AutomationStatus {
+  DRAFT
+  ACTIVE
+  PAUSED
+}
+
+enum WebhookEventType {
+  PROCESSED
+  DROPPED
+  DELIVERED
+  DEFERRED
+  BOUNCE
+  BLOCKED
+  SPAM_REPORT
+  UNSUBSCRIBE
+  GROUP_UNSUBSCRIBE
+  GROUP_RESUBSCRIBE
+  OPEN
+  CLICK
+}
+
+enum IpWarmupStatus {
+  WARMING
+  WARMED
+}
+
+enum DomainAuthStatus {
+  VALID
+  INVALID
+  PENDING
+}
+
+# ---------------------------------------------------------------------------
+# Core Email Types
+# ---------------------------------------------------------------------------
+
+type Email {
+  id: ID!
+  messageId: String
+  from: EmailAddress!
+  to: [EmailAddress!]!
+  cc: [EmailAddress!]
+  bcc: [EmailAddress!]
+  subject: String!
+  content: [EmailContent!]
+  attachments: [EmailAttachment!]
+  templateId: String
+  dynamicTemplateData: JSON
+  categories: [String!]
+  customArgs: JSON
+  headers: JSON
+  sendAt: Int
+  batchId: String
+  ipPoolName: String
+  mailSettings: MailSettings
+  trackingSettings: TrackingSettings
+  status: EmailStatus
+  createdAt: DateTime
+}
+
+type EmailAddress {
+  email: String!
+  name: String
+}
+
+type EmailContent {
+  type: String!
+  value: String!
+}
+
+type EmailAttachment {
+  content: String!
+  type: String
+  filename: String!
+  disposition: String
+  contentId: String
+}
+
+type MailSettings {
+  bypassListManagement: BypassSetting
+  bypassSpamManagement: BypassSetting
+  bypassBounceManagement: BypassSetting
+  bypassUnsubscribeManagement: BypassSetting
+  footer: FooterSetting
+  sandboxMode: BypassSetting
+}
+
+type BypassSetting {
+  enable: Boolean
+}
+
+type FooterSetting {
+  enable: Boolean
+  text: String
+  html: String
+}
+
+type TrackingSettings {
+  clickTracking: ClickTrackingSetting
+  openTracking: OpenTrackingSetting
+  subscriptionTracking: SubscriptionTrackingSetting
+  ganalytics: GanalyticsSetting
+}
+
+type ClickTrackingSetting {
+  enable: Boolean
+  enableText: Boolean
+}
+
+type OpenTrackingSetting {
+  enable: Boolean
+  substitutionTag: String
+}
+
+type SubscriptionTrackingSetting {
+  enable: Boolean
+  text: String
+  html: String
+  substitutionTag: String
+}
+
+type GanalyticsSetting {
+  enable: Boolean
+  utmSource: String
+  utmMedium: String
+  utmTerm: String
+  utmContent: String
+  utmCampaign: String
+}
+
+# EmailMessage represents an email activity log entry
+type EmailMessage {
+  msgId: String!
+  fromEmail: String!
+  subject: String
+  toEmail: String!
+  status: EmailStatus!
+  clicksCount: Int
+  opensCount: Int
+  lastEventTime: DateTime
+  templateId: String
+  categories: [String!]
+  asmGroupId: Int
+  nicerType: String
+  outboundIp: String
+  outboundIpType: String
+}
+
+# ---------------------------------------------------------------------------
+# Template Types
+# ---------------------------------------------------------------------------
+
+type Template {
+  id: ID!
+  name: String!
+  generation: TemplateGeneration!
+  updatedAt: DateTime
+  versions: [TemplateVersion!]
+}
+
+type TemplateVersion {
+  id: ID!
+  templateId: String!
+  active: Int
+  name: String!
+  htmlContent: String
+  plainContent: String
+  generatePlainContent: Boolean
+  subject: String
+  editor: TemplateVersionEditor
+  thumbnailUrl: String
+  updatedAt: DateTime
+}
+
+type DynamicTemplate {
+  id: ID!
+  name: String!
+  generation: TemplateGeneration!
+  updatedAt: DateTime
+  versions: [DynamicTemplateVersion!]
+}
+
+type DynamicTemplateVersion {
+  id: ID!
+  templateId: String!
+  active: Int
+  name: String!
+  htmlContent: String
+  plainContent: String
+  generatePlainContent: Boolean
+  subject: String
+  editor: TemplateVersionEditor
+  testData: JSON
+  thumbnailUrl: String
+  updatedAt: DateTime
+}
+
+type TemplateStats {
+  date: String!
+  stats: [TemplateStatEntry!]
+}
+
+type TemplateStatEntry {
+  templateId: String!
+  templateName: String
+  statsType: String
+  metrics: StatMetrics!
+}
+
+# ---------------------------------------------------------------------------
+# Contact & List Types
+# ---------------------------------------------------------------------------
+
+type Contact {
+  id: ID!
+  email: String!
+  firstName: String
+  lastName: String
+  alternateEmails: [String!]
+  addressLine1: String
+  addressLine2: String
+  city: String
+  stateProvinceRegion: String
+  postalCode: String
+  country: String
+  phoneNumber: String
+  whatsapp: String
+  line: String
+  facebook: String
+  uniqueName: String
+  customFields: JSON
+  listIds: [String!]
+  segmentIds: [String!]
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type ContactList {
+  id: ID!
+  name: String!
+  contactCount: Int
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type Segment {
+  id: ID!
+  name: String!
+  parentListIds: [String!]
+  queryDsl: String
+  contactsCount: Int
+  status: SegmentStatus
+  nextSampleUpdateAt: DateTime
+  lastUpdatedAt: DateTime
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type CustomField {
+  id: ID!
+  name: String!
+  fieldType: String!
+}
+
+# ---------------------------------------------------------------------------
+# Suppression Types
+# ---------------------------------------------------------------------------
+
+type Suppression {
+  email: String!
+  created: Int
+  reason: String
+  type: SuppressionType
+}
+
+type SpamReport {
+  email: String!
+  created: Int!
+  ip: String
+}
+
+type UnsubscribeGroup {
+  id: ID!
+  name: String!
+  description: String!
+  unsubscribesCount: Int
+  isDefault: Boolean
+  lastEmailSentAt: Int
+}
+
+type GlobalSuppression {
+  email: String!
+  created: Int
+}
+
+type Bounce {
+  email: String!
+  created: Int!
+  reason: String
+  status: String
+}
+
+type Block {
+  email: String!
+  created: Int!
+  reason: String
+  status: String
+}
+
+type InvalidEmail {
+  email: String!
+  created: Int!
+  reason: String
+}
+
+# ---------------------------------------------------------------------------
+# Authentication & Security Types
+# ---------------------------------------------------------------------------
+
+type ApiKey {
+  apiKeyId: String!
+  name: String!
+  scopes: [ApiKeyScope!]
+  apiKey: String
+  createdAt: DateTime
+}
+
+type DomainAuth {
+  id: ID!
+  domain: String!
+  subdomain: String
+  username: String
+  userId: Int
+  ips: [String!]
+  customSpf: Boolean
+  isDefault: Boolean
+  legacy: Boolean
+  automaticSecurity: Boolean
+  valid: Boolean
+  dns: DomainAuthDns
+}
+
+type DomainAuthDns {
+  mailCname: DnsRecord
+  dkim1: DnsRecord
+  dkim2: DnsRecord
+}
+
+type DnsRecord {
+  valid: Boolean
+  type: String
+  host: String
+  data: String
+}
+
+type BrandedLink {
+  id: ID!
+  domain: String!
+  subdomain: String
+  username: String
+  userId: Int
+  valid: Boolean
+  default: Boolean
+  dns: BrandedLinkDns
+}
+
+type BrandedLinkDns {
+  domainCname: DnsRecord
+  ownerCname: DnsRecord
+}
+
+type SenderAuth {
+  id: ID!
+  nickname: String!
+  from: EmailAddress!
+  replyTo: EmailAddress
+  address: String
+  address2: String
+  city: String
+  state: String
+  zip: String
+  country: String
+  verified: Boolean
+  locked: Boolean
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+# ---------------------------------------------------------------------------
+# IP Address Types
+# ---------------------------------------------------------------------------
+
+type IpAddress {
+  ip: String!
+  subusers: [String!]
+  rdns: String
+  pools: [String!]
+  warmup: Boolean
+  startDate: Int
+  whitelabeled: Boolean
+  assignedAt: Int
+}
+
+type IpPool {
+  name: String!
+  ips: [String!]
+}
+
+type IpWarmup {
+  ip: String!
+  startDate: Int!
+  status: IpWarmupStatus
+}
+
+# ---------------------------------------------------------------------------
+# Statistics Types
+# ---------------------------------------------------------------------------
+
+type Stats {
+  date: String!
+  stats: [StatEntry!]
+}
+
+type StatEntry {
+  type: String
+  name: String
+  metrics: StatMetrics!
+}
+
+type StatMetrics {
+  blocks: Int
+  bounceDrops: Int
+  bounces: Int
+  clicks: Int
+  deferred: Int
+  delivered: Int
+  invalidEmails: Int
+  opens: Int
+  processed: Int
+  requests: Int
+  spamReportDrops: Int
+  spamReports: Int
+  uniqueClicks: Int
+  uniqueOpens: Int
+  unsubscribeDrops: Int
+  unsubscribes: Int
+}
+
+type GlobalStats {
+  date: String!
+  stats: [StatEntry!]
+}
+
+type CategoryStats {
+  date: String!
+  stats: [StatEntry!]
+}
+
+# ---------------------------------------------------------------------------
+# Subuser Types
+# ---------------------------------------------------------------------------
+
+type SubUser {
+  id: Int!
+  username: String!
+  email: String!
+  disabled: Boolean!
+  ips: [String!]
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+# ---------------------------------------------------------------------------
+# Category Types
+# ---------------------------------------------------------------------------
+
+type Category {
+  category: String!
+}
+
+# ---------------------------------------------------------------------------
+# Webhook Types
+# ---------------------------------------------------------------------------
+
+type WebhookEvent {
+  email: String!
+  event: WebhookEventType!
+  timestamp: Int!
+  sgEventId: String
+  sgMessageId: String
+  ip: String
+  url: String
+  useragent: String
+  response: String
+  reason: String
+  status: String
+  asmGroupId: Int
+  category: [String!]
+  customArgs: JSON
+}
+
+type WebhookSettings {
+  enabled: Boolean!
+  url: String!
+  groupResubscribe: Boolean
+  delivered: Boolean
+  groupUnsubscribe: Boolean
+  spamReport: Boolean
+  bounce: Boolean
+  deferred: Boolean
+  unsubscribe: Boolean
+  processed: Boolean
+  open: Boolean
+  click: Boolean
+  dropped: Boolean
+  oauthClientId: String
+  oauthTokenUrl: String
+}
+
+type ParseWebhookSettings {
+  hostname: String!
+  url: String!
+  spamCheck: Boolean
+  sendRaw: Boolean
+}
+
+# ---------------------------------------------------------------------------
+# Batch & Scheduled Send Types
+# ---------------------------------------------------------------------------
+
+type BatchId {
+  batchId: String!
+}
+
+type Scheduled {
+  batchId: String!
+  status: String!
+}
+
+# ---------------------------------------------------------------------------
+# Single Send Types (Marketing Campaigns)
+# ---------------------------------------------------------------------------
+
+type SingleSend {
+  id: ID!
+  name: String!
+  status: SingleSendStatus!
+  categories: [String!]
+  sendAt: DateTime
+  sendTo: SingleSendTarget
+  emailConfig: SingleSendEmailConfig
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type SingleSendTarget {
+  listIds: [String!]
+  segmentIds: [String!]
+  all: Boolean
+}
+
+type SingleSendEmailConfig {
+  subject: String
+  htmlContent: String
+  plainContent: String
+  generatePlainContent: Boolean
+  designId: String
+  editor: String
+  suppressionGroupId: Int
+  customUnsubscribeUrl: String
+  senderId: Int
+  ipPool: String
+}
+
+# ---------------------------------------------------------------------------
+# Automation Email Types
+# ---------------------------------------------------------------------------
+
+type AutomationEmail {
+  id: ID!
+  name: String!
+  status: AutomationStatus!
+  categories: [String!]
+  createdAt: DateTime
+  updatedAt: DateTime
+  steps: [AutomationStep!]
+}
+
+type AutomationStep {
+  id: ID!
+  automationId: String!
+  delay: AutomationDelay
+  emailConfig: SingleSendEmailConfig
+}
+
+type AutomationDelay {
+  delay: Int
+  unit: String
+}
+
+# ---------------------------------------------------------------------------
+# Engagement Quality
+# ---------------------------------------------------------------------------
+
+type EngagementQuality {
+  username: String!
+  score: Float
+  metrics: EngagementMetrics
+  periodStart: DateTime
+  periodEnd: DateTime
+}
+
+type EngagementMetrics {
+  bounceRate: Float
+  spamRate: Float
+  openRate: Float
+  clickRate: Float
+  unsubscribeRate: Float
+}
+
+# ---------------------------------------------------------------------------
+# Root Types
+# ---------------------------------------------------------------------------
+
+type Query {
+  # Email Activity
+  emailMessages(limit: Int, offset: Int, query: String): [EmailMessage!]
+  emailMessage(msgId: String!): EmailMessage
+
+  # Templates
+  templates(generations: [TemplateGeneration!], pageSize: Int): [Template!]
+  template(templateId: String!): Template
+  templateVersions(templateId: String!): [TemplateVersion!]
+
+  # Contacts
+  contacts(pageSize: Int, pageToken: String): [Contact!]
+  contact(id: ID!): Contact
+  searchContacts(query: String!): [Contact!]
+
+  # Lists
+  lists(pageSize: Int, pageToken: String): [ContactList!]
+  list(id: ID!): ContactList
+
+  # Segments
+  segments(noParentListId: Boolean): [Segment!]
+  segment(segmentId: String!): Segment
+
+  # Suppressions
+  globalSuppressions: [GlobalSuppression!]
+  bounces(startTime: Int, endTime: Int): [Bounce!]
+  blocks(startTime: Int, endTime: Int): [Block!]
+  spamReports(startTime: Int, endTime: Int): [SpamReport!]
+  invalidEmails(startTime: Int, endTime: Int): [InvalidEmail!]
+  unsubscribeGroups: [UnsubscribeGroup!]
+  unsubscribeGroup(id: ID!): UnsubscribeGroup
+
+  # API Keys
+  apiKeys: [ApiKey!]
+  apiKey(apiKeyId: String!): ApiKey
+
+  # IP Management
+  ipAddresses: [IpAddress!]
+  ipAddress(ip: String!): IpAddress
+  ipPools: [IpPool!]
+  ipPool(name: String!): IpPool
+  ipWarmup: [IpWarmup!]
+
+  # Domain Authentication
+  domainAuthentications: [DomainAuth!]
+  domainAuthentication(id: ID!): DomainAuth
+
+  # Branded Links
+  brandedLinks: [BrandedLink!]
+  brandedLink(id: ID!): BrandedLink
+
+  # Senders
+  senderAuthentications: [SenderAuth!]
+  senderAuthentication(id: ID!): SenderAuth
+
+  # Statistics
+  globalStats(startDate: String!, endDate: String, aggregatedBy: String): [GlobalStats!]
+  categoryStats(startDate: String!, endDate: String, categories: [String!], aggregatedBy: String): [CategoryStats!]
+  templateStats(startDate: String!, endDate: String, templateIds: [String!]): [TemplateStats!]
+
+  # Subusers
+  subusers(username: String, limit: Int, offset: Int): [SubUser!]
+  subuser(username: String!): SubUser
+
+  # Categories
+  categories(limit: Int, offset: Int, search: String): [Category!]
+
+  # Single Sends
+  singleSends(pageSize: Int, pageToken: String): [SingleSend!]
+  singleSend(id: ID!): SingleSend
+
+  # Automations
+  automations(pageSize: Int, pageToken: String): [AutomationEmail!]
+  automation(id: ID!): AutomationEmail
+
+  # Webhooks
+  eventWebhookSettings: WebhookSettings
+  parseWebhookSettings: [ParseWebhookSettings!]
+
+  # Scheduled Sends
+  scheduledSends: [Scheduled!]
+  scheduledSend(batchId: String!): Scheduled
+
+  # Engagement Quality
+  engagementQuality(username: String): EngagementQuality
+
+  # Custom Fields
+  customFields: [CustomField!]
+}
+
+type Mutation {
+  # Mail Send
+  sendEmail(input: SendEmailInput!): BatchId
+  createBatch: BatchId
+
+  # Templates
+  createTemplate(name: String!, generation: TemplateGeneration!): Template
+  updateTemplate(templateId: String!, name: String!): Template
+  deleteTemplate(templateId: String!): Boolean
+  createTemplateVersion(templateId: String!, input: TemplateVersionInput!): TemplateVersion
+  activateTemplateVersion(templateId: String!, versionId: String!): TemplateVersion
+  deleteTemplateVersion(templateId: String!, versionId: String!): Boolean
+
+  # Contacts
+  upsertContacts(contacts: [ContactInput!]!, listIds: [String!]): String
+  deleteContacts(ids: [String!], deleteAllContacts: Boolean): String
+
+  # Lists
+  createList(name: String!): ContactList
+  updateList(id: ID!, name: String!): ContactList
+  deleteList(id: ID!, deleteContacts: Boolean): Boolean
+
+  # Segments
+  createSegment(name: String!, parentListIds: [String!], queryDsl: String!): Segment
+  updateSegment(segmentId: String!, name: String, queryDsl: String): Segment
+  deleteSegment(segmentId: String!): Boolean
+  refreshSegment(segmentId: String!): Boolean
+
+  # Suppressions
+  addGlobalSuppression(emails: [String!]!): [String!]
+  deleteGlobalSuppression(email: String!): Boolean
+  deleteBounce(email: String!): Boolean
+  deleteBlock(email: String!): Boolean
+  deleteSpamReport(email: String!): Boolean
+  deleteInvalidEmail(email: String!): Boolean
+  createUnsubscribeGroup(name: String!, description: String!, isDefault: Boolean): UnsubscribeGroup
+  updateUnsubscribeGroup(id: ID!, name: String, description: String, isDefault: Boolean): UnsubscribeGroup
+  deleteUnsubscribeGroup(id: ID!): Boolean
+  addUnsubscribes(groupId: Int!, emails: [String!]!): Boolean
+
+  # API Keys
+  createApiKey(name: String!, scopes: [ApiKeyScope!]): ApiKey
+  updateApiKey(apiKeyId: String!, name: String, scopes: [ApiKeyScope!]): ApiKey
+  deleteApiKey(apiKeyId: String!): Boolean
+
+  # IP Pools
+  createIpPool(name: String!): IpPool
+  deleteIpPool(name: String!): Boolean
+  addIpToPool(name: String!, ip: String!): IpPool
+  removeIpFromPool(name: String!, ip: String!): Boolean
+
+  # Domain Authentication
+  authenticateDomain(domain: String!, subdomain: String, ips: [String!], customSpf: Boolean, automaticSecurity: Boolean, isDefault: Boolean): DomainAuth
+  validateDomainAuth(id: ID!): DomainAuth
+  deleteDomainAuth(id: ID!): Boolean
+
+  # Branded Links
+  createBrandedLink(domain: String!, subdomain: String, default: Boolean): BrandedLink
+  validateBrandedLink(id: ID!): BrandedLink
+  deleteBrandedLink(id: ID!): Boolean
+
+  # Senders
+  createSenderAuth(input: SenderAuthInput!): SenderAuth
+  updateSenderAuth(id: ID!, input: SenderAuthInput!): SenderAuth
+  deleteSenderAuth(id: ID!): Boolean
+  resendSenderVerification(id: ID!): Boolean
+
+  # Subusers
+  createSubUser(username: String!, email: String!, password: String!, ips: [String!]!): SubUser
+  updateSubUser(username: String!, disabled: Boolean): SubUser
+  deleteSubUser(username: String!): Boolean
+
+  # Single Sends
+  createSingleSend(input: SingleSendInput!): SingleSend
+  updateSingleSend(id: ID!, input: SingleSendInput!): SingleSend
+  deleteSingleSend(id: ID!): Boolean
+  scheduleSingleSend(id: ID!, sendAt: DateTime): SingleSend
+  cancelSingleSend(id: ID!): SingleSend
+  duplicateSingleSend(id: ID!, name: String): SingleSend
+
+  # Automations
+  createAutomation(input: AutomationInput!): AutomationEmail
+  updateAutomation(id: ID!, input: AutomationInput!): AutomationEmail
+  deleteAutomation(id: ID!): Boolean
+
+  # Webhook Settings
+  updateEventWebhookSettings(input: WebhookSettingsInput!): WebhookSettings
+  createParseWebhookSettings(hostname: String!, url: String!, spamCheck: Boolean, sendRaw: Boolean): ParseWebhookSettings
+  deleteParseWebhookSettings(hostname: String!): Boolean
+
+  # Scheduled Sends
+  cancelScheduledSend(batchId: String!): Scheduled
+  pauseScheduledSend(batchId: String!): Scheduled
+  deleteScheduledSend(batchId: String!): Boolean
+
+  # Custom Fields
+  createCustomField(name: String!, fieldType: String!): CustomField
+  deleteCustomField(id: ID!): Boolean
+}
+
+# ---------------------------------------------------------------------------
+# Input Types
+# ---------------------------------------------------------------------------
+
+input SendEmailInput {
+  from: EmailAddressInput!
+  to: [EmailAddressInput!]!
+  cc: [EmailAddressInput!]
+  bcc: [EmailAddressInput!]
+  subject: String
+  content: [EmailContentInput!]
+  attachments: [EmailAttachmentInput!]
+  templateId: String
+  dynamicTemplateData: JSON
+  categories: [String!]
+  customArgs: JSON
+  headers: JSON
+  sendAt: Int
+  batchId: String
+  ipPoolName: String
+  mailSettings: MailSettingsInput
+  trackingSettings: TrackingSettingsInput
+}
+
+input EmailAddressInput {
+  email: String!
+  name: String
+}
+
+input EmailContentInput {
+  type: String!
+  value: String!
+}
+
+input EmailAttachmentInput {
+  content: String!
+  type: String
+  filename: String!
+  disposition: String
+  contentId: String
+}
+
+input MailSettingsInput {
+  sandboxMode: Boolean
+  bypassListManagement: Boolean
+  footer: FooterSettingInput
+}
+
+input FooterSettingInput {
+  enable: Boolean
+  text: String
+  html: String
+}
+
+input TrackingSettingsInput {
+  clickTracking: Boolean
+  openTracking: Boolean
+}
+
+input TemplateVersionInput {
+  name: String!
+  subject: String
+  htmlContent: String
+  plainContent: String
+  generatePlainContent: Boolean
+  editor: TemplateVersionEditor
+  testData: JSON
+}
+
+input ContactInput {
+  email: String!
+  firstName: String
+  lastName: String
+  alternateEmails: [String!]
+  addressLine1: String
+  addressLine2: String
+  city: String
+  stateProvinceRegion: String
+  postalCode: String
+  country: String
+  phoneNumber: String
+  whatsapp: String
+  line: String
+  facebook: String
+  uniqueName: String
+  customFields: JSON
+}
+
+input SenderAuthInput {
+  nickname: String!
+  from: EmailAddressInput!
+  replyTo: EmailAddressInput
+  address: String
+  address2: String
+  city: String
+  state: String
+  zip: String
+  country: String
+}
+
+input SingleSendInput {
+  name: String!
+  categories: [String!]
+  sendAt: DateTime
+  sendTo: SingleSendTargetInput
+  emailConfig: SingleSendEmailConfigInput
+}
+
+input SingleSendTargetInput {
+  listIds: [String!]
+  segmentIds: [String!]
+  all: Boolean
+}
+
+input SingleSendEmailConfigInput {
+  subject: String
+  htmlContent: String
+  plainContent: String
+  generatePlainContent: Boolean
+  designId: String
+  editor: String
+  suppressionGroupId: Int
+  customUnsubscribeUrl: String
+  senderId: Int
+  ipPool: String
+}
+
+input AutomationInput {
+  name: String!
+  categories: [String!]
+  status: AutomationStatus
+}
+
+input WebhookSettingsInput {
+  enabled: Boolean!
+  url: String!
+  groupResubscribe: Boolean
+  delivered: Boolean
+  groupUnsubscribe: Boolean
+  spamReport: Boolean
+  bounce: Boolean
+  deferred: Boolean
+  unsubscribe: Boolean
+  processed: Boolean
+  open: Boolean
+  click: Boolean
+  dropped: Boolean
+  oauthClientId: String
+  oauthTokenUrl: String
+}
