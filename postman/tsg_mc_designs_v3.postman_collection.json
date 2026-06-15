@@ -1,0 +1,1750 @@
+{
+  "info": {
+    "_postman_id": "5037d3fa-2624-42d1-9258-1759b98dda05",
+    "name": "Twilio SendGrid Marketing Campaigns Designs",
+    "description": "The Twilio SendGrid Designs API offers the ability to manage assets stored in the Twilio SendGrid [Design Library](https://mc.sendgrid.com/design-library/my-designs).\n\nThe Design Library is a feature-rich email layout tool and media repository. You can [build designs for all your marketing email needs](https://sendgrid.com/docs/ui/sending-email/working-with-marketing-campaigns-email-designs/), including Single Sends and Automations.\n\nYou can also duplicate and then modify one of the pre-built designs provided by Twilio SendGrid to get you started.\n\nThe Designs API provides a REST-like interface for creating new designs, retrieving a list of existing designs, duplicating or updating a design, and deleting a design.\n\nContact Support:\n Name: Twilio SendGrid Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:17:30.000Z",
+    "updatedAt": "2026-06-05T15:17:30.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-5037d3fa-2624-42d1-9258-1759b98dda05"
+  },
+  "item": [
+    {
+      "name": "v3",
+      "item": [
+        {
+          "name": "designs",
+          "item": [
+            {
+              "name": "{id}",
+              "item": [
+                {
+                  "name": "Duplicate Design",
+                  "id": "c3dde014-e7dd-428b-8c4f-809603d7bf88",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"Duplicate: <original design name>\",\n  \"editor\": \"design\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/designs/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "designs",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "5d81525a-8068-4c06-9b5d-6c2a42cd87c8",
+                          "key": "id",
+                          "value": "<uuid>",
+                          "description": "(Required) The ID of the Design you want to duplicate."
+                        }
+                      ]
+                    },
+                    "description": "**This endpoint allows you to duplicate one of your existing designs**.\n\nModifying an existing design is often the easiest way to create something new.\n\nYou are not required to pass any data in the body of a request to this endpoint. If you choose to leave the `name` field blank, your duplicate will be assigned the name of the design it was copied from with the text \"Duplicate: \" prepended to it. This name change is only a convenience, as the duplicate will be assigned a unique ID that differentiates it from your other designs.\n\nYou can modify your duplicate\u2019s name at the time of creation by passing an updated value to the `name` field when making the initial request.\nMore on retrieving design IDs can be found below."
+                  },
+                  "response": [
+                    {
+                      "id": "9fddb74f-41e0-4f77-bd0c-03d190f9cc0c",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"Duplicate: <original design name>\",\n  \"editor\": \"design\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/designs/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "designs",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"html_content\": \"<string>\",\n  \"name\": \"Duplicate: <original design name>\",\n  \"editor\": \"code\",\n  \"plain_content\": \"<generated from html_content if left empty>\"\n}",
+                      "createdAt": "2026-06-05T15:17:30.000Z",
+                      "updatedAt": "2026-06-05T15:17:30.000Z",
+                      "uid": "35240-9fddb74f-41e0-4f77-bd0c-03d190f9cc0c"
+                    },
+                    {
+                      "id": "309883d8-b52a-4bc1-992c-c0feaf89ddc0",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"Duplicate: <original design name>\",\n  \"editor\": \"design\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/designs/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "designs",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"field\": \"<string>\",\n  \"error_id\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:17:30.000Z",
+                      "updatedAt": "2026-06-05T15:17:30.000Z",
+                      "uid": "35240-309883d8-b52a-4bc1-992c-c0feaf89ddc0"
+                    },
+                    {
+                      "id": "99c0d91b-99bd-470b-9afb-32613b1a46a8",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"Duplicate: <original design name>\",\n  \"editor\": \"design\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/designs/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "designs",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"error_id\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"error_id\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:17:30.000Z",
+                      "updatedAt": "2026-06-05T15:17:30.000Z",
+                      "uid": "35240-99c0d91b-99bd-470b-9afb-32613b1a46a8"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:17:30.000Z",
+                  "updatedAt": "2026-06-05T15:17:30.000Z",
+                  "uid": "35240-c3dde014-e7dd-428b-8c4f-809603d7bf88"
+                },
+                {
+                  "name": "Get Design",
+                  "id": "37bc0a16-7141-46a5-b3f0-b79b8f81f60e",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/designs/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "designs",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "289a635c-1944-46fd-a34f-2f04632e63ba",
+                          "key": "id",
+                          "value": "<uuid>",
+                          "description": "(Required) The ID of the Design you want to duplicate."
+                        }
+                      ]
+                    },
+                    "description": "**This endpoint allows you to retrieve a single design**.\n\nA GET request to `/designs/{id}` will retrieve details about a specific design in your Design Library.\n\nThis endpoint is valuable when retrieving information stored in a field that you wish to update using a PATCH request."
+                  },
+                  "response": [
+                    {
+                      "id": "02770a00-b175-44cf-bb1e-83359c7188e5",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/designs/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "designs",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"html_content\": \"<string>\",\n  \"name\": \"Duplicate: <original design name>\",\n  \"editor\": \"code\",\n  \"plain_content\": \"<generated from html_content if left empty>\"\n}",
+                      "createdAt": "2026-06-05T15:17:30.000Z",
+                      "updatedAt": "2026-06-05T15:17:30.000Z",
+                      "uid": "35240-02770a00-b175-44cf-bb1e-83359c7188e5"
+                    },
+                    {
+                      "id": "af6be18c-6cd9-40be-9dc3-c7552b5f285e",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/designs/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "designs",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"error_id\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"error_id\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:17:30.000Z",
+                      "updatedAt": "2026-06-05T15:17:30.000Z",
+                      "uid": "35240-af6be18c-6cd9-40be-9dc3-c7552b5f285e"
+                    },
+                    {
+                      "id": "e5bf0402-42cc-4adb-ab26-3a028aedccdd",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/designs/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "designs",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"error_id\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"error_id\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:17:30.000Z",
+                      "updatedAt": "2026-06-05T15:17:30.000Z",
+                      "uid": "35240-e5bf0402-42cc-4adb-ab26-3a028aedccdd"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:17:30.000Z",
+                  "updatedAt": "2026-06-05T15:17:30.000Z",
+                  "uid": "35240-37bc0a16-7141-46a5-b3f0-b79b8f81f60e"
+                },
+                {
+                  "name": "Update Design",
+                  "id": "f295ef57-28f2-4dae-ba95-bd79e025b2b7",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"My Design\",\n  \"html_content\": \"<string>\",\n  \"plain_content\": \"<generated from html_content if left empty>\",\n  \"generate_plain_content\": true,\n  \"subject\": \"<string>\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/designs/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "designs",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "b0a490ce-5b33-49bd-a63d-1ec346741313",
+                          "key": "id",
+                          "value": "<uuid>",
+                          "description": "(Required) The ID of the Design you want to duplicate."
+                        }
+                      ]
+                    },
+                    "description": "**This endpoint allows you to edit a design**.\n\nThe Design API supports PATCH requests, which allow you to make partial updates to a single design. Passing data to a specific field will update only the data stored in that field; all other fields will be unaltered.\n\nFor example, updating a design's name requires that you make a PATCH request to this endpoint with data specified for the `name` field only.\n\n```\n{\n    \"name\": \"<Updated Name>\"\n}\n```"
+                  },
+                  "response": [
+                    {
+                      "id": "5906147b-0ba4-49b6-a8a5-e16acd52ad27",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"My Design\",\n  \"html_content\": \"<string>\",\n  \"plain_content\": \"<generated from html_content if left empty>\",\n  \"generate_plain_content\": true,\n  \"subject\": \"<string>\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/designs/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "designs",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"html_content\": \"<string>\",\n  \"name\": \"Duplicate: <original design name>\",\n  \"editor\": \"code\",\n  \"plain_content\": \"<generated from html_content if left empty>\"\n}",
+                      "createdAt": "2026-06-05T15:17:30.000Z",
+                      "updatedAt": "2026-06-05T15:17:30.000Z",
+                      "uid": "35240-5906147b-0ba4-49b6-a8a5-e16acd52ad27"
+                    },
+                    {
+                      "id": "e883f5d8-b2b7-4100-8aa2-6a1c6ee180fa",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"My Design\",\n  \"html_content\": \"<string>\",\n  \"plain_content\": \"<generated from html_content if left empty>\",\n  \"generate_plain_content\": true,\n  \"subject\": \"<string>\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/designs/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "designs",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"error_id\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"error_id\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:17:30.000Z",
+                      "updatedAt": "2026-06-05T15:17:30.000Z",
+                      "uid": "35240-e883f5d8-b2b7-4100-8aa2-6a1c6ee180fa"
+                    },
+                    {
+                      "id": "b6abe1c7-a3d5-4c0a-b1bc-1c786beaf4fd",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"My Design\",\n  \"html_content\": \"<string>\",\n  \"plain_content\": \"<generated from html_content if left empty>\",\n  \"generate_plain_content\": true,\n  \"subject\": \"<string>\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/designs/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "designs",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"error_id\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"error_id\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:17:30.000Z",
+                      "updatedAt": "2026-06-05T15:17:30.000Z",
+                      "uid": "35240-b6abe1c7-a3d5-4c0a-b1bc-1c786beaf4fd"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:17:30.000Z",
+                  "updatedAt": "2026-06-05T15:17:30.000Z",
+                  "uid": "35240-f295ef57-28f2-4dae-ba95-bd79e025b2b7"
+                },
+                {
+                  "name": "Delete Design",
+                  "id": "9d9e964d-64f0-4cd8-bf76-9876413a49d1",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/designs/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "designs",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "867976b3-25fd-446f-a4f2-06664f928f74",
+                          "key": "id",
+                          "value": "<uuid>",
+                          "description": "(Required) The ID of the Design you want to duplicate."
+                        }
+                      ]
+                    },
+                    "description": "**This endpoint allows you to delete a single design**.\n\nBe sure to check the ID of the design you intend to delete before making this request; deleting a design is a permanent action."
+                  },
+                  "response": [
+                    {
+                      "id": "b4367d2d-d047-41cc-bbb4-91be8938a40b",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/designs/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "designs",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:17:30.000Z",
+                      "updatedAt": "2026-06-05T15:17:30.000Z",
+                      "uid": "35240-b4367d2d-d047-41cc-bbb4-91be8938a40b"
+                    },
+                    {
+                      "id": "fdf262a2-f406-44da-ada4-2bd9906e163a",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/designs/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "designs",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"error_id\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"error_id\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:17:30.000Z",
+                      "updatedAt": "2026-06-05T15:17:30.000Z",
+                      "uid": "35240-fdf262a2-f406-44da-ada4-2bd9906e163a"
+                    },
+                    {
+                      "id": "66440376-eeec-4071-9dda-7eb01d8e44dd",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/designs/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "designs",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"error_id\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"error_id\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:17:30.000Z",
+                      "updatedAt": "2026-06-05T15:17:30.000Z",
+                      "uid": "35240-66440376-eeec-4071-9dda-7eb01d8e44dd"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:17:30.000Z",
+                  "updatedAt": "2026-06-05T15:17:30.000Z",
+                  "uid": "35240-9d9e964d-64f0-4cd8-bf76-9876413a49d1"
+                }
+              ],
+              "id": "6ae0b21f-54a5-42fe-9011-ec58c3d77c0d",
+              "createdAt": "2026-06-05T15:17:30.000Z",
+              "updatedAt": "2026-06-05T15:17:30.000Z",
+              "uid": "35240-6ae0b21f-54a5-42fe-9011-ec58c3d77c0d"
+            },
+            {
+              "name": "pre-builts",
+              "item": [
+                {
+                  "name": "{id}",
+                  "item": [
+                    {
+                      "name": "Duplicate SendGrid Pre-built Design",
+                      "id": "ce06d1b1-23dc-417c-afcb-190f0ec03d76",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"Duplicate: <original design name>\",\n  \"editor\": \"design\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/designs/pre-builts/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "designs",
+                            "pre-builts",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "b43e4f74-59e0-42c2-8a94-032317c6f568",
+                              "key": "id",
+                              "value": "<uuid>",
+                              "description": "(Required) The ID of the pre-built Design you want to duplicate."
+                            }
+                          ]
+                        },
+                        "description": "**This endpoint allows you to duplicate one of the pre-built Twilio SendGrid designs**.\n\nLike duplicating one of your existing designs, you are not required to pass any data in the body of a request to this endpoint. If you choose to leave the `name` field blank, your duplicate will be assigned the name of the design it was copied from with the text \"Duplicate: \" prepended to it. This name change is only a convenience, as the duplicate design will be assigned a unique ID that differentiates it from your other designs. You can retrieve the IDs for Twilio SendGrid pre-built designs using the \"List SendGrid Pre-built Designs\" endpoint.\n\nYou can modify your duplicate\u2019s name at the time of creation by passing an updated value to the `name` field when making the initial request.\nMore on retrieving design IDs can be found above."
+                      },
+                      "response": [
+                        {
+                          "id": "5c84db14-d4fb-4669-bdab-8ffc4a2e4d7b",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"Duplicate: <original design name>\",\n  \"editor\": \"design\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/designs/pre-builts/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "designs",
+                                "pre-builts",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"html_content\": \"<string>\",\n  \"name\": \"Duplicate: <original design name>\",\n  \"editor\": \"code\",\n  \"plain_content\": \"<generated from html_content if left empty>\"\n}",
+                          "createdAt": "2026-06-05T15:17:30.000Z",
+                          "updatedAt": "2026-06-05T15:17:30.000Z",
+                          "uid": "35240-5c84db14-d4fb-4669-bdab-8ffc4a2e4d7b"
+                        },
+                        {
+                          "id": "22cc8493-ceb9-4081-bf47-949c5be47512",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"Duplicate: <original design name>\",\n  \"editor\": \"design\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/designs/pre-builts/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "designs",
+                                "pre-builts",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"error_id\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"error_id\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:17:30.000Z",
+                          "updatedAt": "2026-06-05T15:17:30.000Z",
+                          "uid": "35240-22cc8493-ceb9-4081-bf47-949c5be47512"
+                        },
+                        {
+                          "id": "03e0a60d-62be-4b7b-932a-8e953e133318",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"Duplicate: <original design name>\",\n  \"editor\": \"design\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/designs/pre-builts/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "designs",
+                                "pre-builts",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"error_id\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"error_id\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:17:30.000Z",
+                          "updatedAt": "2026-06-05T15:17:30.000Z",
+                          "uid": "35240-03e0a60d-62be-4b7b-932a-8e953e133318"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:17:30.000Z",
+                      "updatedAt": "2026-06-05T15:17:30.000Z",
+                      "uid": "35240-ce06d1b1-23dc-417c-afcb-190f0ec03d76"
+                    },
+                    {
+                      "name": "Get SendGrid Pre-built Design",
+                      "id": "70ad2ea1-ac2e-440d-a8bf-77fd2de87b1e",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/designs/pre-builts/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "designs",
+                            "pre-builts",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "771f582a-fefb-40ca-a16e-7940a09a5123",
+                              "key": "id",
+                              "value": "<uuid>",
+                              "description": "(Required) The ID of the pre-built Design you want to duplicate."
+                            }
+                          ]
+                        },
+                        "description": "**This endpoint allows you to retrieve a single pre-built design**.\n\nA GET request to `/designs/pre-builts/{id}` will retrieve details about a specific pre-built design.\n\nThis endpoint is valuable when retrieving details about a pre-built design that you wish to duplicate and modify."
+                      },
+                      "response": [
+                        {
+                          "id": "afe6a6fa-ac43-44af-bbf4-86f6e58b65c5",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/designs/pre-builts/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "designs",
+                                "pre-builts",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"html_content\": \"<string>\",\n  \"name\": \"Duplicate: <original design name>\",\n  \"editor\": \"code\",\n  \"plain_content\": \"<generated from html_content if left empty>\"\n}",
+                          "createdAt": "2026-06-05T15:17:30.000Z",
+                          "updatedAt": "2026-06-05T15:17:30.000Z",
+                          "uid": "35240-afe6a6fa-ac43-44af-bbf4-86f6e58b65c5"
+                        },
+                        {
+                          "id": "21b844c3-3b2c-47da-b213-c9252bcd8870",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/designs/pre-builts/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "designs",
+                                "pre-builts",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"error_id\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"error_id\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:17:30.000Z",
+                          "updatedAt": "2026-06-05T15:17:30.000Z",
+                          "uid": "35240-21b844c3-3b2c-47da-b213-c9252bcd8870"
+                        },
+                        {
+                          "id": "77dd6c52-97ef-401d-964c-1d536fac1096",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/designs/pre-builts/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "designs",
+                                "pre-builts",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"error_id\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"error_id\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:17:30.000Z",
+                          "updatedAt": "2026-06-05T15:17:30.000Z",
+                          "uid": "35240-77dd6c52-97ef-401d-964c-1d536fac1096"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:17:30.000Z",
+                      "updatedAt": "2026-06-05T15:17:30.000Z",
+                      "uid": "35240-70ad2ea1-ac2e-440d-a8bf-77fd2de87b1e"
+                    }
+                  ],
+                  "id": "fa3852f0-5310-4834-8c81-0349d9784504",
+                  "createdAt": "2026-06-05T15:17:30.000Z",
+                  "updatedAt": "2026-06-05T15:17:30.000Z",
+                  "uid": "35240-fa3852f0-5310-4834-8c81-0349d9784504"
+                },
+                {
+                  "name": "List SendGrid Pre-built Designs",
+                  "id": "9490b4af-ad4f-4fd5-b4c7-923fc4dab803",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/designs/pre-builts?page_size=100&page_token=<string>&summary=true",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "designs",
+                        "pre-builts"
+                      ],
+                      "query": [
+                        {
+                          "description": "number of results to return",
+                          "key": "page_size",
+                          "value": "100"
+                        },
+                        {
+                          "description": "token corresponding to a specific page of results, as provided by metadata",
+                          "key": "page_token",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "set to false to return all fields",
+                          "key": "summary",
+                          "value": "true"
+                        }
+                      ]
+                    },
+                    "description": "**This endpoint allows you to retrieve a list of pre-built designs provided by Twilio SendGrid**.\n\nUnlike the `/designs` endpoint where *your* designs are stored, a GET request made to `designs/pre-builts` will retrieve a list of the pre-built Twilio SendGrid designs. This endpoint will not return the designs stored in your Design Library.\n\nBy default, you will receive 100 results per request; however, you can modify the number of results returned by passing an integer to the `page_size` query parameter.\n\nThis endpoint is useful for retrieving the IDs of Twilio SendGrid designs that you want to duplicate and modify."
+                  },
+                  "response": [
+                    {
+                      "id": "199bf72d-a4fd-4e22-812b-acec6b79b524",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/designs/pre-builts?page_size=100&page_token=<string>&summary=true",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "designs",
+                            "pre-builts"
+                          ],
+                          "query": [
+                            {
+                              "description": "number of results to return",
+                              "key": "page_size",
+                              "value": "100"
+                            },
+                            {
+                              "description": "token corresponding to a specific page of results, as provided by metadata",
+                              "key": "page_token",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "set to false to return all fields",
+                              "key": "summary",
+                              "value": "true"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"result\": [\n    {\n      \"id\": \"<uuid>\",\n      \"updated_at\": \"<string>\",\n      \"created_at\": \"<string>\",\n      \"thumbnail_url\": \"<string>\",\n      \"name\": \"Duplicate: <original design name>\",\n      \"editor\": \"code\"\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"updated_at\": \"<string>\",\n      \"created_at\": \"<string>\",\n      \"thumbnail_url\": \"<string>\",\n      \"name\": \"Duplicate: <original design name>\",\n      \"editor\": \"code\"\n    }\n  ],\n  \"_metadata\": {\n    \"prev\": \"<uri>\",\n    \"self\": \"<uri>\",\n    \"next\": \"<uri>\",\n    \"count\": \"<integer>\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:17:30.000Z",
+                      "updatedAt": "2026-06-05T15:17:30.000Z",
+                      "uid": "35240-199bf72d-a4fd-4e22-812b-acec6b79b524"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:17:30.000Z",
+                  "updatedAt": "2026-06-05T15:17:30.000Z",
+                  "uid": "35240-9490b4af-ad4f-4fd5-b4c7-923fc4dab803"
+                }
+              ],
+              "id": "3192ed57-58da-4da5-a234-314b9b68ef51",
+              "createdAt": "2026-06-05T15:17:30.000Z",
+              "updatedAt": "2026-06-05T15:17:30.000Z",
+              "uid": "35240-3192ed57-58da-4da5-a234-314b9b68ef51"
+            },
+            {
+              "name": "Create Design",
+              "id": "e1e01add-618e-4058-8e86-3743150b0a70",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"html_content\": \"<string>\",\n  \"name\": \"Duplicate: <original design name>\",\n  \"editor\": \"design\",\n  \"plain_content\": \"<generated from html_content if left empty>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v3/designs",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v3",
+                    "designs"
+                  ]
+                },
+                "description": "**This endpoint allows you to create a new design**.\n\nYou can add a new design by passing data, including a string of HTML email content, to `/designs`. When creating designs from scratch, be aware of the styling constraints inherent to many email clients. For a list of best practices, see our guide to [Cross-Platform Email Design](https://sendgrid.com/docs/ui/sending-email/cross-platform-html-design/).\n\nThe Design Library can also convert your design\u2019s HTML elements into drag and drop modules that are editable in the Designs Library user interface. For more, visit the [Design and Code Editor documentation](https://sendgrid.com/docs/ui/sending-email/editor/#drag--drop-markup).\n\nBecause the `/designs` endpoint makes it easy to add designs, you can create a design with your preferred tooling or migrate designs you already own without relying on the Design Library UI."
+              },
+              "response": [
+                {
+                  "id": "d4fa1cb1-8799-461e-9fc6-e67bb2b616b1",
+                  "name": "response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"html_content\": \"<string>\",\n  \"name\": \"Duplicate: <original design name>\",\n  \"editor\": \"design\",\n  \"plain_content\": \"<generated from html_content if left empty>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/designs",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "designs"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"html_content\": \"<string>\",\n  \"name\": \"Duplicate: <original design name>\",\n  \"editor\": \"code\",\n  \"plain_content\": \"<generated from html_content if left empty>\"\n}",
+                  "createdAt": "2026-06-05T15:17:30.000Z",
+                  "updatedAt": "2026-06-05T15:17:30.000Z",
+                  "uid": "35240-d4fa1cb1-8799-461e-9fc6-e67bb2b616b1"
+                },
+                {
+                  "id": "0dc622e9-da2f-4a42-89c7-2eef7a3fbafe",
+                  "name": "response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"html_content\": \"<string>\",\n  \"name\": \"Duplicate: <original design name>\",\n  \"editor\": \"design\",\n  \"plain_content\": \"<generated from html_content if left empty>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/designs",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "designs"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"error_id\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"error_id\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:17:30.000Z",
+                  "updatedAt": "2026-06-05T15:17:30.000Z",
+                  "uid": "35240-0dc622e9-da2f-4a42-89c7-2eef7a3fbafe"
+                }
+              ],
+              "createdAt": "2026-06-05T15:17:30.000Z",
+              "updatedAt": "2026-06-05T15:17:30.000Z",
+              "uid": "35240-e1e01add-618e-4058-8e86-3743150b0a70"
+            },
+            {
+              "name": "List Designs",
+              "id": "68a88a10-cd0a-40ee-bf25-56a15c9163a8",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v3/designs?page_size=100&page_token=<string>&summary=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v3",
+                    "designs"
+                  ],
+                  "query": [
+                    {
+                      "description": "number of results to return",
+                      "key": "page_size",
+                      "value": "100"
+                    },
+                    {
+                      "description": "token corresponding to a specific page of results, as provided by metadata",
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "set to false to return all fields",
+                      "key": "summary",
+                      "value": "true"
+                    }
+                  ]
+                },
+                "description": "**This endpoint allows you to retrieve a list of designs already stored in your Design Library**.\n\nA GET request to `/designs` will return a list of your existing designs. This endpoint will not return the pre-built Twilio SendGrid designs. Pre-built designs can be retrieved using the `/designs/pre-builts` endpoint, which is detailed below.\n\nBy default, you will receive 100 results per request; however, you can modify the number of results returned by passing an integer to the `page_size` query parameter."
+              },
+              "response": [
+                {
+                  "id": "bc68b81e-b7ab-4d5f-aba6-091a989dea4b",
+                  "name": "response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/designs?page_size=100&page_token=<string>&summary=true",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "designs"
+                      ],
+                      "query": [
+                        {
+                          "description": "number of results to return",
+                          "key": "page_size",
+                          "value": "100"
+                        },
+                        {
+                          "description": "token corresponding to a specific page of results, as provided by metadata",
+                          "key": "page_token",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "set to false to return all fields",
+                          "key": "summary",
+                          "value": "true"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"result\": [\n    {\n      \"id\": \"<uuid>\",\n      \"updated_at\": \"<string>\",\n      \"created_at\": \"<string>\",\n      \"thumbnail_url\": \"<string>\",\n      \"name\": \"Duplicate: <original design name>\",\n      \"editor\": \"code\"\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"updated_at\": \"<string>\",\n      \"created_at\": \"<string>\",\n      \"thumbnail_url\": \"<string>\",\n      \"name\": \"Duplicate: <original design name>\",\n      \"editor\": \"code\"\n    }\n  ],\n  \"_metadata\": {\n    \"prev\": \"<uri>\",\n    \"self\": \"<uri>\",\n    \"next\": \"<uri>\",\n    \"count\": \"<integer>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:17:30.000Z",
+                  "updatedAt": "2026-06-05T15:17:30.000Z",
+                  "uid": "35240-bc68b81e-b7ab-4d5f-aba6-091a989dea4b"
+                }
+              ],
+              "createdAt": "2026-06-05T15:17:30.000Z",
+              "updatedAt": "2026-06-05T15:17:30.000Z",
+              "uid": "35240-68a88a10-cd0a-40ee-bf25-56a15c9163a8"
+            }
+          ],
+          "id": "393dd743-b536-4c24-9850-d38d94e05616",
+          "createdAt": "2026-06-05T15:17:30.000Z",
+          "updatedAt": "2026-06-05T15:17:30.000Z",
+          "uid": "35240-393dd743-b536-4c24-9850-d38d94e05616"
+        }
+      ],
+      "id": "1f3c63f0-df55-4876-bb2e-54d6e147a95e",
+      "createdAt": "2026-06-05T15:17:30.000Z",
+      "updatedAt": "2026-06-05T15:17:30.000Z",
+      "uid": "35240-1f3c63f0-df55-4876-bb2e-54d6e147a95e"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.sendgrid.com"
+    }
+  ]
+}

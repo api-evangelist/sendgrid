@@ -1,0 +1,2940 @@
+{
+  "info": {
+    "_postman_id": "4f7cadf0-95d1-4530-bb6c-5a1cbb33d529",
+    "name": "Twilio SendGrid Legacy Marketing Campaigns Campaigns API",
+    "description": "The Twilio SendGrid Legacy Marketing Campaigns Campaigns API allows you to manage your marketing email messages programmatically. This API is operational, but we recommend using the current version of Marketing Campaigns to manage your marketing messages with SendGrid [Single Sends](https://docs.sendgrid.com/api-reference/single-sends/) and [Automations](https://docs.sendgrid.com/ui/sending-email/getting-started-with-automation).\n\nSee [**Migrating from Legacy Marketing Campaigns**](https://docs.sendgrid.com/ui/sending-email/migrating-from-legacy-marketing-campaigns) for more information.\n\nContact Support:\n Name: Twilio SendGrid Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:17:18.000Z",
+    "updatedAt": "2026-06-05T15:17:18.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-4f7cadf0-95d1-4530-bb6c-5a1cbb33d529"
+  },
+  "item": [
+    {
+      "name": "v3",
+      "item": [
+        {
+          "name": "campaigns",
+          "item": [
+            {
+              "name": "{campaign_id}",
+              "item": [
+                {
+                  "name": "schedules",
+                  "item": [
+                    {
+                      "name": "now",
+                      "item": [
+                        {
+                          "name": "Send a Campaign",
+                          "id": "e9a90e99-8a59-44b0-a21b-c2ad58c7cf3d",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/campaigns/:campaign_id/schedules/now",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "campaigns",
+                                ":campaign_id",
+                                "schedules",
+                                "now"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "cf94a256-a276-4af1-8024-a885df2a2935",
+                                  "key": "campaign_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "**This endpoint allows you to immediately send an existing campaign.**\n\nNormally a POST request would have a body, but since this endpoint is telling us to send a resource that is already created, a request body is not needed."
+                          },
+                          "response": [
+                            {
+                              "id": "113a5c66-9d37-48f9-b5b0-4b653ba8876b",
+                              "name": "response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                    "key": "on-behalf-of",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/campaigns/:campaign_id/schedules/now",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "campaigns",
+                                    ":campaign_id",
+                                    "schedules",
+                                    "now"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "campaign_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Created",
+                              "code": 201,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<long>\",\n  \"status\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:17:19.000Z",
+                              "updatedAt": "2026-06-05T15:17:19.000Z",
+                              "uid": "35240-113a5c66-9d37-48f9-b5b0-4b653ba8876b"
+                            },
+                            {
+                              "id": "442135b3-2877-4394-a39d-e4e978e3e86e",
+                              "name": "The request was formatted incorrectly or you do not have enough credits to send this campaign.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                    "key": "on-behalf-of",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/campaigns/:campaign_id/schedules/now",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "campaigns",
+                                    ":campaign_id",
+                                    "schedules",
+                                    "now"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "campaign_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:17:19.000Z",
+                              "updatedAt": "2026-06-05T15:17:19.000Z",
+                              "uid": "35240-442135b3-2877-4394-a39d-e4e978e3e86e"
+                            },
+                            {
+                              "id": "03b5ada9-8df5-4efa-8aa8-d61e2ec67ea5",
+                              "name": "response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                    "key": "on-behalf-of",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/campaigns/:campaign_id/schedules/now",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "campaigns",
+                                    ":campaign_id",
+                                    "schedules",
+                                    "now"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "campaign_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:17:19.000Z",
+                              "updatedAt": "2026-06-05T15:17:19.000Z",
+                              "uid": "35240-03b5ada9-8df5-4efa-8aa8-d61e2ec67ea5"
+                            },
+                            {
+                              "id": "b5ab8fe4-70ab-4d0a-b4d3-a84f7973b4cc",
+                              "name": "You may only send a campaign when it is in draft mode.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                    "key": "on-behalf-of",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/campaigns/:campaign_id/schedules/now",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "campaigns",
+                                    ":campaign_id",
+                                    "schedules",
+                                    "now"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "campaign_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:17:19.000Z",
+                              "updatedAt": "2026-06-05T15:17:19.000Z",
+                              "uid": "35240-b5ab8fe4-70ab-4d0a-b4d3-a84f7973b4cc"
+                            },
+                            {
+                              "id": "479297ea-eeb6-4f0a-9b30-bb8d0f2b1bb2",
+                              "name": "Not found\"",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                    "key": "on-behalf-of",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/campaigns/:campaign_id/schedules/now",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "campaigns",
+                                    ":campaign_id",
+                                    "schedules",
+                                    "now"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "campaign_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:17:19.000Z",
+                              "updatedAt": "2026-06-05T15:17:19.000Z",
+                              "uid": "35240-479297ea-eeb6-4f0a-9b30-bb8d0f2b1bb2"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:17:19.000Z",
+                          "updatedAt": "2026-06-05T15:17:19.000Z",
+                          "uid": "35240-e9a90e99-8a59-44b0-a21b-c2ad58c7cf3d"
+                        }
+                      ],
+                      "id": "f7c364b9-a284-44c3-bd44-e87a10165fbd",
+                      "createdAt": "2026-06-05T15:17:19.000Z",
+                      "updatedAt": "2026-06-05T15:17:19.000Z",
+                      "uid": "35240-f7c364b9-a284-44c3-bd44-e87a10165fbd"
+                    },
+                    {
+                      "name": "test",
+                      "item": [
+                        {
+                          "name": "Send a Test Campaign",
+                          "id": "5458c651-8567-439f-a391-f7cc366bd284",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"to\": \"<email>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/campaigns/:campaign_id/schedules/test",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "campaigns",
+                                ":campaign_id",
+                                "schedules",
+                                "test"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "58aae00a-8c87-41af-824c-861641a2e54a",
+                                  "key": "campaign_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "**This endpoint allows you to send a test campaign.**\n\nTo send to multiple addresses, use an array for the JSON \"to\" value [\"one@address\",\"two@address\"]"
+                          },
+                          "response": [
+                            {
+                              "id": "ca4b02cb-31a3-46d5-bcf4-014c6efd116e",
+                              "name": "response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                    "key": "on-behalf-of",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"to\": \"<email>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/campaigns/:campaign_id/schedules/test",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "campaigns",
+                                    ":campaign_id",
+                                    "schedules",
+                                    "test"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "campaign_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Created",
+                              "code": 201,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"to\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:17:19.000Z",
+                              "updatedAt": "2026-06-05T15:17:19.000Z",
+                              "uid": "35240-ca4b02cb-31a3-46d5-bcf4-014c6efd116e"
+                            },
+                            {
+                              "id": "b5fa99e1-723b-4af5-bca3-c93f70ed74af",
+                              "name": "The request was formatted incorrectly or missing required parameters.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                    "key": "on-behalf-of",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"to\": \"<email>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/campaigns/:campaign_id/schedules/test",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "campaigns",
+                                    ":campaign_id",
+                                    "schedules",
+                                    "test"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "campaign_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:17:19.000Z",
+                              "updatedAt": "2026-06-05T15:17:19.000Z",
+                              "uid": "35240-b5fa99e1-723b-4af5-bca3-c93f70ed74af"
+                            },
+                            {
+                              "id": "037be529-8beb-4609-8da3-8e451252a674",
+                              "name": "Not found",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                    "key": "on-behalf-of",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"to\": \"<email>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/campaigns/:campaign_id/schedules/test",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "campaigns",
+                                    ":campaign_id",
+                                    "schedules",
+                                    "test"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "campaign_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:17:19.000Z",
+                              "updatedAt": "2026-06-05T15:17:19.000Z",
+                              "uid": "35240-037be529-8beb-4609-8da3-8e451252a674"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:17:19.000Z",
+                          "updatedAt": "2026-06-05T15:17:19.000Z",
+                          "uid": "35240-5458c651-8567-439f-a391-f7cc366bd284"
+                        }
+                      ],
+                      "id": "2cf113fa-86fb-4908-8978-b31e74c987d6",
+                      "createdAt": "2026-06-05T15:17:19.000Z",
+                      "updatedAt": "2026-06-05T15:17:19.000Z",
+                      "uid": "35240-2cf113fa-86fb-4908-8978-b31e74c987d6"
+                    },
+                    {
+                      "name": "Schedule a Campaign",
+                      "id": "9fe7ca2c-49d3-40e1-a5bd-67fa5246fffc",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"send_at\": \"<integer>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/campaigns/:campaign_id/schedules",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "campaigns",
+                            ":campaign_id",
+                            "schedules"
+                          ],
+                          "variable": [
+                            {
+                              "id": "7a0edc5a-2c16-4d7b-8a7b-e49e773f3637",
+                              "key": "campaign_id",
+                              "value": "<integer>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "**This endpoint allows you to schedule a specific date and time for your campaign to be sent.**\n\nIf you have the flexibility, it's better to schedule mail for off-peak times. Most emails are scheduled and sent at the top of the hour or half hour. Scheduling email to avoid those times (for example, scheduling at 10:53) can result in lower deferral rates because it won't be going through our servers at the same times as everyone else's mail."
+                      },
+                      "response": [
+                        {
+                          "id": "d0ac88ec-5647-4190-981a-edaada7d841b",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"send_at\": \"<integer>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/campaigns/:campaign_id/schedules",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "campaigns",
+                                ":campaign_id",
+                                "schedules"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "campaign_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Created",
+                          "code": 201,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<integer>\",\n  \"send_at\": \"<integer>\",\n  \"status\": \"Scheduled\"\n}",
+                          "createdAt": "2026-06-05T15:17:19.000Z",
+                          "updatedAt": "2026-06-05T15:17:19.000Z",
+                          "uid": "35240-d0ac88ec-5647-4190-981a-edaada7d841b"
+                        },
+                        {
+                          "id": "a6a6c0f9-7250-497b-b47c-bd9759daa47c",
+                          "name": "The request was formatted incorrectly or missing required parameters.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"send_at\": \"<integer>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/campaigns/:campaign_id/schedules",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "campaigns",
+                                ":campaign_id",
+                                "schedules"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "campaign_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:17:19.000Z",
+                          "updatedAt": "2026-06-05T15:17:19.000Z",
+                          "uid": "35240-a6a6c0f9-7250-497b-b47c-bd9759daa47c"
+                        },
+                        {
+                          "id": "fc243848-c3d8-4468-8782-e1cf6db350ed",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"send_at\": \"<integer>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/campaigns/:campaign_id/schedules",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "campaigns",
+                                ":campaign_id",
+                                "schedules"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "campaign_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:17:19.000Z",
+                          "updatedAt": "2026-06-05T15:17:19.000Z",
+                          "uid": "35240-fc243848-c3d8-4468-8782-e1cf6db350ed"
+                        },
+                        {
+                          "id": "246e11bb-c9fe-40a1-90d7-a6a31b173fa8",
+                          "name": "You cannot POST to a campaign that has already sent or scheduled. However you can update a scheduled campaign with a PATCH.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"send_at\": \"<integer>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/campaigns/:campaign_id/schedules",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "campaigns",
+                                ":campaign_id",
+                                "schedules"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "campaign_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:17:19.000Z",
+                          "updatedAt": "2026-06-05T15:17:19.000Z",
+                          "uid": "35240-246e11bb-c9fe-40a1-90d7-a6a31b173fa8"
+                        },
+                        {
+                          "id": "1e7eb20e-6b28-4a6f-8d5b-0930fa7f085e",
+                          "name": "Not found",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"send_at\": \"<integer>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/campaigns/:campaign_id/schedules",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "campaigns",
+                                ":campaign_id",
+                                "schedules"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "campaign_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:17:19.000Z",
+                          "updatedAt": "2026-06-05T15:17:19.000Z",
+                          "uid": "35240-1e7eb20e-6b28-4a6f-8d5b-0930fa7f085e"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:17:19.000Z",
+                      "updatedAt": "2026-06-05T15:17:19.000Z",
+                      "uid": "35240-9fe7ca2c-49d3-40e1-a5bd-67fa5246fffc"
+                    },
+                    {
+                      "name": "Update a Scheduled Campaign",
+                      "id": "8e6be192-8cac-46a2-91f6-edb0bf8a8ba0",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"send_at\": \"<long>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/campaigns/:campaign_id/schedules",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "campaigns",
+                            ":campaign_id",
+                            "schedules"
+                          ],
+                          "variable": [
+                            {
+                              "id": "b6085df0-0171-41de-ade3-f4cc701dd9cf",
+                              "key": "campaign_id",
+                              "value": "<integer>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "**This endpoint allows to you change the scheduled time and date for a campaign to be sent.**"
+                      },
+                      "response": [
+                        {
+                          "id": "ae682890-7890-4db7-8b28-aa101a6f3b02",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"send_at\": \"<long>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/campaigns/:campaign_id/schedules",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "campaigns",
+                                ":campaign_id",
+                                "schedules"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "campaign_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<integer>\",\n  \"send_at\": \"<integer>\",\n  \"status\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:17:19.000Z",
+                          "updatedAt": "2026-06-05T15:17:19.000Z",
+                          "uid": "35240-ae682890-7890-4db7-8b28-aa101a6f3b02"
+                        },
+                        {
+                          "id": "c77dc777-65a7-44c2-9801-b01e9fb207a5",
+                          "name": "The request was formatted incorrectly or you do not have enough credits to send this campaign.",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"send_at\": \"<long>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/campaigns/:campaign_id/schedules",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "campaigns",
+                                ":campaign_id",
+                                "schedules"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "campaign_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:17:19.000Z",
+                          "updatedAt": "2026-06-05T15:17:19.000Z",
+                          "uid": "35240-c77dc777-65a7-44c2-9801-b01e9fb207a5"
+                        },
+                        {
+                          "id": "e0945d24-eec0-4fc0-8e9d-ff92e9b9d803",
+                          "name": "\"send_at\": \"You cannot update the send_at value of non-scheduled campaign.\"",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"send_at\": \"<long>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/campaigns/:campaign_id/schedules",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "campaigns",
+                                ":campaign_id",
+                                "schedules"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "campaign_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:17:19.000Z",
+                          "updatedAt": "2026-06-05T15:17:19.000Z",
+                          "uid": "35240-e0945d24-eec0-4fc0-8e9d-ff92e9b9d803"
+                        },
+                        {
+                          "id": "960fe23f-5d61-4dd4-a819-17a2ef3d3066",
+                          "name": "Not found",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"send_at\": \"<long>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/campaigns/:campaign_id/schedules",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "campaigns",
+                                ":campaign_id",
+                                "schedules"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "campaign_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:17:19.000Z",
+                          "updatedAt": "2026-06-05T15:17:19.000Z",
+                          "uid": "35240-960fe23f-5d61-4dd4-a819-17a2ef3d3066"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:17:19.000Z",
+                      "updatedAt": "2026-06-05T15:17:19.000Z",
+                      "uid": "35240-8e6be192-8cac-46a2-91f6-edb0bf8a8ba0"
+                    },
+                    {
+                      "name": "View Scheduled Time of a Campaign",
+                      "id": "81a7cd12-e70e-47d9-8362-0f73c5946d97",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/campaigns/:campaign_id/schedules",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "campaigns",
+                            ":campaign_id",
+                            "schedules"
+                          ],
+                          "variable": [
+                            {
+                              "id": "f93908f9-c8d3-4558-a8c3-7e176c466825",
+                              "key": "campaign_id",
+                              "value": "<integer>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "**This endpoint allows you to retrieve the date and time that a campaign has been scheduled to be sent.**"
+                      },
+                      "response": [
+                        {
+                          "id": "4ca41523-a259-497b-8a2d-7a6d8fc31658",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/campaigns/:campaign_id/schedules",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "campaigns",
+                                ":campaign_id",
+                                "schedules"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "campaign_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"send_at\": \"<long>\"\n}",
+                          "createdAt": "2026-06-05T15:17:19.000Z",
+                          "updatedAt": "2026-06-05T15:17:19.000Z",
+                          "uid": "35240-4ca41523-a259-497b-8a2d-7a6d8fc31658"
+                        },
+                        {
+                          "id": "453d973c-643a-442d-a231-be4bfb16ff93",
+                          "name": "Not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/campaigns/:campaign_id/schedules",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "campaigns",
+                                ":campaign_id",
+                                "schedules"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "campaign_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:17:19.000Z",
+                          "updatedAt": "2026-06-05T15:17:19.000Z",
+                          "uid": "35240-453d973c-643a-442d-a231-be4bfb16ff93"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:17:19.000Z",
+                      "updatedAt": "2026-06-05T15:17:19.000Z",
+                      "uid": "35240-81a7cd12-e70e-47d9-8362-0f73c5946d97"
+                    },
+                    {
+                      "name": "Unschedule a Scheduled Campaign",
+                      "id": "29987503-63ad-45d5-b704-a9b79bd01d49",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/campaigns/:campaign_id/schedules",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "campaigns",
+                            ":campaign_id",
+                            "schedules"
+                          ],
+                          "variable": [
+                            {
+                              "id": "a8368cd4-edf2-4822-a35d-2496bfa5d63e",
+                              "key": "campaign_id",
+                              "value": "<integer>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "**This endpoint allows you to unschedule a campaign that has already been scheduled to be sent.**\n\nA successful unschedule will return a 204.\nIf the specified campaign is in the process of being sent, the only option is to cancel (a different method)."
+                      },
+                      "response": [
+                        {
+                          "id": "1c51e5c4-746b-4b55-9467-b358f1131605",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/campaigns/:campaign_id/schedules",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "campaigns",
+                                ":campaign_id",
+                                "schedules"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "campaign_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:17:19.000Z",
+                          "updatedAt": "2026-06-05T15:17:19.000Z",
+                          "uid": "35240-1c51e5c4-746b-4b55-9467-b358f1131605"
+                        },
+                        {
+                          "id": "0120eade-8607-4283-9753-0f2983739b9c",
+                          "name": "The request was formatted incorrectly or missing required parameters.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/campaigns/:campaign_id/schedules",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "campaigns",
+                                ":campaign_id",
+                                "schedules"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "campaign_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:17:19.000Z",
+                          "updatedAt": "2026-06-05T15:17:19.000Z",
+                          "uid": "35240-0120eade-8607-4283-9753-0f2983739b9c"
+                        },
+                        {
+                          "id": "b6cf7149-2582-4bca-9af1-56df20ab5a36",
+                          "name": "Not found",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/campaigns/:campaign_id/schedules",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "campaigns",
+                                ":campaign_id",
+                                "schedules"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "campaign_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:17:19.000Z",
+                          "updatedAt": "2026-06-05T15:17:19.000Z",
+                          "uid": "35240-b6cf7149-2582-4bca-9af1-56df20ab5a36"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:17:19.000Z",
+                      "updatedAt": "2026-06-05T15:17:19.000Z",
+                      "uid": "35240-29987503-63ad-45d5-b704-a9b79bd01d49"
+                    }
+                  ],
+                  "id": "5a53a27a-9976-4948-acf6-7e42b1dec36c",
+                  "createdAt": "2026-06-05T15:17:19.000Z",
+                  "updatedAt": "2026-06-05T15:17:19.000Z",
+                  "uid": "35240-5a53a27a-9976-4948-acf6-7e42b1dec36c"
+                },
+                {
+                  "name": "Retrieve a single campaign",
+                  "id": "c6a97329-c500-4be4-a557-1514d57f9bfb",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/campaigns/:campaign_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "campaigns",
+                        ":campaign_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "313b11f3-4f5d-4323-b4a5-5294c213137a",
+                          "key": "campaign_id",
+                          "value": "<integer>",
+                          "description": "(Required) The id of the campaign you would like to retrieve."
+                        }
+                      ]
+                    },
+                    "description": "**This endpoint allows you to retrieve a specific campaign.**"
+                  },
+                  "response": [
+                    {
+                      "id": "14c3803e-500e-43d6-a861-dcc2d81e7692",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/campaigns/:campaign_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "campaigns",
+                            ":campaign_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "campaign_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"custom_unsubscribe_url\": \"<string>\",\n  \"html_content\": \"<string>\",\n  \"id\": \"<integer>\",\n  \"ip_pool\": \"<string>\",\n  \"list_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"plain_content\": \"<string>\",\n  \"segment_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"sender_id\": \"<integer>\",\n  \"status\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"suppression_group_id\": \"<integer>\",\n  \"title\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:17:19.000Z",
+                      "updatedAt": "2026-06-05T15:17:19.000Z",
+                      "uid": "35240-14c3803e-500e-43d6-a861-dcc2d81e7692"
+                    },
+                    {
+                      "id": "921f829b-b175-4333-9134-59c9a1fef9b7",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/campaigns/:campaign_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "campaigns",
+                            ":campaign_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "campaign_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{}",
+                      "createdAt": "2026-06-05T15:17:19.000Z",
+                      "updatedAt": "2026-06-05T15:17:19.000Z",
+                      "uid": "35240-921f829b-b175-4333-9134-59c9a1fef9b7"
+                    },
+                    {
+                      "id": "83d3d099-2b8a-441b-85c1-b6ab2cb65505",
+                      "name": "Not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/campaigns/:campaign_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "campaigns",
+                            ":campaign_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "campaign_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{}",
+                      "createdAt": "2026-06-05T15:17:19.000Z",
+                      "updatedAt": "2026-06-05T15:17:19.000Z",
+                      "uid": "35240-83d3d099-2b8a-441b-85c1-b6ab2cb65505"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:17:19.000Z",
+                  "updatedAt": "2026-06-05T15:17:19.000Z",
+                  "uid": "35240-c6a97329-c500-4be4-a557-1514d57f9bfb"
+                },
+                {
+                  "name": "Delete a Campaign",
+                  "id": "da691ecf-e46d-45b8-829b-73e66df8fdc3",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/campaigns/:campaign_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "campaigns",
+                        ":campaign_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "fdd56e35-a6d7-49e5-b458-c30a392fad3c",
+                          "key": "campaign_id",
+                          "value": "<integer>",
+                          "description": "(Required) The id of the campaign you would like to retrieve."
+                        }
+                      ]
+                    },
+                    "description": "**This endpoint allows you to delete a specific campaign.**"
+                  },
+                  "response": [
+                    {
+                      "id": "9e208027-8d8f-4cc7-8618-32a47f8e2d35",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/campaigns/:campaign_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "campaigns",
+                            ":campaign_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "campaign_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:17:19.000Z",
+                      "updatedAt": "2026-06-05T15:17:19.000Z",
+                      "uid": "35240-9e208027-8d8f-4cc7-8618-32a47f8e2d35"
+                    },
+                    {
+                      "id": "af4ecdad-aff7-4643-93d4-2fc2d1caad56",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/campaigns/:campaign_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "campaigns",
+                            ":campaign_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "campaign_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{}",
+                      "createdAt": "2026-06-05T15:17:19.000Z",
+                      "updatedAt": "2026-06-05T15:17:19.000Z",
+                      "uid": "35240-af4ecdad-aff7-4643-93d4-2fc2d1caad56"
+                    },
+                    {
+                      "id": "a1b9aa31-c4cb-47d8-86f8-2d7d746c8837",
+                      "name": "Not found",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/campaigns/:campaign_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "campaigns",
+                            ":campaign_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "campaign_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{}",
+                      "createdAt": "2026-06-05T15:17:19.000Z",
+                      "updatedAt": "2026-06-05T15:17:19.000Z",
+                      "uid": "35240-a1b9aa31-c4cb-47d8-86f8-2d7d746c8837"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:17:19.000Z",
+                  "updatedAt": "2026-06-05T15:17:19.000Z",
+                  "uid": "35240-da691ecf-e46d-45b8-829b-73e66df8fdc3"
+                },
+                {
+                  "name": "Update a Campaign",
+                  "id": "9a2cc9f6-ce5b-488a-969e-4eae499c4c60",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"title\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"html_content\": \"<string>\",\n  \"plain_content\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/campaigns/:campaign_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "campaigns",
+                        ":campaign_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "176bf4af-38fd-45ba-89ee-14ce6ebc1a3d",
+                          "key": "campaign_id",
+                          "value": "<integer>",
+                          "description": "(Required) The id of the campaign you would like to retrieve."
+                        }
+                      ]
+                    },
+                    "description": "**This endpoint allows you to update a specific campaign.**\n\nThis is especially useful if you only set up the campaign using POST /campaigns, but didn't set many of the parameters."
+                  },
+                  "response": [
+                    {
+                      "id": "728a42c4-143d-4f63-8229-ca427f184b76",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"title\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"html_content\": \"<string>\",\n  \"plain_content\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/campaigns/:campaign_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "campaigns",
+                            ":campaign_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "campaign_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<string>\",\n  \"title\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"sender_id\": \"<integer>\",\n  \"list_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"segment_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"suppression_group_id\": \"<integer>\",\n  \"custom_unsubscribe_url\": \"<string>\",\n  \"ip_pool\": \"<string>\",\n  \"html_content\": \"<string>\",\n  \"plain_content\": \"<string>\",\n  \"editor\": \"design\",\n  \"id\": \"<integer>\"\n}",
+                      "createdAt": "2026-06-05T15:17:19.000Z",
+                      "updatedAt": "2026-06-05T15:17:19.000Z",
+                      "uid": "35240-728a42c4-143d-4f63-8229-ca427f184b76"
+                    },
+                    {
+                      "id": "616c8183-f0db-43d9-b6ef-d33af8a06abf",
+                      "name": "The request was formatted incorrectly or missing required parameters.",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"title\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"html_content\": \"<string>\",\n  \"plain_content\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/campaigns/:campaign_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "campaigns",
+                            ":campaign_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "campaign_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:17:19.000Z",
+                      "updatedAt": "2026-06-05T15:17:19.000Z",
+                      "uid": "35240-616c8183-f0db-43d9-b6ef-d33af8a06abf"
+                    },
+                    {
+                      "id": "7d10cf7c-2b98-479f-bf13-ba0c42ae3f37",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"title\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"html_content\": \"<string>\",\n  \"plain_content\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/campaigns/:campaign_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "campaigns",
+                            ":campaign_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "campaign_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:17:19.000Z",
+                      "updatedAt": "2026-06-05T15:17:19.000Z",
+                      "uid": "35240-7d10cf7c-2b98-479f-bf13-ba0c42ae3f37"
+                    },
+                    {
+                      "id": "8cef798c-4fa1-458f-9624-741febafeace",
+                      "name": "You may only update a campaign when it is in draft mode.",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"title\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"html_content\": \"<string>\",\n  \"plain_content\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/campaigns/:campaign_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "campaigns",
+                            ":campaign_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "campaign_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:17:19.000Z",
+                      "updatedAt": "2026-06-05T15:17:19.000Z",
+                      "uid": "35240-8cef798c-4fa1-458f-9624-741febafeace"
+                    },
+                    {
+                      "id": "846bb7a6-c289-41b3-b08f-04f53d6b8aec",
+                      "name": "Not found",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"title\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"html_content\": \"<string>\",\n  \"plain_content\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/campaigns/:campaign_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "campaigns",
+                            ":campaign_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "campaign_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:17:19.000Z",
+                      "updatedAt": "2026-06-05T15:17:19.000Z",
+                      "uid": "35240-846bb7a6-c289-41b3-b08f-04f53d6b8aec"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:17:19.000Z",
+                  "updatedAt": "2026-06-05T15:17:19.000Z",
+                  "uid": "35240-9a2cc9f6-ce5b-488a-969e-4eae499c4c60"
+                }
+              ],
+              "id": "658aca99-a701-4fad-9bdb-415e02d86caf",
+              "createdAt": "2026-06-05T15:17:19.000Z",
+              "updatedAt": "2026-06-05T15:17:19.000Z",
+              "uid": "35240-658aca99-a701-4fad-9bdb-415e02d86caf"
+            },
+            {
+              "name": "Create a Campaign",
+              "id": "d58aaaa6-591f-4daf-8f55-e301bbf0c1b4",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                    "key": "on-behalf-of",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"sender_id\": \"<integer>\",\n  \"list_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"segment_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"suppression_group_id\": \"<integer>\",\n  \"custom_unsubscribe_url\": \"<string>\",\n  \"ip_pool\": \"<string>\",\n  \"html_content\": \"<string>\",\n  \"plain_content\": \"<string>\",\n  \"editor\": \"design\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v3/campaigns",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v3",
+                    "campaigns"
+                  ]
+                },
+                "description": "**This endpoint allows you to create a campaign.**\n\nIn order to send or schedule the campaign, you will be required to provide a subject, sender ID, content (we suggest both html and plain text), and at least one list or segment ID. This information is not required when you create a campaign."
+              },
+              "response": [
+                {
+                  "id": "2452c3b1-2540-42a7-bfdb-f32bc9766473",
+                  "name": "response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"title\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"sender_id\": \"<integer>\",\n  \"list_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"segment_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"suppression_group_id\": \"<integer>\",\n  \"custom_unsubscribe_url\": \"<string>\",\n  \"ip_pool\": \"<string>\",\n  \"html_content\": \"<string>\",\n  \"plain_content\": \"<string>\",\n  \"editor\": \"design\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/campaigns",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "campaigns"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<string>\",\n  \"title\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"sender_id\": \"<integer>\",\n  \"list_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"segment_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"suppression_group_id\": \"<integer>\",\n  \"custom_unsubscribe_url\": \"<string>\",\n  \"ip_pool\": \"<string>\",\n  \"html_content\": \"<string>\",\n  \"plain_content\": \"<string>\",\n  \"editor\": \"design\",\n  \"id\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T15:17:19.000Z",
+                  "updatedAt": "2026-06-05T15:17:19.000Z",
+                  "uid": "35240-2452c3b1-2540-42a7-bfdb-f32bc9766473"
+                },
+                {
+                  "id": "39306c47-4bff-4b35-8290-4ef85f978d5c",
+                  "name": "The request was formatted incorrectly or missing required parameters.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"title\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"sender_id\": \"<integer>\",\n  \"list_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"segment_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"suppression_group_id\": \"<integer>\",\n  \"custom_unsubscribe_url\": \"<string>\",\n  \"ip_pool\": \"<string>\",\n  \"html_content\": \"<string>\",\n  \"plain_content\": \"<string>\",\n  \"editor\": \"design\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/campaigns",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "campaigns"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:17:19.000Z",
+                  "updatedAt": "2026-06-05T15:17:19.000Z",
+                  "uid": "35240-39306c47-4bff-4b35-8290-4ef85f978d5c"
+                },
+                {
+                  "id": "54963541-45bc-44ab-b5ed-5d143a5ac9c6",
+                  "name": "response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"title\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"sender_id\": \"<integer>\",\n  \"list_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"segment_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"suppression_group_id\": \"<integer>\",\n  \"custom_unsubscribe_url\": \"<string>\",\n  \"ip_pool\": \"<string>\",\n  \"html_content\": \"<string>\",\n  \"plain_content\": \"<string>\",\n  \"editor\": \"design\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/campaigns",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "campaigns"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{}",
+                  "createdAt": "2026-06-05T15:17:19.000Z",
+                  "updatedAt": "2026-06-05T15:17:19.000Z",
+                  "uid": "35240-54963541-45bc-44ab-b5ed-5d143a5ac9c6"
+                }
+              ],
+              "createdAt": "2026-06-05T15:17:19.000Z",
+              "updatedAt": "2026-06-05T15:17:19.000Z",
+              "uid": "35240-d58aaaa6-591f-4daf-8f55-e301bbf0c1b4"
+            },
+            {
+              "name": "Retrieve all Campaigns",
+              "id": "d0fdf8a2-556f-43c7-9c6f-dd08a00322ea",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                    "key": "on-behalf-of",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v3/campaigns?limit=10&offset=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v3",
+                    "campaigns"
+                  ],
+                  "query": [
+                    {
+                      "description": "`limit` sets the page size, i.e. maximum number of items from the list to be returned for a single API request. If omitted, the default page size is used.",
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "description": "The number of items in the list to skip over before starting to retrieve the items for the requested page. The default `offset` of `0` represents the beginning of the list, i.e. the start of the first page. To request the second page of the list, set the `offset` to the page size as determined by `limit`. Use multiples of the page size as your `offset` to request further consecutive pages. E.g. assume your page size is set to `10`. An `offset` of `10` requests the second page, an `offset` of `20` requests the third page and so on, provided there are sufficiently many items in your list.",
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ]
+                },
+                "description": "**This endpoint allows you to retrieve a paginated list of all of your campaigns.**\n\nReturns campaigns in reverse order they were created (newest first).\n\nReturns an empty array if no campaigns exist.\n\nYou can use the `limit` query parameter to set the page size. If your list contains more items than the page size permits, you can make multiple requests. Use the `offset` query parameter to control the position in the list from which to start retrieving additional items."
+              },
+              "response": [
+                {
+                  "id": "e6679486-7314-4b60-a97c-1ba0a962d3f1",
+                  "name": "response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/campaigns?limit=10&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "campaigns"
+                      ],
+                      "query": [
+                        {
+                          "description": "`limit` sets the page size, i.e. maximum number of items from the list to be returned for a single API request. If omitted, the default page size is used.",
+                          "key": "limit",
+                          "value": "10"
+                        },
+                        {
+                          "description": "The number of items in the list to skip over before starting to retrieve the items for the requested page. The default `offset` of `0` represents the beginning of the list, i.e. the start of the first page. To request the second page of the list, set the `offset` to the page size as determined by `limit`. Use multiples of the page size as your `offset` to request further consecutive pages. E.g. assume your page size is set to `10`. An `offset` of `10` requests the second page, an `offset` of `20` requests the third page and so on, provided there are sufficiently many items in your list.",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"result\": [\n    {\n      \"status\": \"<string>\",\n      \"title\": \"<string>\",\n      \"subject\": \"<string>\",\n      \"sender_id\": \"<integer>\",\n      \"list_ids\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"segment_ids\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"categories\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"suppression_group_id\": \"<integer>\",\n      \"custom_unsubscribe_url\": \"<string>\",\n      \"ip_pool\": \"<string>\",\n      \"html_content\": \"<string>\",\n      \"plain_content\": \"<string>\",\n      \"editor\": \"design\",\n      \"id\": \"<integer>\"\n    },\n    {\n      \"status\": \"<string>\",\n      \"title\": \"<string>\",\n      \"subject\": \"<string>\",\n      \"sender_id\": \"<integer>\",\n      \"list_ids\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"segment_ids\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"categories\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"suppression_group_id\": \"<integer>\",\n      \"custom_unsubscribe_url\": \"<string>\",\n      \"ip_pool\": \"<string>\",\n      \"html_content\": \"<string>\",\n      \"plain_content\": \"<string>\",\n      \"editor\": \"design\",\n      \"id\": \"<integer>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:17:19.000Z",
+                  "updatedAt": "2026-06-05T15:17:19.000Z",
+                  "uid": "35240-e6679486-7314-4b60-a97c-1ba0a962d3f1"
+                }
+              ],
+              "createdAt": "2026-06-05T15:17:19.000Z",
+              "updatedAt": "2026-06-05T15:17:19.000Z",
+              "uid": "35240-d0fdf8a2-556f-43c7-9c6f-dd08a00322ea"
+            }
+          ],
+          "id": "1cd27555-6a94-4af0-ac8e-390fe450280b",
+          "createdAt": "2026-06-05T15:17:19.000Z",
+          "updatedAt": "2026-06-05T15:17:19.000Z",
+          "uid": "35240-1cd27555-6a94-4af0-ac8e-390fe450280b"
+        }
+      ],
+      "id": "adaf0135-02e3-4527-a37e-8c5cff8561fa",
+      "createdAt": "2026-06-05T15:17:19.000Z",
+      "updatedAt": "2026-06-05T15:17:19.000Z",
+      "uid": "35240-adaf0135-02e3-4527-a37e-8c5cff8561fa"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.sendgrid.com"
+    }
+  ]
+}

@@ -1,0 +1,2352 @@
+{
+  "info": {
+    "_postman_id": "fc78cef6-765e-4b24-8436-068f61af6af5",
+    "name": "Twilio SendGrid Marketing Campaigns Single Sends API",
+    "description": "The Twilio SendGrid Single Sends API allows you to create, manage, and send Single Sends. You can also search Single Sends and retrieve statistics about them to help you maintain, alter, and further develop your campaigns.\n\nA Single Send is a one-time non-automated email message delivered to a list or segment of your audience. A Single Send may be sent immediately or scheduled for future delivery.\n\nSingle Sends can serve many use cases, including promotional offers, engagement campaigns, newsletters, announcements, legal notices, or policy updates. You can also create and manage Single Sends in the [Marketing Campaigns application user interface](https://mc.sendgrid.com/single-sends).\n\nThe Single Sends API changed on May 6, 2020. See [**Single Sends 2020 Update**](https://docs.sendgrid.com/for-developers/sending-email/single-sends-2020-update) for more information.\n\nContact Support:\n Name: Twilio SendGrid Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:17:35.000Z",
+    "updatedAt": "2026-06-05T15:17:36.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-fc78cef6-765e-4b24-8436-068f61af6af5"
+  },
+  "item": [
+    {
+      "name": "v3",
+      "item": [
+        {
+          "name": "marketing",
+          "item": [
+            {
+              "name": "singlesends",
+              "item": [
+                {
+                  "name": "{id}",
+                  "item": [
+                    {
+                      "name": "schedule",
+                      "item": [
+                        {
+                          "name": "Schedule Single Send",
+                          "id": "f5e4bba2-2c2d-49f6-8c41-d80b88765a98",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"send_at\": \"<dateTime>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/marketing/singlesends/:id/schedule",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "marketing",
+                                "singlesends",
+                                ":id",
+                                "schedule"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "a37e971e-14e1-4fad-af87-2bca121e8fa6",
+                                  "key": "id",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "**This endpoint allows you to send a Single Send immediately or schedule it to be sent at a later time.**\n\nTo send your message immediately, set the `send_at` property value to the string `now`. To schedule the Single Send for future delivery, set the `send_at` value to your desired send time in [ISO 8601 date time format](https://www.iso.org/iso-8601-date-and-time-format.html) (`yyyy-MM-ddTHH:mm:ssZ`)."
+                          },
+                          "response": [
+                            {
+                              "id": "d63c7ea2-93b0-4c6c-8992-123e60febde2",
+                              "name": "response",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"send_at\": \"<dateTime>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/marketing/singlesends/:id/schedule",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "marketing",
+                                    "singlesends",
+                                    ":id",
+                                    "schedule"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Created",
+                              "code": 201,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"send_at\": \"<dateTime>\",\n  \"status\": \"scheduled\"\n}",
+                              "createdAt": "2026-06-05T15:17:36.000Z",
+                              "updatedAt": "2026-06-05T15:17:36.000Z",
+                              "uid": "35240-d63c7ea2-93b0-4c6c-8992-123e60febde2"
+                            },
+                            {
+                              "id": "fd811058-4632-4233-90a0-6dfd8542e1a8",
+                              "name": "response",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"send_at\": \"<dateTime>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/marketing/singlesends/:id/schedule",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "marketing",
+                                    "singlesends",
+                                    ":id",
+                                    "schedule"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errors\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-06-05T15:17:36.000Z",
+                              "updatedAt": "2026-06-05T15:17:36.000Z",
+                              "uid": "35240-fd811058-4632-4233-90a0-6dfd8542e1a8"
+                            },
+                            {
+                              "id": "d818a931-028c-4c4c-990b-5fae8b67ab4c",
+                              "name": "response",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"send_at\": \"<dateTime>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/marketing/singlesends/:id/schedule",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "marketing",
+                                    "singlesends",
+                                    ":id",
+                                    "schedule"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errors\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-06-05T15:17:36.000Z",
+                              "updatedAt": "2026-06-05T15:17:36.000Z",
+                              "uid": "35240-d818a931-028c-4c4c-990b-5fae8b67ab4c"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:17:36.000Z",
+                          "updatedAt": "2026-06-05T15:17:36.000Z",
+                          "uid": "35240-f5e4bba2-2c2d-49f6-8c41-d80b88765a98"
+                        },
+                        {
+                          "name": "Delete Single Send Schedule",
+                          "id": "cbedb76e-ddd8-4c84-a5d9-877028bbb038",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/marketing/singlesends/:id/schedule",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "marketing",
+                                "singlesends",
+                                ":id",
+                                "schedule"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "7f70d5a5-4b3f-4e4d-9167-fdbd87ba16b1",
+                                  "key": "id",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "**This endpoint allows you to cancel a scheduled Single Send using a Single Send ID.**\n\nMaking a DELETE request to this endpoint will cancel the scheduled sending of a Single Send. The request will not delete the Single Send itself. Deleting a Single Send can be done by passing a DELETE request to `/marketing/singlesends/{id}`."
+                          },
+                          "response": [
+                            {
+                              "id": "33991017-24f1-4de0-bb2f-0bb06dfff9e3",
+                              "name": "response",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/marketing/singlesends/:id/schedule",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "marketing",
+                                    "singlesends",
+                                    ":id",
+                                    "schedule"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"send_at\": \"<dateTime>\",\n  \"status\": \"scheduled\"\n}",
+                              "createdAt": "2026-06-05T15:17:36.000Z",
+                              "updatedAt": "2026-06-05T15:17:36.000Z",
+                              "uid": "35240-33991017-24f1-4de0-bb2f-0bb06dfff9e3"
+                            },
+                            {
+                              "id": "a0561f7d-5dff-4be4-9fe0-d5bd06e2e19a",
+                              "name": "response",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/marketing/singlesends/:id/schedule",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "marketing",
+                                    "singlesends",
+                                    ":id",
+                                    "schedule"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errors\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-06-05T15:17:36.000Z",
+                              "updatedAt": "2026-06-05T15:17:36.000Z",
+                              "uid": "35240-a0561f7d-5dff-4be4-9fe0-d5bd06e2e19a"
+                            },
+                            {
+                              "id": "c1e76172-e812-4bab-b88d-104646202bbe",
+                              "name": "response",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/marketing/singlesends/:id/schedule",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "marketing",
+                                    "singlesends",
+                                    ":id",
+                                    "schedule"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errors\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-06-05T15:17:36.000Z",
+                              "updatedAt": "2026-06-05T15:17:36.000Z",
+                              "uid": "35240-c1e76172-e812-4bab-b88d-104646202bbe"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:17:36.000Z",
+                          "updatedAt": "2026-06-05T15:17:36.000Z",
+                          "uid": "35240-cbedb76e-ddd8-4c84-a5d9-877028bbb038"
+                        }
+                      ],
+                      "id": "5e30120e-5516-4635-87a2-58a5dfc6b1ff",
+                      "createdAt": "2026-06-05T15:17:36.000Z",
+                      "updatedAt": "2026-06-05T15:17:36.000Z",
+                      "uid": "35240-5e30120e-5516-4635-87a2-58a5dfc6b1ff"
+                    },
+                    {
+                      "name": "Duplicate Single Send",
+                      "id": "49b0bb46-6864-47cc-b874-4bc0c561dd62",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/marketing/singlesends/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "marketing",
+                            "singlesends",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "8493c342-70fa-4091-a510-36d5971afd0c",
+                              "key": "id",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "**This endpoint allows you to duplicate an existing Single Send using its Single Send ID.**\n\nDuplicating a Single Send is useful when you want to create a Single Send but don't want to start from scratch. Once duplicated, you can update or edit the Single Send by making a PATCH request to the `/marketing/singlesends/{id}` endpoint.\n \nIf you leave the `name` field blank, your duplicate will be assigned the name of the Single Send it was copied from with the text \u201cCopy of \u201d prepended to it. The `name` field length is limited to 100 characters, so the end of the new Single Send name, including \u201cCopy of \u201d, will be trimmed if the name exceeds this limit."
+                      },
+                      "response": [
+                        {
+                          "id": "d9418260-0af2-490b-a3ba-69d76a276e63",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/marketing/singlesends/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "marketing",
+                                "singlesends",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Created",
+                          "code": 201,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"status\": \"draft\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"send_at\": \"<dateTime>\",\n  \"send_to\": {\n    \"list_ids\": [\n      \"<uuid>\",\n      \"<uuid>\"\n    ],\n    \"segment_ids\": [\n      \"<uuid>\",\n      \"<uuid>\"\n    ],\n    \"all\": false\n  },\n  \"updated_at\": \"<dateTime>\",\n  \"created_at\": \"<dateTime>\",\n  \"email_config\": {\n    \"subject\": \"<string>\",\n    \"html_content\": \"<string>\",\n    \"plain_content\": \"<string>\",\n    \"generate_plain_content\": true,\n    \"design_id\": \"<string>\",\n    \"editor\": \"design\",\n    \"suppression_group_id\": \"<integer>\",\n    \"custom_unsubscribe_url\": \"<uri>\",\n    \"sender_id\": \"<integer>\",\n    \"ip_pool\": \"<string>\"\n  },\n  \"warnings\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"warning_id\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"warning_id\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:17:36.000Z",
+                          "updatedAt": "2026-06-05T15:17:36.000Z",
+                          "uid": "35240-d9418260-0af2-490b-a3ba-69d76a276e63"
+                        },
+                        {
+                          "id": "e4ed963c-911a-44de-8a1c-60c2cd606c95",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/marketing/singlesends/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "marketing",
+                                "singlesends",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:17:36.000Z",
+                          "updatedAt": "2026-06-05T15:17:36.000Z",
+                          "uid": "35240-e4ed963c-911a-44de-8a1c-60c2cd606c95"
+                        },
+                        {
+                          "id": "e7c9c8a5-53f7-495a-8c78-b5eeda92567f",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/marketing/singlesends/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "marketing",
+                                "singlesends",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:17:36.000Z",
+                          "updatedAt": "2026-06-05T15:17:36.000Z",
+                          "uid": "35240-e7c9c8a5-53f7-495a-8c78-b5eeda92567f"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:17:36.000Z",
+                      "updatedAt": "2026-06-05T15:17:36.000Z",
+                      "uid": "35240-49b0bb46-6864-47cc-b874-4bc0c561dd62"
+                    },
+                    {
+                      "name": "Update Single Send",
+                      "id": "e6b323e1-8e7b-4fb3-8a56-adb8d7c5f85a",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"send_at\": \"<dateTime>\",\n  \"send_to\": {\n    \"list_ids\": [\n      \"<uuid>\",\n      \"<uuid>\"\n    ],\n    \"segment_ids\": [\n      \"<uuid>\",\n      \"<uuid>\"\n    ],\n    \"all\": false\n  },\n  \"email_config\": {\n    \"subject\": \"<string>\",\n    \"html_content\": \"<string>\",\n    \"plain_content\": \"<string>\",\n    \"generate_plain_content\": true,\n    \"design_id\": \"<string>\",\n    \"editor\": \"design\",\n    \"suppression_group_id\": \"<integer>\",\n    \"custom_unsubscribe_url\": \"<uri>\",\n    \"sender_id\": \"<integer>\",\n    \"ip_pool\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/marketing/singlesends/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "marketing",
+                            "singlesends",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "0a3ffec3-fe0b-49d4-9c99-75d7ba87be25",
+                              "key": "id",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "**This endpoint allows you to update a Single Send using a Single Send ID.**\n\nYou only need to pass the properties you want to update. Any blank or missing properties will remain unaltered.\n\nThis endpoint will update a draft of the Single Send but will not send it or schedule it to be sent. Any `send_at` property value set with this endpoint will prepopulate the Single Send's send date. However, the Single Send will remain an unscheduled draft until it's updated with the [**Schedule Single Send**](https://docs.sendgrid.com/api-reference/single-sends/schedule-single-send) endpoint or SendGrid application UI."
+                      },
+                      "response": [
+                        {
+                          "id": "d60e8d76-815c-4d9f-bf64-58ddb7f39728",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"send_at\": \"<dateTime>\",\n  \"send_to\": {\n    \"list_ids\": [\n      \"<uuid>\",\n      \"<uuid>\"\n    ],\n    \"segment_ids\": [\n      \"<uuid>\",\n      \"<uuid>\"\n    ],\n    \"all\": false\n  },\n  \"email_config\": {\n    \"subject\": \"<string>\",\n    \"html_content\": \"<string>\",\n    \"plain_content\": \"<string>\",\n    \"generate_plain_content\": true,\n    \"design_id\": \"<string>\",\n    \"editor\": \"design\",\n    \"suppression_group_id\": \"<integer>\",\n    \"custom_unsubscribe_url\": \"<uri>\",\n    \"sender_id\": \"<integer>\",\n    \"ip_pool\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/marketing/singlesends/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "marketing",
+                                "singlesends",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Accepted",
+                          "code": 202,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"status\": \"draft\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"send_at\": \"<dateTime>\",\n  \"send_to\": {\n    \"list_ids\": [\n      \"<uuid>\",\n      \"<uuid>\"\n    ],\n    \"segment_ids\": [\n      \"<uuid>\",\n      \"<uuid>\"\n    ],\n    \"all\": false\n  },\n  \"updated_at\": \"<dateTime>\",\n  \"created_at\": \"<dateTime>\",\n  \"email_config\": {\n    \"subject\": \"<string>\",\n    \"html_content\": \"<string>\",\n    \"plain_content\": \"<string>\",\n    \"generate_plain_content\": true,\n    \"design_id\": \"<string>\",\n    \"editor\": \"design\",\n    \"suppression_group_id\": \"<integer>\",\n    \"custom_unsubscribe_url\": \"<uri>\",\n    \"sender_id\": \"<integer>\",\n    \"ip_pool\": \"<string>\"\n  },\n  \"warnings\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"warning_id\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"warning_id\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:17:36.000Z",
+                          "updatedAt": "2026-06-05T15:17:36.000Z",
+                          "uid": "35240-d60e8d76-815c-4d9f-bf64-58ddb7f39728"
+                        },
+                        {
+                          "id": "84a3a23b-7666-4b66-a843-1854ef2652b6",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"send_at\": \"<dateTime>\",\n  \"send_to\": {\n    \"list_ids\": [\n      \"<uuid>\",\n      \"<uuid>\"\n    ],\n    \"segment_ids\": [\n      \"<uuid>\",\n      \"<uuid>\"\n    ],\n    \"all\": false\n  },\n  \"email_config\": {\n    \"subject\": \"<string>\",\n    \"html_content\": \"<string>\",\n    \"plain_content\": \"<string>\",\n    \"generate_plain_content\": true,\n    \"design_id\": \"<string>\",\n    \"editor\": \"design\",\n    \"suppression_group_id\": \"<integer>\",\n    \"custom_unsubscribe_url\": \"<uri>\",\n    \"sender_id\": \"<integer>\",\n    \"ip_pool\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/marketing/singlesends/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "marketing",
+                                "singlesends",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:17:36.000Z",
+                          "updatedAt": "2026-06-05T15:17:36.000Z",
+                          "uid": "35240-84a3a23b-7666-4b66-a843-1854ef2652b6"
+                        },
+                        {
+                          "id": "1c302bdb-b4c5-4cff-a203-5af2eb36dd06",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"send_at\": \"<dateTime>\",\n  \"send_to\": {\n    \"list_ids\": [\n      \"<uuid>\",\n      \"<uuid>\"\n    ],\n    \"segment_ids\": [\n      \"<uuid>\",\n      \"<uuid>\"\n    ],\n    \"all\": false\n  },\n  \"email_config\": {\n    \"subject\": \"<string>\",\n    \"html_content\": \"<string>\",\n    \"plain_content\": \"<string>\",\n    \"generate_plain_content\": true,\n    \"design_id\": \"<string>\",\n    \"editor\": \"design\",\n    \"suppression_group_id\": \"<integer>\",\n    \"custom_unsubscribe_url\": \"<uri>\",\n    \"sender_id\": \"<integer>\",\n    \"ip_pool\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/marketing/singlesends/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "marketing",
+                                "singlesends",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:17:36.000Z",
+                          "updatedAt": "2026-06-05T15:17:36.000Z",
+                          "uid": "35240-1c302bdb-b4c5-4cff-a203-5af2eb36dd06"
+                        },
+                        {
+                          "id": "600e62d2-42f2-4e52-ad6b-e6123e2043e4",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"send_at\": \"<dateTime>\",\n  \"send_to\": {\n    \"list_ids\": [\n      \"<uuid>\",\n      \"<uuid>\"\n    ],\n    \"segment_ids\": [\n      \"<uuid>\",\n      \"<uuid>\"\n    ],\n    \"all\": false\n  },\n  \"email_config\": {\n    \"subject\": \"<string>\",\n    \"html_content\": \"<string>\",\n    \"plain_content\": \"<string>\",\n    \"generate_plain_content\": true,\n    \"design_id\": \"<string>\",\n    \"editor\": \"design\",\n    \"suppression_group_id\": \"<integer>\",\n    \"custom_unsubscribe_url\": \"<uri>\",\n    \"sender_id\": \"<integer>\",\n    \"ip_pool\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/marketing/singlesends/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "marketing",
+                                "singlesends",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:17:36.000Z",
+                          "updatedAt": "2026-06-05T15:17:36.000Z",
+                          "uid": "35240-600e62d2-42f2-4e52-ad6b-e6123e2043e4"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:17:36.000Z",
+                      "updatedAt": "2026-06-05T15:17:36.000Z",
+                      "uid": "35240-e6b323e1-8e7b-4fb3-8a56-adb8d7c5f85a"
+                    },
+                    {
+                      "name": "Get Single Send by ID",
+                      "id": "7fefb5c7-0f6a-42bf-bad4-b68e91198f41",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/marketing/singlesends/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "marketing",
+                            "singlesends",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "40f7d2c9-3c76-4b03-a9d7-6de5fdcfe2c1",
+                              "key": "id",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "**This endpoint allows you to retrieve details about one Single Send using a Single Send ID.**\n\nYou can retrieve all of your Single Sends by making a GET request to the `/marketing/singlesends` endpoint."
+                      },
+                      "response": [
+                        {
+                          "id": "7184cc6f-7829-4e06-aae6-0696ca29d8fe",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/marketing/singlesends/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "marketing",
+                                "singlesends",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"status\": \"draft\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"send_at\": \"<dateTime>\",\n  \"send_to\": {\n    \"list_ids\": [\n      \"<uuid>\",\n      \"<uuid>\"\n    ],\n    \"segment_ids\": [\n      \"<uuid>\",\n      \"<uuid>\"\n    ],\n    \"all\": false\n  },\n  \"updated_at\": \"<dateTime>\",\n  \"created_at\": \"<dateTime>\",\n  \"email_config\": {\n    \"subject\": \"<string>\",\n    \"html_content\": \"<string>\",\n    \"plain_content\": \"<string>\",\n    \"generate_plain_content\": true,\n    \"design_id\": \"<string>\",\n    \"editor\": \"design\",\n    \"suppression_group_id\": \"<integer>\",\n    \"custom_unsubscribe_url\": \"<uri>\",\n    \"sender_id\": \"<integer>\",\n    \"ip_pool\": \"<string>\"\n  },\n  \"warnings\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"warning_id\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"warning_id\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:17:36.000Z",
+                          "updatedAt": "2026-06-05T15:17:36.000Z",
+                          "uid": "35240-7184cc6f-7829-4e06-aae6-0696ca29d8fe"
+                        },
+                        {
+                          "id": "5d2b2394-dfbd-46d9-a451-45095878da80",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/marketing/singlesends/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "marketing",
+                                "singlesends",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:17:36.000Z",
+                          "updatedAt": "2026-06-05T15:17:36.000Z",
+                          "uid": "35240-5d2b2394-dfbd-46d9-a451-45095878da80"
+                        },
+                        {
+                          "id": "c1855b2c-fb46-4b4c-8585-e0f4f49eb14f",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/marketing/singlesends/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "marketing",
+                                "singlesends",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:17:36.000Z",
+                          "updatedAt": "2026-06-05T15:17:36.000Z",
+                          "uid": "35240-c1855b2c-fb46-4b4c-8585-e0f4f49eb14f"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:17:36.000Z",
+                      "updatedAt": "2026-06-05T15:17:36.000Z",
+                      "uid": "35240-7fefb5c7-0f6a-42bf-bad4-b68e91198f41"
+                    },
+                    {
+                      "name": "Delete Single Send by ID",
+                      "id": "ce87b843-4d62-4e04-af96-c7986950ba32",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/marketing/singlesends/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "marketing",
+                            "singlesends",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "5ee33ab4-7578-457f-a003-a25587e3ea61",
+                              "key": "id",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "**This endpoint allows you to delete one Single Send using a Single Send ID.**\n\nTo first retrieve all your Single Sends' IDs, you can make a GET request to the `/marketing/singlensends` endpoint.\n\nPlease note that a `DELETE` request is permanent, and your Single Send will not be recoverable after deletion."
+                      },
+                      "response": [
+                        {
+                          "id": "14e1b67c-cddd-4de1-a300-27a693f04c8b",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/marketing/singlesends/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "marketing",
+                                "singlesends",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:17:36.000Z",
+                          "updatedAt": "2026-06-05T15:17:36.000Z",
+                          "uid": "35240-14e1b67c-cddd-4de1-a300-27a693f04c8b"
+                        },
+                        {
+                          "id": "c6127936-2c0e-4d16-8099-7e0acf4923be",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/marketing/singlesends/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "marketing",
+                                "singlesends",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:17:36.000Z",
+                          "updatedAt": "2026-06-05T15:17:36.000Z",
+                          "uid": "35240-c6127936-2c0e-4d16-8099-7e0acf4923be"
+                        },
+                        {
+                          "id": "00433c65-f612-40c6-94af-3793e6fb3455",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/marketing/singlesends/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "marketing",
+                                "singlesends",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:17:36.000Z",
+                          "updatedAt": "2026-06-05T15:17:36.000Z",
+                          "uid": "35240-00433c65-f612-40c6-94af-3793e6fb3455"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:17:36.000Z",
+                      "updatedAt": "2026-06-05T15:17:36.000Z",
+                      "uid": "35240-ce87b843-4d62-4e04-af96-c7986950ba32"
+                    }
+                  ],
+                  "id": "03cbdf6f-6cbc-4aac-9231-805445c4805d",
+                  "createdAt": "2026-06-05T15:17:36.000Z",
+                  "updatedAt": "2026-06-05T15:17:36.000Z",
+                  "uid": "35240-03cbdf6f-6cbc-4aac-9231-805445c4805d"
+                },
+                {
+                  "name": "categories",
+                  "item": [
+                    {
+                      "name": "Get All Categories",
+                      "id": "a167f029-d254-4ef2-93fd-26104db54fd6",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/marketing/singlesends/categories",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "marketing",
+                            "singlesends",
+                            "categories"
+                          ]
+                        },
+                        "description": "**This endpoint allows you to retrieve all the categories associated with your Single Sends.**\n\nThis endpoint will return your latest 1,000 categories."
+                      },
+                      "response": [
+                        {
+                          "id": "2e99ba7e-cf2f-4bff-9989-bfa7fd3686fc",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/marketing/singlesends/categories",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "marketing",
+                                "singlesends",
+                                "categories"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "createdAt": "2026-06-05T15:17:36.000Z",
+                          "updatedAt": "2026-06-05T15:17:36.000Z",
+                          "uid": "35240-2e99ba7e-cf2f-4bff-9989-bfa7fd3686fc"
+                        },
+                        {
+                          "id": "40f82130-3b88-43ff-b470-f0d87003f194",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/marketing/singlesends/categories",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "marketing",
+                                "singlesends",
+                                "categories"
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:17:36.000Z",
+                          "updatedAt": "2026-06-05T15:17:36.000Z",
+                          "uid": "35240-40f82130-3b88-43ff-b470-f0d87003f194"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:17:36.000Z",
+                      "updatedAt": "2026-06-05T15:17:36.000Z",
+                      "uid": "35240-a167f029-d254-4ef2-93fd-26104db54fd6"
+                    }
+                  ],
+                  "id": "d300d997-e200-4572-a6f8-c1d694ed4ce2",
+                  "createdAt": "2026-06-05T15:17:36.000Z",
+                  "updatedAt": "2026-06-05T15:17:36.000Z",
+                  "uid": "35240-d300d997-e200-4572-a6f8-c1d694ed4ce2"
+                },
+                {
+                  "name": "search",
+                  "item": [
+                    {
+                      "name": "Get Single Sends Search",
+                      "id": "338b7de0-b44b-4457-a36a-a3e83851428b",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"status\": [\n    \"draft\",\n    \"triggered\"\n  ],\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/marketing/singlesends/search?page_size=<integer>&page_token=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "marketing",
+                            "singlesends",
+                            "search"
+                          ],
+                          "query": [
+                            {
+                              "key": "page_size",
+                              "value": "<integer>"
+                            },
+                            {
+                              "key": "page_token",
+                              "value": "<string>"
+                            }
+                          ]
+                        },
+                        "description": "**This endpoint allows you to search for Single Sends based on specified criteria.**\n\nYou can search for Single Sends by passing a combination of values using the `name`, `status`, and `categories` request body fields.\n\nFor example, if you want to search for all Single Sends that are \"drafts\" or \"scheduled\" and also associated with the category \"shoes,\" your request body may look like the example below.\n\n```javascript\n{\n  \"status\": [\n    \"draft\",\n    \"scheduled\"\n  ],\n  \"categories\": [\n    \"shoes\"\n  ],\n}\n```"
+                      },
+                      "response": [
+                        {
+                          "id": "547747c5-1405-4a8e-8beb-b15b5ef07d01",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"status\": [\n    \"draft\",\n    \"triggered\"\n  ],\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/marketing/singlesends/search?page_size=<integer>&page_token=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "marketing",
+                                "singlesends",
+                                "search"
+                              ],
+                              "query": [
+                                {
+                                  "key": "page_size",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "key": "page_token",
+                                  "value": "<string>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"result\": [\n    {\n      \"id\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"abtest\": {\n        \"type\": \"content\",\n        \"winner_criteria\": \"open\",\n        \"test_percentage\": \"<integer>\",\n        \"duration\": \"<string>\",\n        \"winning_template_id\": \"<string>\",\n        \"winner_selected_at\": \"<string>\",\n        \"expiration_date\": \"<string>\"\n      },\n      \"status\": \"scheduled\",\n      \"categories\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"is_abtest\": \"<boolean>\",\n      \"updated_at\": \"<dateTime>\",\n      \"created_at\": \"<dateTime>\",\n      \"send_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"abtest\": {\n        \"type\": \"subject\",\n        \"winner_criteria\": \"open\",\n        \"test_percentage\": \"<integer>\",\n        \"duration\": \"<string>\",\n        \"winning_template_id\": \"<string>\",\n        \"winner_selected_at\": \"<string>\",\n        \"expiration_date\": \"<string>\"\n      },\n      \"status\": \"scheduled\",\n      \"categories\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"is_abtest\": \"<boolean>\",\n      \"updated_at\": \"<dateTime>\",\n      \"created_at\": \"<dateTime>\",\n      \"send_at\": \"<dateTime>\"\n    }\n  ],\n  \"_metadata\": {\n    \"prev\": \"<uri>\",\n    \"self\": \"<uri>\",\n    \"next\": \"<uri>\",\n    \"count\": \"<integer>\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:17:36.000Z",
+                          "updatedAt": "2026-06-05T15:17:36.000Z",
+                          "uid": "35240-547747c5-1405-4a8e-8beb-b15b5ef07d01"
+                        },
+                        {
+                          "id": "f5b64a6d-b07a-4504-bfaf-93696de47dda",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"status\": [\n    \"draft\",\n    \"triggered\"\n  ],\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/marketing/singlesends/search?page_size=<integer>&page_token=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "marketing",
+                                "singlesends",
+                                "search"
+                              ],
+                              "query": [
+                                {
+                                  "key": "page_size",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "key": "page_token",
+                                  "value": "<string>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:17:36.000Z",
+                          "updatedAt": "2026-06-05T15:17:36.000Z",
+                          "uid": "35240-f5b64a6d-b07a-4504-bfaf-93696de47dda"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:17:36.000Z",
+                      "updatedAt": "2026-06-05T15:17:36.000Z",
+                      "uid": "35240-338b7de0-b44b-4457-a36a-a3e83851428b"
+                    }
+                  ],
+                  "id": "f09cc354-e461-4fdf-989f-bf72152621ae",
+                  "createdAt": "2026-06-05T15:17:36.000Z",
+                  "updatedAt": "2026-06-05T15:17:36.000Z",
+                  "uid": "35240-f09cc354-e461-4fdf-989f-bf72152621ae"
+                },
+                {
+                  "name": "Create Single Send",
+                  "id": "38df8694-230d-4ae3-a1e0-9eb725dfcbeb",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"send_at\": \"<dateTime>\",\n  \"send_to\": {\n    \"list_ids\": [\n      \"<uuid>\",\n      \"<uuid>\"\n    ],\n    \"segment_ids\": [\n      \"<uuid>\",\n      \"<uuid>\"\n    ],\n    \"all\": false\n  },\n  \"email_config\": {\n    \"subject\": \"<string>\",\n    \"html_content\": \"<string>\",\n    \"plain_content\": \"<string>\",\n    \"generate_plain_content\": true,\n    \"design_id\": \"<string>\",\n    \"editor\": \"design\",\n    \"suppression_group_id\": \"<integer>\",\n    \"custom_unsubscribe_url\": \"<uri>\",\n    \"sender_id\": \"<integer>\",\n    \"ip_pool\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/marketing/singlesends",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "marketing",
+                        "singlesends"
+                      ]
+                    },
+                    "description": "**This endpoint allows you to create a new Single Send.**\n\nPlease note that if you are migrating from the previous version of Single Sends, you no longer need to pass a template ID with your request to this endpoint. Instead, you will pass all template data in the `email_config` object.\n\nThis endpoint will create a draft of the Single Send but will not send it or schedule it to be sent. Any `send_at` property value set with this endpoint will prepopulate the Single Send's send date. However, the Single Send will remain an unscheduled draft until it's updated with the [**Schedule Single Send**](https://docs.sendgrid.com/api-reference/single-sends/schedule-single-send) endpoint or SendGrid application UI."
+                  },
+                  "response": [
+                    {
+                      "id": "2defe312-eeec-4418-a64c-33912c70afb3",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"send_at\": \"<dateTime>\",\n  \"send_to\": {\n    \"list_ids\": [\n      \"<uuid>\",\n      \"<uuid>\"\n    ],\n    \"segment_ids\": [\n      \"<uuid>\",\n      \"<uuid>\"\n    ],\n    \"all\": false\n  },\n  \"email_config\": {\n    \"subject\": \"<string>\",\n    \"html_content\": \"<string>\",\n    \"plain_content\": \"<string>\",\n    \"generate_plain_content\": true,\n    \"design_id\": \"<string>\",\n    \"editor\": \"design\",\n    \"suppression_group_id\": \"<integer>\",\n    \"custom_unsubscribe_url\": \"<uri>\",\n    \"sender_id\": \"<integer>\",\n    \"ip_pool\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/marketing/singlesends",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "marketing",
+                            "singlesends"
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"status\": \"draft\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"send_at\": \"<dateTime>\",\n  \"send_to\": {\n    \"list_ids\": [\n      \"<uuid>\",\n      \"<uuid>\"\n    ],\n    \"segment_ids\": [\n      \"<uuid>\",\n      \"<uuid>\"\n    ],\n    \"all\": false\n  },\n  \"updated_at\": \"<dateTime>\",\n  \"created_at\": \"<dateTime>\",\n  \"email_config\": {\n    \"subject\": \"<string>\",\n    \"html_content\": \"<string>\",\n    \"plain_content\": \"<string>\",\n    \"generate_plain_content\": true,\n    \"design_id\": \"<string>\",\n    \"editor\": \"design\",\n    \"suppression_group_id\": \"<integer>\",\n    \"custom_unsubscribe_url\": \"<uri>\",\n    \"sender_id\": \"<integer>\",\n    \"ip_pool\": \"<string>\"\n  },\n  \"warnings\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"warning_id\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"warning_id\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:17:36.000Z",
+                      "updatedAt": "2026-06-05T15:17:36.000Z",
+                      "uid": "35240-2defe312-eeec-4418-a64c-33912c70afb3"
+                    },
+                    {
+                      "id": "4b444bdc-d11b-4138-8b3e-983b1945fbe5",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"send_at\": \"<dateTime>\",\n  \"send_to\": {\n    \"list_ids\": [\n      \"<uuid>\",\n      \"<uuid>\"\n    ],\n    \"segment_ids\": [\n      \"<uuid>\",\n      \"<uuid>\"\n    ],\n    \"all\": false\n  },\n  \"email_config\": {\n    \"subject\": \"<string>\",\n    \"html_content\": \"<string>\",\n    \"plain_content\": \"<string>\",\n    \"generate_plain_content\": true,\n    \"design_id\": \"<string>\",\n    \"editor\": \"design\",\n    \"suppression_group_id\": \"<integer>\",\n    \"custom_unsubscribe_url\": \"<uri>\",\n    \"sender_id\": \"<integer>\",\n    \"ip_pool\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/marketing/singlesends",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "marketing",
+                            "singlesends"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:17:36.000Z",
+                      "updatedAt": "2026-06-05T15:17:36.000Z",
+                      "uid": "35240-4b444bdc-d11b-4138-8b3e-983b1945fbe5"
+                    },
+                    {
+                      "id": "a3a9d889-fb9a-4a71-a90a-532d19086d82",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"send_at\": \"<dateTime>\",\n  \"send_to\": {\n    \"list_ids\": [\n      \"<uuid>\",\n      \"<uuid>\"\n    ],\n    \"segment_ids\": [\n      \"<uuid>\",\n      \"<uuid>\"\n    ],\n    \"all\": false\n  },\n  \"email_config\": {\n    \"subject\": \"<string>\",\n    \"html_content\": \"<string>\",\n    \"plain_content\": \"<string>\",\n    \"generate_plain_content\": true,\n    \"design_id\": \"<string>\",\n    \"editor\": \"design\",\n    \"suppression_group_id\": \"<integer>\",\n    \"custom_unsubscribe_url\": \"<uri>\",\n    \"sender_id\": \"<integer>\",\n    \"ip_pool\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/marketing/singlesends",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "marketing",
+                            "singlesends"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:17:36.000Z",
+                      "updatedAt": "2026-06-05T15:17:36.000Z",
+                      "uid": "35240-a3a9d889-fb9a-4a71-a90a-532d19086d82"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:17:36.000Z",
+                  "updatedAt": "2026-06-05T15:17:36.000Z",
+                  "uid": "35240-38df8694-230d-4ae3-a1e0-9eb725dfcbeb"
+                },
+                {
+                  "name": "Get All Single Sends",
+                  "id": "d2689bcf-a568-4044-846b-9e1b2a4586cf",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/marketing/singlesends?page_size=<integer>&page_token=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "marketing",
+                        "singlesends"
+                      ],
+                      "query": [
+                        {
+                          "key": "page_size",
+                          "value": "<integer>"
+                        },
+                        {
+                          "key": "page_token",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "description": "**This endpoint allows you to retrieve all your Single Sends.**\n\nReturns all of your Single Sends with condensed details about each, including the Single Sends' IDs. For more details about an individual Single Send, pass the Single Send's ID to the `/marketing/singlesends/{id}` endpoint."
+                  },
+                  "response": [
+                    {
+                      "id": "6fd4dc83-c8eb-4729-8f68-db904bac896a",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/marketing/singlesends?page_size=<integer>&page_token=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "marketing",
+                            "singlesends"
+                          ],
+                          "query": [
+                            {
+                              "key": "page_size",
+                              "value": "<integer>"
+                            },
+                            {
+                              "key": "page_token",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"result\": [\n    {\n      \"id\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"abtest\": {\n        \"type\": \"content\",\n        \"winner_criteria\": \"open\",\n        \"test_percentage\": \"<integer>\",\n        \"duration\": \"<string>\",\n        \"winning_template_id\": \"<string>\",\n        \"winner_selected_at\": \"<string>\",\n        \"expiration_date\": \"<string>\"\n      },\n      \"status\": \"scheduled\",\n      \"categories\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"is_abtest\": \"<boolean>\",\n      \"updated_at\": \"<dateTime>\",\n      \"created_at\": \"<dateTime>\",\n      \"send_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"abtest\": {\n        \"type\": \"subject\",\n        \"winner_criteria\": \"open\",\n        \"test_percentage\": \"<integer>\",\n        \"duration\": \"<string>\",\n        \"winning_template_id\": \"<string>\",\n        \"winner_selected_at\": \"<string>\",\n        \"expiration_date\": \"<string>\"\n      },\n      \"status\": \"scheduled\",\n      \"categories\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"is_abtest\": \"<boolean>\",\n      \"updated_at\": \"<dateTime>\",\n      \"created_at\": \"<dateTime>\",\n      \"send_at\": \"<dateTime>\"\n    }\n  ],\n  \"_metadata\": {\n    \"prev\": \"<uri>\",\n    \"self\": \"<uri>\",\n    \"next\": \"<uri>\",\n    \"count\": \"<integer>\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:17:36.000Z",
+                      "updatedAt": "2026-06-05T15:17:36.000Z",
+                      "uid": "35240-6fd4dc83-c8eb-4729-8f68-db904bac896a"
+                    },
+                    {
+                      "id": "63c02aa9-e3fb-4b8f-8a19-97aa65a1a7ca",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/marketing/singlesends?page_size=<integer>&page_token=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "marketing",
+                            "singlesends"
+                          ],
+                          "query": [
+                            {
+                              "key": "page_size",
+                              "value": "<integer>"
+                            },
+                            {
+                              "key": "page_token",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:17:36.000Z",
+                      "updatedAt": "2026-06-05T15:17:36.000Z",
+                      "uid": "35240-63c02aa9-e3fb-4b8f-8a19-97aa65a1a7ca"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:17:36.000Z",
+                  "updatedAt": "2026-06-05T15:17:36.000Z",
+                  "uid": "35240-d2689bcf-a568-4044-846b-9e1b2a4586cf"
+                },
+                {
+                  "name": "Bulk Delete Single Sends",
+                  "id": "6ba5c147-f6fd-4933-a299-5b7ee3e7a821",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/marketing/singlesends?ids=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "marketing",
+                        "singlesends"
+                      ],
+                      "query": [
+                        {
+                          "description": "Single Send IDs to delete",
+                          "key": "ids",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "description": "**This endpoint allows you to delete multiple Single Sends using an array of Single Sends IDs.**\n\nTo first retrieve all your Single Sends' IDs, you can make a GET request to the `/marketing/singlensends` endpoint.\n\nPlease note that a DELETE request is permanent, and your Single Sends will not be recoverable after deletion."
+                  },
+                  "response": [
+                    {
+                      "id": "1d6778b7-3331-4c65-9daf-102966a38606",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/marketing/singlesends?ids=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "marketing",
+                            "singlesends"
+                          ],
+                          "query": [
+                            {
+                              "description": "Single Send IDs to delete",
+                              "key": "ids",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:17:36.000Z",
+                      "updatedAt": "2026-06-05T15:17:36.000Z",
+                      "uid": "35240-1d6778b7-3331-4c65-9daf-102966a38606"
+                    },
+                    {
+                      "id": "a51bd2a7-00a3-4895-9101-7f208f4e8a63",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/marketing/singlesends?ids=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "marketing",
+                            "singlesends"
+                          ],
+                          "query": [
+                            {
+                              "description": "Single Send IDs to delete",
+                              "key": "ids",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:17:36.000Z",
+                      "updatedAt": "2026-06-05T15:17:36.000Z",
+                      "uid": "35240-a51bd2a7-00a3-4895-9101-7f208f4e8a63"
+                    },
+                    {
+                      "id": "94f472ea-c328-439d-b655-ef2ab504d0cd",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/marketing/singlesends?ids=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "marketing",
+                            "singlesends"
+                          ],
+                          "query": [
+                            {
+                              "description": "Single Send IDs to delete",
+                              "key": "ids",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:17:36.000Z",
+                      "updatedAt": "2026-06-05T15:17:36.000Z",
+                      "uid": "35240-94f472ea-c328-439d-b655-ef2ab504d0cd"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:17:36.000Z",
+                  "updatedAt": "2026-06-05T15:17:36.000Z",
+                  "uid": "35240-6ba5c147-f6fd-4933-a299-5b7ee3e7a821"
+                }
+              ],
+              "id": "03609502-287f-4c19-8ab8-2e73ae096db8",
+              "createdAt": "2026-06-05T15:17:36.000Z",
+              "updatedAt": "2026-06-05T15:17:36.000Z",
+              "uid": "35240-03609502-287f-4c19-8ab8-2e73ae096db8"
+            }
+          ],
+          "id": "0fd27d32-af5c-4bab-ba30-13b260443cc0",
+          "createdAt": "2026-06-05T15:17:36.000Z",
+          "updatedAt": "2026-06-05T15:17:36.000Z",
+          "uid": "35240-0fd27d32-af5c-4bab-ba30-13b260443cc0"
+        }
+      ],
+      "id": "fcccab80-4e63-4fb2-a2ee-f296ca46f203",
+      "createdAt": "2026-06-05T15:17:36.000Z",
+      "updatedAt": "2026-06-05T15:17:36.000Z",
+      "uid": "35240-fcccab80-4e63-4fb2-a2ee-f296ca46f203"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.sendgrid.com"
+    }
+  ]
+}

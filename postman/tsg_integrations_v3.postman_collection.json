@@ -1,0 +1,1419 @@
+{
+  "info": {
+    "_postman_id": "cd1835a0-aff2-4b85-880e-ea812dcac025",
+    "name": "Twilio SendGrid Integrations API",
+    "description": "Integrations allows you to connect your SendGrid applications with third-party services and forward SendGrid email events to those external applications. Currently, Integrations supports event forwarding to [Segment](https://segment.com/docs). You can use this API to create, delete, view, and update your Integrations.\n\nContact Support:\n Name: Twilio SendGrid Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:16:37.000Z",
+    "updatedAt": "2026-06-05T15:16:38.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-cd1835a0-aff2-4b85-880e-ea812dcac025"
+  },
+  "item": [
+    {
+      "name": "v3",
+      "item": [
+        {
+          "name": "marketing",
+          "item": [
+            {
+              "name": "integrations",
+              "item": [
+                {
+                  "name": "{id}",
+                  "item": [
+                    {
+                      "name": "GetIntegration",
+                      "id": "ca4ed100-99e7-4ce2-bcac-97ab662d9092",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/marketing/integrations/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "marketing",
+                            "integrations",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "fac04eb5-ff27-4004-90c0-88742f175dee",
+                              "key": "id",
+                              "value": "<string>",
+                              "description": "(Required) The ID of the Integration you would like to retrieve."
+                            }
+                          ]
+                        },
+                        "description": "This endpoint returns the data for a specific Integration."
+                      },
+                      "response": [
+                        {
+                          "id": "4d35727a-181a-4630-9680-6141b286266a",
+                          "name": "Successful operation",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/marketing/integrations/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "marketing",
+                                "integrations",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"integration_id\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"filters\": {\n    \"email_events\": [\n      \"drop\",\n      \"machine_opened\"\n    ]\n  },\n  \"properties\": {\n    \"write_key\": \"<string>\",\n    \"destination_region\": \"EU\"\n  },\n  \"label\": \"Untitled Integration\",\n  \"destination\": \"Segment\"\n}",
+                          "createdAt": "2026-06-05T15:16:38.000Z",
+                          "updatedAt": "2026-06-05T15:16:38.000Z",
+                          "uid": "35240-4d35727a-181a-4630-9680-6141b286266a"
+                        },
+                        {
+                          "id": "11790065-d513-4f02-9561-b22142c58fb7",
+                          "name": "Forbidden. You may not have the required API token scope.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/marketing/integrations/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "marketing",
+                                "integrations",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:16:38.000Z",
+                          "updatedAt": "2026-06-05T15:16:38.000Z",
+                          "uid": "35240-11790065-d513-4f02-9561-b22142c58fb7"
+                        },
+                        {
+                          "id": "0fdb4ef0-e806-4679-a424-b8fb4e1438bd",
+                          "name": "Not Found. The Integration you specified was not found.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/marketing/integrations/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "marketing",
+                                "integrations",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:16:38.000Z",
+                          "updatedAt": "2026-06-05T15:16:38.000Z",
+                          "uid": "35240-0fdb4ef0-e806-4679-a424-b8fb4e1438bd"
+                        },
+                        {
+                          "id": "57cadd4f-8c37-4b8d-b9cc-db7715292157",
+                          "name": "Internal Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/marketing/integrations/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "marketing",
+                                "integrations",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:16:38.000Z",
+                          "updatedAt": "2026-06-05T15:16:38.000Z",
+                          "uid": "35240-57cadd4f-8c37-4b8d-b9cc-db7715292157"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:16:38.000Z",
+                      "updatedAt": "2026-06-05T15:16:38.000Z",
+                      "uid": "35240-ca4ed100-99e7-4ce2-bcac-97ab662d9092"
+                    },
+                    {
+                      "name": "UpdateIntegration",
+                      "id": "2da0002a-eacc-487a-9be3-6ff2119c8e97",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"destination\": \"Segment\",\n  \"filters\": {\n    \"email_events\": [\n      \"spamreport\",\n      \"spamreport\"\n    ]\n  },\n  \"properties\": {\n    \"write_key\": \"<string>\",\n    \"destination_region\": \"EU\"\n  },\n  \"label\": \"Untitled Integration\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/marketing/integrations/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "marketing",
+                            "integrations",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "b0e23bfb-0bdb-4a25-9f4e-dbece183bcb5",
+                              "key": "id",
+                              "value": "<string>",
+                              "description": "(Required) The ID of the Integration you would like to update."
+                            }
+                          ]
+                        },
+                        "description": "This endpoint updates an existing Integration."
+                      },
+                      "response": [
+                        {
+                          "id": "b2033a07-4f26-4cee-b3d8-1f3b27084cd6",
+                          "name": "Successful Operation",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"destination\": \"Segment\",\n  \"filters\": {\n    \"email_events\": [\n      \"spamreport\",\n      \"spamreport\"\n    ]\n  },\n  \"properties\": {\n    \"write_key\": \"<string>\",\n    \"destination_region\": \"EU\"\n  },\n  \"label\": \"Untitled Integration\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/marketing/integrations/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "marketing",
+                                "integrations",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"integration_id\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"filters\": {\n    \"email_events\": [\n      \"drop\",\n      \"machine_opened\"\n    ]\n  },\n  \"properties\": {\n    \"write_key\": \"<string>\",\n    \"destination_region\": \"EU\"\n  },\n  \"label\": \"Untitled Integration\",\n  \"destination\": \"Segment\"\n}",
+                          "createdAt": "2026-06-05T15:16:38.000Z",
+                          "updatedAt": "2026-06-05T15:16:38.000Z",
+                          "uid": "35240-b2033a07-4f26-4cee-b3d8-1f3b27084cd6"
+                        },
+                        {
+                          "id": "0506db0d-eaa2-407f-91b8-7e5c2e336e9e",
+                          "name": "Invalid Request",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"destination\": \"Segment\",\n  \"filters\": {\n    \"email_events\": [\n      \"spamreport\",\n      \"spamreport\"\n    ]\n  },\n  \"properties\": {\n    \"write_key\": \"<string>\",\n    \"destination_region\": \"EU\"\n  },\n  \"label\": \"Untitled Integration\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/marketing/integrations/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "marketing",
+                                "integrations",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:16:38.000Z",
+                          "updatedAt": "2026-06-05T15:16:38.000Z",
+                          "uid": "35240-0506db0d-eaa2-407f-91b8-7e5c2e336e9e"
+                        },
+                        {
+                          "id": "d25a7b5a-e95a-4803-9a5e-16aa220564e4",
+                          "name": "Forbidden. You may not have the required API token scope.",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"destination\": \"Segment\",\n  \"filters\": {\n    \"email_events\": [\n      \"spamreport\",\n      \"spamreport\"\n    ]\n  },\n  \"properties\": {\n    \"write_key\": \"<string>\",\n    \"destination_region\": \"EU\"\n  },\n  \"label\": \"Untitled Integration\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/marketing/integrations/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "marketing",
+                                "integrations",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:16:38.000Z",
+                          "updatedAt": "2026-06-05T15:16:38.000Z",
+                          "uid": "35240-d25a7b5a-e95a-4803-9a5e-16aa220564e4"
+                        },
+                        {
+                          "id": "45cc499c-1613-4795-a640-573282a5c0a3",
+                          "name": "Not Found. The Integration you specified was not found.",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"destination\": \"Segment\",\n  \"filters\": {\n    \"email_events\": [\n      \"spamreport\",\n      \"spamreport\"\n    ]\n  },\n  \"properties\": {\n    \"write_key\": \"<string>\",\n    \"destination_region\": \"EU\"\n  },\n  \"label\": \"Untitled Integration\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/marketing/integrations/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "marketing",
+                                "integrations",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:16:38.000Z",
+                          "updatedAt": "2026-06-05T15:16:38.000Z",
+                          "uid": "35240-45cc499c-1613-4795-a640-573282a5c0a3"
+                        },
+                        {
+                          "id": "6d34583d-6edb-44c3-a20e-0f84f0f754a9",
+                          "name": "Internal Error",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"destination\": \"Segment\",\n  \"filters\": {\n    \"email_events\": [\n      \"spamreport\",\n      \"spamreport\"\n    ]\n  },\n  \"properties\": {\n    \"write_key\": \"<string>\",\n    \"destination_region\": \"EU\"\n  },\n  \"label\": \"Untitled Integration\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/marketing/integrations/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "marketing",
+                                "integrations",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:16:38.000Z",
+                          "updatedAt": "2026-06-05T15:16:38.000Z",
+                          "uid": "35240-6d34583d-6edb-44c3-a20e-0f84f0f754a9"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:16:38.000Z",
+                      "updatedAt": "2026-06-05T15:16:38.000Z",
+                      "uid": "35240-2da0002a-eacc-487a-9be3-6ff2119c8e97"
+                    }
+                  ],
+                  "id": "52ea4b87-37ad-421d-ac54-b7099d43cd95",
+                  "createdAt": "2026-06-05T15:16:38.000Z",
+                  "updatedAt": "2026-06-05T15:16:38.000Z",
+                  "uid": "35240-52ea4b87-37ad-421d-ac54-b7099d43cd95"
+                },
+                {
+                  "name": "ListIntegration",
+                  "id": "67f59e4e-7369-412e-9de1-687e0aa98f5f",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/marketing/integrations",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "marketing",
+                        "integrations"
+                      ]
+                    },
+                    "description": "This endpoint returns all the Integrations for the user making this call."
+                  },
+                  "response": [
+                    {
+                      "id": "a9a00d1c-2a8b-43a2-ab14-ad726fd81842",
+                      "name": "Successful Operation",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/marketing/integrations",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "marketing",
+                            "integrations"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"result\": [\n    {\n      \"integration_id\": \"<string>\",\n      \"user_id\": \"<string>\",\n      \"filters\": {\n        \"email_events\": [\n          \"processed\",\n          \"open\"\n        ]\n      },\n      \"properties\": {\n        \"write_key\": \"<string>\",\n        \"destination_region\": \"EU\"\n      },\n      \"label\": \"Untitled Integration\",\n      \"destination\": \"Segment\"\n    },\n    {\n      \"integration_id\": \"<string>\",\n      \"user_id\": \"<string>\",\n      \"filters\": {\n        \"email_events\": [\n          \"spamreport\",\n          \"group_unsubscribe\"\n        ]\n      },\n      \"properties\": {\n        \"write_key\": \"<string>\",\n        \"destination_region\": \"EU\"\n      },\n      \"label\": \"Untitled Integration\",\n      \"destination\": \"Segment\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:16:38.000Z",
+                      "updatedAt": "2026-06-05T15:16:38.000Z",
+                      "uid": "35240-a9a00d1c-2a8b-43a2-ab14-ad726fd81842"
+                    },
+                    {
+                      "id": "f511c268-29d1-4fd5-96d8-318ef03ac4ae",
+                      "name": "Forbidden. You may not have the required API token scope.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/marketing/integrations",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "marketing",
+                            "integrations"
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:16:38.000Z",
+                      "updatedAt": "2026-06-05T15:16:38.000Z",
+                      "uid": "35240-f511c268-29d1-4fd5-96d8-318ef03ac4ae"
+                    },
+                    {
+                      "id": "48003ac0-1a89-4470-9f31-aaf5840385c8",
+                      "name": "Internal Error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/marketing/integrations",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "marketing",
+                            "integrations"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:16:38.000Z",
+                      "updatedAt": "2026-06-05T15:16:38.000Z",
+                      "uid": "35240-48003ac0-1a89-4470-9f31-aaf5840385c8"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:16:38.000Z",
+                  "updatedAt": "2026-06-05T15:16:38.000Z",
+                  "uid": "35240-67f59e4e-7369-412e-9de1-687e0aa98f5f"
+                },
+                {
+                  "name": "CreateIntegration",
+                  "id": "7b5c963a-ac25-42c4-b8ba-b24717f556a8",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"destination\": \"Segment\",\n  \"filters\": {\n    \"email_events\": [\n      \"bounce\",\n      \"delivered\"\n    ]\n  },\n  \"properties\": {\n    \"write_key\": \"<string>\",\n    \"destination_region\": \"EU\"\n  },\n  \"label\": \"Untitled Integration\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/marketing/integrations",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "marketing",
+                        "integrations"
+                      ]
+                    },
+                    "description": "This endpoint creates an Integration for email event forwarding. Each Integration has a maximum number of allowed Integration instances per user. For example, users can create up to 10 Segment Integrations."
+                  },
+                  "response": [
+                    {
+                      "id": "eaeb80e0-99c9-477c-809a-edae1a4727d2",
+                      "name": "Successful Operation",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"destination\": \"Segment\",\n  \"filters\": {\n    \"email_events\": [\n      \"bounce\",\n      \"delivered\"\n    ]\n  },\n  \"properties\": {\n    \"write_key\": \"<string>\",\n    \"destination_region\": \"EU\"\n  },\n  \"label\": \"Untitled Integration\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/marketing/integrations",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "marketing",
+                            "integrations"
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"integration_id\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"filters\": {\n    \"email_events\": [\n      \"drop\",\n      \"machine_opened\"\n    ]\n  },\n  \"properties\": {\n    \"write_key\": \"<string>\",\n    \"destination_region\": \"EU\"\n  },\n  \"label\": \"Untitled Integration\",\n  \"destination\": \"Segment\"\n}",
+                      "createdAt": "2026-06-05T15:16:38.000Z",
+                      "updatedAt": "2026-06-05T15:16:38.000Z",
+                      "uid": "35240-eaeb80e0-99c9-477c-809a-edae1a4727d2"
+                    },
+                    {
+                      "id": "141d6bb3-7d48-4c38-8d47-4c0ead72a404",
+                      "name": "Invalid Request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"destination\": \"Segment\",\n  \"filters\": {\n    \"email_events\": [\n      \"bounce\",\n      \"delivered\"\n    ]\n  },\n  \"properties\": {\n    \"write_key\": \"<string>\",\n    \"destination_region\": \"EU\"\n  },\n  \"label\": \"Untitled Integration\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/marketing/integrations",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "marketing",
+                            "integrations"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:16:38.000Z",
+                      "updatedAt": "2026-06-05T15:16:38.000Z",
+                      "uid": "35240-141d6bb3-7d48-4c38-8d47-4c0ead72a404"
+                    },
+                    {
+                      "id": "b30320c9-99af-4a49-9ba5-a0d6e569cd0c",
+                      "name": "Forbidden. You may have hit the max number of allowed Integrations or may not have required API token scope.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"destination\": \"Segment\",\n  \"filters\": {\n    \"email_events\": [\n      \"bounce\",\n      \"delivered\"\n    ]\n  },\n  \"properties\": {\n    \"write_key\": \"<string>\",\n    \"destination_region\": \"EU\"\n  },\n  \"label\": \"Untitled Integration\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/marketing/integrations",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "marketing",
+                            "integrations"
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:16:38.000Z",
+                      "updatedAt": "2026-06-05T15:16:38.000Z",
+                      "uid": "35240-b30320c9-99af-4a49-9ba5-a0d6e569cd0c"
+                    },
+                    {
+                      "id": "9444bb07-f60e-4a08-bc5e-e29844cd6f06",
+                      "name": "Internal Error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"destination\": \"Segment\",\n  \"filters\": {\n    \"email_events\": [\n      \"bounce\",\n      \"delivered\"\n    ]\n  },\n  \"properties\": {\n    \"write_key\": \"<string>\",\n    \"destination_region\": \"EU\"\n  },\n  \"label\": \"Untitled Integration\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/marketing/integrations",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "marketing",
+                            "integrations"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:16:38.000Z",
+                      "updatedAt": "2026-06-05T15:16:38.000Z",
+                      "uid": "35240-9444bb07-f60e-4a08-bc5e-e29844cd6f06"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:16:38.000Z",
+                  "updatedAt": "2026-06-05T15:16:38.000Z",
+                  "uid": "35240-7b5c963a-ac25-42c4-b8ba-b24717f556a8"
+                },
+                {
+                  "name": "DeleteBulkIntegration",
+                  "id": "03996908-a505-4612-890f-42f45e7d4ad0",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/marketing/integrations?ids=Duis elit eiusmod veniam&ids=sunt in",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "marketing",
+                        "integrations"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Comma-delimited Integration IDs for the Integrations to delete.",
+                          "key": "ids",
+                          "value": "Duis elit eiusmod veniam"
+                        },
+                        {
+                          "description": "(Required) Comma-delimited Integration IDs for the Integrations to delete.",
+                          "key": "ids",
+                          "value": "sunt in"
+                        }
+                      ]
+                    },
+                    "description": "This endpoint deletes Integrations."
+                  },
+                  "response": [
+                    {
+                      "id": "114c8681-b96e-41e9-acb8-84a186a0a4c1",
+                      "name": "Successful Operation",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/marketing/integrations?ids=sunt in",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "marketing",
+                            "integrations"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Comma-delimited Integration IDs for the Integrations to delete.",
+                              "key": "ids",
+                              "value": "sunt in"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:16:38.000Z",
+                      "updatedAt": "2026-06-05T15:16:38.000Z",
+                      "uid": "35240-114c8681-b96e-41e9-acb8-84a186a0a4c1"
+                    },
+                    {
+                      "id": "9fff5b1b-2d8e-4752-b314-a11603384630",
+                      "name": "Invalid Request",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/marketing/integrations?ids=sunt in",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "marketing",
+                            "integrations"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Comma-delimited Integration IDs for the Integrations to delete.",
+                              "key": "ids",
+                              "value": "sunt in"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"parameter\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"parameter\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:16:38.000Z",
+                      "updatedAt": "2026-06-05T15:16:38.000Z",
+                      "uid": "35240-9fff5b1b-2d8e-4752-b314-a11603384630"
+                    },
+                    {
+                      "id": "be27647e-c48c-4482-8dda-9e233239e7f5",
+                      "name": "Forbidden. You may not have the required API token scope.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/marketing/integrations?ids=sunt in",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "marketing",
+                            "integrations"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Comma-delimited Integration IDs for the Integrations to delete.",
+                              "key": "ids",
+                              "value": "sunt in"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:16:38.000Z",
+                      "updatedAt": "2026-06-05T15:16:38.000Z",
+                      "uid": "35240-be27647e-c48c-4482-8dda-9e233239e7f5"
+                    },
+                    {
+                      "id": "1fa2b576-2176-4c5a-b0aa-ebc94d3081ee",
+                      "name": "Not Found. The Integration you specified was not found.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/marketing/integrations?ids=sunt in",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "marketing",
+                            "integrations"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Comma-delimited Integration IDs for the Integrations to delete.",
+                              "key": "ids",
+                              "value": "sunt in"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:16:38.000Z",
+                      "updatedAt": "2026-06-05T15:16:38.000Z",
+                      "uid": "35240-1fa2b576-2176-4c5a-b0aa-ebc94d3081ee"
+                    },
+                    {
+                      "id": "704edd1d-fa19-4064-b935-4fb9f6012e30",
+                      "name": "Internal Error",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/marketing/integrations?ids=sunt in",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "marketing",
+                            "integrations"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Comma-delimited Integration IDs for the Integrations to delete.",
+                              "key": "ids",
+                              "value": "sunt in"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:16:38.000Z",
+                      "updatedAt": "2026-06-05T15:16:38.000Z",
+                      "uid": "35240-704edd1d-fa19-4064-b935-4fb9f6012e30"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:16:38.000Z",
+                  "updatedAt": "2026-06-05T15:16:38.000Z",
+                  "uid": "35240-03996908-a505-4612-890f-42f45e7d4ad0"
+                }
+              ],
+              "id": "40687c10-8146-4094-b43c-21679a6750dd",
+              "createdAt": "2026-06-05T15:16:38.000Z",
+              "updatedAt": "2026-06-05T15:16:38.000Z",
+              "uid": "35240-40687c10-8146-4094-b43c-21679a6750dd"
+            }
+          ],
+          "id": "a5562005-426f-468c-b221-8afcd08684cd",
+          "createdAt": "2026-06-05T15:16:38.000Z",
+          "updatedAt": "2026-06-05T15:16:38.000Z",
+          "uid": "35240-a5562005-426f-468c-b221-8afcd08684cd"
+        }
+      ],
+      "id": "2e0911a4-2183-4a9b-a63d-ba0d90fe8a14",
+      "createdAt": "2026-06-05T15:16:38.000Z",
+      "updatedAt": "2026-06-05T15:16:38.000Z",
+      "uid": "35240-2e0911a4-2183-4a9b-a63d-ba0d90fe8a14"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.sendgrid.com"
+    }
+  ]
+}

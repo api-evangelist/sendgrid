@@ -1,0 +1,2680 @@
+{
+  "info": {
+    "_postman_id": "e33b5a39-4ea5-4a34-b672-7a7f93f39316",
+    "name": "Twilio SendGrid Verified Senders API",
+    "description": "The Twilio SendGrid Verified Senders API allows you to programmatically manage the Sender Identities that are authorized to send email for your account. You can also manage Sender Identities in the [SendGrid application user interface](https://app.sendgrid.com/settings/sender_auth). See [**Single Sender Verification**](https://sendgrid.com/docs/ui/sending-email/sender-verification/) for more information.\n\nYou an use this API to create new Sender Identities, retrieve a list of existing Sender Identities, check the status of a Sender Identity, update a Sender Identity, and delete a Sender Identity.\n\nThis API offers additional operations to check for domains known to implement DMARC and resend verification emails to Sender Identities that have yet to complete the verification process.\n\nContact Support:\n Name: Twilio SendGrid Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:18:15.000Z",
+    "updatedAt": "2026-06-05T15:18:15.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-e33b5a39-4ea5-4a34-b672-7a7f93f39316"
+  },
+  "item": [
+    {
+      "name": "v3",
+      "item": [
+        {
+          "name": "verified_senders",
+          "item": [
+            {
+              "name": "{id}",
+              "item": [
+                {
+                  "name": "Edit Verified Sender",
+                  "id": "b385c703-164b-4e17-a9bc-8e1db6fb99b1",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"nickname\": \"<string>\",\n  \"from_email\": \"<email>\",\n  \"reply_to\": \"<email>\",\n  \"from_name\": \"<string>\",\n  \"reply_to_name\": \"<string>\",\n  \"address\": \"<string>\",\n  \"address2\": \"<string>\",\n  \"state\": \"<string>\",\n  \"city\": \"<string>\",\n  \"zip\": \"<string>\",\n  \"country\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/verified_senders/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "verified_senders",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "3a6f7afc-fde5-472a-84a4-ee3b70b53edd",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "**This endpoint allows you to update an existing Sender Identity**.\n\nPass the `id` assigned to a Sender Identity to this endpoint as a path parameter. Include any fields you wish to update in the request body in JSON format.\n\nYou can retrieve the IDs associated with Sender Identities by passing a `GET` request to the Get All Verified Senders endpoint, `/verified_senders`.\n\n**Note:** Unlike a `PUT` request, `PATCH` allows you to update only the fields you wish to edit. Fields that are not passed as part of a request will remain unaltered."
+                  },
+                  "response": [
+                    {
+                      "id": "5a8409e9-0633-458a-8f6b-d03273c5b24d",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"nickname\": \"<string>\",\n  \"from_email\": \"<email>\",\n  \"reply_to\": \"<email>\",\n  \"from_name\": \"<string>\",\n  \"reply_to_name\": \"<string>\",\n  \"address\": \"<string>\",\n  \"address2\": \"<string>\",\n  \"state\": \"<string>\",\n  \"city\": \"<string>\",\n  \"zip\": \"<string>\",\n  \"country\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/verified_senders/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "verified_senders",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<integer>\",\n  \"nickname\": \"<string>\",\n  \"from_email\": \"<string>\",\n  \"from_name\": \"<string>\",\n  \"reply_to\": \"<string>\",\n  \"reply_to_name\": \"<string>\",\n  \"address\": \"<string>\",\n  \"address2\": \"<string>\",\n  \"state\": \"<string>\",\n  \"city\": \"<string>\",\n  \"zip\": \"<string>\",\n  \"country\": \"<string>\",\n  \"verified\": \"<boolean>\",\n  \"locked\": \"<boolean>\"\n}",
+                      "createdAt": "2026-06-05T15:18:16.000Z",
+                      "updatedAt": "2026-06-05T15:18:16.000Z",
+                      "uid": "35240-5a8409e9-0633-458a-8f6b-d03273c5b24d"
+                    },
+                    {
+                      "id": "0a78df23-b0ad-472a-b56c-b3c4d4b41bb1",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"nickname\": \"<string>\",\n  \"from_email\": \"<email>\",\n  \"reply_to\": \"<email>\",\n  \"from_name\": \"<string>\",\n  \"reply_to_name\": \"<string>\",\n  \"address\": \"<string>\",\n  \"address2\": \"<string>\",\n  \"state\": \"<string>\",\n  \"city\": \"<string>\",\n  \"zip\": \"<string>\",\n  \"country\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/verified_senders/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "verified_senders",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\",\n      \"field\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\",\n      \"field\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:18:16.000Z",
+                      "updatedAt": "2026-06-05T15:18:16.000Z",
+                      "uid": "35240-0a78df23-b0ad-472a-b56c-b3c4d4b41bb1"
+                    },
+                    {
+                      "id": "928dbb95-8b30-4a92-93b8-6a6f32a3640c",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"nickname\": \"<string>\",\n  \"from_email\": \"<email>\",\n  \"reply_to\": \"<email>\",\n  \"from_name\": \"<string>\",\n  \"reply_to_name\": \"<string>\",\n  \"address\": \"<string>\",\n  \"address2\": \"<string>\",\n  \"state\": \"<string>\",\n  \"city\": \"<string>\",\n  \"zip\": \"<string>\",\n  \"country\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/verified_senders/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "verified_senders",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:18:16.000Z",
+                      "updatedAt": "2026-06-05T15:18:16.000Z",
+                      "uid": "35240-928dbb95-8b30-4a92-93b8-6a6f32a3640c"
+                    },
+                    {
+                      "id": "c3880d39-73d0-4ca0-bcb2-50547ea19cdc",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"nickname\": \"<string>\",\n  \"from_email\": \"<email>\",\n  \"reply_to\": \"<email>\",\n  \"from_name\": \"<string>\",\n  \"reply_to_name\": \"<string>\",\n  \"address\": \"<string>\",\n  \"address2\": \"<string>\",\n  \"state\": \"<string>\",\n  \"city\": \"<string>\",\n  \"zip\": \"<string>\",\n  \"country\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/verified_senders/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "verified_senders",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:18:16.000Z",
+                      "updatedAt": "2026-06-05T15:18:16.000Z",
+                      "uid": "35240-c3880d39-73d0-4ca0-bcb2-50547ea19cdc"
+                    },
+                    {
+                      "id": "b5bee3a0-b71b-47c9-bd4f-a67a27a8b197",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"nickname\": \"<string>\",\n  \"from_email\": \"<email>\",\n  \"reply_to\": \"<email>\",\n  \"from_name\": \"<string>\",\n  \"reply_to_name\": \"<string>\",\n  \"address\": \"<string>\",\n  \"address2\": \"<string>\",\n  \"state\": \"<string>\",\n  \"city\": \"<string>\",\n  \"zip\": \"<string>\",\n  \"country\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/verified_senders/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "verified_senders",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:18:16.000Z",
+                      "updatedAt": "2026-06-05T15:18:16.000Z",
+                      "uid": "35240-b5bee3a0-b71b-47c9-bd4f-a67a27a8b197"
+                    },
+                    {
+                      "id": "5b04d77c-6aed-4dec-8eec-d82fbffd7dd4",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"nickname\": \"<string>\",\n  \"from_email\": \"<email>\",\n  \"reply_to\": \"<email>\",\n  \"from_name\": \"<string>\",\n  \"reply_to_name\": \"<string>\",\n  \"address\": \"<string>\",\n  \"address2\": \"<string>\",\n  \"state\": \"<string>\",\n  \"city\": \"<string>\",\n  \"zip\": \"<string>\",\n  \"country\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/verified_senders/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "verified_senders",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:18:16.000Z",
+                      "updatedAt": "2026-06-05T15:18:16.000Z",
+                      "uid": "35240-5b04d77c-6aed-4dec-8eec-d82fbffd7dd4"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:15.000Z",
+                  "updatedAt": "2026-06-05T15:18:15.000Z",
+                  "uid": "35240-b385c703-164b-4e17-a9bc-8e1db6fb99b1"
+                },
+                {
+                  "name": "Delete Verified Sender",
+                  "id": "089e7938-e49e-439b-ad51-98f4f11498fa",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/verified_senders/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "verified_senders",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "19ea133f-7774-4b88-8b5d-9912fda9f8bc",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "**This endpoint allows you to delete a Sender Identity**.\n\nPass the `id` assigned to a Sender Identity to this endpoint to delete the Sender Identity from your account.\n\nYou can retrieve the IDs associated with Sender Identities using the \"Get All Verified Senders\" endpoint."
+                  },
+                  "response": [
+                    {
+                      "id": "16113366-636c-4b62-a8b2-4fb91084b82e",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/verified_senders/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "verified_senders",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:18:16.000Z",
+                      "updatedAt": "2026-06-05T15:18:16.000Z",
+                      "uid": "35240-16113366-636c-4b62-a8b2-4fb91084b82e"
+                    },
+                    {
+                      "id": "21c063e4-1366-4037-9a64-2657189b490e",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/verified_senders/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "verified_senders",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:18:16.000Z",
+                      "updatedAt": "2026-06-05T15:18:16.000Z",
+                      "uid": "35240-21c063e4-1366-4037-9a64-2657189b490e"
+                    },
+                    {
+                      "id": "7a394e88-1b28-438b-988a-60cb05829a4b",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/verified_senders/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "verified_senders",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:18:16.000Z",
+                      "updatedAt": "2026-06-05T15:18:16.000Z",
+                      "uid": "35240-7a394e88-1b28-438b-988a-60cb05829a4b"
+                    },
+                    {
+                      "id": "f1958c5d-0e5a-4e6c-b2cf-5b0767de6f9a",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/verified_senders/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "verified_senders",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:18:16.000Z",
+                      "updatedAt": "2026-06-05T15:18:16.000Z",
+                      "uid": "35240-f1958c5d-0e5a-4e6c-b2cf-5b0767de6f9a"
+                    },
+                    {
+                      "id": "2000fa01-39c0-4b9d-9fe8-9453cff77552",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/verified_senders/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "verified_senders",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:18:16.000Z",
+                      "updatedAt": "2026-06-05T15:18:16.000Z",
+                      "uid": "35240-2000fa01-39c0-4b9d-9fe8-9453cff77552"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:15.000Z",
+                  "updatedAt": "2026-06-05T15:18:15.000Z",
+                  "uid": "35240-089e7938-e49e-439b-ad51-98f4f11498fa"
+                }
+              ],
+              "id": "67b60706-4b06-4783-bb2c-217226c703d1",
+              "createdAt": "2026-06-05T15:18:15.000Z",
+              "updatedAt": "2026-06-05T15:18:15.000Z",
+              "uid": "35240-67b60706-4b06-4783-bb2c-217226c703d1"
+            },
+            {
+              "name": "domains",
+              "item": [
+                {
+                  "name": "Domain Warn List",
+                  "id": "f27708cd-a7d3-45f7-8eba-f873a42b830a",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/verified_senders/domains",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "verified_senders",
+                        "domains"
+                      ]
+                    },
+                    "description": "**This endpoint returns a list of domains known to implement DMARC and categorizes them by failure type \u2014 hard failure or soft failure**.\n\nDomains listed as hard failures will not deliver mail when used as a [Sender Identity](https://sendgrid.com/docs/for-developers/sending-email/sender-identity/) due to the domain's DMARC policy settings.\n\nFor example, using a `yahoo.com` email address as a Sender Identity will likely result in the rejection of your mail. For more information about DMARC, see [Everything about DMARC](https://sendgrid.com/docs/ui/sending-email/dmarc/)."
+                  },
+                  "response": [
+                    {
+                      "id": "2ce885fe-c791-415e-b2fe-b356738afec1",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/verified_senders/domains",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "verified_senders",
+                            "domains"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"results\": {\n    \"soft_failures\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"hard_failures\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                      "createdAt": "2026-06-05T15:18:16.000Z",
+                      "updatedAt": "2026-06-05T15:18:16.000Z",
+                      "uid": "35240-2ce885fe-c791-415e-b2fe-b356738afec1"
+                    },
+                    {
+                      "id": "766882ae-4f8d-4f38-b9f1-fe00491e45e7",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/verified_senders/domains",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "verified_senders",
+                            "domains"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:18:16.000Z",
+                      "updatedAt": "2026-06-05T15:18:16.000Z",
+                      "uid": "35240-766882ae-4f8d-4f38-b9f1-fe00491e45e7"
+                    },
+                    {
+                      "id": "637c046a-fbcb-49e4-9442-cfdc38654c9b",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/verified_senders/domains",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "verified_senders",
+                            "domains"
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:18:16.000Z",
+                      "updatedAt": "2026-06-05T15:18:16.000Z",
+                      "uid": "35240-637c046a-fbcb-49e4-9442-cfdc38654c9b"
+                    },
+                    {
+                      "id": "d54233d4-975e-4e43-aec4-c2ee29cf520b",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/verified_senders/domains",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "verified_senders",
+                            "domains"
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:18:16.000Z",
+                      "updatedAt": "2026-06-05T15:18:16.000Z",
+                      "uid": "35240-d54233d4-975e-4e43-aec4-c2ee29cf520b"
+                    },
+                    {
+                      "id": "3dc9a2aa-e554-412c-b7ba-8a02a40506ff",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/verified_senders/domains",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "verified_senders",
+                            "domains"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:18:16.000Z",
+                      "updatedAt": "2026-06-05T15:18:16.000Z",
+                      "uid": "35240-3dc9a2aa-e554-412c-b7ba-8a02a40506ff"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:15.000Z",
+                  "updatedAt": "2026-06-05T15:18:15.000Z",
+                  "uid": "35240-f27708cd-a7d3-45f7-8eba-f873a42b830a"
+                }
+              ],
+              "id": "ca4e0f96-3ad5-4c15-acd4-e2037f91f22d",
+              "createdAt": "2026-06-05T15:18:15.000Z",
+              "updatedAt": "2026-06-05T15:18:15.000Z",
+              "uid": "35240-ca4e0f96-3ad5-4c15-acd4-e2037f91f22d"
+            },
+            {
+              "name": "resend",
+              "item": [
+                {
+                  "name": "{id}",
+                  "item": [
+                    {
+                      "name": "Resend Verified Sender Request",
+                      "id": "79845e1b-a667-4da8-b871-c5948fd32681",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/verified_senders/resend/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "verified_senders",
+                            "resend",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "6d5c677f-2423-4fa5-82a9-97ec1ada0074",
+                              "key": "id",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "**This endpoint allows you to resend a verification email to a specified Sender Identity**.\n\nPassing the `id` assigned to a Sender Identity to this endpoint will resend a verification email to the `from_address` associated with the Sender Identity. This can be useful if someone loses their verification email or needs to have it resent for any other reason.\n\nYou can retrieve the IDs associated with Sender Identities by passing a \"Get All Verified Senders\" endpoint."
+                      },
+                      "response": [
+                        {
+                          "id": "cc47228b-2d28-46d5-8e9c-9f5a98c44d3a",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/verified_senders/resend/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "verified_senders",
+                                "resend",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:18:16.000Z",
+                          "updatedAt": "2026-06-05T15:18:16.000Z",
+                          "uid": "35240-cc47228b-2d28-46d5-8e9c-9f5a98c44d3a"
+                        },
+                        {
+                          "id": "dce310cc-4750-49f1-94bb-9d4224270845",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/verified_senders/resend/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "verified_senders",
+                                "resend",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:18:16.000Z",
+                          "updatedAt": "2026-06-05T15:18:16.000Z",
+                          "uid": "35240-dce310cc-4750-49f1-94bb-9d4224270845"
+                        },
+                        {
+                          "id": "411900c6-c019-4355-9e56-17afb65e02b8",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/verified_senders/resend/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "verified_senders",
+                                "resend",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:18:16.000Z",
+                          "updatedAt": "2026-06-05T15:18:16.000Z",
+                          "uid": "35240-411900c6-c019-4355-9e56-17afb65e02b8"
+                        },
+                        {
+                          "id": "12552585-b5b6-4ade-a154-9ae6652ad13d",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/verified_senders/resend/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "verified_senders",
+                                "resend",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:18:16.000Z",
+                          "updatedAt": "2026-06-05T15:18:16.000Z",
+                          "uid": "35240-12552585-b5b6-4ade-a154-9ae6652ad13d"
+                        },
+                        {
+                          "id": "3467a3ee-2c0c-4d2d-88c2-b2171d096f3c",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/verified_senders/resend/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "verified_senders",
+                                "resend",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:18:16.000Z",
+                          "updatedAt": "2026-06-05T15:18:16.000Z",
+                          "uid": "35240-3467a3ee-2c0c-4d2d-88c2-b2171d096f3c"
+                        },
+                        {
+                          "id": "f0a0a3cb-4dcd-41bd-b4cd-b209110610f1",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/verified_senders/resend/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "verified_senders",
+                                "resend",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:18:16.000Z",
+                          "updatedAt": "2026-06-05T15:18:16.000Z",
+                          "uid": "35240-f0a0a3cb-4dcd-41bd-b4cd-b209110610f1"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:18:15.000Z",
+                      "updatedAt": "2026-06-05T15:18:15.000Z",
+                      "uid": "35240-79845e1b-a667-4da8-b871-c5948fd32681"
+                    }
+                  ],
+                  "id": "b6547df6-0d35-4013-9731-9b134d83226f",
+                  "createdAt": "2026-06-05T15:18:15.000Z",
+                  "updatedAt": "2026-06-05T15:18:15.000Z",
+                  "uid": "35240-b6547df6-0d35-4013-9731-9b134d83226f"
+                }
+              ],
+              "id": "fbe83e98-fdfd-4803-aa85-470e1c2c290a",
+              "createdAt": "2026-06-05T15:18:15.000Z",
+              "updatedAt": "2026-06-05T15:18:15.000Z",
+              "uid": "35240-fbe83e98-fdfd-4803-aa85-470e1c2c290a"
+            },
+            {
+              "name": "steps_completed",
+              "item": [
+                {
+                  "name": "Completed Steps",
+                  "id": "b7ccd2b8-039d-481b-aa28-e6a34826b514",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/verified_senders/steps_completed",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "verified_senders",
+                        "steps_completed"
+                      ]
+                    },
+                    "description": "**This endpoint allows you to determine which of SendGrid\u2019s verification processes have been completed for an account**.\n\nThis endpoint returns boolean values, `true` and `false`, for [Domain Authentication](https://sendgrid.com/docs/for-developers/sending-email/sender-identity/#domain-authentication), `domain_verified`, and [Single Sender Verification](https://sendgrid.com/docs/for-developers/sending-email/sender-identity/#single-sender-verification), `sender_verified`, for the account.\n\nAn account may have one, both, or neither verification steps completed. If you need to authenticate a domain rather than a Single Sender, see the \"Authenticate a domain\" endpoint."
+                  },
+                  "response": [
+                    {
+                      "id": "580340a7-2df6-476c-99e2-0f5cae3e31bd",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/verified_senders/steps_completed",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "verified_senders",
+                            "steps_completed"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"results\": {\n    \"sender_verified\": \"<boolean>\",\n    \"domain_verified\": \"<boolean>\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:18:16.000Z",
+                      "updatedAt": "2026-06-05T15:18:16.000Z",
+                      "uid": "35240-580340a7-2df6-476c-99e2-0f5cae3e31bd"
+                    },
+                    {
+                      "id": "47fabbba-ef30-4a08-b362-f0f450090984",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/verified_senders/steps_completed",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "verified_senders",
+                            "steps_completed"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:18:16.000Z",
+                      "updatedAt": "2026-06-05T15:18:16.000Z",
+                      "uid": "35240-47fabbba-ef30-4a08-b362-f0f450090984"
+                    },
+                    {
+                      "id": "58176f47-da52-467c-ad59-e896486700e4",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/verified_senders/steps_completed",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "verified_senders",
+                            "steps_completed"
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:18:16.000Z",
+                      "updatedAt": "2026-06-05T15:18:16.000Z",
+                      "uid": "35240-58176f47-da52-467c-ad59-e896486700e4"
+                    },
+                    {
+                      "id": "ae154a1b-11f2-4b7e-8c24-650ec88f935a",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/verified_senders/steps_completed",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "verified_senders",
+                            "steps_completed"
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:18:16.000Z",
+                      "updatedAt": "2026-06-05T15:18:16.000Z",
+                      "uid": "35240-ae154a1b-11f2-4b7e-8c24-650ec88f935a"
+                    },
+                    {
+                      "id": "c1afffb2-1eb6-4059-b512-5c3cf4e016c6",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/verified_senders/steps_completed",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "verified_senders",
+                            "steps_completed"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:18:16.000Z",
+                      "updatedAt": "2026-06-05T15:18:16.000Z",
+                      "uid": "35240-c1afffb2-1eb6-4059-b512-5c3cf4e016c6"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:15.000Z",
+                  "updatedAt": "2026-06-05T15:18:15.000Z",
+                  "uid": "35240-b7ccd2b8-039d-481b-aa28-e6a34826b514"
+                }
+              ],
+              "id": "74fe6f51-77d9-460d-99e3-c0e34e82af2e",
+              "createdAt": "2026-06-05T15:18:15.000Z",
+              "updatedAt": "2026-06-05T15:18:15.000Z",
+              "uid": "35240-74fe6f51-77d9-460d-99e3-c0e34e82af2e"
+            },
+            {
+              "name": "verify",
+              "item": [
+                {
+                  "name": "{token}",
+                  "item": [
+                    {
+                      "name": "Verify Sender Request",
+                      "id": "7b6b8f9a-d5a7-4a4b-bce9-4c42fbfbac62",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/verified_senders/verify/:token",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "verified_senders",
+                            "verify",
+                            ":token"
+                          ],
+                          "variable": [
+                            {
+                              "id": "ff43f244-74cf-4ffa-8cde-854f2bb124fc",
+                              "key": "token",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "**This endpoint allows you to verify a sender requests.**\n\nThe token is generated by SendGrid and included in a verification email delivered to the address that's pending verification."
+                      },
+                      "response": [
+                        {
+                          "id": "9f1455ab-67f5-4c6a-8df8-a790f0981189",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/verified_senders/verify/:token",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "verified_senders",
+                                "verify",
+                                ":token"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "token"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:18:16.000Z",
+                          "updatedAt": "2026-06-05T15:18:16.000Z",
+                          "uid": "35240-9f1455ab-67f5-4c6a-8df8-a790f0981189"
+                        },
+                        {
+                          "id": "330f192b-6521-41e5-b045-eb97ab0788d9",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/verified_senders/verify/:token",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "verified_senders",
+                                "verify",
+                                ":token"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "token"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:18:16.000Z",
+                          "updatedAt": "2026-06-05T15:18:16.000Z",
+                          "uid": "35240-330f192b-6521-41e5-b045-eb97ab0788d9"
+                        },
+                        {
+                          "id": "72e7b8a9-089c-4aca-97ea-beef141d1642",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/verified_senders/verify/:token",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "verified_senders",
+                                "verify",
+                                ":token"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "token"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:18:16.000Z",
+                          "updatedAt": "2026-06-05T15:18:16.000Z",
+                          "uid": "35240-72e7b8a9-089c-4aca-97ea-beef141d1642"
+                        },
+                        {
+                          "id": "b1f36cb5-c628-4db2-9def-59d29c2b4341",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/verified_senders/verify/:token",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "verified_senders",
+                                "verify",
+                                ":token"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "token"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:18:16.000Z",
+                          "updatedAt": "2026-06-05T15:18:16.000Z",
+                          "uid": "35240-b1f36cb5-c628-4db2-9def-59d29c2b4341"
+                        },
+                        {
+                          "id": "1e8faa8f-dba8-463c-ada8-1104a240a54e",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/verified_senders/verify/:token",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "verified_senders",
+                                "verify",
+                                ":token"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "token"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:18:16.000Z",
+                          "updatedAt": "2026-06-05T15:18:16.000Z",
+                          "uid": "35240-1e8faa8f-dba8-463c-ada8-1104a240a54e"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:18:15.000Z",
+                      "updatedAt": "2026-06-05T15:18:15.000Z",
+                      "uid": "35240-7b6b8f9a-d5a7-4a4b-bce9-4c42fbfbac62"
+                    }
+                  ],
+                  "id": "af855c04-810d-46c6-95ff-f6ef15fb2f91",
+                  "createdAt": "2026-06-05T15:18:15.000Z",
+                  "updatedAt": "2026-06-05T15:18:15.000Z",
+                  "uid": "35240-af855c04-810d-46c6-95ff-f6ef15fb2f91"
+                }
+              ],
+              "id": "31847a94-5e95-4631-a567-bfbb6390064c",
+              "createdAt": "2026-06-05T15:18:15.000Z",
+              "updatedAt": "2026-06-05T15:18:15.000Z",
+              "uid": "35240-31847a94-5e95-4631-a567-bfbb6390064c"
+            },
+            {
+              "name": "Create Verified Sender Request",
+              "id": "1000fac1-13ff-41a2-990b-cf7455660e62",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nickname\": \"<string>\",\n  \"from_email\": \"<email>\",\n  \"reply_to\": \"<email>\",\n  \"from_name\": \"<string>\",\n  \"reply_to_name\": \"<string>\",\n  \"address\": \"<string>\",\n  \"address2\": \"<string>\",\n  \"state\": \"<string>\",\n  \"city\": \"<string>\",\n  \"zip\": \"<string>\",\n  \"country\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v3/verified_senders",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v3",
+                    "verified_senders"
+                  ]
+                },
+                "description": "**This endpoint allows you to create a new Sender Identify**.\n\nUpon successful submission of a `POST` request to this endpoint, an identity will be created, and a verification email will be sent to the address assigned to the `from_email` field. You must complete the verification process using the sent email to fully verify the sender.\n\nIf you need to resend the verification email, you can do so with the Resend Verified Sender Request, `/resend/{id}`, endpoint.\n\nIf you need to authenticate a domain rather than a Single Sender, see the [Domain Authentication API](https://docs.sendgrid.com/api-reference/domain-authentication/authenticate-a-domain)."
+              },
+              "response": [
+                {
+                  "id": "84775ab8-4fe9-4805-ad36-6eead3157dec",
+                  "name": "response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"nickname\": \"<string>\",\n  \"from_email\": \"<email>\",\n  \"reply_to\": \"<email>\",\n  \"from_name\": \"<string>\",\n  \"reply_to_name\": \"<string>\",\n  \"address\": \"<string>\",\n  \"address2\": \"<string>\",\n  \"state\": \"<string>\",\n  \"city\": \"<string>\",\n  \"zip\": \"<string>\",\n  \"country\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/verified_senders",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "verified_senders"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<integer>\",\n  \"nickname\": \"<string>\",\n  \"from_email\": \"<string>\",\n  \"from_name\": \"<string>\",\n  \"reply_to\": \"<string>\",\n  \"reply_to_name\": \"<string>\",\n  \"address\": \"<string>\",\n  \"address2\": \"<string>\",\n  \"state\": \"<string>\",\n  \"city\": \"<string>\",\n  \"zip\": \"<string>\",\n  \"country\": \"<string>\",\n  \"verified\": \"<boolean>\",\n  \"locked\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:18:16.000Z",
+                  "updatedAt": "2026-06-05T15:18:16.000Z",
+                  "uid": "35240-84775ab8-4fe9-4805-ad36-6eead3157dec"
+                },
+                {
+                  "id": "0f603f70-8c45-4a68-acaa-174c2e040758",
+                  "name": "response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"nickname\": \"<string>\",\n  \"from_email\": \"<email>\",\n  \"reply_to\": \"<email>\",\n  \"from_name\": \"<string>\",\n  \"reply_to_name\": \"<string>\",\n  \"address\": \"<string>\",\n  \"address2\": \"<string>\",\n  \"state\": \"<string>\",\n  \"city\": \"<string>\",\n  \"zip\": \"<string>\",\n  \"country\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/verified_senders",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "verified_senders"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\",\n      \"field\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\",\n      \"field\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:18:16.000Z",
+                  "updatedAt": "2026-06-05T15:18:16.000Z",
+                  "uid": "35240-0f603f70-8c45-4a68-acaa-174c2e040758"
+                },
+                {
+                  "id": "25078b8b-b986-4c06-8c23-2278074265c7",
+                  "name": "response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"nickname\": \"<string>\",\n  \"from_email\": \"<email>\",\n  \"reply_to\": \"<email>\",\n  \"from_name\": \"<string>\",\n  \"reply_to_name\": \"<string>\",\n  \"address\": \"<string>\",\n  \"address2\": \"<string>\",\n  \"state\": \"<string>\",\n  \"city\": \"<string>\",\n  \"zip\": \"<string>\",\n  \"country\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/verified_senders",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "verified_senders"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:18:16.000Z",
+                  "updatedAt": "2026-06-05T15:18:16.000Z",
+                  "uid": "35240-25078b8b-b986-4c06-8c23-2278074265c7"
+                },
+                {
+                  "id": "00c438e8-1853-4579-af36-be1d7d6886ce",
+                  "name": "response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"nickname\": \"<string>\",\n  \"from_email\": \"<email>\",\n  \"reply_to\": \"<email>\",\n  \"from_name\": \"<string>\",\n  \"reply_to_name\": \"<string>\",\n  \"address\": \"<string>\",\n  \"address2\": \"<string>\",\n  \"state\": \"<string>\",\n  \"city\": \"<string>\",\n  \"zip\": \"<string>\",\n  \"country\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/verified_senders",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "verified_senders"
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:18:16.000Z",
+                  "updatedAt": "2026-06-05T15:18:16.000Z",
+                  "uid": "35240-00c438e8-1853-4579-af36-be1d7d6886ce"
+                },
+                {
+                  "id": "eec87a45-122c-4416-96ab-687eeb2b6660",
+                  "name": "response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"nickname\": \"<string>\",\n  \"from_email\": \"<email>\",\n  \"reply_to\": \"<email>\",\n  \"from_name\": \"<string>\",\n  \"reply_to_name\": \"<string>\",\n  \"address\": \"<string>\",\n  \"address2\": \"<string>\",\n  \"state\": \"<string>\",\n  \"city\": \"<string>\",\n  \"zip\": \"<string>\",\n  \"country\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/verified_senders",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "verified_senders"
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:18:16.000Z",
+                  "updatedAt": "2026-06-05T15:18:16.000Z",
+                  "uid": "35240-eec87a45-122c-4416-96ab-687eeb2b6660"
+                },
+                {
+                  "id": "802292e9-4111-482c-a60e-b09eab3024f0",
+                  "name": "response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"nickname\": \"<string>\",\n  \"from_email\": \"<email>\",\n  \"reply_to\": \"<email>\",\n  \"from_name\": \"<string>\",\n  \"reply_to_name\": \"<string>\",\n  \"address\": \"<string>\",\n  \"address2\": \"<string>\",\n  \"state\": \"<string>\",\n  \"city\": \"<string>\",\n  \"zip\": \"<string>\",\n  \"country\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/verified_senders",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "verified_senders"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:18:16.000Z",
+                  "updatedAt": "2026-06-05T15:18:16.000Z",
+                  "uid": "35240-802292e9-4111-482c-a60e-b09eab3024f0"
+                }
+              ],
+              "createdAt": "2026-06-05T15:18:15.000Z",
+              "updatedAt": "2026-06-05T15:18:15.000Z",
+              "uid": "35240-1000fac1-13ff-41a2-990b-cf7455660e62"
+            },
+            {
+              "name": "Get All Verified Senders",
+              "id": "448c1bc5-2f92-40da-9619-411d79f58b8f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v3/verified_senders?limit=<number>&lastSeenID=<number>&id=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v3",
+                    "verified_senders"
+                  ],
+                  "query": [
+                    {
+                      "description": "Specifies the number of results to be returned by the API. This parameter can be used to limit the results returned or in combination with the `lastSeenID` parameter to iterate through paginated results.",
+                      "key": "limit",
+                      "value": "<number>"
+                    },
+                    {
+                      "description": "Returns senders with an ID number occurring after the passed in ID. In other words, the `lastSeenID` provides a starting point from which SendGrid will iterate to find Sender Identities associated with your account.",
+                      "key": "lastSeenID",
+                      "value": "<number>"
+                    },
+                    {
+                      "description": "Returns information about only the Sender Identity passed in the request.",
+                      "key": "id",
+                      "value": "<integer>"
+                    }
+                  ]
+                },
+                "description": "**This endpoint allows you to retrieve all the Sender Identities associated with an account.**\n\nThis endpoint will return both verified and unverified senders.\n\nYou can limit the number of results returned using the `limit`, `lastSeenID`, and `id` query string parameters.\n\n* `limit` allows you to specify an exact number of Sender Identities to return.\n* `lastSeenID` will return senders with an ID number occuring after the passed in ID. In other words, the `lastSeenID` provides a starting point from which SendGrid will iterate to find Sender Identities associated with your account.\n* `id` will return information about only the Sender Identity passed in the request."
+              },
+              "response": [
+                {
+                  "id": "ede3f71b-ea6f-411f-80db-920713ce969b",
+                  "name": "response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/verified_senders?limit=<number>&lastSeenID=<number>&id=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "verified_senders"
+                      ],
+                      "query": [
+                        {
+                          "description": "Specifies the number of results to be returned by the API. This parameter can be used to limit the results returned or in combination with the `lastSeenID` parameter to iterate through paginated results.",
+                          "key": "limit",
+                          "value": "<number>"
+                        },
+                        {
+                          "description": "Returns senders with an ID number occurring after the passed in ID. In other words, the `lastSeenID` provides a starting point from which SendGrid will iterate to find Sender Identities associated with your account.",
+                          "key": "lastSeenID",
+                          "value": "<number>"
+                        },
+                        {
+                          "description": "Returns information about only the Sender Identity passed in the request.",
+                          "key": "id",
+                          "value": "<integer>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"results\": [\n    {\n      \"id\": \"<integer>\",\n      \"nickname\": \"<string>\",\n      \"from_email\": \"<string>\",\n      \"from_name\": \"<string>\",\n      \"reply_to\": \"<string>\",\n      \"reply_to_name\": \"<string>\",\n      \"address\": \"<string>\",\n      \"address2\": \"<string>\",\n      \"state\": \"<string>\",\n      \"city\": \"<string>\",\n      \"zip\": \"<string>\",\n      \"country\": \"<string>\",\n      \"verified\": \"<boolean>\",\n      \"locked\": \"<boolean>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"nickname\": \"<string>\",\n      \"from_email\": \"<string>\",\n      \"from_name\": \"<string>\",\n      \"reply_to\": \"<string>\",\n      \"reply_to_name\": \"<string>\",\n      \"address\": \"<string>\",\n      \"address2\": \"<string>\",\n      \"state\": \"<string>\",\n      \"city\": \"<string>\",\n      \"zip\": \"<string>\",\n      \"country\": \"<string>\",\n      \"verified\": \"<boolean>\",\n      \"locked\": \"<boolean>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:18:16.000Z",
+                  "updatedAt": "2026-06-05T15:18:16.000Z",
+                  "uid": "35240-ede3f71b-ea6f-411f-80db-920713ce969b"
+                },
+                {
+                  "id": "0be57603-b0c0-4506-be97-28cd60317747",
+                  "name": "response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/verified_senders?limit=<number>&lastSeenID=<number>&id=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "verified_senders"
+                      ],
+                      "query": [
+                        {
+                          "description": "Specifies the number of results to be returned by the API. This parameter can be used to limit the results returned or in combination with the `lastSeenID` parameter to iterate through paginated results.",
+                          "key": "limit",
+                          "value": "<number>"
+                        },
+                        {
+                          "description": "Returns senders with an ID number occurring after the passed in ID. In other words, the `lastSeenID` provides a starting point from which SendGrid will iterate to find Sender Identities associated with your account.",
+                          "key": "lastSeenID",
+                          "value": "<number>"
+                        },
+                        {
+                          "description": "Returns information about only the Sender Identity passed in the request.",
+                          "key": "id",
+                          "value": "<integer>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:18:16.000Z",
+                  "updatedAt": "2026-06-05T15:18:16.000Z",
+                  "uid": "35240-0be57603-b0c0-4506-be97-28cd60317747"
+                },
+                {
+                  "id": "6699f502-4e99-47fa-96b3-29b4cdf89854",
+                  "name": "response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/verified_senders?limit=<number>&lastSeenID=<number>&id=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "verified_senders"
+                      ],
+                      "query": [
+                        {
+                          "description": "Specifies the number of results to be returned by the API. This parameter can be used to limit the results returned or in combination with the `lastSeenID` parameter to iterate through paginated results.",
+                          "key": "limit",
+                          "value": "<number>"
+                        },
+                        {
+                          "description": "Returns senders with an ID number occurring after the passed in ID. In other words, the `lastSeenID` provides a starting point from which SendGrid will iterate to find Sender Identities associated with your account.",
+                          "key": "lastSeenID",
+                          "value": "<number>"
+                        },
+                        {
+                          "description": "Returns information about only the Sender Identity passed in the request.",
+                          "key": "id",
+                          "value": "<integer>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:18:16.000Z",
+                  "updatedAt": "2026-06-05T15:18:16.000Z",
+                  "uid": "35240-6699f502-4e99-47fa-96b3-29b4cdf89854"
+                },
+                {
+                  "id": "cdf668f4-77b8-4531-a61d-3a27dc7a2dff",
+                  "name": "response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/verified_senders?limit=<number>&lastSeenID=<number>&id=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "verified_senders"
+                      ],
+                      "query": [
+                        {
+                          "description": "Specifies the number of results to be returned by the API. This parameter can be used to limit the results returned or in combination with the `lastSeenID` parameter to iterate through paginated results.",
+                          "key": "limit",
+                          "value": "<number>"
+                        },
+                        {
+                          "description": "Returns senders with an ID number occurring after the passed in ID. In other words, the `lastSeenID` provides a starting point from which SendGrid will iterate to find Sender Identities associated with your account.",
+                          "key": "lastSeenID",
+                          "value": "<number>"
+                        },
+                        {
+                          "description": "Returns information about only the Sender Identity passed in the request.",
+                          "key": "id",
+                          "value": "<integer>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:18:16.000Z",
+                  "updatedAt": "2026-06-05T15:18:16.000Z",
+                  "uid": "35240-cdf668f4-77b8-4531-a61d-3a27dc7a2dff"
+                },
+                {
+                  "id": "f24dc2ae-a0b8-40ae-ab69-2c07d7bfa4ae",
+                  "name": "response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/verified_senders?limit=<number>&lastSeenID=<number>&id=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "verified_senders"
+                      ],
+                      "query": [
+                        {
+                          "description": "Specifies the number of results to be returned by the API. This parameter can be used to limit the results returned or in combination with the `lastSeenID` parameter to iterate through paginated results.",
+                          "key": "limit",
+                          "value": "<number>"
+                        },
+                        {
+                          "description": "Returns senders with an ID number occurring after the passed in ID. In other words, the `lastSeenID` provides a starting point from which SendGrid will iterate to find Sender Identities associated with your account.",
+                          "key": "lastSeenID",
+                          "value": "<number>"
+                        },
+                        {
+                          "description": "Returns information about only the Sender Identity passed in the request.",
+                          "key": "id",
+                          "value": "<integer>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:18:16.000Z",
+                  "updatedAt": "2026-06-05T15:18:16.000Z",
+                  "uid": "35240-f24dc2ae-a0b8-40ae-ab69-2c07d7bfa4ae"
+                }
+              ],
+              "createdAt": "2026-06-05T15:18:15.000Z",
+              "updatedAt": "2026-06-05T15:18:15.000Z",
+              "uid": "35240-448c1bc5-2f92-40da-9619-411d79f58b8f"
+            }
+          ],
+          "id": "0c0a4e76-fbea-4149-b9e5-591f78b2b1b6",
+          "createdAt": "2026-06-05T15:18:15.000Z",
+          "updatedAt": "2026-06-05T15:18:15.000Z",
+          "uid": "35240-0c0a4e76-fbea-4149-b9e5-591f78b2b1b6"
+        }
+      ],
+      "id": "9dbe8e50-ae57-4e57-b6bd-836c311dcf02",
+      "createdAt": "2026-06-05T15:18:15.000Z",
+      "updatedAt": "2026-06-05T15:18:15.000Z",
+      "uid": "35240-9dbe8e50-ae57-4e57-b6bd-836c311dcf02"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.sendgrid.com"
+    }
+  ]
+}

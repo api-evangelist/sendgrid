@@ -1,0 +1,1205 @@
+{
+  "info": {
+    "_postman_id": "de8fda2d-444e-48ba-a860-d3c0f00d7347",
+    "name": "Twilio SendGrid Link Branding API",
+    "description": "The Twilio SendGrid Link Branding API allows you to configure your domain settings so that all of the click-tracked links, opens, and images in your emails are served from your domain rather than `sendgrid.net`. Spam filters and recipient servers look at the links within emails to determine whether the email appear trustworthy. They use the reputation of the root domain to determine whether the links can be trusted.\n\nYou can also manage Link Branding in the **Sender Authentication** section of the Twilio SendGrid application user interface.\n\n See [**How to Set Up Link Branding**](https: //sendgrid.com/docs/ui/account-and-settings/how-to-set-up-link-branding/) for more information.\n\nContact Support:\n Name: Twilio SendGrid Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:17:05.000Z",
+    "updatedAt": "2026-06-05T15:17:05.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-de8fda2d-444e-48ba-a860-d3c0f00d7347"
+  },
+  "item": [
+    {
+      "name": "v3",
+      "item": [
+        {
+          "name": "whitelabel",
+          "item": [
+            {
+              "name": "links",
+              "item": [
+                {
+                  "name": "{id}",
+                  "item": [
+                    {
+                      "name": "validate",
+                      "item": [
+                        {
+                          "name": "Validate a branded link",
+                          "id": "dd1ad380-cc69-4f95-8cdb-548b409e5b66",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/whitelabel/links/:id/validate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "whitelabel",
+                                "links",
+                                ":id",
+                                "validate"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "19166114-59f4-4830-ba4e-32c2e65a97b6",
+                                  "key": "id",
+                                  "value": "<integer>",
+                                  "description": "(Required) The ID of the branded link that you want to validate."
+                                }
+                              ]
+                            },
+                            "description": "**This endpoint allows you to validate a branded link.**\n\nYou can submit this request as one of your subusers if you include their ID in the `on-behalf-of` header in the request."
+                          },
+                          "response": [
+                            {
+                              "id": "e25a6fd1-1301-474c-9669-586e758589b5",
+                              "name": "response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                    "key": "on-behalf-of",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/whitelabel/links/:id/validate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "whitelabel",
+                                    "links",
+                                    ":id",
+                                    "validate"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<integer>\",\n  \"valid\": true,\n  \"validation_results\": {\n    \"domain_cname\": {\n      \"valid\": true,\n      \"reason\": \"<string>\"\n    },\n    \"owner_cname\": {\n      \"valid\": true,\n      \"reason\": \"<string>\"\n    }\n  }\n}",
+                              "createdAt": "2026-06-05T15:17:05.000Z",
+                              "updatedAt": "2026-06-05T15:17:05.000Z",
+                              "uid": "35240-e25a6fd1-1301-474c-9669-586e758589b5"
+                            },
+                            {
+                              "id": "c3c29eee-b0eb-44d9-80bc-cedc75466568",
+                              "name": "response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                    "key": "on-behalf-of",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/whitelabel/links/:id/validate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "whitelabel",
+                                    "links",
+                                    ":id",
+                                    "validate"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-06-05T15:17:05.000Z",
+                              "updatedAt": "2026-06-05T15:17:05.000Z",
+                              "uid": "35240-c3c29eee-b0eb-44d9-80bc-cedc75466568"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:17:05.000Z",
+                          "updatedAt": "2026-06-05T15:17:05.000Z",
+                          "uid": "35240-dd1ad380-cc69-4f95-8cdb-548b409e5b66"
+                        }
+                      ],
+                      "id": "2911d8f7-b81f-407b-a303-2eb794f4dfe0",
+                      "createdAt": "2026-06-05T15:17:05.000Z",
+                      "updatedAt": "2026-06-05T15:17:05.000Z",
+                      "uid": "35240-2911d8f7-b81f-407b-a303-2eb794f4dfe0"
+                    },
+                    {
+                      "name": "Retrieve a branded link",
+                      "id": "f691de7d-e9f8-4c2c-b3e3-0bca61265f3b",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/whitelabel/links/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "whitelabel",
+                            "links",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "48c9727f-8a9f-4a8a-9596-f2862ae606f4",
+                              "key": "id",
+                              "value": "<integer>",
+                              "description": "(Required) The ID of the branded link you want to retrieve."
+                            }
+                          ]
+                        },
+                        "description": "**This endpoint allows you to retrieve a specific branded link by providing its ID.**\n\nYou can submit this request as one of your subusers if you include their ID in the `on-behalf-of` header in the request."
+                      },
+                      "response": [
+                        {
+                          "id": "32e45851-39d8-4202-901e-6d01cad848bf",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/whitelabel/links/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "whitelabel",
+                                "links",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<integer>\",\n  \"domain\": \"<string>\",\n  \"username\": \"<string>\",\n  \"user_id\": \"<integer>\",\n  \"default\": true,\n  \"valid\": true,\n  \"legacy\": true,\n  \"dns\": {\n    \"domain_cname\": {\n      \"valid\": false,\n      \"type\": \"cname\",\n      \"host\": \"<string>\",\n      \"data\": \"<string>\"\n    },\n    \"owner_cname\": {\n      \"valid\": false,\n      \"host\": \"<string>\",\n      \"data\": \"<string>\",\n      \"type\": \"cname\"\n    }\n  },\n  \"subdomain\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:17:05.000Z",
+                          "updatedAt": "2026-06-05T15:17:05.000Z",
+                          "uid": "35240-32e45851-39d8-4202-901e-6d01cad848bf"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:17:05.000Z",
+                      "updatedAt": "2026-06-05T15:17:05.000Z",
+                      "uid": "35240-f691de7d-e9f8-4c2c-b3e3-0bca61265f3b"
+                    },
+                    {
+                      "name": "Update a branded link",
+                      "id": "c1ae2d9d-0b2b-4e04-b969-afe5894358ed",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"default\": true\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/whitelabel/links/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "whitelabel",
+                            "links",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "d6326ef3-65db-434c-83e3-05c7ed2f2b14",
+                              "key": "id",
+                              "value": "<integer>",
+                              "description": "(Required) The ID of the branded link you want to retrieve."
+                            }
+                          ]
+                        },
+                        "description": "**This endpoint allows you to update a specific branded link. You can use this endpoint to change a branded link's default status.**\n\nYou can submit this request as one of your subusers if you include their ID in the `on-behalf-of` header in the request."
+                      },
+                      "response": [
+                        {
+                          "id": "1735b1f3-c90d-40fd-899d-c33812a15cc0",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"default\": true\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/whitelabel/links/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "whitelabel",
+                                "links",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<integer>\",\n  \"domain\": \"<string>\",\n  \"username\": \"<string>\",\n  \"user_id\": \"<integer>\",\n  \"default\": true,\n  \"valid\": true,\n  \"legacy\": true,\n  \"dns\": {\n    \"domain_cname\": {\n      \"valid\": false,\n      \"type\": \"cname\",\n      \"host\": \"<string>\",\n      \"data\": \"<string>\"\n    },\n    \"owner_cname\": {\n      \"valid\": false,\n      \"host\": \"<string>\",\n      \"data\": \"<string>\",\n      \"type\": \"cname\"\n    }\n  },\n  \"subdomain\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:17:05.000Z",
+                          "updatedAt": "2026-06-05T15:17:05.000Z",
+                          "uid": "35240-1735b1f3-c90d-40fd-899d-c33812a15cc0"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:17:05.000Z",
+                      "updatedAt": "2026-06-05T15:17:05.000Z",
+                      "uid": "35240-c1ae2d9d-0b2b-4e04-b969-afe5894358ed"
+                    },
+                    {
+                      "name": "Delete a branded link",
+                      "id": "076c53ab-b980-4373-a4b9-40df825e6867",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/whitelabel/links/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "whitelabel",
+                            "links",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "83ba6a82-e4eb-46ac-a567-bd0163ca75a5",
+                              "key": "id",
+                              "value": "<integer>",
+                              "description": "(Required) The ID of the branded link you want to retrieve."
+                            }
+                          ]
+                        },
+                        "description": "**This endpoint allows you to delete a branded link.**\n\nYour request will receive a response with a 204 status code if the deletion was successful. The call does not return the link's details, so if you wish to record these make sure you call the  \"Retrieve a branded link\" endpoint *before* you request its deletion.\n\nYou can submit this request as one of your subusers if you include their ID in the `on-behalf-of` header in the request."
+                      },
+                      "response": [
+                        {
+                          "id": "cf068080-0c0b-4bdd-8740-c5b3e18c1cb5",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/whitelabel/links/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "whitelabel",
+                                "links",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:17:05.000Z",
+                          "updatedAt": "2026-06-05T15:17:05.000Z",
+                          "uid": "35240-cf068080-0c0b-4bdd-8740-c5b3e18c1cb5"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:17:05.000Z",
+                      "updatedAt": "2026-06-05T15:17:05.000Z",
+                      "uid": "35240-076c53ab-b980-4373-a4b9-40df825e6867"
+                    }
+                  ],
+                  "id": "c5707abc-a602-4b5c-b21d-a2cdd9d37aaf",
+                  "createdAt": "2026-06-05T15:17:05.000Z",
+                  "updatedAt": "2026-06-05T15:17:05.000Z",
+                  "uid": "35240-c5707abc-a602-4b5c-b21d-a2cdd9d37aaf"
+                },
+                {
+                  "name": "{link_id}",
+                  "item": [
+                    {
+                      "name": "subuser",
+                      "item": [
+                        {
+                          "name": "Associate a branded link with a subuser",
+                          "id": "f20a10d2-fab2-4178-a949-b31ac7471118",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"username\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/whitelabel/links/:link_id/subuser",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "whitelabel",
+                                "links",
+                                ":link_id",
+                                "subuser"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "283971ba-43e6-4dee-87b4-0c304edec0ba",
+                                  "key": "link_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) The ID of the branded link you want to associate."
+                                }
+                              ]
+                            },
+                            "description": "**This endpoint allows you to associate a branded link with a subuser account.**\n\nLink branding can be associated with subusers from the parent account. This functionality allows subusers to send mail using their parent's link branding. To associate link branding, the parent account must first create a branded link and validate it. The parent may then associate that branded link with a subuser via the API or the [Subuser Management page of the Twilio SendGrid App](https://app.sendgrid.com/settings/subusers)."
+                          },
+                          "response": [
+                            {
+                              "id": "ee5fa3a3-8d6f-4750-91cc-aa8324451834",
+                              "name": "response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"username\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/whitelabel/links/:link_id/subuser",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "whitelabel",
+                                    "links",
+                                    ":link_id",
+                                    "subuser"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "link_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<integer>\",\n  \"domain\": \"<string>\",\n  \"username\": \"<string>\",\n  \"user_id\": \"<integer>\",\n  \"default\": true,\n  \"valid\": true,\n  \"legacy\": true,\n  \"dns\": {\n    \"domain_cname\": {\n      \"valid\": false,\n      \"type\": \"cname\",\n      \"host\": \"<string>\",\n      \"data\": \"<string>\"\n    },\n    \"owner_cname\": {\n      \"valid\": false,\n      \"host\": \"<string>\",\n      \"data\": \"<string>\",\n      \"type\": \"cname\"\n    }\n  },\n  \"subdomain\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:17:05.000Z",
+                              "updatedAt": "2026-06-05T15:17:05.000Z",
+                              "uid": "35240-ee5fa3a3-8d6f-4750-91cc-aa8324451834"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:17:05.000Z",
+                          "updatedAt": "2026-06-05T15:17:05.000Z",
+                          "uid": "35240-f20a10d2-fab2-4178-a949-b31ac7471118"
+                        }
+                      ],
+                      "id": "30b14018-78bc-4cf8-99dd-9b5023d789fd",
+                      "createdAt": "2026-06-05T15:17:05.000Z",
+                      "updatedAt": "2026-06-05T15:17:05.000Z",
+                      "uid": "35240-30b14018-78bc-4cf8-99dd-9b5023d789fd"
+                    }
+                  ],
+                  "id": "9d1158ea-2a05-4849-a359-e3dc4a662179",
+                  "createdAt": "2026-06-05T15:17:05.000Z",
+                  "updatedAt": "2026-06-05T15:17:05.000Z",
+                  "uid": "35240-9d1158ea-2a05-4849-a359-e3dc4a662179"
+                },
+                {
+                  "name": "default",
+                  "item": [
+                    {
+                      "name": "Retrieve the default branded link",
+                      "id": "0c093ab1-b7bd-4224-9666-aaeb2f6f13d3",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/whitelabel/links/default?domain=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "whitelabel",
+                            "links",
+                            "default"
+                          ],
+                          "query": [
+                            {
+                              "description": "The domain to match against when finding the default branded link.",
+                              "key": "domain",
+                              "value": "<string>"
+                            }
+                          ]
+                        },
+                        "description": "**This endpoint allows you to retrieve the default branded link.**\n\nThe default branded link is the actual URL to be used when sending messages. If you have more than one branded link, the default is determined by the following order:\n\n* The validated branded link marked as `default` (set when you call the \"Create a branded link\" endpoint or by calling the \"Update a branded link\" endpoint on an existing link)\n* Legacy branded links (migrated from the whitelabel wizard)\n* Default SendGrid-branded links (i.e., `100.ct.sendgrid.net`)\n\nYou can submit this request as one of your subusers if you include their ID in the `on-behalf-of` header in the request."
+                      },
+                      "response": [
+                        {
+                          "id": "65a77934-e623-4cd1-9453-51fa4ec9b1ca",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/whitelabel/links/default?domain=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "whitelabel",
+                                "links",
+                                "default"
+                              ],
+                              "query": [
+                                {
+                                  "description": "The domain to match against when finding the default branded link.",
+                                  "key": "domain",
+                                  "value": "<string>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<integer>\",\n  \"domain\": \"<string>\",\n  \"username\": \"<string>\",\n  \"user_id\": \"<integer>\",\n  \"default\": true,\n  \"valid\": true,\n  \"legacy\": true,\n  \"dns\": {\n    \"domain_cname\": {\n      \"valid\": false,\n      \"type\": \"cname\",\n      \"host\": \"<string>\",\n      \"data\": \"<string>\"\n    },\n    \"owner_cname\": {\n      \"valid\": false,\n      \"host\": \"<string>\",\n      \"data\": \"<string>\",\n      \"type\": \"cname\"\n    }\n  },\n  \"subdomain\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:17:05.000Z",
+                          "updatedAt": "2026-06-05T15:17:05.000Z",
+                          "uid": "35240-65a77934-e623-4cd1-9453-51fa4ec9b1ca"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:17:05.000Z",
+                      "updatedAt": "2026-06-05T15:17:05.000Z",
+                      "uid": "35240-0c093ab1-b7bd-4224-9666-aaeb2f6f13d3"
+                    }
+                  ],
+                  "id": "7d375d01-5a06-4594-baf9-02f70ee95e29",
+                  "createdAt": "2026-06-05T15:17:05.000Z",
+                  "updatedAt": "2026-06-05T15:17:05.000Z",
+                  "uid": "35240-7d375d01-5a06-4594-baf9-02f70ee95e29"
+                },
+                {
+                  "name": "subuser",
+                  "item": [
+                    {
+                      "name": "Retrieve a subuser's branded link",
+                      "id": "466096e1-73e7-4174-8a0e-8e419be6a756",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/whitelabel/links/subuser?username=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "whitelabel",
+                            "links",
+                            "subuser"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) The username of the subuser to retrieve associated branded links for.",
+                              "key": "username",
+                              "value": "<string>"
+                            }
+                          ]
+                        },
+                        "description": "**This endpoint allows you to retrieve the branded link associated with a subuser.**\n\nLink branding can be associated with subusers from the parent account. This functionality allows subusers to send mail using their parent's link branding. To associate link branding, the parent account must first create a branded link and then validate it. The parent may then associate that branded link with a subuser via the API or the [Subuser Management page of the Twilio SendGrid App](https://app.sendgrid.com/settings/subusers)."
+                      },
+                      "response": [
+                        {
+                          "id": "fbc0503b-9592-499d-b84b-4419bb606508",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/whitelabel/links/subuser?username=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "whitelabel",
+                                "links",
+                                "subuser"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) The username of the subuser to retrieve associated branded links for.",
+                                  "key": "username",
+                                  "value": "<string>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<integer>\",\n  \"domain\": \"<string>\",\n  \"username\": \"<string>\",\n  \"user_id\": \"<integer>\",\n  \"default\": true,\n  \"valid\": true,\n  \"legacy\": true,\n  \"dns\": {\n    \"domain_cname\": {\n      \"valid\": false,\n      \"type\": \"cname\",\n      \"host\": \"<string>\",\n      \"data\": \"<string>\"\n    },\n    \"owner_cname\": {\n      \"valid\": false,\n      \"host\": \"<string>\",\n      \"data\": \"<string>\",\n      \"type\": \"cname\"\n    }\n  },\n  \"subdomain\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:17:05.000Z",
+                          "updatedAt": "2026-06-05T15:17:05.000Z",
+                          "uid": "35240-fbc0503b-9592-499d-b84b-4419bb606508"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:17:05.000Z",
+                      "updatedAt": "2026-06-05T15:17:05.000Z",
+                      "uid": "35240-466096e1-73e7-4174-8a0e-8e419be6a756"
+                    },
+                    {
+                      "name": "Disassociate a branded link from a subuser",
+                      "id": "9481bcbe-3651-4e2e-bb80-6601dd25b84c",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/whitelabel/links/subuser?username=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "whitelabel",
+                            "links",
+                            "subuser"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) The username of the subuser account that you want to disassociate a branded link from.",
+                              "key": "username",
+                              "value": "<string>"
+                            }
+                          ]
+                        },
+                        "description": "**This endpoint allows you to take a branded link away from a subuser.**\n\nLink branding can be associated with subusers from the parent account. This functionality allows subusers to send mail using their parent's link branding. To associate link branding, the parent account must first create a branded link and validate it. The parent may then associate that branded link with a subuser via the API or the [Subuser Management page of the Twilio SendGrid App](https://app.sendgrid.com/settings/subusers).\n\nYour request will receive a response with a 204 status code if the disassociation was successful."
+                      },
+                      "response": [
+                        {
+                          "id": "eb8e4ce5-7573-488e-a8fd-0c14e31e6ff2",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/whitelabel/links/subuser?username=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "whitelabel",
+                                "links",
+                                "subuser"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) The username of the subuser account that you want to disassociate a branded link from.",
+                                  "key": "username",
+                                  "value": "<string>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:17:05.000Z",
+                          "updatedAt": "2026-06-05T15:17:05.000Z",
+                          "uid": "35240-eb8e4ce5-7573-488e-a8fd-0c14e31e6ff2"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:17:05.000Z",
+                      "updatedAt": "2026-06-05T15:17:05.000Z",
+                      "uid": "35240-9481bcbe-3651-4e2e-bb80-6601dd25b84c"
+                    }
+                  ],
+                  "id": "c084ba7a-665d-45d5-8f36-88ea18dabe28",
+                  "createdAt": "2026-06-05T15:17:05.000Z",
+                  "updatedAt": "2026-06-05T15:17:05.000Z",
+                  "uid": "35240-c084ba7a-665d-45d5-8f36-88ea18dabe28"
+                },
+                {
+                  "name": "Create a branded link",
+                  "id": "50e2bed3-3b3a-4d2c-8c17-724e0ba81226",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"domain\": \"<string>\",\n  \"subdomain\": \"<string>\",\n  \"default\": true,\n  \"region\": \"us\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/whitelabel/links",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "whitelabel",
+                        "links"
+                      ]
+                    },
+                    "description": "**This endpoint allows you to create a new branded link.**\n\nTo create the link branding, supply the root domain and, optionally, the subdomain \u2014 these go into separate fields in your request body. The root domain should match your FROM email address. If you provide a  subdomain, it must be different from the subdomain you used for authenticating your domain.\n\nYou can submit this request as one of your subusers if you include their ID in the `on-behalf-of` header in the request."
+                  },
+                  "response": [
+                    {
+                      "id": "c6303951-4ae1-49d2-bcb7-f10af5721699",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"domain\": \"<string>\",\n  \"subdomain\": \"<string>\",\n  \"default\": true,\n  \"region\": \"us\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/whitelabel/links",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "whitelabel",
+                            "links"
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<integer>\",\n  \"domain\": \"<string>\",\n  \"username\": \"<string>\",\n  \"user_id\": \"<integer>\",\n  \"default\": true,\n  \"valid\": true,\n  \"legacy\": true,\n  \"dns\": {\n    \"domain_cname\": {\n      \"valid\": false,\n      \"type\": \"cname\",\n      \"host\": \"<string>\",\n      \"data\": \"<string>\"\n    },\n    \"owner_cname\": {\n      \"valid\": false,\n      \"host\": \"<string>\",\n      \"data\": \"<string>\",\n      \"type\": \"cname\"\n    }\n  },\n  \"subdomain\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:17:05.000Z",
+                      "updatedAt": "2026-06-05T15:17:05.000Z",
+                      "uid": "35240-c6303951-4ae1-49d2-bcb7-f10af5721699"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:17:05.000Z",
+                  "updatedAt": "2026-06-05T15:17:05.000Z",
+                  "uid": "35240-50e2bed3-3b3a-4d2c-8c17-724e0ba81226"
+                },
+                {
+                  "name": "Retrieve all branded links",
+                  "id": "fc575f92-6266-4b59-846c-e26cd091ef52",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/whitelabel/links?limit=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "whitelabel",
+                        "links"
+                      ],
+                      "query": [
+                        {
+                          "description": "Limits the number of results returned per page.",
+                          "key": "limit",
+                          "value": "<integer>"
+                        }
+                      ]
+                    },
+                    "description": "**This endpoint allows you to retrieve all branded links**.\n\nYou can submit this request as one of your subusers if you include their ID in the `on-behalf-of` header in the request."
+                  },
+                  "response": [
+                    {
+                      "id": "117483fa-7710-4d0f-a4b7-77d64ce2cff6",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/whitelabel/links?limit=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "whitelabel",
+                            "links"
+                          ],
+                          "query": [
+                            {
+                              "description": "Limits the number of results returned per page.",
+                              "key": "limit",
+                              "value": "<integer>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"id\": \"<integer>\",\n    \"domain\": \"<string>\",\n    \"username\": \"<string>\",\n    \"user_id\": \"<integer>\",\n    \"default\": true,\n    \"valid\": true,\n    \"legacy\": true,\n    \"dns\": {\n      \"domain_cname\": {\n        \"valid\": true,\n        \"type\": \"mx\",\n        \"host\": \"<string>\",\n        \"data\": \"<string>\"\n      },\n      \"owner_cname\": {\n        \"valid\": false,\n        \"host\": \"<string>\",\n        \"data\": \"<string>\",\n        \"type\": \"mx\"\n      }\n    },\n    \"subdomain\": \"<string>\"\n  },\n  {\n    \"id\": \"<integer>\",\n    \"domain\": \"<string>\",\n    \"username\": \"<string>\",\n    \"user_id\": \"<integer>\",\n    \"default\": false,\n    \"valid\": true,\n    \"legacy\": true,\n    \"dns\": {\n      \"domain_cname\": {\n        \"valid\": false,\n        \"type\": \"mx\",\n        \"host\": \"<string>\",\n        \"data\": \"<string>\"\n      },\n      \"owner_cname\": {\n        \"valid\": false,\n        \"host\": \"<string>\",\n        \"data\": \"<string>\",\n        \"type\": \"mx\"\n      }\n    },\n    \"subdomain\": \"<string>\"\n  }\n]",
+                      "createdAt": "2026-06-05T15:17:05.000Z",
+                      "updatedAt": "2026-06-05T15:17:05.000Z",
+                      "uid": "35240-117483fa-7710-4d0f-a4b7-77d64ce2cff6"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:17:05.000Z",
+                  "updatedAt": "2026-06-05T15:17:05.000Z",
+                  "uid": "35240-fc575f92-6266-4b59-846c-e26cd091ef52"
+                }
+              ],
+              "id": "ff38dda9-bf01-4483-9fb1-5ee42ca5c3d9",
+              "createdAt": "2026-06-05T15:17:05.000Z",
+              "updatedAt": "2026-06-05T15:17:05.000Z",
+              "uid": "35240-ff38dda9-bf01-4483-9fb1-5ee42ca5c3d9"
+            }
+          ],
+          "id": "8d54ee69-0bf3-4ad9-86ba-befc5f838d6d",
+          "createdAt": "2026-06-05T15:17:05.000Z",
+          "updatedAt": "2026-06-05T15:17:05.000Z",
+          "uid": "35240-8d54ee69-0bf3-4ad9-86ba-befc5f838d6d"
+        }
+      ],
+      "id": "6e84e7a4-d84f-4cb2-b3f3-6b379de5e0aa",
+      "createdAt": "2026-06-05T15:17:05.000Z",
+      "updatedAt": "2026-06-05T15:17:05.000Z",
+      "uid": "35240-6e84e7a4-d84f-4cb2-b3f3-6b379de5e0aa"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.sendgrid.com"
+    }
+  ]
+}

@@ -1,0 +1,728 @@
+{
+  "info": {
+    "_postman_id": "c347c2e0-f279-4878-a9f2-0f20e82ae683",
+    "name": "Twilio SendGrid Enforced TLS API",
+    "description": "The Twilio SendGrid Enforced TLS API allows you to specify whether or not the recipient of your mail send is required to support TLS or have a valid certificate.\n\nTwilio SendGrid sends all emails with [Opportunistic TLS](https://sendgrid.com/blog/myth-opportunistic-tls-email-privacy/) by default, meaning email is sent with TLS, and if the recipient's inbox provider does not accept the TLS encryption, we then send the message unencrypted.\n\nYou can optionally choose to enforce TLS encryption, meaning that if the recipient's inbox provider does not accept the TLS encryption, Twilio SendGrid drops the message and sends a block event with the message, \u201cTLS required but not supported\u201d as the description.\n\nContact Support:\n Name: Twilio SendGrid Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:16:36.000Z",
+    "updatedAt": "2026-06-05T15:16:37.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-c347c2e0-f279-4878-a9f2-0f20e82ae683"
+  },
+  "item": [
+    {
+      "name": "v3",
+      "item": [
+        {
+          "name": "user",
+          "item": [
+            {
+              "name": "settings",
+              "item": [
+                {
+                  "name": "enforced_tls",
+                  "item": [
+                    {
+                      "name": "Retrieve current Enforced TLS settings.",
+                      "id": "b695cf11-6d68-4c69-bdf2-ff604d5c2783",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/user/settings/enforced_tls",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "user",
+                            "settings",
+                            "enforced_tls"
+                          ]
+                        },
+                        "description": "**This endpoint allows you to retrieve your current Enforced TLS settings.**\n\nThe Enforced TLS settings specify whether or not the recipient is required to support TLS or have a valid certificate.\n\nIf either `require_tls` or `require_valid_cert` is set to `true`, the recipient must support TLS 1.1 or higher or have a valid certificate. If these conditions are not met, Twilio SendGrid will drop the message and send a block event with \u201cTLS required but not supported\u201d as the description."
+                      },
+                      "response": [
+                        {
+                          "id": "8e4f5b82-3173-4c11-9529-7260aaed0055",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/user/settings/enforced_tls",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "user",
+                                "settings",
+                                "enforced_tls"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"require_tls\": \"<boolean>\",\n  \"require_valid_cert\": \"<boolean>\",\n  \"version\": 1.3\n}",
+                          "createdAt": "2026-06-05T15:16:37.000Z",
+                          "updatedAt": "2026-06-05T15:16:37.000Z",
+                          "uid": "35240-8e4f5b82-3173-4c11-9529-7260aaed0055"
+                        },
+                        {
+                          "id": "b18997ae-e044-4347-923e-63cf6089b7f8",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/user/settings/enforced_tls",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "user",
+                                "settings",
+                                "enforced_tls"
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:16:37.000Z",
+                          "updatedAt": "2026-06-05T15:16:37.000Z",
+                          "uid": "35240-b18997ae-e044-4347-923e-63cf6089b7f8"
+                        },
+                        {
+                          "id": "bbd7fd46-5e5a-4a7d-ad2b-a2e1fa9d9dc0",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/user/settings/enforced_tls",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "user",
+                                "settings",
+                                "enforced_tls"
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:16:37.000Z",
+                          "updatedAt": "2026-06-05T15:16:37.000Z",
+                          "uid": "35240-bbd7fd46-5e5a-4a7d-ad2b-a2e1fa9d9dc0"
+                        },
+                        {
+                          "id": "769bd438-9eaa-4dd9-9064-fe3876facc48",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/user/settings/enforced_tls",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "user",
+                                "settings",
+                                "enforced_tls"
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:16:37.000Z",
+                          "updatedAt": "2026-06-05T15:16:37.000Z",
+                          "uid": "35240-769bd438-9eaa-4dd9-9064-fe3876facc48"
+                        },
+                        {
+                          "id": "b05f311e-fbe2-42b1-8dce-19db8bd11bfa",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/user/settings/enforced_tls",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "user",
+                                "settings",
+                                "enforced_tls"
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:16:37.000Z",
+                          "updatedAt": "2026-06-05T15:16:37.000Z",
+                          "uid": "35240-b05f311e-fbe2-42b1-8dce-19db8bd11bfa"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:16:37.000Z",
+                      "updatedAt": "2026-06-05T15:16:37.000Z",
+                      "uid": "35240-b695cf11-6d68-4c69-bdf2-ff604d5c2783"
+                    },
+                    {
+                      "name": "Update Enforced TLS settings",
+                      "id": "daa91a5c-6cec-449c-8a66-9cc966d1dfd5",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"require_tls\": \"<boolean>\",\n  \"require_valid_cert\": \"<boolean>\",\n  \"version\": 1.3\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/user/settings/enforced_tls",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "user",
+                            "settings",
+                            "enforced_tls"
+                          ]
+                        },
+                        "description": "**This endpoint allows you to update your Enforced TLS settings.**\n\nTo require TLS from recipients, set `require_tls` to `true`. If either `require_tls` or `require_valid_cert` is set to `true`, the recipient must support TLS 1.1 or higher or have a valid certificate. If these conditions are not met, Twilio SendGrid will drop the message and send a block event with \u201cTLS required but not supported\u201d as the description."
+                      },
+                      "response": [
+                        {
+                          "id": "be7a38c9-a364-44b5-bc79-26fb30293921",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"require_tls\": \"<boolean>\",\n  \"require_valid_cert\": \"<boolean>\",\n  \"version\": 1.3\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/user/settings/enforced_tls",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "user",
+                                "settings",
+                                "enforced_tls"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"require_tls\": \"<boolean>\",\n  \"require_valid_cert\": \"<boolean>\",\n  \"version\": 1.3\n}",
+                          "createdAt": "2026-06-05T15:16:37.000Z",
+                          "updatedAt": "2026-06-05T15:16:37.000Z",
+                          "uid": "35240-be7a38c9-a364-44b5-bc79-26fb30293921"
+                        },
+                        {
+                          "id": "525f77f9-003b-4aa5-a394-017948ab496c",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"require_tls\": \"<boolean>\",\n  \"require_valid_cert\": \"<boolean>\",\n  \"version\": 1.3\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/user/settings/enforced_tls",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "user",
+                                "settings",
+                                "enforced_tls"
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:16:37.000Z",
+                          "updatedAt": "2026-06-05T15:16:37.000Z",
+                          "uid": "35240-525f77f9-003b-4aa5-a394-017948ab496c"
+                        },
+                        {
+                          "id": "84b1e73a-a5ba-4fb4-aad8-4e067ac8c770",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"require_tls\": \"<boolean>\",\n  \"require_valid_cert\": \"<boolean>\",\n  \"version\": 1.3\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/user/settings/enforced_tls",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "user",
+                                "settings",
+                                "enforced_tls"
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:16:37.000Z",
+                          "updatedAt": "2026-06-05T15:16:37.000Z",
+                          "uid": "35240-84b1e73a-a5ba-4fb4-aad8-4e067ac8c770"
+                        },
+                        {
+                          "id": "9c58461a-2d67-4096-8d96-2f592e5d23e3",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"require_tls\": \"<boolean>\",\n  \"require_valid_cert\": \"<boolean>\",\n  \"version\": 1.3\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/user/settings/enforced_tls",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "user",
+                                "settings",
+                                "enforced_tls"
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:16:37.000Z",
+                          "updatedAt": "2026-06-05T15:16:37.000Z",
+                          "uid": "35240-9c58461a-2d67-4096-8d96-2f592e5d23e3"
+                        },
+                        {
+                          "id": "8be7191b-43e3-4803-95ae-3a9ce4bda194",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"require_tls\": \"<boolean>\",\n  \"require_valid_cert\": \"<boolean>\",\n  \"version\": 1.3\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/user/settings/enforced_tls",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "user",
+                                "settings",
+                                "enforced_tls"
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:16:37.000Z",
+                          "updatedAt": "2026-06-05T15:16:37.000Z",
+                          "uid": "35240-8be7191b-43e3-4803-95ae-3a9ce4bda194"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:16:37.000Z",
+                      "updatedAt": "2026-06-05T15:16:37.000Z",
+                      "uid": "35240-daa91a5c-6cec-449c-8a66-9cc966d1dfd5"
+                    }
+                  ],
+                  "id": "65f12f64-bf05-460f-b159-3ef67bd30bfa",
+                  "createdAt": "2026-06-05T15:16:37.000Z",
+                  "updatedAt": "2026-06-05T15:16:37.000Z",
+                  "uid": "35240-65f12f64-bf05-460f-b159-3ef67bd30bfa"
+                }
+              ],
+              "id": "f47be3b3-d019-4c8f-b92f-a990662d826a",
+              "createdAt": "2026-06-05T15:16:37.000Z",
+              "updatedAt": "2026-06-05T15:16:37.000Z",
+              "uid": "35240-f47be3b3-d019-4c8f-b92f-a990662d826a"
+            }
+          ],
+          "id": "8dcf4a17-1c97-4130-8972-040e71b0012f",
+          "createdAt": "2026-06-05T15:16:37.000Z",
+          "updatedAt": "2026-06-05T15:16:37.000Z",
+          "uid": "35240-8dcf4a17-1c97-4130-8972-040e71b0012f"
+        }
+      ],
+      "id": "cb4006cd-6a5b-49db-bdac-f88559572a5d",
+      "createdAt": "2026-06-05T15:16:37.000Z",
+      "updatedAt": "2026-06-05T15:16:37.000Z",
+      "uid": "35240-cb4006cd-6a5b-49db-bdac-f88559572a5d"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.sendgrid.com"
+    }
+  ]
+}

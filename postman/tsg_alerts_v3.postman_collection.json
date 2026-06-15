@@ -1,0 +1,632 @@
+{
+  "info": {
+    "_postman_id": "6b4a02ec-c57c-41b5-8168-227e5c38c153",
+    "name": "Twilio SendGrid Alerts API",
+    "description": "The Twilio SendGrid Alerts API allows you to specify an email address to receive notifications regarding your email usage or statistics. You can set up alerts to be sent to a specific email address on a recurring basis, whether for informational purposes or when specific account actions occur.\n\nFor most alerts, you can choose to have the alert sent to you as needed, hourly, daily, weekly, or monthly. The information contained in your alert will be for the last period of the alert. For example, if you choose weekly for the statistics alert, you will receive the statistics for the last week.\n\nContact Support:\n Name: Twilio SendGrid Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:16:30.000Z",
+    "updatedAt": "2026-06-05T15:16:31.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-6b4a02ec-c57c-41b5-8168-227e5c38c153"
+  },
+  "item": [
+    {
+      "name": "v3",
+      "item": [
+        {
+          "name": "alerts",
+          "item": [
+            {
+              "name": "{alert_id}",
+              "item": [
+                {
+                  "name": "Retrieve a specific alert",
+                  "id": "581199fe-ec3a-429a-ac73-477d6ad8698c",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/alerts/:alert_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "alerts",
+                        ":alert_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "8ce3b9da-92bc-47e8-b923-840189c74f87",
+                          "key": "alert_id",
+                          "value": "<integer>",
+                          "description": "(Required) The ID of the alert you would like to retrieve."
+                        }
+                      ]
+                    },
+                    "description": "**This endpoint allows you to retrieve a specific alert.**"
+                  },
+                  "response": [
+                    {
+                      "id": "d27a56c6-9dc1-4e55-a207-297d4e3ac611",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/alerts/:alert_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "alerts",
+                            ":alert_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "alert_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"created_at\": \"<integer>\",\n  \"email_to\": \"<string>\",\n  \"id\": \"<integer>\",\n  \"type\": \"stats_notification\",\n  \"updated_at\": \"<integer>\",\n  \"frequency\": \"<string>\",\n  \"percentage\": \"<integer>\"\n}",
+                      "createdAt": "2026-06-05T15:16:31.000Z",
+                      "updatedAt": "2026-06-05T15:16:31.000Z",
+                      "uid": "35240-d27a56c6-9dc1-4e55-a207-297d4e3ac611"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:16:31.000Z",
+                  "updatedAt": "2026-06-05T15:16:31.000Z",
+                  "uid": "35240-581199fe-ec3a-429a-ac73-477d6ad8698c"
+                },
+                {
+                  "name": "Delete an alert",
+                  "id": "ae112ced-baf3-48a9-93c4-3c6185d685cc",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/alerts/:alert_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "alerts",
+                        ":alert_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "70fdc963-10c7-43cc-aca9-31027b990b31",
+                          "key": "alert_id",
+                          "value": "<integer>",
+                          "description": "(Required) The ID of the alert you would like to retrieve."
+                        }
+                      ]
+                    },
+                    "description": "**This endpoint allows you to delete an alert.**"
+                  },
+                  "response": [
+                    {
+                      "id": "ef3c3be7-a205-4922-a063-4c85daa10c45",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/alerts/:alert_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "alerts",
+                            ":alert_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "alert_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:16:31.000Z",
+                      "updatedAt": "2026-06-05T15:16:31.000Z",
+                      "uid": "35240-ef3c3be7-a205-4922-a063-4c85daa10c45"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:16:31.000Z",
+                  "updatedAt": "2026-06-05T15:16:31.000Z",
+                  "uid": "35240-ae112ced-baf3-48a9-93c4-3c6185d685cc"
+                },
+                {
+                  "name": "Update an alert",
+                  "id": "2f06e246-6a1b-40b4-aed1-c4528d02e003",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email_to\": \"<string>\",\n  \"frequency\": \"<string>\",\n  \"percentage\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/alerts/:alert_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "alerts",
+                        ":alert_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "543197ba-7181-46a0-94a2-9347016108d7",
+                          "key": "alert_id",
+                          "value": "<integer>",
+                          "description": "(Required) The ID of the alert you would like to retrieve."
+                        }
+                      ]
+                    },
+                    "description": "**This endpoint allows you to update an alert.**"
+                  },
+                  "response": [
+                    {
+                      "id": "267d0367-3b9f-41a4-b126-8ac09bbfc5eb",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"email_to\": \"<string>\",\n  \"frequency\": \"<string>\",\n  \"percentage\": \"<integer>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/alerts/:alert_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "alerts",
+                            ":alert_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "alert_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"created_at\": \"<integer>\",\n  \"email_to\": \"<string>\",\n  \"id\": \"<integer>\",\n  \"type\": \"stats_notification\",\n  \"updated_at\": \"<integer>\",\n  \"frequency\": \"<string>\",\n  \"percentage\": \"<integer>\"\n}",
+                      "createdAt": "2026-06-05T15:16:31.000Z",
+                      "updatedAt": "2026-06-05T15:16:31.000Z",
+                      "uid": "35240-267d0367-3b9f-41a4-b126-8ac09bbfc5eb"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:16:31.000Z",
+                  "updatedAt": "2026-06-05T15:16:31.000Z",
+                  "uid": "35240-2f06e246-6a1b-40b4-aed1-c4528d02e003"
+                }
+              ],
+              "id": "21f24592-a552-4b82-b504-bbcae5b14540",
+              "createdAt": "2026-06-05T15:16:31.000Z",
+              "updatedAt": "2026-06-05T15:16:31.000Z",
+              "uid": "35240-21f24592-a552-4b82-b504-bbcae5b14540"
+            },
+            {
+              "name": "Create a new Alert",
+              "id": "3f6a4076-a7e1-46d2-83bd-96f74de27740",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                    "key": "on-behalf-of",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"stats_notification\",\n  \"email_to\": \"<email>\",\n  \"frequency\": \"<string>\",\n  \"percentage\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v3/alerts",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v3",
+                    "alerts"
+                  ]
+                },
+                "description": "**This endpoint allows you to create a new alert.**"
+              },
+              "response": [
+                {
+                  "id": "d6549b14-c049-4205-9a8e-8400cc70fae1",
+                  "name": "response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"type\": \"stats_notification\",\n  \"email_to\": \"<email>\",\n  \"frequency\": \"<string>\",\n  \"percentage\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/alerts",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "alerts"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"created_at\": \"<integer>\",\n  \"email_to\": \"<email>\",\n  \"id\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"updated_at\": \"<integer>\",\n  \"frequency\": \"<string>\",\n  \"percentage\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T15:16:31.000Z",
+                  "updatedAt": "2026-06-05T15:16:31.000Z",
+                  "uid": "35240-d6549b14-c049-4205-9a8e-8400cc70fae1"
+                },
+                {
+                  "id": "2235da76-08cf-4d89-b4c6-a8e02ac5befb",
+                  "name": "response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"type\": \"stats_notification\",\n  \"email_to\": \"<email>\",\n  \"frequency\": \"<string>\",\n  \"percentage\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/alerts",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "alerts"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:16:31.000Z",
+                  "updatedAt": "2026-06-05T15:16:31.000Z",
+                  "uid": "35240-2235da76-08cf-4d89-b4c6-a8e02ac5befb"
+                }
+              ],
+              "createdAt": "2026-06-05T15:16:31.000Z",
+              "updatedAt": "2026-06-05T15:16:31.000Z",
+              "uid": "35240-3f6a4076-a7e1-46d2-83bd-96f74de27740"
+            },
+            {
+              "name": "Retrieve all alerts",
+              "id": "3d909fee-fed7-47e7-917b-d90a03986509",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                    "key": "on-behalf-of",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v3/alerts",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v3",
+                    "alerts"
+                  ]
+                },
+                "description": "**This endpoint allows you to retrieve all of your alerts.**"
+              },
+              "response": [
+                {
+                  "id": "f3e01e08-0696-45ab-8146-c931852a6d15",
+                  "name": "response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/alerts",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "alerts"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  {\n    \"created_at\": \"<integer>\",\n    \"email_to\": \"<string>\",\n    \"id\": \"<integer>\",\n    \"type\": \"stats_notification\",\n    \"percentage\": \"<integer>\",\n    \"updated_at\": \"<integer>\",\n    \"frequency\": \"<string>\"\n  },\n  {\n    \"created_at\": \"<integer>\",\n    \"email_to\": \"<string>\",\n    \"id\": \"<integer>\",\n    \"type\": \"usage_limit\",\n    \"percentage\": \"<integer>\",\n    \"updated_at\": \"<integer>\",\n    \"frequency\": \"<string>\"\n  }\n]",
+                  "createdAt": "2026-06-05T15:16:31.000Z",
+                  "updatedAt": "2026-06-05T15:16:31.000Z",
+                  "uid": "35240-f3e01e08-0696-45ab-8146-c931852a6d15"
+                }
+              ],
+              "createdAt": "2026-06-05T15:16:31.000Z",
+              "updatedAt": "2026-06-05T15:16:31.000Z",
+              "uid": "35240-3d909fee-fed7-47e7-917b-d90a03986509"
+            }
+          ],
+          "id": "2ce04db7-f47c-4b44-8adf-6fea7c8e0253",
+          "createdAt": "2026-06-05T15:16:31.000Z",
+          "updatedAt": "2026-06-05T15:16:31.000Z",
+          "uid": "35240-2ce04db7-f47c-4b44-8adf-6fea7c8e0253"
+        }
+      ],
+      "id": "a8e725a6-f078-4cb5-9041-58e860fd1048",
+      "createdAt": "2026-06-05T15:16:31.000Z",
+      "updatedAt": "2026-06-05T15:16:31.000Z",
+      "uid": "35240-a8e725a6-f078-4cb5-9041-58e860fd1048"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.sendgrid.com"
+    }
+  ]
+}

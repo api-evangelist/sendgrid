@@ -1,0 +1,1684 @@
+{
+  "info": {
+    "_postman_id": "23331f75-34df-4fe5-a902-6e78a2fb6be7",
+    "name": "Twilio SendGrid Teammates API",
+    "description": "The Twilio SendGrid Teammates API allows you to add, manage, and remove Teammates, or user accounts, from your SendGrid account. Teammates function like user accounts on the SendGrid account, allowing you to invite additional users to your account with scoped access. You can think of Teammates as SendGrid's approach to enabling [role-based access control](https://en.wikipedia.org/wiki/Role-based_access_control) for your SendGrid account. For even more control over the access to your account, see the [Twilio SendGrid SSO API](https://docs.sendgrid.com/api-reference/single-sign-on-teammates/), which enables SSO-authenticated Teammates to be managed through a SAML 2.0 identity provider.\n\nContact Support:\n Name: Twilio SendGrid Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:18:10.000Z",
+    "updatedAt": "2026-06-05T15:18:10.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-23331f75-34df-4fe5-a902-6e78a2fb6be7"
+  },
+  "item": [
+    {
+      "name": "v3",
+      "item": [
+        {
+          "name": "teammates",
+          "item": [
+            {
+              "name": "{teammate_name}",
+              "item": [
+                {
+                  "name": "subuser_access",
+                  "item": [
+                    {
+                      "name": "Get Teammate Subuser Access",
+                      "id": "8cb8fc69-a5a3-4d70-a48c-71bcd03c0faa",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/teammates/:teammate_name/subuser_access?after_subuser_id=<integer>&limit=100&username=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "teammates",
+                            ":teammate_name",
+                            "subuser_access"
+                          ],
+                          "query": [
+                            {
+                              "description": "The Subuser ID from which the API request will begin retrieving Subusers. This query parameter can be used in successive API calls to retrieve additional Subusers.",
+                              "key": "after_subuser_id",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Limit the number of Subusers to be returned. The default `limit` is `100` per request.",
+                              "key": "limit",
+                              "value": "100"
+                            },
+                            {
+                              "description": "A Subuser's username that will be used to filter the returned result.",
+                              "key": "username",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "79ffd20b-bf70-4c4b-a6be-d3a31ba3426c",
+                              "key": "teammate_name",
+                              "value": "<string>",
+                              "description": "(Required) The username of the Teammate for whom you want to retrieve Subuser access information."
+                            }
+                          ]
+                        },
+                        "description": "**This operation allows you to retrieve the Subusers that can be accessed by a specified Teammate.**\n\nThis operation will return the Subusers available to a Teammate, including the scopes available. If the Teammate is an administrator, all Subusers will be returned."
+                      },
+                      "response": [
+                        {
+                          "id": "1c0165bf-4a30-4f8b-a479-a044c40c18a3",
+                          "name": "200 Success",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/teammates/:teammate_name/subuser_access?after_subuser_id=<integer>&limit=100&username=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "teammates",
+                                ":teammate_name",
+                                "subuser_access"
+                              ],
+                              "query": [
+                                {
+                                  "description": "The Subuser ID from which the API request will begin retrieving Subusers. This query parameter can be used in successive API calls to retrieve additional Subusers.",
+                                  "key": "after_subuser_id",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Limit the number of Subusers to be returned. The default `limit` is `100` per request.",
+                                  "key": "limit",
+                                  "value": "100"
+                                },
+                                {
+                                  "description": "A Subuser's username that will be used to filter the returned result.",
+                                  "key": "username",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "teammate_name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"has_restricted_subuser_access\": \"<boolean>\",\n  \"subuser_access\": [\n    {\n      \"id\": \"<integer>\",\n      \"username\": \"<string>\",\n      \"email\": \"<string>\",\n      \"disabled\": \"<boolean>\",\n      \"permission_type\": \"restricted\",\n      \"scopes\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<integer>\",\n      \"username\": \"<string>\",\n      \"email\": \"<string>\",\n      \"disabled\": \"<boolean>\",\n      \"permission_type\": \"admin\",\n      \"scopes\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"_metadata\": {\n    \"next_params\": {\n      \"limit\": \"<integer>\",\n      \"after_subuser_id\": \"<integer>\",\n      \"username\": \"<string>\"\n    }\n  }\n}",
+                          "createdAt": "2026-06-05T15:18:11.000Z",
+                          "updatedAt": "2026-06-05T15:18:11.000Z",
+                          "uid": "35240-1c0165bf-4a30-4f8b-a479-a044c40c18a3"
+                        },
+                        {
+                          "id": "91c0a7c0-3b5d-46dd-b343-7d80161294eb",
+                          "name": "400 Bad request",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/teammates/:teammate_name/subuser_access?after_subuser_id=<integer>&limit=100&username=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "teammates",
+                                ":teammate_name",
+                                "subuser_access"
+                              ],
+                              "query": [
+                                {
+                                  "description": "The Subuser ID from which the API request will begin retrieving Subusers. This query parameter can be used in successive API calls to retrieve additional Subusers.",
+                                  "key": "after_subuser_id",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Limit the number of Subusers to be returned. The default `limit` is `100` per request.",
+                                  "key": "limit",
+                                  "value": "100"
+                                },
+                                {
+                                  "description": "A Subuser's username that will be used to filter the returned result.",
+                                  "key": "username",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "teammate_name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:18:11.000Z",
+                          "updatedAt": "2026-06-05T15:18:11.000Z",
+                          "uid": "35240-91c0a7c0-3b5d-46dd-b343-7d80161294eb"
+                        },
+                        {
+                          "id": "48ef0e70-11a0-4081-ab62-07fb647a6e25",
+                          "name": "401 Forbidden",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/teammates/:teammate_name/subuser_access?after_subuser_id=<integer>&limit=100&username=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "teammates",
+                                ":teammate_name",
+                                "subuser_access"
+                              ],
+                              "query": [
+                                {
+                                  "description": "The Subuser ID from which the API request will begin retrieving Subusers. This query parameter can be used in successive API calls to retrieve additional Subusers.",
+                                  "key": "after_subuser_id",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Limit the number of Subusers to be returned. The default `limit` is `100` per request.",
+                                  "key": "limit",
+                                  "value": "100"
+                                },
+                                {
+                                  "description": "A Subuser's username that will be used to filter the returned result.",
+                                  "key": "username",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "teammate_name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:18:11.000Z",
+                          "updatedAt": "2026-06-05T15:18:11.000Z",
+                          "uid": "35240-48ef0e70-11a0-4081-ab62-07fb647a6e25"
+                        },
+                        {
+                          "id": "b9488c2a-193e-4381-827c-b034f95ebc17",
+                          "name": "403 Forbidden",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/teammates/:teammate_name/subuser_access?after_subuser_id=<integer>&limit=100&username=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "teammates",
+                                ":teammate_name",
+                                "subuser_access"
+                              ],
+                              "query": [
+                                {
+                                  "description": "The Subuser ID from which the API request will begin retrieving Subusers. This query parameter can be used in successive API calls to retrieve additional Subusers.",
+                                  "key": "after_subuser_id",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Limit the number of Subusers to be returned. The default `limit` is `100` per request.",
+                                  "key": "limit",
+                                  "value": "100"
+                                },
+                                {
+                                  "description": "A Subuser's username that will be used to filter the returned result.",
+                                  "key": "username",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "teammate_name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:18:11.000Z",
+                          "updatedAt": "2026-06-05T15:18:11.000Z",
+                          "uid": "35240-b9488c2a-193e-4381-827c-b034f95ebc17"
+                        },
+                        {
+                          "id": "21a8265b-75af-4d2f-9dcd-4f7831a885c7",
+                          "name": "500",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/teammates/:teammate_name/subuser_access?after_subuser_id=<integer>&limit=100&username=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "teammates",
+                                ":teammate_name",
+                                "subuser_access"
+                              ],
+                              "query": [
+                                {
+                                  "description": "The Subuser ID from which the API request will begin retrieving Subusers. This query parameter can be used in successive API calls to retrieve additional Subusers.",
+                                  "key": "after_subuser_id",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Limit the number of Subusers to be returned. The default `limit` is `100` per request.",
+                                  "key": "limit",
+                                  "value": "100"
+                                },
+                                {
+                                  "description": "A Subuser's username that will be used to filter the returned result.",
+                                  "key": "username",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "teammate_name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:18:11.000Z",
+                          "updatedAt": "2026-06-05T15:18:11.000Z",
+                          "uid": "35240-21a8265b-75af-4d2f-9dcd-4f7831a885c7"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:18:11.000Z",
+                      "updatedAt": "2026-06-05T15:18:11.000Z",
+                      "uid": "35240-8cb8fc69-a5a3-4d70-a48c-71bcd03c0faa"
+                    }
+                  ],
+                  "id": "d1c7d47d-bae0-4b85-b1f1-a20812a76323",
+                  "createdAt": "2026-06-05T15:18:11.000Z",
+                  "updatedAt": "2026-06-05T15:18:11.000Z",
+                  "uid": "35240-d1c7d47d-bae0-4b85-b1f1-a20812a76323"
+                }
+              ],
+              "id": "67485548-ac6b-406d-b318-8e0ae39650cb",
+              "createdAt": "2026-06-05T15:18:11.000Z",
+              "updatedAt": "2026-06-05T15:18:11.000Z",
+              "uid": "35240-67485548-ac6b-406d-b318-8e0ae39650cb"
+            },
+            {
+              "name": "{username}",
+              "item": [
+                {
+                  "name": "Retrieve specific teammate",
+                  "id": "2556c2dd-9bd8-4d17-b666-474b3b2fc409",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/teammates/:username",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "teammates",
+                        ":username"
+                      ],
+                      "variable": [
+                        {
+                          "id": "4bb5258d-abe3-4314-90cc-7d8b4bfdaeba",
+                          "key": "username",
+                          "value": "<string>",
+                          "description": "(Required) The username of the teammate that you want to retrieve."
+                        }
+                      ]
+                    },
+                    "description": "**This endpoint allows you to retrieve a specific Teammate by username.**\n\nYou can retrieve the username's for each of your Teammates using the \"Retrieve all Teammates\" endpoint."
+                  },
+                  "response": [
+                    {
+                      "id": "534200aa-abd7-4780-abff-63ff99ca45d9",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/teammates/:username",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "teammates",
+                            ":username"
+                          ],
+                          "variable": [
+                            {
+                              "key": "username"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"username\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"email\": \"<string>\",\n  \"user_type\": \"admin\",\n  \"is_admin\": \"<boolean>\",\n  \"phone\": \"<string>\",\n  \"website\": \"<string>\",\n  \"address\": \"<string>\",\n  \"address2\": \"<string>\",\n  \"city\": \"<string>\",\n  \"state\": \"<string>\",\n  \"zip\": \"<string>\",\n  \"country\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:18:11.000Z",
+                      "updatedAt": "2026-06-05T15:18:11.000Z",
+                      "uid": "35240-534200aa-abd7-4780-abff-63ff99ca45d9"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:11.000Z",
+                  "updatedAt": "2026-06-05T15:18:11.000Z",
+                  "uid": "35240-2556c2dd-9bd8-4d17-b666-474b3b2fc409"
+                },
+                {
+                  "name": "Update teammate's permissions",
+                  "id": "56a26d01-3d32-45d6-bf4b-01d0c11a0063",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"scopes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"is_admin\": \"<boolean>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/teammates/:username",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "teammates",
+                        ":username"
+                      ],
+                      "variable": [
+                        {
+                          "id": "9bd0c541-f8ae-437b-828f-8f65b70f4cb5",
+                          "key": "username",
+                          "value": "<string>",
+                          "description": "(Required) The username of the teammate that you want to retrieve."
+                        }
+                      ]
+                    },
+                    "description": "**This endpoint allows you to update a teammate\u2019s permissions.**\n\nTo turn a teammate into an admin, the request body should contain an `is_admin` set to `true`. Otherwise, set `is_admin` to `false` and pass in all the scopes that a teammate should have.\n\n**Only the parent user or other admin teammates can update another teammate\u2019s permissions.**\n\n**Admin users can only update permissions.**"
+                  },
+                  "response": [
+                    {
+                      "id": "d729ecd4-77c2-4965-b8c0-16ef37023fee",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"scopes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"is_admin\": \"<boolean>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/teammates/:username",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "teammates",
+                            ":username"
+                          ],
+                          "variable": [
+                            {
+                              "key": "username"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"username\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"email\": \"<string>\",\n  \"scopes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"user_type\": \"admin\",\n  \"is_admin\": \"<boolean>\",\n  \"phone\": \"<string>\",\n  \"website\": \"<string>\",\n  \"address\": \"<string>\",\n  \"address2\": \"<string>\",\n  \"city\": \"<string>\",\n  \"state\": \"<string>\",\n  \"zip\": \"<string>\",\n  \"country\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:18:11.000Z",
+                      "updatedAt": "2026-06-05T15:18:11.000Z",
+                      "uid": "35240-d729ecd4-77c2-4965-b8c0-16ef37023fee"
+                    },
+                    {
+                      "id": "f58dd4a3-1521-4187-80a2-274da83490c3",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"scopes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"is_admin\": \"<boolean>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/teammates/:username",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "teammates",
+                            ":username"
+                          ],
+                          "variable": [
+                            {
+                              "key": "username"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:18:11.000Z",
+                      "updatedAt": "2026-06-05T15:18:11.000Z",
+                      "uid": "35240-f58dd4a3-1521-4187-80a2-274da83490c3"
+                    },
+                    {
+                      "id": "ddd79723-ce9e-4768-990a-7623c2f6ce65",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"scopes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"is_admin\": \"<boolean>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/teammates/:username",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "teammates",
+                            ":username"
+                          ],
+                          "variable": [
+                            {
+                              "key": "username"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:18:11.000Z",
+                      "updatedAt": "2026-06-05T15:18:11.000Z",
+                      "uid": "35240-ddd79723-ce9e-4768-990a-7623c2f6ce65"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:11.000Z",
+                  "updatedAt": "2026-06-05T15:18:11.000Z",
+                  "uid": "35240-56a26d01-3d32-45d6-bf4b-01d0c11a0063"
+                },
+                {
+                  "name": "Delete teammate",
+                  "id": "a3966113-1b69-44f3-af73-d9337d904ebe",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/teammates/:username",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "teammates",
+                        ":username"
+                      ],
+                      "variable": [
+                        {
+                          "id": "70412b57-6807-4acf-bf37-14d6e4850cd0",
+                          "key": "username",
+                          "value": "<string>",
+                          "description": "(Required) The username of the teammate that you want to retrieve."
+                        }
+                      ]
+                    },
+                    "description": "**This endpoint allows you to delete a teammate.**\n\n**Only the parent user or an admin teammate can delete another teammate.**"
+                  },
+                  "response": [
+                    {
+                      "id": "a758e2db-066d-4701-a1d5-276058d4c232",
+                      "name": "The Teammate was successfully deleted.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/teammates/:username",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "teammates",
+                            ":username"
+                          ],
+                          "variable": [
+                            {
+                              "key": "username"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:18:11.000Z",
+                      "updatedAt": "2026-06-05T15:18:11.000Z",
+                      "uid": "35240-a758e2db-066d-4701-a1d5-276058d4c232"
+                    },
+                    {
+                      "id": "7fb0893b-24d7-49b5-89f1-cc20fd783274",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/teammates/:username",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "teammates",
+                            ":username"
+                          ],
+                          "variable": [
+                            {
+                              "key": "username"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:18:11.000Z",
+                      "updatedAt": "2026-06-05T15:18:11.000Z",
+                      "uid": "35240-7fb0893b-24d7-49b5-89f1-cc20fd783274"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:11.000Z",
+                  "updatedAt": "2026-06-05T15:18:11.000Z",
+                  "uid": "35240-a3966113-1b69-44f3-af73-d9337d904ebe"
+                }
+              ],
+              "id": "92eb7a46-749a-41ff-9853-af3a89b1ef62",
+              "createdAt": "2026-06-05T15:18:11.000Z",
+              "updatedAt": "2026-06-05T15:18:11.000Z",
+              "uid": "35240-92eb7a46-749a-41ff-9853-af3a89b1ef62"
+            },
+            {
+              "name": "pending",
+              "item": [
+                {
+                  "name": "{token}",
+                  "item": [
+                    {
+                      "name": "resend",
+                      "item": [
+                        {
+                          "name": "Resend teammate invite",
+                          "id": "45a98573-2e95-417b-be05-61eb369bfc97",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/teammates/pending/:token/resend",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "teammates",
+                                "pending",
+                                ":token",
+                                "resend"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "f2945390-83de-4ace-97e0-fc9f96541f0c",
+                                  "key": "token",
+                                  "value": "<string>",
+                                  "description": "(Required) The token for the invite that you want to resend."
+                                }
+                              ]
+                            },
+                            "description": "**This endpoint allows you to resend a Teammate invitation.**\n\nTeammate invitations will expire after 7 days. Resending an invitation will reset the expiration date."
+                          },
+                          "response": [
+                            {
+                              "id": "21f863be-1417-412e-8b70-14ab81f81fa0",
+                              "name": "response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                    "key": "on-behalf-of",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/teammates/pending/:token/resend",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "teammates",
+                                    "pending",
+                                    ":token",
+                                    "resend"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "token"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"token\": \"<string>\",\n  \"email\": \"<string>\",\n  \"scopes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"is_admin\": \"<boolean>\"\n}",
+                              "createdAt": "2026-06-05T15:18:11.000Z",
+                              "updatedAt": "2026-06-05T15:18:11.000Z",
+                              "uid": "35240-21f863be-1417-412e-8b70-14ab81f81fa0"
+                            },
+                            {
+                              "id": "4c695e12-6ea8-4a4b-aef8-f5246c2676d4",
+                              "name": "response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                    "key": "on-behalf-of",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/teammates/pending/:token/resend",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "teammates",
+                                    "pending",
+                                    ":token",
+                                    "resend"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "token"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-06-05T15:18:11.000Z",
+                              "updatedAt": "2026-06-05T15:18:11.000Z",
+                              "uid": "35240-4c695e12-6ea8-4a4b-aef8-f5246c2676d4"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:18:11.000Z",
+                          "updatedAt": "2026-06-05T15:18:11.000Z",
+                          "uid": "35240-45a98573-2e95-417b-be05-61eb369bfc97"
+                        }
+                      ],
+                      "id": "f2d0b6f2-6a9c-4d9c-a64a-582461a44feb",
+                      "createdAt": "2026-06-05T15:18:11.000Z",
+                      "updatedAt": "2026-06-05T15:18:11.000Z",
+                      "uid": "35240-f2d0b6f2-6a9c-4d9c-a64a-582461a44feb"
+                    },
+                    {
+                      "name": "Delete pending teammate",
+                      "id": "e80da483-4088-40d6-9362-66a1c4f5aa4b",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/teammates/pending/:token",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "teammates",
+                            "pending",
+                            ":token"
+                          ],
+                          "variable": [
+                            {
+                              "id": "66486f87-6dc5-4020-832a-bcfc63db4568",
+                              "key": "token",
+                              "value": "<string>",
+                              "description": "(Required) The token for the invite you want to delete."
+                            }
+                          ]
+                        },
+                        "description": "**This endpoint allows you to delete a pending teammate invite.**"
+                      },
+                      "response": [
+                        {
+                          "id": "ee919fba-cd7d-4d44-99bb-0d37919146b4",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/teammates/pending/:token",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "teammates",
+                                "pending",
+                                ":token"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "token"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:18:11.000Z",
+                          "updatedAt": "2026-06-05T15:18:11.000Z",
+                          "uid": "35240-ee919fba-cd7d-4d44-99bb-0d37919146b4"
+                        },
+                        {
+                          "id": "055694bf-f632-4c35-a909-63e4ba8669bf",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/teammates/pending/:token",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "teammates",
+                                "pending",
+                                ":token"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "token"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:18:11.000Z",
+                          "updatedAt": "2026-06-05T15:18:11.000Z",
+                          "uid": "35240-055694bf-f632-4c35-a909-63e4ba8669bf"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:18:11.000Z",
+                      "updatedAt": "2026-06-05T15:18:11.000Z",
+                      "uid": "35240-e80da483-4088-40d6-9362-66a1c4f5aa4b"
+                    }
+                  ],
+                  "id": "58f02e4f-7f5d-4ec0-9dbd-ee9775b79804",
+                  "createdAt": "2026-06-05T15:18:11.000Z",
+                  "updatedAt": "2026-06-05T15:18:11.000Z",
+                  "uid": "35240-58f02e4f-7f5d-4ec0-9dbd-ee9775b79804"
+                },
+                {
+                  "name": "Retrieve all pending teammates",
+                  "id": "5d296a63-206d-4c7c-8c9a-d99f22fece75",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/teammates/pending",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "teammates",
+                        "pending"
+                      ]
+                    },
+                    "description": "**This endpoint allows you to retrieve a list of all pending Teammate invitations.**\n\nEach teammate invitation is valid for 7 days. Users may resend the invitation to refresh the expiration date."
+                  },
+                  "response": [
+                    {
+                      "id": "87620f18-b1d8-4ed1-a6c7-bd3d21cedeb1",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/teammates/pending",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "teammates",
+                            "pending"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"result\": [\n    {\n      \"email\": \"<string>\",\n      \"scopes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"is_admin\": \"<boolean>\",\n      \"token\": \"<string>\",\n      \"expiration_date\": \"<integer>\"\n    },\n    {\n      \"email\": \"<string>\",\n      \"scopes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"is_admin\": \"<boolean>\",\n      \"token\": \"<string>\",\n      \"expiration_date\": \"<integer>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:18:11.000Z",
+                      "updatedAt": "2026-06-05T15:18:11.000Z",
+                      "uid": "35240-87620f18-b1d8-4ed1-a6c7-bd3d21cedeb1"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:11.000Z",
+                  "updatedAt": "2026-06-05T15:18:11.000Z",
+                  "uid": "35240-5d296a63-206d-4c7c-8c9a-d99f22fece75"
+                }
+              ],
+              "id": "6f7564cb-ef3a-495c-a9dd-36eb7aac824c",
+              "createdAt": "2026-06-05T15:18:11.000Z",
+              "updatedAt": "2026-06-05T15:18:11.000Z",
+              "uid": "35240-6f7564cb-ef3a-495c-a9dd-36eb7aac824c"
+            },
+            {
+              "name": "Invite teammate",
+              "id": "bd82cb28-fe2b-43c6-8fc5-445fd8cf7e88",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                    "key": "on-behalf-of",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"R=@-~.[!4~\\\"Q;\",\n  \"scopes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"is_admin\": false\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v3/teammates",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v3",
+                    "teammates"
+                  ]
+                },
+                "description": "**This endpoint allows you to invite a Teammate to your account via email.**\n\nYou can set a Teammate's initial permissions using the `scopes` array in the request body. Teammate's will receive a minimum set of scopes from Twilio SendGrid that are necessary for the Teammate to function.\n\n**Note:** A teammate invite will expire after 7 days, but you may resend the invitation at any time to reset the expiration date."
+              },
+              "response": [
+                {
+                  "id": "af1cdcfc-4dc3-440f-ada6-1063525d2e9f",
+                  "name": "response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"R=@-~.[!4~\\\"Q;\",\n  \"scopes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"is_admin\": false\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/teammates",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "teammates"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"token\": \"<string>\",\n  \"email\": \"<string>\",\n  \"is_admin\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:18:11.000Z",
+                  "updatedAt": "2026-06-05T15:18:11.000Z",
+                  "uid": "35240-af1cdcfc-4dc3-440f-ada6-1063525d2e9f"
+                },
+                {
+                  "id": "6b4a8cf9-d274-480d-8415-86fa3ee9d579",
+                  "name": "response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"R=@-~.[!4~\\\"Q;\",\n  \"scopes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"is_admin\": false\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/teammates",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "teammates"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:18:11.000Z",
+                  "updatedAt": "2026-06-05T15:18:11.000Z",
+                  "uid": "35240-6b4a8cf9-d274-480d-8415-86fa3ee9d579"
+                }
+              ],
+              "createdAt": "2026-06-05T15:18:11.000Z",
+              "updatedAt": "2026-06-05T15:18:11.000Z",
+              "uid": "35240-bd82cb28-fe2b-43c6-8fc5-445fd8cf7e88"
+            },
+            {
+              "name": "Retrieve all teammates",
+              "id": "b459261a-5551-4171-bb0b-01fcea8ec96d",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                    "key": "on-behalf-of",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v3/teammates?limit=500&offset=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v3",
+                    "teammates"
+                  ],
+                  "query": [
+                    {
+                      "description": "`limit` sets the page size, i.e. maximum number of items from the list to be returned for a single API request. If omitted, the default page size is used. The maximum page size for this endpoint is 500 items per page.",
+                      "key": "limit",
+                      "value": "500"
+                    },
+                    {
+                      "description": "The number of items in the list to skip over before starting to retrieve the items for the requested page. The default `offset` of `0` represents the beginning of the list, i.e. the start of the first page. To request the second page of the list, set the `offset` to the page size as determined by `limit`. Use multiples of the page size as your `offset` to request further consecutive pages. E.g. assume your page size is set to `10`. An `offset` of `10` requests the second page, an `offset` of `20` requests the third page and so on, provided there are sufficiently many items in your list.",
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ]
+                },
+                "description": "**This endpoint allows you to retrieve a paginated list of all current Teammates.**\n\nYou can use the `limit` query parameter to set the page size. If your list contains more items than the page size permits, you can make multiple requests. Use the `offset` query parameter to control the position in the list from which to start retrieving additional items."
+              },
+              "response": [
+                {
+                  "id": "f8dff5f4-3d94-45f6-8f71-85ebc83e9c98",
+                  "name": "response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/teammates?limit=500&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "teammates"
+                      ],
+                      "query": [
+                        {
+                          "description": "`limit` sets the page size, i.e. maximum number of items from the list to be returned for a single API request. If omitted, the default page size is used. The maximum page size for this endpoint is 500 items per page.",
+                          "key": "limit",
+                          "value": "500"
+                        },
+                        {
+                          "description": "The number of items in the list to skip over before starting to retrieve the items for the requested page. The default `offset` of `0` represents the beginning of the list, i.e. the start of the first page. To request the second page of the list, set the `offset` to the page size as determined by `limit`. Use multiples of the page size as your `offset` to request further consecutive pages. E.g. assume your page size is set to `10`. An `offset` of `10` requests the second page, an `offset` of `20` requests the third page and so on, provided there are sufficiently many items in your list.",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"result\": [\n    {\n      \"username\": \"<string>\",\n      \"email\": \"<string>\",\n      \"first_name\": \"<string>\",\n      \"last_name\": \"<string>\",\n      \"user_type\": \"owner\",\n      \"is_admin\": \"<boolean>\",\n      \"phone\": \"<string>\",\n      \"website\": \"<string>\",\n      \"address\": \"<string>\",\n      \"address2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zip\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    {\n      \"username\": \"<string>\",\n      \"email\": \"<string>\",\n      \"first_name\": \"<string>\",\n      \"last_name\": \"<string>\",\n      \"user_type\": \"owner\",\n      \"is_admin\": \"<boolean>\",\n      \"phone\": \"<string>\",\n      \"website\": \"<string>\",\n      \"address\": \"<string>\",\n      \"address2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zip\": \"<string>\",\n      \"country\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:18:11.000Z",
+                  "updatedAt": "2026-06-05T15:18:11.000Z",
+                  "uid": "35240-f8dff5f4-3d94-45f6-8f71-85ebc83e9c98"
+                }
+              ],
+              "createdAt": "2026-06-05T15:18:11.000Z",
+              "updatedAt": "2026-06-05T15:18:11.000Z",
+              "uid": "35240-b459261a-5551-4171-bb0b-01fcea8ec96d"
+            }
+          ],
+          "id": "459d8be9-664a-4e7b-9e67-a4a797191a1c",
+          "createdAt": "2026-06-05T15:18:11.000Z",
+          "updatedAt": "2026-06-05T15:18:11.000Z",
+          "uid": "35240-459d8be9-664a-4e7b-9e67-a4a797191a1c"
+        }
+      ],
+      "id": "836a7eb9-7a6a-4b75-82c1-f09ea1d4a3f6",
+      "createdAt": "2026-06-05T15:18:11.000Z",
+      "updatedAt": "2026-06-05T15:18:11.000Z",
+      "uid": "35240-836a7eb9-7a6a-4b75-82c1-f09ea1d4a3f6"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.sendgrid.com"
+    }
+  ]
+}

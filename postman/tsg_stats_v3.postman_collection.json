@@ -1,0 +1,1651 @@
+{
+  "info": {
+    "_postman_id": "2477bd4b-d8fc-418b-8065-fd0bd64d9aa9",
+    "name": "Twilio SendGrid Statistics API",
+    "description": "The Twilio SendGrid Statistics API allows you to retrieve the various statistics related to your email program.\n\nTracking your emails is an important part of being a good sender and learning about how your users interact with your email. This includes everything from clicks and opens to looking at which browsers and mailbox providers your customers use.\n\nSendGrid has broken up statistics in specific ways so that you can get at-a-glance data, as well as the details of how your email is being used.\n\nCategory statistics are available for the previous thirteen months only.\n\nSee [**Statistics Overview**](https://docs.sendgrid.com/ui/analytics-and-reporting/stats-overview) for more information.\n\nContact Support:\n Name: Twilio SendGrid Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:17:47.000Z",
+    "updatedAt": "2026-06-05T15:17:48.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-2477bd4b-d8fc-418b-8065-fd0bd64d9aa9"
+  },
+  "item": [
+    {
+      "name": "v3",
+      "item": [
+        {
+          "name": "browsers",
+          "item": [
+            {
+              "name": "stats",
+              "item": [
+                {
+                  "name": "Retrieve email statistics by browser.",
+                  "id": "9bf02844-f1b1-4bbe-a14f-d1d91adc66a2",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/browsers/stats?browsers=<string>&limit=<integer>&offset=<integer>&aggregated_by=week&start_date=<string>&end_date=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "browsers",
+                        "stats"
+                      ],
+                      "query": [
+                        {
+                          "description": "The browsers to get statistics for. You can include up to 10 different browsers by including this parameter multiple times.",
+                          "key": "browsers",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The number of results to return.",
+                          "key": "limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "The point in the list to begin retrieving results.",
+                          "key": "offset",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "How to group the statistics. Must be either \"day\", \"week\", or \"month\".",
+                          "key": "aggregated_by",
+                          "value": "week"
+                        },
+                        {
+                          "description": "(Required) The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD.",
+                          "key": "start_date",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The end date of the statistics to retrieve. Defaults to today. Must follow format YYYY-MM-DD.",
+                          "key": "end_date",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "description": "**This endpoint allows you to retrieve your email statistics segmented by browser type.**\n\n**We only store up to 7 days of email activity in our database.** By default, 500 items will be returned per request via the Advanced Stats API endpoints.\n\nAdvanced Stats provide a more in-depth view of your email statistics and the actions taken by your recipients. You can segment these statistics by geographic location, device type, client type, browser, and mailbox provider. For more information about statistics, please see our [Statistics Overview](https://sendgrid.com/docs/ui/analytics-and-reporting/stats-overview/)."
+                  },
+                  "response": [
+                    {
+                      "id": "709dc844-8b96-4085-a9e2-ceb683db6785",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/browsers/stats?browsers=<string>&limit=<integer>&offset=<integer>&aggregated_by=week&start_date=<string>&end_date=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "browsers",
+                            "stats"
+                          ],
+                          "query": [
+                            {
+                              "description": "The browsers to get statistics for. You can include up to 10 different browsers by including this parameter multiple times.",
+                              "key": "browsers",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The number of results to return.",
+                              "key": "limit",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "The point in the list to begin retrieving results.",
+                              "key": "offset",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "How to group the statistics. Must be either \"day\", \"week\", or \"month\".",
+                              "key": "aggregated_by",
+                              "value": "week"
+                            },
+                            {
+                              "description": "(Required) The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD.",
+                              "key": "start_date",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The end date of the statistics to retrieve. Defaults to today. Must follow format YYYY-MM-DD.",
+                              "key": "end_date",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"date\": \"<string>\",\n    \"stats\": [\n      {\n        \"type\": \"<string>\",\n        \"name\": \"<string>\",\n        \"metrics\": {\n          \"clicks\": \"<integer>\",\n          \"unique_clicks\": \"<integer>\"\n        }\n      },\n      {\n        \"type\": \"<string>\",\n        \"name\": \"<string>\",\n        \"metrics\": {\n          \"clicks\": \"<integer>\",\n          \"unique_clicks\": \"<integer>\"\n        }\n      }\n    ]\n  },\n  {\n    \"date\": \"<string>\",\n    \"stats\": [\n      {\n        \"type\": \"<string>\",\n        \"name\": \"<string>\",\n        \"metrics\": {\n          \"clicks\": \"<integer>\",\n          \"unique_clicks\": \"<integer>\"\n        }\n      },\n      {\n        \"type\": \"<string>\",\n        \"name\": \"<string>\",\n        \"metrics\": {\n          \"clicks\": \"<integer>\",\n          \"unique_clicks\": \"<integer>\"\n        }\n      }\n    ]\n  }\n]",
+                      "createdAt": "2026-06-05T15:17:48.000Z",
+                      "updatedAt": "2026-06-05T15:17:48.000Z",
+                      "uid": "35240-709dc844-8b96-4085-a9e2-ceb683db6785"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:17:48.000Z",
+                  "updatedAt": "2026-06-05T15:17:48.000Z",
+                  "uid": "35240-9bf02844-f1b1-4bbe-a14f-d1d91adc66a2"
+                }
+              ],
+              "id": "4d392854-7782-401f-a30a-3bb439b2bc05",
+              "createdAt": "2026-06-05T15:17:48.000Z",
+              "updatedAt": "2026-06-05T15:17:48.000Z",
+              "uid": "35240-4d392854-7782-401f-a30a-3bb439b2bc05"
+            }
+          ],
+          "id": "62416635-96c6-4e19-9a59-284bdf4ef496",
+          "createdAt": "2026-06-05T15:17:48.000Z",
+          "updatedAt": "2026-06-05T15:17:48.000Z",
+          "uid": "35240-62416635-96c6-4e19-9a59-284bdf4ef496"
+        },
+        {
+          "name": "categories",
+          "item": [
+            {
+              "name": "stats",
+              "item": [
+                {
+                  "name": "sums",
+                  "item": [
+                    {
+                      "name": "Retrieve sums of email stats for each category.",
+                      "id": "cdb8a994-5eb4-4ca0-bc55-e87e33704d3b",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/categories/stats/sums?sort_by_metric=delivered&sort_by_direction=asc&start_date=<string>&end_date=<string>&limit=5&offset=0&aggregated_by=week",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "categories",
+                            "stats",
+                            "sums"
+                          ],
+                          "query": [
+                            {
+                              "description": "The metric that you want to sort by.  Must be a single metric.",
+                              "key": "sort_by_metric",
+                              "value": "delivered"
+                            },
+                            {
+                              "description": "The direction you want to sort.",
+                              "key": "sort_by_direction",
+                              "value": "asc"
+                            },
+                            {
+                              "description": "(Required) The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD.",
+                              "key": "start_date",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The end date of the statistics to retrieve. Defaults to today. Must follow format YYYY-MM-DD.",
+                              "key": "end_date",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Limits the number of results returned.",
+                              "key": "limit",
+                              "value": "5"
+                            },
+                            {
+                              "description": "The point in the list to begin retrieving results.",
+                              "key": "offset",
+                              "value": "0"
+                            },
+                            {
+                              "description": "How to group the statistics. Must be either \"day\", \"week\", or \"month\".",
+                              "key": "aggregated_by",
+                              "value": "week"
+                            }
+                          ]
+                        },
+                        "description": "**This endpoint allows you to retrieve the total sum of each email statistic for every category over the given date range.**\n\nIf you do not define any query parameters, this endpoint will return a sum for each category in groups of 10."
+                      },
+                      "response": [
+                        {
+                          "id": "7a4bbb64-fd5c-4543-a91f-739f66f936d0",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/categories/stats/sums?sort_by_metric=delivered&sort_by_direction=asc&start_date=<string>&end_date=<string>&limit=5&offset=0&aggregated_by=week",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "categories",
+                                "stats",
+                                "sums"
+                              ],
+                              "query": [
+                                {
+                                  "description": "The metric that you want to sort by.  Must be a single metric.",
+                                  "key": "sort_by_metric",
+                                  "value": "delivered"
+                                },
+                                {
+                                  "description": "The direction you want to sort.",
+                                  "key": "sort_by_direction",
+                                  "value": "asc"
+                                },
+                                {
+                                  "description": "(Required) The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD.",
+                                  "key": "start_date",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "The end date of the statistics to retrieve. Defaults to today. Must follow format YYYY-MM-DD.",
+                                  "key": "end_date",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Limits the number of results returned.",
+                                  "key": "limit",
+                                  "value": "5"
+                                },
+                                {
+                                  "description": "The point in the list to begin retrieving results.",
+                                  "key": "offset",
+                                  "value": "0"
+                                },
+                                {
+                                  "description": "How to group the statistics. Must be either \"day\", \"week\", or \"month\".",
+                                  "key": "aggregated_by",
+                                  "value": "week"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"date\": \"<string>\",\n  \"stats\": [\n    {\n      \"type\": \"<string>\",\n      \"metrics\": {\n        \"blocks\": \"<integer>\",\n        \"bounce_drops\": \"<integer>\",\n        \"bounces\": \"<integer>\",\n        \"clicks\": \"<integer>\",\n        \"deferred\": \"<integer>\",\n        \"delivered\": \"<integer>\",\n        \"invalid_emails\": \"<integer>\",\n        \"opens\": \"<integer>\",\n        \"processed\": \"<integer>\",\n        \"requests\": \"<integer>\",\n        \"spam_report_drops\": \"<integer>\",\n        \"spam_reports\": \"<integer>\",\n        \"unique_clicks\": \"<integer>\",\n        \"unique_opens\": \"<integer>\",\n        \"unsubscribe_drops\": \"<integer>\",\n        \"unsubscribes\": \"<integer>\"\n      },\n      \"name\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"metrics\": {\n        \"blocks\": \"<integer>\",\n        \"bounce_drops\": \"<integer>\",\n        \"bounces\": \"<integer>\",\n        \"clicks\": \"<integer>\",\n        \"deferred\": \"<integer>\",\n        \"delivered\": \"<integer>\",\n        \"invalid_emails\": \"<integer>\",\n        \"opens\": \"<integer>\",\n        \"processed\": \"<integer>\",\n        \"requests\": \"<integer>\",\n        \"spam_report_drops\": \"<integer>\",\n        \"spam_reports\": \"<integer>\",\n        \"unique_clicks\": \"<integer>\",\n        \"unique_opens\": \"<integer>\",\n        \"unsubscribe_drops\": \"<integer>\",\n        \"unsubscribes\": \"<integer>\"\n      },\n      \"name\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:17:48.000Z",
+                          "updatedAt": "2026-06-05T15:17:48.000Z",
+                          "uid": "35240-7a4bbb64-fd5c-4543-a91f-739f66f936d0"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:17:48.000Z",
+                      "updatedAt": "2026-06-05T15:17:48.000Z",
+                      "uid": "35240-cdb8a994-5eb4-4ca0-bc55-e87e33704d3b"
+                    }
+                  ],
+                  "id": "154796c5-9c4a-43f4-82bc-73a15e7349e6",
+                  "createdAt": "2026-06-05T15:17:48.000Z",
+                  "updatedAt": "2026-06-05T15:17:48.000Z",
+                  "uid": "35240-154796c5-9c4a-43f4-82bc-73a15e7349e6"
+                },
+                {
+                  "name": "Retrieve Email Statistics for Categories",
+                  "id": "2936421b-cc58-46ef-be17-42177712a50a",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/categories/stats?start_date=<string>&end_date=<string>&categories=<string>&aggregated_by=week",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "categories",
+                        "stats"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD",
+                          "key": "start_date",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The end date of the statistics to retrieve. Defaults to today. Must follow format YYYY-MM-DD.",
+                          "key": "end_date",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The individual categories that you want to retrieve statistics for. You may include up to 10 different categories.",
+                          "key": "categories",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "How to group the statistics. Must be either \"day\", \"week\", or \"month\".",
+                          "key": "aggregated_by",
+                          "value": "week"
+                        }
+                      ]
+                    },
+                    "description": "**This endpoint allows you to retrieve all of your email statistics for each of your categories.**\n\nIf you do not define any query parameters, this endpoint will return a sum for each category in groups of 10."
+                  },
+                  "response": [
+                    {
+                      "id": "6e3096af-91c6-4d09-a57d-73e02413d59a",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/categories/stats?start_date=<string>&end_date=<string>&categories=<string>&aggregated_by=week",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "categories",
+                            "stats"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD",
+                              "key": "start_date",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The end date of the statistics to retrieve. Defaults to today. Must follow format YYYY-MM-DD.",
+                              "key": "end_date",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) The individual categories that you want to retrieve statistics for. You may include up to 10 different categories.",
+                              "key": "categories",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "How to group the statistics. Must be either \"day\", \"week\", or \"month\".",
+                              "key": "aggregated_by",
+                              "value": "week"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"date\": \"<string>\",\n    \"stats\": [\n      {\n        \"type\": \"<string>\",\n        \"metrics\": {\n          \"blocks\": \"<integer>\",\n          \"bounce_drops\": \"<integer>\",\n          \"bounces\": \"<integer>\",\n          \"clicks\": \"<integer>\",\n          \"deferred\": \"<integer>\",\n          \"delivered\": \"<integer>\",\n          \"invalid_emails\": \"<integer>\",\n          \"opens\": \"<integer>\",\n          \"processed\": \"<integer>\",\n          \"requests\": \"<integer>\",\n          \"spam_report_drops\": \"<integer>\",\n          \"spam_reports\": \"<integer>\",\n          \"unique_clicks\": \"<integer>\",\n          \"unique_opens\": \"<integer>\",\n          \"unsubscribe_drops\": \"<integer>\",\n          \"unsubscribes\": \"<integer>\"\n        },\n        \"name\": \"<string>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"metrics\": {\n          \"blocks\": \"<integer>\",\n          \"bounce_drops\": \"<integer>\",\n          \"bounces\": \"<integer>\",\n          \"clicks\": \"<integer>\",\n          \"deferred\": \"<integer>\",\n          \"delivered\": \"<integer>\",\n          \"invalid_emails\": \"<integer>\",\n          \"opens\": \"<integer>\",\n          \"processed\": \"<integer>\",\n          \"requests\": \"<integer>\",\n          \"spam_report_drops\": \"<integer>\",\n          \"spam_reports\": \"<integer>\",\n          \"unique_clicks\": \"<integer>\",\n          \"unique_opens\": \"<integer>\",\n          \"unsubscribe_drops\": \"<integer>\",\n          \"unsubscribes\": \"<integer>\"\n        },\n        \"name\": \"<string>\"\n      }\n    ]\n  },\n  {\n    \"date\": \"<string>\",\n    \"stats\": [\n      {\n        \"type\": \"<string>\",\n        \"metrics\": {\n          \"blocks\": \"<integer>\",\n          \"bounce_drops\": \"<integer>\",\n          \"bounces\": \"<integer>\",\n          \"clicks\": \"<integer>\",\n          \"deferred\": \"<integer>\",\n          \"delivered\": \"<integer>\",\n          \"invalid_emails\": \"<integer>\",\n          \"opens\": \"<integer>\",\n          \"processed\": \"<integer>\",\n          \"requests\": \"<integer>\",\n          \"spam_report_drops\": \"<integer>\",\n          \"spam_reports\": \"<integer>\",\n          \"unique_clicks\": \"<integer>\",\n          \"unique_opens\": \"<integer>\",\n          \"unsubscribe_drops\": \"<integer>\",\n          \"unsubscribes\": \"<integer>\"\n        },\n        \"name\": \"<string>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"metrics\": {\n          \"blocks\": \"<integer>\",\n          \"bounce_drops\": \"<integer>\",\n          \"bounces\": \"<integer>\",\n          \"clicks\": \"<integer>\",\n          \"deferred\": \"<integer>\",\n          \"delivered\": \"<integer>\",\n          \"invalid_emails\": \"<integer>\",\n          \"opens\": \"<integer>\",\n          \"processed\": \"<integer>\",\n          \"requests\": \"<integer>\",\n          \"spam_report_drops\": \"<integer>\",\n          \"spam_reports\": \"<integer>\",\n          \"unique_clicks\": \"<integer>\",\n          \"unique_opens\": \"<integer>\",\n          \"unsubscribe_drops\": \"<integer>\",\n          \"unsubscribes\": \"<integer>\"\n        },\n        \"name\": \"<string>\"\n      }\n    ]\n  }\n]",
+                      "createdAt": "2026-06-05T15:17:48.000Z",
+                      "updatedAt": "2026-06-05T15:17:48.000Z",
+                      "uid": "35240-6e3096af-91c6-4d09-a57d-73e02413d59a"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:17:48.000Z",
+                  "updatedAt": "2026-06-05T15:17:48.000Z",
+                  "uid": "35240-2936421b-cc58-46ef-be17-42177712a50a"
+                }
+              ],
+              "id": "c4dc350a-efe5-4e5a-8169-ff56c6349cfe",
+              "createdAt": "2026-06-05T15:17:48.000Z",
+              "updatedAt": "2026-06-05T15:17:48.000Z",
+              "uid": "35240-c4dc350a-efe5-4e5a-8169-ff56c6349cfe"
+            },
+            {
+              "name": "Retrieve all categories",
+              "id": "fcb99036-bfbc-473f-803a-70916d0a7389",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                    "key": "on-behalf-of",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v3/categories?limit=50&category=<string>&offset=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v3",
+                    "categories"
+                  ],
+                  "query": [
+                    {
+                      "description": "`limit` sets the page size, i.e. maximum number of items from the list to be returned for a single API request. If omitted, the default page size is used.",
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Allows you to perform a prefix search on this particular category.",
+                      "key": "category",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The number of items in the list to skip over before starting to retrieve the items for the requested page. The default `offset` of `0` represents the beginning of the list, i.e. the start of the first page. To request the second page of the list, set the `offset` to the page size as determined by `limit`. Use multiples of the page size as your `offset` to request further consecutive pages. E.g. assume your page size is set to `10`. An `offset` of `10` requests the second page, an `offset` of `20` requests the third page and so on, provided there are sufficiently many items in your list.",
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ]
+                },
+                "description": "**This endpoint allows you to retrieve a paginated list of all of your categories.**\n\nYou can use the `limit` query parameter to set the page size. If your list contains more items than the page size permits, you can make multiple requests. Use the `offset` query parameter to control the position in the list from which to start retrieving additional items."
+              },
+              "response": [
+                {
+                  "id": "1cbd2d6a-9e4a-47d7-b4e2-b30f0f8ff643",
+                  "name": "response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/categories?limit=50&category=<string>&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "categories"
+                      ],
+                      "query": [
+                        {
+                          "description": "`limit` sets the page size, i.e. maximum number of items from the list to be returned for a single API request. If omitted, the default page size is used.",
+                          "key": "limit",
+                          "value": "50"
+                        },
+                        {
+                          "description": "Allows you to perform a prefix search on this particular category.",
+                          "key": "category",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The number of items in the list to skip over before starting to retrieve the items for the requested page. The default `offset` of `0` represents the beginning of the list, i.e. the start of the first page. To request the second page of the list, set the `offset` to the page size as determined by `limit`. Use multiples of the page size as your `offset` to request further consecutive pages. E.g. assume your page size is set to `10`. An `offset` of `10` requests the second page, an `offset` of `20` requests the third page and so on, provided there are sufficiently many items in your list.",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  {\n    \"category\": \"<string>\"\n  },\n  {\n    \"category\": \"<string>\"\n  }\n]",
+                  "createdAt": "2026-06-05T15:17:48.000Z",
+                  "updatedAt": "2026-06-05T15:17:48.000Z",
+                  "uid": "35240-1cbd2d6a-9e4a-47d7-b4e2-b30f0f8ff643"
+                },
+                {
+                  "id": "a8bccc23-f0cf-4ae8-8668-3be1a18592ca",
+                  "name": "response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/categories?limit=50&category=<string>&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "categories"
+                      ],
+                      "query": [
+                        {
+                          "description": "`limit` sets the page size, i.e. maximum number of items from the list to be returned for a single API request. If omitted, the default page size is used.",
+                          "key": "limit",
+                          "value": "50"
+                        },
+                        {
+                          "description": "Allows you to perform a prefix search on this particular category.",
+                          "key": "category",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The number of items in the list to skip over before starting to retrieve the items for the requested page. The default `offset` of `0` represents the beginning of the list, i.e. the start of the first page. To request the second page of the list, set the `offset` to the page size as determined by `limit`. Use multiples of the page size as your `offset` to request further consecutive pages. E.g. assume your page size is set to `10`. An `offset` of `10` requests the second page, an `offset` of `20` requests the third page and so on, provided there are sufficiently many items in your list.",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:17:48.000Z",
+                  "updatedAt": "2026-06-05T15:17:48.000Z",
+                  "uid": "35240-a8bccc23-f0cf-4ae8-8668-3be1a18592ca"
+                }
+              ],
+              "createdAt": "2026-06-05T15:17:48.000Z",
+              "updatedAt": "2026-06-05T15:17:48.000Z",
+              "uid": "35240-fcb99036-bfbc-473f-803a-70916d0a7389"
+            }
+          ],
+          "id": "67e4ee91-9558-4217-9f8d-d972f1e4c761",
+          "createdAt": "2026-06-05T15:17:48.000Z",
+          "updatedAt": "2026-06-05T15:17:48.000Z",
+          "uid": "35240-67e4ee91-9558-4217-9f8d-d972f1e4c761"
+        },
+        {
+          "name": "clients",
+          "item": [
+            {
+              "name": "stats",
+              "item": [
+                {
+                  "name": "Retrieve email statistics by client type.",
+                  "id": "5cfa9c6c-4208-4792-9862-a6b1e51a729e",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/clients/stats?start_date=<string>&end_date=<string>&aggregated_by=week",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "clients",
+                        "stats"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD.",
+                          "key": "start_date",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The end date of the statistics to retrieve. Defaults to today. Must follow format YYYY-MM-DD.",
+                          "key": "end_date",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "How to group the statistics. Must be either \"day\", \"week\", or \"month\".",
+                          "key": "aggregated_by",
+                          "value": "week"
+                        }
+                      ]
+                    },
+                    "description": "**This endpoint allows you to retrieve your email statistics segmented by client type.**\n\n**We only store up to 7 days of email activity in our database.** By default, 500 items will be returned per request via the Advanced Stats API endpoints.\n\nAdvanced Stats provide a more in-depth view of your email statistics and the actions taken by your recipients. You can segment these statistics by geographic location, device type, client type, browser, and mailbox provider. For more information about statistics, please see our [Statistics Overview](https://sendgrid.com/docs/ui/analytics-and-reporting/stats-overview/)."
+                  },
+                  "response": [
+                    {
+                      "id": "34c580f1-4019-49f0-8778-7b889e389019",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/clients/stats?start_date=<string>&end_date=<string>&aggregated_by=week",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "clients",
+                            "stats"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD.",
+                              "key": "start_date",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The end date of the statistics to retrieve. Defaults to today. Must follow format YYYY-MM-DD.",
+                              "key": "end_date",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "How to group the statistics. Must be either \"day\", \"week\", or \"month\".",
+                              "key": "aggregated_by",
+                              "value": "week"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"date\": \"<string>\",\n    \"stats\": [\n      {\n        \"type\": \"<string>\",\n        \"name\": \"<string>\",\n        \"metrics\": {\n          \"opens\": \"<integer>\",\n          \"unique_opens\": \"<integer>\"\n        }\n      },\n      {\n        \"type\": \"<string>\",\n        \"name\": \"<string>\",\n        \"metrics\": {\n          \"opens\": \"<integer>\",\n          \"unique_opens\": \"<integer>\"\n        }\n      }\n    ]\n  },\n  {\n    \"date\": \"<string>\",\n    \"stats\": [\n      {\n        \"type\": \"<string>\",\n        \"name\": \"<string>\",\n        \"metrics\": {\n          \"opens\": \"<integer>\",\n          \"unique_opens\": \"<integer>\"\n        }\n      },\n      {\n        \"type\": \"<string>\",\n        \"name\": \"<string>\",\n        \"metrics\": {\n          \"opens\": \"<integer>\",\n          \"unique_opens\": \"<integer>\"\n        }\n      }\n    ]\n  }\n]",
+                      "createdAt": "2026-06-05T15:17:48.000Z",
+                      "updatedAt": "2026-06-05T15:17:48.000Z",
+                      "uid": "35240-34c580f1-4019-49f0-8778-7b889e389019"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:17:48.000Z",
+                  "updatedAt": "2026-06-05T15:17:48.000Z",
+                  "uid": "35240-5cfa9c6c-4208-4792-9862-a6b1e51a729e"
+                }
+              ],
+              "id": "8eb8fa23-4d87-4fed-861b-47e7a4019bc8",
+              "createdAt": "2026-06-05T15:17:48.000Z",
+              "updatedAt": "2026-06-05T15:17:48.000Z",
+              "uid": "35240-8eb8fa23-4d87-4fed-861b-47e7a4019bc8"
+            },
+            {
+              "name": "{client_type}",
+              "item": [
+                {
+                  "name": "stats",
+                  "item": [
+                    {
+                      "name": "Retrieve stats by a specific client type.",
+                      "id": "1ff4fb35-96a1-4c9f-b12c-f68878ea77b7",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/clients/:client_type/stats?start_date=<string>&end_date=<string>&aggregated_by=week",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "clients",
+                            ":client_type",
+                            "stats"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD.",
+                              "key": "start_date",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The end date of the statistics to retrieve. Defaults to today. Must follow format YYYY-MM-DD.",
+                              "key": "end_date",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "How to group the statistics. Must be either \"day\", \"week\", or \"month\".",
+                              "key": "aggregated_by",
+                              "value": "week"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "da60184b-0a04-45c0-84ec-30203caab53e",
+                              "key": "client_type",
+                              "value": "phone",
+                              "description": "(Required) Specifies the type of client to retrieve stats for. Must be either \"phone\", \"tablet\", \"webmail\", or \"desktop\"."
+                            }
+                          ]
+                        },
+                        "description": "**This endpoint allows you to retrieve your email statistics segmented by a specific client type.**\n\n**We only store up to 7 days of email activity in our database.** By default, 500 items will be returned per request via the Advanced Stats API endpoints.\n\n### Available Client Types\n- phone\n- tablet\n- webmail\n- desktop\n\nAdvanced Stats provide a more in-depth view of your email statistics and the actions taken by your recipients. You can segment these statistics by geographic location, device type, client type, browser, and mailbox provider. For more information about statistics, please see our [Statistics Overview](https://sendgrid.com/docs/ui/analytics-and-reporting/stats-overview/)."
+                      },
+                      "response": [
+                        {
+                          "id": "4ca01837-a687-4ff9-9eb0-94107c1a4303",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/clients/:client_type/stats?start_date=<string>&end_date=<string>&aggregated_by=week",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "clients",
+                                ":client_type",
+                                "stats"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD.",
+                                  "key": "start_date",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "The end date of the statistics to retrieve. Defaults to today. Must follow format YYYY-MM-DD.",
+                                  "key": "end_date",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "How to group the statistics. Must be either \"day\", \"week\", or \"month\".",
+                                  "key": "aggregated_by",
+                                  "value": "week"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "client_type"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "[\n  {\n    \"date\": \"<string>\",\n    \"stats\": [\n      {\n        \"type\": \"<string>\",\n        \"name\": \"<string>\",\n        \"metrics\": {\n          \"opens\": \"<integer>\",\n          \"unique_opens\": \"<integer>\"\n        }\n      },\n      {\n        \"type\": \"<string>\",\n        \"name\": \"<string>\",\n        \"metrics\": {\n          \"opens\": \"<integer>\",\n          \"unique_opens\": \"<integer>\"\n        }\n      }\n    ]\n  },\n  {\n    \"date\": \"<string>\",\n    \"stats\": [\n      {\n        \"type\": \"<string>\",\n        \"name\": \"<string>\",\n        \"metrics\": {\n          \"opens\": \"<integer>\",\n          \"unique_opens\": \"<integer>\"\n        }\n      },\n      {\n        \"type\": \"<string>\",\n        \"name\": \"<string>\",\n        \"metrics\": {\n          \"opens\": \"<integer>\",\n          \"unique_opens\": \"<integer>\"\n        }\n      }\n    ]\n  }\n]",
+                          "createdAt": "2026-06-05T15:17:48.000Z",
+                          "updatedAt": "2026-06-05T15:17:48.000Z",
+                          "uid": "35240-4ca01837-a687-4ff9-9eb0-94107c1a4303"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:17:48.000Z",
+                      "updatedAt": "2026-06-05T15:17:48.000Z",
+                      "uid": "35240-1ff4fb35-96a1-4c9f-b12c-f68878ea77b7"
+                    }
+                  ],
+                  "id": "c24f6af2-4b94-4ad0-bb63-e429a70b2e8b",
+                  "createdAt": "2026-06-05T15:17:48.000Z",
+                  "updatedAt": "2026-06-05T15:17:48.000Z",
+                  "uid": "35240-c24f6af2-4b94-4ad0-bb63-e429a70b2e8b"
+                }
+              ],
+              "id": "088baee6-fe92-45d4-aa5d-78405b3554fa",
+              "createdAt": "2026-06-05T15:17:48.000Z",
+              "updatedAt": "2026-06-05T15:17:48.000Z",
+              "uid": "35240-088baee6-fe92-45d4-aa5d-78405b3554fa"
+            }
+          ],
+          "id": "6be74244-b7b8-4632-aaea-19e997ffca4f",
+          "createdAt": "2026-06-05T15:17:48.000Z",
+          "updatedAt": "2026-06-05T15:17:48.000Z",
+          "uid": "35240-6be74244-b7b8-4632-aaea-19e997ffca4f"
+        },
+        {
+          "name": "devices",
+          "item": [
+            {
+              "name": "stats",
+              "item": [
+                {
+                  "name": "Retrieve email statistics by device type.",
+                  "id": "3049b700-8156-4134-a703-558f00c43b92",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/devices/stats?limit=<integer>&offset=<integer>&aggregated_by=week&start_date=<string>&end_date=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "devices",
+                        "stats"
+                      ],
+                      "query": [
+                        {
+                          "description": "The number of results to return.",
+                          "key": "limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "The point in the list to begin retrieving results.",
+                          "key": "offset",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "How to group the statistics. Must be either \"day\", \"week\", or \"month\".",
+                          "key": "aggregated_by",
+                          "value": "week"
+                        },
+                        {
+                          "description": "(Required) The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD.",
+                          "key": "start_date",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The end date of the statistics to retrieve. Defaults to today. Must follow format YYYY-MM-DD.",
+                          "key": "end_date",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "description": "**This endpoint allows you to retrieve your email statistics segmented by the device type.**\n\n**We only store up to 7 days of email activity in our database.** By default, 500 items will be returned per request via the Advanced Stats API endpoints.\n\n## Available Device Types\n| **Device** | **Description** | **Example** |\n|---|---|---|\n| Desktop | Email software on desktop computer. | I.E., Outlook, Sparrow, or Apple Mail. |\n| Webmail |\tA web-based email client. | I.E., Yahoo, Google, AOL, or Outlook.com. |\n| Phone | A smart phone. | iPhone, Android, Blackberry, etc.\n| Tablet | A tablet computer. | iPad, android based tablet, etc. |\n| Other | An unrecognized device. |\n\nAdvanced Stats provide a more in-depth view of your email statistics and the actions taken by your recipients. You can segment these statistics by geographic location, device type, client type, browser, and mailbox provider. For more information about statistics, please see our [Statistics Overview](https://sendgrid.com/docs/ui/analytics-and-reporting/stats-overview/)."
+                  },
+                  "response": [
+                    {
+                      "id": "ca4d9a98-8424-4182-9b3a-dbad805ee308",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/devices/stats?limit=<integer>&offset=<integer>&aggregated_by=week&start_date=<string>&end_date=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "devices",
+                            "stats"
+                          ],
+                          "query": [
+                            {
+                              "description": "The number of results to return.",
+                              "key": "limit",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "The point in the list to begin retrieving results.",
+                              "key": "offset",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "How to group the statistics. Must be either \"day\", \"week\", or \"month\".",
+                              "key": "aggregated_by",
+                              "value": "week"
+                            },
+                            {
+                              "description": "(Required) The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD.",
+                              "key": "start_date",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The end date of the statistics to retrieve. Defaults to today. Must follow format YYYY-MM-DD.",
+                              "key": "end_date",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"date\": \"<string>\",\n    \"stats\": [\n      {\n        \"type\": \"<string>\",\n        \"name\": \"<string>\",\n        \"metrics\": {\n          \"opens\": \"<integer>\",\n          \"unique_opens\": \"<integer>\"\n        }\n      },\n      {\n        \"type\": \"<string>\",\n        \"name\": \"<string>\",\n        \"metrics\": {\n          \"opens\": \"<integer>\",\n          \"unique_opens\": \"<integer>\"\n        }\n      }\n    ]\n  },\n  {\n    \"date\": \"<string>\",\n    \"stats\": [\n      {\n        \"type\": \"<string>\",\n        \"name\": \"<string>\",\n        \"metrics\": {\n          \"opens\": \"<integer>\",\n          \"unique_opens\": \"<integer>\"\n        }\n      },\n      {\n        \"type\": \"<string>\",\n        \"name\": \"<string>\",\n        \"metrics\": {\n          \"opens\": \"<integer>\",\n          \"unique_opens\": \"<integer>\"\n        }\n      }\n    ]\n  }\n]",
+                      "createdAt": "2026-06-05T15:17:48.000Z",
+                      "updatedAt": "2026-06-05T15:17:48.000Z",
+                      "uid": "35240-ca4d9a98-8424-4182-9b3a-dbad805ee308"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:17:48.000Z",
+                  "updatedAt": "2026-06-05T15:17:48.000Z",
+                  "uid": "35240-3049b700-8156-4134-a703-558f00c43b92"
+                }
+              ],
+              "id": "e424ecee-ef22-47f5-9dde-7e54505a0cad",
+              "createdAt": "2026-06-05T15:17:48.000Z",
+              "updatedAt": "2026-06-05T15:17:48.000Z",
+              "uid": "35240-e424ecee-ef22-47f5-9dde-7e54505a0cad"
+            }
+          ],
+          "id": "6d7dcdcf-8c1e-44e9-8dc0-1b8b401f0ed3",
+          "createdAt": "2026-06-05T15:17:48.000Z",
+          "updatedAt": "2026-06-05T15:17:48.000Z",
+          "uid": "35240-6d7dcdcf-8c1e-44e9-8dc0-1b8b401f0ed3"
+        },
+        {
+          "name": "geo",
+          "item": [
+            {
+              "name": "stats",
+              "item": [
+                {
+                  "name": "Retrieve email statistics by country and state/province.",
+                  "id": "76b8d280-3318-4327-82e4-a74ce922d423",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/geo/stats?country=US&limit=<integer>&offset=<integer>&aggregated_by=week&start_date=<string>&end_date=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "geo",
+                        "stats"
+                      ],
+                      "query": [
+                        {
+                          "description": "The country you would like to see statistics for. Currently only supported for US and CA.",
+                          "key": "country",
+                          "value": "US"
+                        },
+                        {
+                          "description": "The number of results to return.",
+                          "key": "limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "The point in the list to begin retrieving results.",
+                          "key": "offset",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "How to group the statistics. Must be either \"day\", \"week\", or \"month\".",
+                          "key": "aggregated_by",
+                          "value": "week"
+                        },
+                        {
+                          "description": "(Required) The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD.",
+                          "key": "start_date",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The end date of the statistics to retrieve. Defaults to today. Must follow format YYYY-MM-DD.",
+                          "key": "end_date",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "description": "**This endpoint allows you to retrieve your email statistics segmented by country and state/province.**\n\n**We only store up to 7 days of email activity in our database.** By default, 500 items will be returned per request via the Advanced Stats API endpoints.\n\nAdvanced Stats provide a more in-depth view of your email statistics and the actions taken by your recipients. You can segment these statistics by geographic location, device type, client type, browser, and mailbox provider. For more information about statistics, please see our [User Guide](https://wwww.twilio.com/docs/sendgrid/ui/analytics-and-reporting/stats-overview)."
+                  },
+                  "response": [
+                    {
+                      "id": "0184646a-03ad-4251-a89d-4ade8c0c019a",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/geo/stats?country=US&limit=<integer>&offset=<integer>&aggregated_by=week&start_date=<string>&end_date=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "geo",
+                            "stats"
+                          ],
+                          "query": [
+                            {
+                              "description": "The country you would like to see statistics for. Currently only supported for US and CA.",
+                              "key": "country",
+                              "value": "US"
+                            },
+                            {
+                              "description": "The number of results to return.",
+                              "key": "limit",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "The point in the list to begin retrieving results.",
+                              "key": "offset",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "How to group the statistics. Must be either \"day\", \"week\", or \"month\".",
+                              "key": "aggregated_by",
+                              "value": "week"
+                            },
+                            {
+                              "description": "(Required) The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD.",
+                              "key": "start_date",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The end date of the statistics to retrieve. Defaults to today. Must follow format YYYY-MM-DD.",
+                              "key": "end_date",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"date\": \"<string>\",\n    \"stats\": [\n      {\n        \"type\": \"<string>\",\n        \"name\": \"<string>\",\n        \"metrics\": {\n          \"clicks\": \"<integer>\",\n          \"unique_clicks\": \"<integer>\",\n          \"opens\": \"<integer>\",\n          \"unique_opens\": \"<integer>\"\n        }\n      },\n      {\n        \"type\": \"<string>\",\n        \"name\": \"<string>\",\n        \"metrics\": {\n          \"clicks\": \"<integer>\",\n          \"unique_clicks\": \"<integer>\",\n          \"opens\": \"<integer>\",\n          \"unique_opens\": \"<integer>\"\n        }\n      }\n    ]\n  },\n  {\n    \"date\": \"<string>\",\n    \"stats\": [\n      {\n        \"type\": \"<string>\",\n        \"name\": \"<string>\",\n        \"metrics\": {\n          \"clicks\": \"<integer>\",\n          \"unique_clicks\": \"<integer>\",\n          \"opens\": \"<integer>\",\n          \"unique_opens\": \"<integer>\"\n        }\n      },\n      {\n        \"type\": \"<string>\",\n        \"name\": \"<string>\",\n        \"metrics\": {\n          \"clicks\": \"<integer>\",\n          \"unique_clicks\": \"<integer>\",\n          \"opens\": \"<integer>\",\n          \"unique_opens\": \"<integer>\"\n        }\n      }\n    ]\n  }\n]",
+                      "createdAt": "2026-06-05T15:17:48.000Z",
+                      "updatedAt": "2026-06-05T15:17:48.000Z",
+                      "uid": "35240-0184646a-03ad-4251-a89d-4ade8c0c019a"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:17:48.000Z",
+                  "updatedAt": "2026-06-05T15:17:48.000Z",
+                  "uid": "35240-76b8d280-3318-4327-82e4-a74ce922d423"
+                }
+              ],
+              "id": "c31326bc-a51e-4e78-845b-2ab97685d301",
+              "createdAt": "2026-06-05T15:17:48.000Z",
+              "updatedAt": "2026-06-05T15:17:48.000Z",
+              "uid": "35240-c31326bc-a51e-4e78-845b-2ab97685d301"
+            }
+          ],
+          "id": "96f2413c-786f-43bd-8745-d44aa365caba",
+          "createdAt": "2026-06-05T15:17:48.000Z",
+          "updatedAt": "2026-06-05T15:17:48.000Z",
+          "uid": "35240-96f2413c-786f-43bd-8745-d44aa365caba"
+        },
+        {
+          "name": "mailbox_providers",
+          "item": [
+            {
+              "name": "stats",
+              "item": [
+                {
+                  "name": "Retrieve email statistics by mailbox provider.",
+                  "id": "490165f9-b577-4121-8c0a-38fd3002530d",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/mailbox_providers/stats?mailbox_providers=<string>&limit=<integer>&offset=<integer>&aggregated_by=week&start_date=<string>&end_date=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "mailbox_providers",
+                        "stats"
+                      ],
+                      "query": [
+                        {
+                          "description": "The mail box providers to get statistics for. You can include up to 10 by including this parameter multiple times.",
+                          "key": "mailbox_providers",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The number of results to return.",
+                          "key": "limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "The point in the list to begin retrieving results.",
+                          "key": "offset",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "How to group the statistics. Must be either \"day\", \"week\", or \"month\".",
+                          "key": "aggregated_by",
+                          "value": "week"
+                        },
+                        {
+                          "description": "(Required) The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD.",
+                          "key": "start_date",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The end date of the statistics to retrieve. Defaults to today. Must follow format YYYY-MM-DD.",
+                          "key": "end_date",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "description": "**This endpoint allows you to retrieve your email statistics segmented by recipient mailbox provider.**\n\n**We only store up to 7 days of email activity in our database.** By default, 500 items will be returned per request via the Advanced Stats API endpoints.\n\nAdvanced Stats provide a more in-depth view of your email statistics and the actions taken by your recipients. You can segment these statistics by geographic location, device type, client type, browser, and mailbox provider. For more information about statistics, please see our [Statistics Overview](https://sendgrid.com/docs/ui/analytics-and-reporting/stats-overview/)."
+                  },
+                  "response": [
+                    {
+                      "id": "ec108c7a-7800-4eed-b003-f9b991fa6da5",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/mailbox_providers/stats?mailbox_providers=<string>&limit=<integer>&offset=<integer>&aggregated_by=week&start_date=<string>&end_date=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "mailbox_providers",
+                            "stats"
+                          ],
+                          "query": [
+                            {
+                              "description": "The mail box providers to get statistics for. You can include up to 10 by including this parameter multiple times.",
+                              "key": "mailbox_providers",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The number of results to return.",
+                              "key": "limit",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "The point in the list to begin retrieving results.",
+                              "key": "offset",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "How to group the statistics. Must be either \"day\", \"week\", or \"month\".",
+                              "key": "aggregated_by",
+                              "value": "week"
+                            },
+                            {
+                              "description": "(Required) The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD.",
+                              "key": "start_date",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The end date of the statistics to retrieve. Defaults to today. Must follow format YYYY-MM-DD.",
+                              "key": "end_date",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"date\": \"<string>\",\n    \"stats\": [\n      {\n        \"type\": \"<string>\",\n        \"name\": \"<string>\",\n        \"metrics\": {\n          \"blocks\": \"<integer>\",\n          \"bounces\": \"<integer>\",\n          \"deferred\": \"<integer>\",\n          \"delivered\": \"<integer>\",\n          \"drops\": \"<integer>\",\n          \"requests\": \"<integer>\",\n          \"processed\": \"<integer>\",\n          \"spam_reports\": \"<integer>\"\n        }\n      },\n      {\n        \"type\": \"<string>\",\n        \"name\": \"<string>\",\n        \"metrics\": {\n          \"blocks\": \"<integer>\",\n          \"bounces\": \"<integer>\",\n          \"deferred\": \"<integer>\",\n          \"delivered\": \"<integer>\",\n          \"drops\": \"<integer>\",\n          \"requests\": \"<integer>\",\n          \"processed\": \"<integer>\",\n          \"spam_reports\": \"<integer>\"\n        }\n      }\n    ]\n  },\n  {\n    \"date\": \"<string>\",\n    \"stats\": [\n      {\n        \"type\": \"<string>\",\n        \"name\": \"<string>\",\n        \"metrics\": {\n          \"blocks\": \"<integer>\",\n          \"bounces\": \"<integer>\",\n          \"deferred\": \"<integer>\",\n          \"delivered\": \"<integer>\",\n          \"drops\": \"<integer>\",\n          \"requests\": \"<integer>\",\n          \"processed\": \"<integer>\",\n          \"spam_reports\": \"<integer>\"\n        }\n      },\n      {\n        \"type\": \"<string>\",\n        \"name\": \"<string>\",\n        \"metrics\": {\n          \"blocks\": \"<integer>\",\n          \"bounces\": \"<integer>\",\n          \"deferred\": \"<integer>\",\n          \"delivered\": \"<integer>\",\n          \"drops\": \"<integer>\",\n          \"requests\": \"<integer>\",\n          \"processed\": \"<integer>\",\n          \"spam_reports\": \"<integer>\"\n        }\n      }\n    ]\n  }\n]",
+                      "createdAt": "2026-06-05T15:17:48.000Z",
+                      "updatedAt": "2026-06-05T15:17:48.000Z",
+                      "uid": "35240-ec108c7a-7800-4eed-b003-f9b991fa6da5"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:17:48.000Z",
+                  "updatedAt": "2026-06-05T15:17:48.000Z",
+                  "uid": "35240-490165f9-b577-4121-8c0a-38fd3002530d"
+                }
+              ],
+              "id": "e3dc16e5-7b5a-494a-881c-31ad74e85f19",
+              "createdAt": "2026-06-05T15:17:48.000Z",
+              "updatedAt": "2026-06-05T15:17:48.000Z",
+              "uid": "35240-e3dc16e5-7b5a-494a-881c-31ad74e85f19"
+            }
+          ],
+          "id": "63e0c1ac-e791-4810-830f-76284141c6c9",
+          "createdAt": "2026-06-05T15:17:48.000Z",
+          "updatedAt": "2026-06-05T15:17:48.000Z",
+          "uid": "35240-63e0c1ac-e791-4810-830f-76284141c6c9"
+        },
+        {
+          "name": "stats",
+          "item": [
+            {
+              "name": "Retrieve global email statistics",
+              "id": "6e647813-5012-46ca-a4c0-791aaf3e01e7",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                    "key": "on-behalf-of",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v3/stats?limit=<integer>&offset=<integer>&aggregated_by=week&start_date=<string>&end_date=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v3",
+                    "stats"
+                  ],
+                  "query": [
+                    {
+                      "description": "The number of results to return.",
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "The point in the list to begin retrieving results.",
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "How to group the statistics. Must be either \"day\", \"week\", or \"month\".",
+                      "key": "aggregated_by",
+                      "value": "week"
+                    },
+                    {
+                      "description": "(Required) The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD.",
+                      "key": "start_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The end date of the statistics to retrieve. Defaults to today. Must follow format YYYY-MM-DD.",
+                      "key": "end_date",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "**This endpoint allows you to retrieve all of your global email statistics between a given date range.**\n\nParent accounts can see either aggregated stats for the parent account or aggregated stats for a subuser specified in the `on-behalf-of` header. Subuser accounts will see only their own stats."
+              },
+              "response": [
+                {
+                  "id": "2434a3f9-abef-4e5b-9312-47c70be04b6f",
+                  "name": "response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/stats?limit=<integer>&offset=<integer>&aggregated_by=week&start_date=<string>&end_date=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "stats"
+                      ],
+                      "query": [
+                        {
+                          "description": "The number of results to return.",
+                          "key": "limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "The point in the list to begin retrieving results.",
+                          "key": "offset",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "How to group the statistics. Must be either \"day\", \"week\", or \"month\".",
+                          "key": "aggregated_by",
+                          "value": "week"
+                        },
+                        {
+                          "description": "(Required) The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD.",
+                          "key": "start_date",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The end date of the statistics to retrieve. Defaults to today. Must follow format YYYY-MM-DD.",
+                          "key": "end_date",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  {\n    \"date\": \"<string>\",\n    \"stats\": [\n      {\n        \"metrics\": {\n          \"clicks\": \"<integer>\",\n          \"unique_clicks\": \"<integer>\",\n          \"opens\": \"<integer>\",\n          \"unique_opens\": \"<integer>\",\n          \"blocks\": \"<integer>\",\n          \"bounce_drops\": \"<integer>\",\n          \"bounces\": \"<integer>\",\n          \"deferred\": \"<integer>\",\n          \"delivered\": \"<integer>\",\n          \"invalid_emails\": \"<integer>\",\n          \"processed\": \"<integer>\",\n          \"requests\": \"<integer>\",\n          \"spam_report_drops\": \"<integer>\",\n          \"spam_reports\": \"<integer>\",\n          \"unsubscribe_drops\": \"<integer>\",\n          \"unsubscribes\": \"<integer>\"\n        }\n      },\n      {\n        \"metrics\": {\n          \"clicks\": \"<integer>\",\n          \"unique_clicks\": \"<integer>\",\n          \"opens\": \"<integer>\",\n          \"unique_opens\": \"<integer>\",\n          \"blocks\": \"<integer>\",\n          \"bounce_drops\": \"<integer>\",\n          \"bounces\": \"<integer>\",\n          \"deferred\": \"<integer>\",\n          \"delivered\": \"<integer>\",\n          \"invalid_emails\": \"<integer>\",\n          \"processed\": \"<integer>\",\n          \"requests\": \"<integer>\",\n          \"spam_report_drops\": \"<integer>\",\n          \"spam_reports\": \"<integer>\",\n          \"unsubscribe_drops\": \"<integer>\",\n          \"unsubscribes\": \"<integer>\"\n        }\n      }\n    ]\n  },\n  {\n    \"date\": \"<string>\",\n    \"stats\": [\n      {\n        \"metrics\": {\n          \"clicks\": \"<integer>\",\n          \"unique_clicks\": \"<integer>\",\n          \"opens\": \"<integer>\",\n          \"unique_opens\": \"<integer>\",\n          \"blocks\": \"<integer>\",\n          \"bounce_drops\": \"<integer>\",\n          \"bounces\": \"<integer>\",\n          \"deferred\": \"<integer>\",\n          \"delivered\": \"<integer>\",\n          \"invalid_emails\": \"<integer>\",\n          \"processed\": \"<integer>\",\n          \"requests\": \"<integer>\",\n          \"spam_report_drops\": \"<integer>\",\n          \"spam_reports\": \"<integer>\",\n          \"unsubscribe_drops\": \"<integer>\",\n          \"unsubscribes\": \"<integer>\"\n        }\n      },\n      {\n        \"metrics\": {\n          \"clicks\": \"<integer>\",\n          \"unique_clicks\": \"<integer>\",\n          \"opens\": \"<integer>\",\n          \"unique_opens\": \"<integer>\",\n          \"blocks\": \"<integer>\",\n          \"bounce_drops\": \"<integer>\",\n          \"bounces\": \"<integer>\",\n          \"deferred\": \"<integer>\",\n          \"delivered\": \"<integer>\",\n          \"invalid_emails\": \"<integer>\",\n          \"processed\": \"<integer>\",\n          \"requests\": \"<integer>\",\n          \"spam_report_drops\": \"<integer>\",\n          \"spam_reports\": \"<integer>\",\n          \"unsubscribe_drops\": \"<integer>\",\n          \"unsubscribes\": \"<integer>\"\n        }\n      }\n    ]\n  }\n]",
+                  "createdAt": "2026-06-05T15:17:48.000Z",
+                  "updatedAt": "2026-06-05T15:17:48.000Z",
+                  "uid": "35240-2434a3f9-abef-4e5b-9312-47c70be04b6f"
+                }
+              ],
+              "createdAt": "2026-06-05T15:17:48.000Z",
+              "updatedAt": "2026-06-05T15:17:48.000Z",
+              "uid": "35240-6e647813-5012-46ca-a4c0-791aaf3e01e7"
+            }
+          ],
+          "id": "6539ea4e-ff6e-4267-9994-d571dfb43604",
+          "createdAt": "2026-06-05T15:17:48.000Z",
+          "updatedAt": "2026-06-05T15:17:48.000Z",
+          "uid": "35240-6539ea4e-ff6e-4267-9994-d571dfb43604"
+        }
+      ],
+      "id": "f3cb7372-075b-435b-ad26-38c7565c0d8b",
+      "createdAt": "2026-06-05T15:17:48.000Z",
+      "updatedAt": "2026-06-05T15:17:48.000Z",
+      "uid": "35240-f3cb7372-075b-435b-ad26-38c7565c0d8b"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.sendgrid.com"
+    }
+  ]
+}

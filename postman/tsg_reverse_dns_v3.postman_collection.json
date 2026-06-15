@@ -1,0 +1,718 @@
+{
+  "info": {
+    "_postman_id": "9a5c6f56-f7e6-481e-9a57-639bd1ab4eaf",
+    "name": "Twilio SendGrid Reverse DNS API",
+    "description": "The Twilio SendGrid Reverse DNS API (formerly IP Whitelabel) allows you to configure reverse DNS settings for your account. Mailbox providers verify the sender of your emails by performing a reverse DNS lookup.\n\nWhen setting up Reverse DNS, Twilio SendGrid will provide an A Record (address record) for you to add to the DNS records of your sending domain. The A record maps your sending domain to a dedicated Twilio SendGrid IP address. Once Twilio SendGrid has verified that the appropriate A record for the IP address has been created, the appropriate reverse DNS record for the IP address is generated.\n\nReverse DNS is available for [dedicated IP addresses](https://sendgrid.com/docs/ui/account-and-settings/dedicated-ip-addresses/) only.\n\nYou can also manage your reverse DNS settings in the Sender Authentication setion of the [Twilio SendGrid application user interface](https://app.sendgrid.com/settings/sender_auth).\n\nSee [**How to Set Up Reverse DNS**](https://sendgrid.com/docs/ui/account-and-settings/how-to-set-up-reverse-dns/) for more information.\n\nContact Support:\n Name: Twilio SendGrid Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:17:41.000Z",
+    "updatedAt": "2026-06-05T15:17:41.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-9a5c6f56-f7e6-481e-9a57-639bd1ab4eaf"
+  },
+  "item": [
+    {
+      "name": "v3",
+      "item": [
+        {
+          "name": "whitelabel",
+          "item": [
+            {
+              "name": "ips",
+              "item": [
+                {
+                  "name": "{id}",
+                  "item": [
+                    {
+                      "name": "validate",
+                      "item": [
+                        {
+                          "name": "Validate a reverse DNS record",
+                          "id": "cd9186a5-7031-49ac-9ce0-c19630977a9c",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/whitelabel/ips/:id/validate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "whitelabel",
+                                "ips",
+                                ":id",
+                                "validate"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "6673a1fd-fbc9-4742-a156-a9d9418029b8",
+                                  "key": "id",
+                                  "value": "<string>",
+                                  "description": "(Required) The ID of the reverse DNS record that you would like to validate."
+                                }
+                              ]
+                            },
+                            "description": "**This endpoint allows you to validate a reverse DNS record.**\n\nAlways check the `valid` property of the response\u2019s `validation_results.a_record` object. This field will indicate whether it was possible to validate the reverse DNS record. If the `validation_results.a_record.valid` is `false`, this indicates only that Twilio SendGrid could not determine the validity your reverse DNS record \u2014 it may still be valid.\n\nIf validity couldn\u2019t be determined, you can check the value of `validation_results.a_record.reason` to find out why.\n\nYou can retrieve the IDs associated with all your reverse DNS records using the \"Retrieve all reverse DNS records\" endpoint."
+                          },
+                          "response": [
+                            {
+                              "id": "6b6e1947-1597-4547-a08e-2d0117c4063e",
+                              "name": "response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                    "key": "on-behalf-of",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/whitelabel/ips/:id/validate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "whitelabel",
+                                    "ips",
+                                    ":id",
+                                    "validate"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<integer>\",\n  \"valid\": true,\n  \"validation_results\": {\n    \"a_record\": {\n      \"valid\": true,\n      \"reason\": \"<string>\"\n    }\n  }\n}",
+                              "createdAt": "2026-06-05T15:17:42.000Z",
+                              "updatedAt": "2026-06-05T15:17:42.000Z",
+                              "uid": "35240-6b6e1947-1597-4547-a08e-2d0117c4063e"
+                            },
+                            {
+                              "id": "f3415c33-1437-4426-92d7-b4506ad207a1",
+                              "name": "Unexpected error in API call. See HTTP response body for details.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                    "key": "on-behalf-of",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/whitelabel/ips/:id/validate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "whitelabel",
+                                    "ips",
+                                    ":id",
+                                    "validate"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-06-05T15:17:42.000Z",
+                              "updatedAt": "2026-06-05T15:17:42.000Z",
+                              "uid": "35240-f3415c33-1437-4426-92d7-b4506ad207a1"
+                            },
+                            {
+                              "id": "fa74d687-2481-4d75-a765-013c60182927",
+                              "name": "response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                    "key": "on-behalf-of",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/whitelabel/ips/:id/validate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "whitelabel",
+                                    "ips",
+                                    ":id",
+                                    "validate"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-06-05T15:17:42.000Z",
+                              "updatedAt": "2026-06-05T15:17:42.000Z",
+                              "uid": "35240-fa74d687-2481-4d75-a765-013c60182927"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:17:42.000Z",
+                          "updatedAt": "2026-06-05T15:17:42.000Z",
+                          "uid": "35240-cd9186a5-7031-49ac-9ce0-c19630977a9c"
+                        }
+                      ],
+                      "id": "590db57b-7073-40b2-a009-4bb4a913630e",
+                      "createdAt": "2026-06-05T15:17:42.000Z",
+                      "updatedAt": "2026-06-05T15:17:42.000Z",
+                      "uid": "35240-590db57b-7073-40b2-a009-4bb4a913630e"
+                    },
+                    {
+                      "name": "Retrieve a reverse DNS record",
+                      "id": "4d9fd748-7d31-4297-9b76-5e09c7752064",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/whitelabel/ips/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "whitelabel",
+                            "ips",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "f8057af8-b0ea-4dfc-84bf-d3dac0292557",
+                              "key": "id",
+                              "value": "<string>",
+                              "description": "(Required) The ID of the reverse DNS record that you would like to retrieve."
+                            }
+                          ]
+                        },
+                        "description": "**This endpoint allows you to retrieve a reverse DNS record.**\n\nYou can retrieve the IDs associated with all your reverse DNS records using the \"Retrieve all reverse DNS records\" endpoint."
+                      },
+                      "response": [
+                        {
+                          "id": "5e6b4072-b019-4c4a-96f9-cf29647e89a8",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/whitelabel/ips/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "whitelabel",
+                                "ips",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<integer>\",\n  \"ip\": \"<string>\",\n  \"rdns\": \"<string>\",\n  \"users\": [\n    {\n      \"username\": \"<string>\",\n      \"user_id\": \"<integer>\"\n    },\n    {\n      \"username\": \"<string>\",\n      \"user_id\": \"<integer>\"\n    }\n  ],\n  \"domain\": \"<string>\",\n  \"valid\": \"<boolean>\",\n  \"legacy\": \"<boolean>\",\n  \"a_record\": {\n    \"valid\": \"<boolean>\",\n    \"type\": \"<string>\",\n    \"host\": \"<string>\",\n    \"data\": \"<string>\"\n  },\n  \"subdomain\": \"<string>\",\n  \"last_validation_attempt_at\": \"<integer>\"\n}",
+                          "createdAt": "2026-06-05T15:17:42.000Z",
+                          "updatedAt": "2026-06-05T15:17:42.000Z",
+                          "uid": "35240-5e6b4072-b019-4c4a-96f9-cf29647e89a8"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:17:42.000Z",
+                      "updatedAt": "2026-06-05T15:17:42.000Z",
+                      "uid": "35240-4d9fd748-7d31-4297-9b76-5e09c7752064"
+                    },
+                    {
+                      "name": "Delete a reverse DNS record",
+                      "id": "cf0cc375-063b-41e7-8a55-f331a163baa8",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/whitelabel/ips/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "whitelabel",
+                            "ips",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "28f21b63-dfa5-4a60-acbd-4df13711ca09",
+                              "key": "id",
+                              "value": "<string>",
+                              "description": "(Required) The ID of the reverse DNS record that you would like to retrieve."
+                            }
+                          ]
+                        },
+                        "description": "**This endpoint allows you to delete a reverse DNS record.**\n\nA call to this endpoint will respond with a 204 status code if the deletion was successful.\n\nYou can retrieve the IDs associated with all your reverse DNS records using the \"Retrieve all reverse DNS records\" endpoint."
+                      },
+                      "response": [
+                        {
+                          "id": "cefed890-fc51-4662-9850-c7f600b0c3ba",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/whitelabel/ips/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "whitelabel",
+                                "ips",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:17:42.000Z",
+                          "updatedAt": "2026-06-05T15:17:42.000Z",
+                          "uid": "35240-cefed890-fc51-4662-9850-c7f600b0c3ba"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:17:42.000Z",
+                      "updatedAt": "2026-06-05T15:17:42.000Z",
+                      "uid": "35240-cf0cc375-063b-41e7-8a55-f331a163baa8"
+                    }
+                  ],
+                  "id": "0eec27a5-c463-43d5-984a-d6cc44cc082a",
+                  "createdAt": "2026-06-05T15:17:42.000Z",
+                  "updatedAt": "2026-06-05T15:17:42.000Z",
+                  "uid": "35240-0eec27a5-c463-43d5-984a-d6cc44cc082a"
+                },
+                {
+                  "name": "Set up reverse DNS",
+                  "id": "a8b941d4-fb3f-4a7a-9f29-4e5b2ddf2b38",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"ip\": \"<string>\",\n  \"domain\": \"<string>\",\n  \"subdomain\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/whitelabel/ips",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "whitelabel",
+                        "ips"
+                      ]
+                    },
+                    "description": "**This endpoint allows you to set up reverse DNS.**"
+                  },
+                  "response": [
+                    {
+                      "id": "db041500-709d-4eb2-b6e7-782a1f7d2fda",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"ip\": \"<string>\",\n  \"domain\": \"<string>\",\n  \"subdomain\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/whitelabel/ips",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "whitelabel",
+                            "ips"
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<integer>\",\n  \"ip\": \"<string>\",\n  \"rdns\": \"<string>\",\n  \"users\": [\n    {\n      \"username\": \"<string>\",\n      \"user_id\": \"<integer>\"\n    },\n    {\n      \"username\": \"<string>\",\n      \"user_id\": \"<integer>\"\n    }\n  ],\n  \"domain\": \"<string>\",\n  \"valid\": \"<boolean>\",\n  \"legacy\": \"<boolean>\",\n  \"a_record\": {\n    \"valid\": \"<boolean>\",\n    \"type\": \"<string>\",\n    \"host\": \"<string>\",\n    \"data\": \"<string>\"\n  },\n  \"subdomain\": \"<string>\",\n  \"last_validation_attempt_at\": \"<integer>\"\n}",
+                      "createdAt": "2026-06-05T15:17:42.000Z",
+                      "updatedAt": "2026-06-05T15:17:42.000Z",
+                      "uid": "35240-db041500-709d-4eb2-b6e7-782a1f7d2fda"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:17:42.000Z",
+                  "updatedAt": "2026-06-05T15:17:42.000Z",
+                  "uid": "35240-a8b941d4-fb3f-4a7a-9f29-4e5b2ddf2b38"
+                },
+                {
+                  "name": "Retrieve all reverse DNS records",
+                  "id": "3cec6612-f7bd-4af0-84bd-f9361e4f1de8",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/whitelabel/ips?limit=<integer>&offset=0&ip=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "whitelabel",
+                        "ips"
+                      ],
+                      "query": [
+                        {
+                          "description": "`limit` sets the page size, i.e. maximum number of items from the list to be returned for a single API request. If omitted, the default page size is used.",
+                          "key": "limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "The number of items in the list to skip over before starting to retrieve the items for the requested page. The default `offset` of `0` represents the beginning of the list, i.e. the start of the first page. To request the second page of the list, set the `offset` to the page size as determined by `limit`. Use multiples of the page size as your `offset` to request further consecutive pages. E.g. assume your page size is set to `10`. An `offset` of `10` requests the second page, an `offset` of `20` requests the third page and so on, provided there are sufficiently many items in your list.",
+                          "key": "offset",
+                          "value": "0"
+                        },
+                        {
+                          "description": "The IP address segment that you'd like to use in a prefix search.",
+                          "key": "ip",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "description": "**This endpoint allows you to retrieve a paginated list of all the Reverse DNS records created by this account.**\n\nYou may include a search key by using the `ip` query string parameter. This enables you to perform a prefix search for a given IP segment (e.g., `?ip=\"192.\"`).\n\nYou can use the `limit` query parameter to set the page size. If your list contains more items than the page size permits, you can make multiple requests. Use the `offset` query parameter to control the position in the list from which to start retrieving additional items."
+                  },
+                  "response": [
+                    {
+                      "id": "46956bb2-7053-49be-8073-931bd342d6df",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/whitelabel/ips?limit=<integer>&offset=0&ip=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "whitelabel",
+                            "ips"
+                          ],
+                          "query": [
+                            {
+                              "description": "`limit` sets the page size, i.e. maximum number of items from the list to be returned for a single API request. If omitted, the default page size is used.",
+                              "key": "limit",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "The number of items in the list to skip over before starting to retrieve the items for the requested page. The default `offset` of `0` represents the beginning of the list, i.e. the start of the first page. To request the second page of the list, set the `offset` to the page size as determined by `limit`. Use multiples of the page size as your `offset` to request further consecutive pages. E.g. assume your page size is set to `10`. An `offset` of `10` requests the second page, an `offset` of `20` requests the third page and so on, provided there are sufficiently many items in your list.",
+                              "key": "offset",
+                              "value": "0"
+                            },
+                            {
+                              "description": "The IP address segment that you'd like to use in a prefix search.",
+                              "key": "ip",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"id\": \"<integer>\",\n    \"ip\": \"<string>\",\n    \"rdns\": \"<string>\",\n    \"users\": [\n      {\n        \"username\": \"<string>\",\n        \"user_id\": \"<integer>\"\n      },\n      {\n        \"username\": \"<string>\",\n        \"user_id\": \"<integer>\"\n      }\n    ],\n    \"domain\": \"<string>\",\n    \"valid\": \"<boolean>\",\n    \"legacy\": \"<boolean>\",\n    \"a_record\": {\n      \"valid\": \"<boolean>\",\n      \"type\": \"<string>\",\n      \"host\": \"<string>\",\n      \"data\": \"<string>\"\n    },\n    \"subdomain\": \"<string>\",\n    \"last_validation_attempt_at\": \"<integer>\"\n  },\n  {\n    \"id\": \"<integer>\",\n    \"ip\": \"<string>\",\n    \"rdns\": \"<string>\",\n    \"users\": [\n      {\n        \"username\": \"<string>\",\n        \"user_id\": \"<integer>\"\n      },\n      {\n        \"username\": \"<string>\",\n        \"user_id\": \"<integer>\"\n      }\n    ],\n    \"domain\": \"<string>\",\n    \"valid\": \"<boolean>\",\n    \"legacy\": \"<boolean>\",\n    \"a_record\": {\n      \"valid\": \"<boolean>\",\n      \"type\": \"<string>\",\n      \"host\": \"<string>\",\n      \"data\": \"<string>\"\n    },\n    \"subdomain\": \"<string>\",\n    \"last_validation_attempt_at\": \"<integer>\"\n  }\n]",
+                      "createdAt": "2026-06-05T15:17:42.000Z",
+                      "updatedAt": "2026-06-05T15:17:42.000Z",
+                      "uid": "35240-46956bb2-7053-49be-8073-931bd342d6df"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:17:42.000Z",
+                  "updatedAt": "2026-06-05T15:17:42.000Z",
+                  "uid": "35240-3cec6612-f7bd-4af0-84bd-f9361e4f1de8"
+                }
+              ],
+              "id": "f9209425-e69f-4051-90ed-5dec32faa514",
+              "createdAt": "2026-06-05T15:17:42.000Z",
+              "updatedAt": "2026-06-05T15:17:42.000Z",
+              "uid": "35240-f9209425-e69f-4051-90ed-5dec32faa514"
+            }
+          ],
+          "id": "afb2822d-f8c8-4c4e-83e0-d26caccfd456",
+          "createdAt": "2026-06-05T15:17:42.000Z",
+          "updatedAt": "2026-06-05T15:17:42.000Z",
+          "uid": "35240-afb2822d-f8c8-4c4e-83e0-d26caccfd456"
+        }
+      ],
+      "id": "1fbfd85f-daf9-4333-8c3a-3f4428418004",
+      "createdAt": "2026-06-05T15:17:42.000Z",
+      "updatedAt": "2026-06-05T15:17:42.000Z",
+      "uid": "35240-1fbfd85f-daf9-4333-8c3a-3f4428418004"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.sendgrid.com"
+    }
+  ]
+}

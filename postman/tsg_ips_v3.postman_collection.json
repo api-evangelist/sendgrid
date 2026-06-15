@@ -1,0 +1,1633 @@
+{
+  "info": {
+    "_postman_id": "ec11436a-8ef0-43b8-81c8-8d9e84cedc47",
+    "name": "Twilio SendGrid IP Address API",
+    "description": "The Twilio SendGrid IP Address API allows you to add and manage dedicated IP addresses and IP Pools for your SendGrid account and Subusers. If you are sending any significant amount of email, SendGrid typically suggests sending from dedicated IPs. It's also best to send marketing and transactional emails from separate IP addresses. In order to do this, you'll need to set up IP Pools, which are groups of dedicated IP addresses you define to send particular types of messages. See the [**Dedicated IP Addresses**](https://docs.sendgrid.com/ui/account-and-settings/dedicated-ip-addresses) for more information about obtaining and allocating IPs.\n\nContact Support:\n Name: Twilio SendGrid Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:16:45.000Z",
+    "updatedAt": "2026-06-05T15:16:45.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-ec11436a-8ef0-43b8-81c8-8d9e84cedc47"
+  },
+  "item": [
+    {
+      "name": "v3",
+      "item": [
+        {
+          "name": "ips",
+          "item": [
+            {
+              "name": "{ip_address}",
+              "item": [
+                {
+                  "name": "Retrieve all IP pools an IP address belongs to",
+                  "id": "451080fc-469c-4a1c-b777-877a11fe6a14",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/ips/:ip_address",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "ips",
+                        ":ip_address"
+                      ],
+                      "variable": [
+                        {
+                          "id": "55062a8e-29a5-453f-a86d-142597e0dd3d",
+                          "key": "ip_address",
+                          "value": "<string>",
+                          "description": "(Required) The IP address you are retrieving the IP pools for."
+                        }
+                      ]
+                    },
+                    "description": "**This endpoint allows you to see which IP pools a particular IP address has been added to.**\n\nThe same IP address can be added to multiple IP pools.\n\nA single IP address or a range of IP addresses may be dedicated to an account in order to send email for multiple domains. The reputation of this IP is based on the aggregate performance of all the senders who use it."
+                  },
+                  "response": [
+                    {
+                      "id": "7dc68a42-f4e1-4009-8822-3cd4f51713e5",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/ips/:ip_address",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "ips",
+                            ":ip_address"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ip_address"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"ip\": \"<string>\",\n  \"subusers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"rdns\": \"<string>\",\n  \"pools\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"warmup\": \"<boolean>\",\n  \"start_date\": \"<integer>\",\n  \"whitelabeled\": \"<boolean>\"\n}",
+                      "createdAt": "2026-06-05T15:16:46.000Z",
+                      "updatedAt": "2026-06-05T15:16:46.000Z",
+                      "uid": "35240-7dc68a42-f4e1-4009-8822-3cd4f51713e5"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:16:46.000Z",
+                  "updatedAt": "2026-06-05T15:16:46.000Z",
+                  "uid": "35240-451080fc-469c-4a1c-b777-877a11fe6a14"
+                }
+              ],
+              "id": "29854bb6-8b95-4cc0-9129-d0344af4e227",
+              "createdAt": "2026-06-05T15:16:46.000Z",
+              "updatedAt": "2026-06-05T15:16:46.000Z",
+              "uid": "35240-29854bb6-8b95-4cc0-9129-d0344af4e227"
+            },
+            {
+              "name": "assigned",
+              "item": [
+                {
+                  "name": "Retrieve all assigned IPs",
+                  "id": "8c3d87d4-14ec-468a-984e-4e67943cf9f9",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/ips/assigned",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "ips",
+                        "assigned"
+                      ]
+                    },
+                    "description": "**This endpoint allows you to retrieve only assigned IP addresses.**\n\nA single IP address or a range of IP addresses may be dedicated to an account in order to send email for multiple domains. The reputation of this IP is based on the aggregate performance of all the senders who use it."
+                  },
+                  "response": [
+                    {
+                      "id": "f458be41-850b-4f6d-991f-95a0e3bf2064",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/ips/assigned",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "ips",
+                            "assigned"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"ip\": \"<string>\",\n    \"pools\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"warmup\": \"<boolean>\",\n    \"start_date\": \"<integer>\"\n  },\n  {\n    \"ip\": \"<string>\",\n    \"pools\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"warmup\": \"<boolean>\",\n    \"start_date\": \"<integer>\"\n  }\n]",
+                      "createdAt": "2026-06-05T15:16:46.000Z",
+                      "updatedAt": "2026-06-05T15:16:46.000Z",
+                      "uid": "35240-f458be41-850b-4f6d-991f-95a0e3bf2064"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:16:46.000Z",
+                  "updatedAt": "2026-06-05T15:16:46.000Z",
+                  "uid": "35240-8c3d87d4-14ec-468a-984e-4e67943cf9f9"
+                }
+              ],
+              "id": "fd1279e4-4461-4e35-ae8d-2043aa0b3d09",
+              "createdAt": "2026-06-05T15:16:46.000Z",
+              "updatedAt": "2026-06-05T15:16:46.000Z",
+              "uid": "35240-fd1279e4-4461-4e35-ae8d-2043aa0b3d09"
+            },
+            {
+              "name": "pools",
+              "item": [
+                {
+                  "name": "{pool_name}",
+                  "item": [
+                    {
+                      "name": "ips",
+                      "item": [
+                        {
+                          "name": "{ip}",
+                          "item": [
+                            {
+                              "name": "Remove an IP address from a pool",
+                              "id": "2ed30184-2b9e-4d69-9d2c-cf1c615d3f36",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/ips/pools/:pool_name/ips/:ip",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "ips",
+                                    "pools",
+                                    ":pool_name",
+                                    "ips",
+                                    ":ip"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "fc72ca28-5c04-43ca-ba5e-0da0bd1db017",
+                                      "key": "pool_name",
+                                      "value": "<string>",
+                                      "description": "(Required) The name of the IP pool that you are removing the IP address from."
+                                    },
+                                    {
+                                      "id": "35b8c133-3d4f-4ee3-9ae6-4bffc01fa8ff",
+                                      "key": "ip",
+                                      "value": "<string>",
+                                      "description": "(Required) The IP address that you wish to remove."
+                                    }
+                                  ]
+                                },
+                                "description": "**This endpoint allows you to remove an IP address from an IP pool.**"
+                              },
+                              "response": [
+                                {
+                                  "id": "fd0bb64c-0ec2-4e86-9dde-b53b65ff7f2b",
+                                  "name": "response",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/v3/ips/pools/:pool_name/ips/:ip",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "v3",
+                                        "ips",
+                                        "pools",
+                                        ":pool_name",
+                                        "ips",
+                                        ":ip"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "pool_name"
+                                        },
+                                        {
+                                          "key": "ip"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "No Content",
+                                  "code": 204,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:16:46.000Z",
+                                  "updatedAt": "2026-06-05T15:16:46.000Z",
+                                  "uid": "35240-fd0bb64c-0ec2-4e86-9dde-b53b65ff7f2b"
+                                },
+                                {
+                                  "id": "903b5eab-a2b2-4dbb-9da6-cc85c0081f2d",
+                                  "name": "response",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/v3/ips/pools/:pool_name/ips/:ip",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "v3",
+                                        "ips",
+                                        "pools",
+                                        ":pool_name",
+                                        "ips",
+                                        ":ip"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "pool_name"
+                                        },
+                                        {
+                                          "key": "ip"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": \"<string>\"\n}",
+                                  "createdAt": "2026-06-05T15:16:46.000Z",
+                                  "updatedAt": "2026-06-05T15:16:46.000Z",
+                                  "uid": "35240-903b5eab-a2b2-4dbb-9da6-cc85c0081f2d"
+                                }
+                              ],
+                              "createdAt": "2026-06-05T15:16:46.000Z",
+                              "updatedAt": "2026-06-05T15:16:46.000Z",
+                              "uid": "35240-2ed30184-2b9e-4d69-9d2c-cf1c615d3f36"
+                            }
+                          ],
+                          "id": "f07864a5-c1f8-463c-a4f1-f519ee207a13",
+                          "createdAt": "2026-06-05T15:16:46.000Z",
+                          "updatedAt": "2026-06-05T15:16:46.000Z",
+                          "uid": "35240-f07864a5-c1f8-463c-a4f1-f519ee207a13"
+                        },
+                        {
+                          "name": "Add an IP address to a pool",
+                          "id": "f15ba0bc-bf5a-4957-8247-b85373392d96",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"ip\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/ips/pools/:pool_name/ips",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "ips",
+                                "pools",
+                                ":pool_name",
+                                "ips"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "d54d2920-5da8-47af-8afb-db07f11fca16",
+                                  "key": "pool_name",
+                                  "value": "<string>",
+                                  "description": "(Required) The name of the IP pool you want to add the address to. If the name contains spaces, they must be URL encoded (e.g., \"Test Pool\" becomes \"Test%20Pool\")."
+                                }
+                              ]
+                            },
+                            "description": "**This endpoint allows you to add an IP address to an IP pool.**\n\nYou can add the same IP address to multiple pools. It may take up to 60 seconds for your IP address to be added to a pool after your request is made.\n\nBefore you can add an IP to a pool, you need to activate it in your SendGrid account:\n\n1. Log into your SendGrid account.  \n1. Navigate to **Settings** and then select **IP Addresses**.  \n1. Find the IP address you want to activate and then click **Edit**.  \n1. Check **Allow my account to send mail using this IP address**.\n1. Click **Save**.\n\nYou can retrieve all of your available IP addresses from the \"Retrieve all IP addresses\" endpoint."
+                          },
+                          "response": [
+                            {
+                              "id": "72f18d3c-7e4f-4720-b82b-b5fb680140f8",
+                              "name": "response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"ip\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/ips/pools/:pool_name/ips",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "ips",
+                                    "pools",
+                                    ":pool_name",
+                                    "ips"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "pool_name"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Created",
+                              "code": 201,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"ip\": \"<string>\",\n  \"pools\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"start_date\": \"<integer>\",\n  \"warmup\": \"<boolean>\"\n}",
+                              "createdAt": "2026-06-05T15:16:46.000Z",
+                              "updatedAt": "2026-06-05T15:16:46.000Z",
+                              "uid": "35240-72f18d3c-7e4f-4720-b82b-b5fb680140f8"
+                            },
+                            {
+                              "id": "8d49aa02-4070-4ef9-8952-61a51b1a3229",
+                              "name": "response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"ip\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/ips/pools/:pool_name/ips",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "ips",
+                                    "pools",
+                                    ":pool_name",
+                                    "ips"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "pool_name"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errors\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-06-05T15:16:46.000Z",
+                              "updatedAt": "2026-06-05T15:16:46.000Z",
+                              "uid": "35240-8d49aa02-4070-4ef9-8952-61a51b1a3229"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:16:46.000Z",
+                          "updatedAt": "2026-06-05T15:16:46.000Z",
+                          "uid": "35240-f15ba0bc-bf5a-4957-8247-b85373392d96"
+                        }
+                      ],
+                      "id": "c7b54502-f454-41b6-8dbd-c8c19326efbc",
+                      "createdAt": "2026-06-05T15:16:46.000Z",
+                      "updatedAt": "2026-06-05T15:16:46.000Z",
+                      "uid": "35240-c7b54502-f454-41b6-8dbd-c8c19326efbc"
+                    },
+                    {
+                      "name": "Retrieve all the IPs in a specified pool",
+                      "id": "e383eab5-83ff-455d-9731-e0a434ccee05",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/ips/pools/:pool_name",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "ips",
+                            "pools",
+                            ":pool_name"
+                          ],
+                          "variable": [
+                            {
+                              "id": "968125cc-1c69-48b6-8074-1f3b3f423402",
+                              "key": "pool_name",
+                              "value": "<string>",
+                              "description": "(Required) The name of the IP pool that you want to retrieve the IP addresses for."
+                            }
+                          ]
+                        },
+                        "description": "**This endpoint allows you to get all of the IP addresses that are in a specific IP pool.**"
+                      },
+                      "response": [
+                        {
+                          "id": "d647fb37-e5ec-4d19-9c0e-3dd416e004a2",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/ips/pools/:pool_name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "ips",
+                                "pools",
+                                ":pool_name"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "pool_name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"pool_name\": \"<string>\",\n  \"ips\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "createdAt": "2026-06-05T15:16:46.000Z",
+                          "updatedAt": "2026-06-05T15:16:46.000Z",
+                          "uid": "35240-d647fb37-e5ec-4d19-9c0e-3dd416e004a2"
+                        },
+                        {
+                          "id": "ff177ea4-f029-4425-990c-6e01d1d2ffaa",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/ips/pools/:pool_name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "ips",
+                                "pools",
+                                ":pool_name"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "pool_name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:16:46.000Z",
+                          "updatedAt": "2026-06-05T15:16:46.000Z",
+                          "uid": "35240-ff177ea4-f029-4425-990c-6e01d1d2ffaa"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:16:46.000Z",
+                      "updatedAt": "2026-06-05T15:16:46.000Z",
+                      "uid": "35240-e383eab5-83ff-455d-9731-e0a434ccee05"
+                    },
+                    {
+                      "name": "Rename an IP pool",
+                      "id": "f16a9e64-ddff-4562-83b5-ceb3c1b34566",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/ips/pools/:pool_name",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "ips",
+                            "pools",
+                            ":pool_name"
+                          ],
+                          "variable": [
+                            {
+                              "id": "a667a538-fc54-4062-adf5-f9635b60e753",
+                              "key": "pool_name",
+                              "value": "<string>",
+                              "description": "(Required) The name of the IP pool that you want to retrieve the IP addresses for."
+                            }
+                          ]
+                        },
+                        "description": "**This endpoint allows you to update the name of an IP pool.**"
+                      },
+                      "response": [
+                        {
+                          "id": "bd87acfa-33a0-49ee-a338-c31145ef1e62",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/ips/pools/:pool_name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "ips",
+                                "pools",
+                                ":pool_name"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "pool_name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"name\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:16:46.000Z",
+                          "updatedAt": "2026-06-05T15:16:46.000Z",
+                          "uid": "35240-bd87acfa-33a0-49ee-a338-c31145ef1e62"
+                        },
+                        {
+                          "id": "fef1af55-17e3-4eb7-93c1-0c286299bbc1",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/ips/pools/:pool_name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "ips",
+                                "pools",
+                                ":pool_name"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "pool_name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:16:46.000Z",
+                          "updatedAt": "2026-06-05T15:16:46.000Z",
+                          "uid": "35240-fef1af55-17e3-4eb7-93c1-0c286299bbc1"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:16:46.000Z",
+                      "updatedAt": "2026-06-05T15:16:46.000Z",
+                      "uid": "35240-f16a9e64-ddff-4562-83b5-ceb3c1b34566"
+                    },
+                    {
+                      "name": "Delete an IP pool",
+                      "id": "9f0bda7f-bb8d-44ec-a1c3-92c64b410d94",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/ips/pools/:pool_name",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "ips",
+                            "pools",
+                            ":pool_name"
+                          ],
+                          "variable": [
+                            {
+                              "id": "a6f8c738-0daa-4dbc-9c5a-dc655e88112a",
+                              "key": "pool_name",
+                              "value": "<string>",
+                              "description": "(Required) The name of the IP pool that you want to retrieve the IP addresses for."
+                            }
+                          ]
+                        },
+                        "description": "**This endpoint allows you to delete an IP pool.**"
+                      },
+                      "response": [
+                        {
+                          "id": "ec93d999-7b1b-401b-ae96-642d1c0fcc80",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/ips/pools/:pool_name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "ips",
+                                "pools",
+                                ":pool_name"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "pool_name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:16:46.000Z",
+                          "updatedAt": "2026-06-05T15:16:46.000Z",
+                          "uid": "35240-ec93d999-7b1b-401b-ae96-642d1c0fcc80"
+                        },
+                        {
+                          "id": "679f55d8-ee37-42db-ba21-7fe133ff034c",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/ips/pools/:pool_name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "ips",
+                                "pools",
+                                ":pool_name"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "pool_name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:16:46.000Z",
+                          "updatedAt": "2026-06-05T15:16:46.000Z",
+                          "uid": "35240-679f55d8-ee37-42db-ba21-7fe133ff034c"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:16:46.000Z",
+                      "updatedAt": "2026-06-05T15:16:46.000Z",
+                      "uid": "35240-9f0bda7f-bb8d-44ec-a1c3-92c64b410d94"
+                    }
+                  ],
+                  "id": "d370cbd9-3873-4891-807e-cb07010ad159",
+                  "createdAt": "2026-06-05T15:16:46.000Z",
+                  "updatedAt": "2026-06-05T15:16:46.000Z",
+                  "uid": "35240-d370cbd9-3873-4891-807e-cb07010ad159"
+                },
+                {
+                  "name": "Create an IP pool",
+                  "id": "14dc1c0a-a587-491e-80e7-c06a1cb2e34f",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/ips/pools",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "ips",
+                        "pools"
+                      ]
+                    },
+                    "description": "**This endpoint allows you to create an IP pool.**\n\nBefore you can create an IP pool, you need to activate the IP in your SendGrid account: \n\n1. Log into your SendGrid account.  \n1. Navigate to **Settings** and then select **IP Addresses**.  \n1. Find the IP address you want to activate and then click **Edit**.  \n1. Check **Allow my account to send mail using this IP address**.\n1. Click **Save**."
+                  },
+                  "response": [
+                    {
+                      "id": "d524fa7f-9ff3-46cb-bbc0-1c4f5d6a8aea",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/ips/pools",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "ips",
+                            "pools"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"name\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:16:46.000Z",
+                      "updatedAt": "2026-06-05T15:16:46.000Z",
+                      "uid": "35240-d524fa7f-9ff3-46cb-bbc0-1c4f5d6a8aea"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:16:46.000Z",
+                  "updatedAt": "2026-06-05T15:16:46.000Z",
+                  "uid": "35240-14dc1c0a-a587-491e-80e7-c06a1cb2e34f"
+                },
+                {
+                  "name": "Retrieve all IP pools",
+                  "id": "8ad00b4b-b6f6-4d8b-84d8-e5828ebfd125",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/ips/pools",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "ips",
+                        "pools"
+                      ]
+                    },
+                    "description": "**This endpoint allows you to get all of your IP pools.**"
+                  },
+                  "response": [
+                    {
+                      "id": "11d91cae-07db-4d7b-a41e-e43308c8e289",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/ips/pools",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "ips",
+                            "pools"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"name\": \"<string>\"\n  },\n  {\n    \"name\": \"<string>\"\n  }\n]",
+                      "createdAt": "2026-06-05T15:16:46.000Z",
+                      "updatedAt": "2026-06-05T15:16:46.000Z",
+                      "uid": "35240-11d91cae-07db-4d7b-a41e-e43308c8e289"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:16:46.000Z",
+                  "updatedAt": "2026-06-05T15:16:46.000Z",
+                  "uid": "35240-8ad00b4b-b6f6-4d8b-84d8-e5828ebfd125"
+                }
+              ],
+              "id": "73db5da1-e874-43de-b0e3-0e3c43883a4c",
+              "createdAt": "2026-06-05T15:16:46.000Z",
+              "updatedAt": "2026-06-05T15:16:46.000Z",
+              "uid": "35240-73db5da1-e874-43de-b0e3-0e3c43883a4c"
+            },
+            {
+              "name": "remaining",
+              "item": [
+                {
+                  "name": "Get remaining IPs count",
+                  "id": "a6cb7997-1aeb-4a59-b84f-74025a44fad0",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/ips/remaining",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "ips",
+                        "remaining"
+                      ]
+                    },
+                    "description": "**This endpoint gets amount of IP Addresses that can still be created during a given period and the price of those IPs.**"
+                  },
+                  "response": [
+                    {
+                      "id": "16e86977-5239-4dca-9118-8091b6b6da68",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/ips/remaining",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "ips",
+                            "remaining"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"results\": [\n    {\n      \"remaining\": \"<integer>\",\n      \"period\": \"<string>\",\n      \"price_per_ip\": \"<number>\"\n    },\n    {\n      \"remaining\": \"<integer>\",\n      \"period\": \"<string>\",\n      \"price_per_ip\": \"<number>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:16:46.000Z",
+                      "updatedAt": "2026-06-05T15:16:46.000Z",
+                      "uid": "35240-16e86977-5239-4dca-9118-8091b6b6da68"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:16:46.000Z",
+                  "updatedAt": "2026-06-05T15:16:46.000Z",
+                  "uid": "35240-a6cb7997-1aeb-4a59-b84f-74025a44fad0"
+                }
+              ],
+              "id": "c295950a-dee5-455b-b318-11899df6915c",
+              "createdAt": "2026-06-05T15:16:46.000Z",
+              "updatedAt": "2026-06-05T15:16:46.000Z",
+              "uid": "35240-c295950a-dee5-455b-b318-11899df6915c"
+            },
+            {
+              "name": "Add IPs",
+              "id": "1a620647-84b2-4bb4-bbce-ad26a7a9da22",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"count\": \"<integer>\",\n  \"subusers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"warmup\": false\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v3/ips",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v3",
+                    "ips"
+                  ]
+                },
+                "description": "**This endpoint is for adding a(n) IP Address(es) to your account.**"
+              },
+              "response": [
+                {
+                  "id": "edbe3885-ede7-46f1-80e4-e9f4f7882400",
+                  "name": "response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"count\": \"<integer>\",\n  \"subusers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"warmup\": false\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/ips",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "ips"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"ips\": [\n    {\n      \"ip\": \"<string>\",\n      \"subusers\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"ip\": \"<string>\",\n      \"subusers\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"remaining_ips\": \"<integer>\",\n  \"warmup\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:16:46.000Z",
+                  "updatedAt": "2026-06-05T15:16:46.000Z",
+                  "uid": "35240-edbe3885-ede7-46f1-80e4-e9f4f7882400"
+                },
+                {
+                  "id": "878ac1bb-ce7e-46d8-aeaf-d64486653c83",
+                  "name": "response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"count\": \"<integer>\",\n  \"subusers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"warmup\": false\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/ips",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "ips"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\",\n      \"help\": {}\n    }\n  ],\n  \"id\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:16:46.000Z",
+                  "updatedAt": "2026-06-05T15:16:46.000Z",
+                  "uid": "35240-878ac1bb-ce7e-46d8-aeaf-d64486653c83"
+                }
+              ],
+              "createdAt": "2026-06-05T15:16:46.000Z",
+              "updatedAt": "2026-06-05T15:16:46.000Z",
+              "uid": "35240-1a620647-84b2-4bb4-bbce-ad26a7a9da22"
+            },
+            {
+              "name": "Retrieve all IP addresses",
+              "id": "11e400cd-40cc-4e81-92ab-9d3221555c2c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v3/ips?ip=<string>&exclude_whitelabels=<boolean>&limit=10&offset=0&subuser=<string>&sort_by_direction=desc",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v3",
+                    "ips"
+                  ],
+                  "query": [
+                    {
+                      "description": "The IP address to get",
+                      "key": "ip",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Should we exclude reverse DNS records (whitelabels)?",
+                      "key": "exclude_whitelabels",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "`limit` sets the page size, i.e. maximum number of items from the list to be returned for a single API request. If omitted, the default page size is used.",
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "description": "The number of items in the list to skip over before starting to retrieve the items for the requested page. The default `offset` of `0` represents the beginning of the list, i.e. the start of the first page. To request the second page of the list, set the `offset` to the page size as determined by `limit`. Use multiples of the page size as your `offset` to request further consecutive pages. E.g. assume your page size is set to `10`. An `offset` of `10` requests the second page, an `offset` of `20` requests the third page and so on, provided there are sufficiently many items in your list.",
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "description": "The subuser you are requesting for.",
+                      "key": "subuser",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The direction to sort the results.",
+                      "key": "sort_by_direction",
+                      "value": "desc"
+                    }
+                  ]
+                },
+                "description": "**This endpoint allows you to retrieve a paginated list of all assigned and unassigned IPs.**\n\nResponse includes warm up status, pools, assigned subusers, and reverse DNS info. The start_date field corresponds to when warmup started for that IP.\n\nA single IP address or a range of IP addresses may be dedicated to an account in order to send email for multiple domains. The reputation of this IP is determined by the aggregate performance of all email traffic sent from it.\n\nYou can use the `limit` query parameter to set the page size. If your list contains more items than the page size permits, you can make multiple requests. Use the `offset` query parameter to control the position in the list from which to start retrieving additional items."
+              },
+              "response": [
+                {
+                  "id": "ddbe8c9b-dfea-4250-801d-241b660790e7",
+                  "name": "response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/ips?ip=<string>&exclude_whitelabels=<boolean>&limit=10&offset=0&subuser=<string>&sort_by_direction=desc",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "ips"
+                      ],
+                      "query": [
+                        {
+                          "description": "The IP address to get",
+                          "key": "ip",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Should we exclude reverse DNS records (whitelabels)?",
+                          "key": "exclude_whitelabels",
+                          "value": "<boolean>"
+                        },
+                        {
+                          "description": "`limit` sets the page size, i.e. maximum number of items from the list to be returned for a single API request. If omitted, the default page size is used.",
+                          "key": "limit",
+                          "value": "10"
+                        },
+                        {
+                          "description": "The number of items in the list to skip over before starting to retrieve the items for the requested page. The default `offset` of `0` represents the beginning of the list, i.e. the start of the first page. To request the second page of the list, set the `offset` to the page size as determined by `limit`. Use multiples of the page size as your `offset` to request further consecutive pages. E.g. assume your page size is set to `10`. An `offset` of `10` requests the second page, an `offset` of `20` requests the third page and so on, provided there are sufficiently many items in your list.",
+                          "key": "offset",
+                          "value": "0"
+                        },
+                        {
+                          "description": "The subuser you are requesting for.",
+                          "key": "subuser",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The direction to sort the results.",
+                          "key": "sort_by_direction",
+                          "value": "desc"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  {\n    \"ip\": \"<string>\",\n    \"subusers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"pools\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"warmup\": \"<boolean>\",\n    \"start_date\": \"<number>\",\n    \"whitelabeled\": \"<boolean>\",\n    \"assigned_at\": \"<integer>\",\n    \"rdns\": \"<string>\"\n  },\n  {\n    \"ip\": \"<string>\",\n    \"subusers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"pools\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"warmup\": \"<boolean>\",\n    \"start_date\": \"<number>\",\n    \"whitelabeled\": \"<boolean>\",\n    \"assigned_at\": \"<integer>\",\n    \"rdns\": \"<string>\"\n  }\n]",
+                  "createdAt": "2026-06-05T15:16:46.000Z",
+                  "updatedAt": "2026-06-05T15:16:46.000Z",
+                  "uid": "35240-ddbe8c9b-dfea-4250-801d-241b660790e7"
+                }
+              ],
+              "createdAt": "2026-06-05T15:16:46.000Z",
+              "updatedAt": "2026-06-05T15:16:46.000Z",
+              "uid": "35240-11e400cd-40cc-4e81-92ab-9d3221555c2c"
+            }
+          ],
+          "id": "ef063766-f1ef-4ab7-8bc0-861ae63b901b",
+          "createdAt": "2026-06-05T15:16:46.000Z",
+          "updatedAt": "2026-06-05T15:16:46.000Z",
+          "uid": "35240-ef063766-f1ef-4ab7-8bc0-861ae63b901b"
+        }
+      ],
+      "id": "59de7bbb-80e5-4407-8a0f-d80a1b4cd18c",
+      "createdAt": "2026-06-05T15:16:46.000Z",
+      "updatedAt": "2026-06-05T15:16:46.000Z",
+      "uid": "35240-59de7bbb-80e5-4407-8a0f-d80a1b4cd18c"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.sendgrid.com"
+    }
+  ]
+}

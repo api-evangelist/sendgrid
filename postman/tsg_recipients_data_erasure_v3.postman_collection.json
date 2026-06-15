@@ -1,0 +1,713 @@
+{
+  "info": {
+    "_postman_id": "a1d4b3e8-2ea5-4222-91da-e52f721ee677",
+    "name": "Twilio SendGrid Recipients' Data Erasure API",
+    "description": "The Recipients' Data Erasure API allows Twilio SendGrid customers to delete their own customers' personal data from the Twilio SendGrid Platform. The use of this API facilitates the self-service removal of email personal data from the Twilio SendGrid platform and will enable customers to comply with various obligatory data privacy regulations.\n\nContact Support:\n Name: Twilio SendGrid Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:17:40.000Z",
+    "updatedAt": "2026-06-05T15:17:40.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-a1d4b3e8-2ea5-4222-91da-e52f721ee677"
+  },
+  "item": [
+    {
+      "name": "v3",
+      "item": [
+        {
+          "name": "recipients",
+          "item": [
+            {
+              "name": "erasejob",
+              "item": [
+                {
+                  "name": "Erase recipients' email data",
+                  "id": "c5f6096d-fac4-47c8-88d4-59b5fe7d94a9",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email_addresses\": [\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/recipients/erasejob",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "recipients",
+                        "erasejob"
+                      ]
+                    },
+                    "description": "**This operation allows you to delete your recipients' personal email data**\n\nThe Delete Recipients' Email Data operation accepts a list of 5,000 `email_addresses` or a total payload size of 256Kb per request, whichever comes first. Upon a successful request with this operation, SendGrid will run a search on the email addresses provided against the SendGrid system to identify matches. SendGrid will then delete all personal data associated with the matched users such as the recipients' names, email addresses, subject lines, categories, and IP addresses.\n\nAll email addresses are filtered for uniqueness and tested for structural validity\u2014any invalid addresses will be returned in an error response.\n\nPlease note that recipient data is deleted for the account making the request only\u2014deletions do not cascade from a parent account to its Subusers' recipients. To delete a Subuser's recipients' data, you can use the `on-behalf-of` header."
+                  },
+                  "response": [
+                    {
+                      "id": "68fe0551-65ca-4987-9b0b-b0df1f8ca86e",
+                      "name": "The request was accepted for processing",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"email_addresses\": [\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/recipients/erasejob",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "recipients",
+                            "erasejob"
+                          ]
+                        }
+                      },
+                      "status": "Accepted",
+                      "code": 202,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"job_id\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:17:41.000Z",
+                      "updatedAt": "2026-06-05T15:17:41.000Z",
+                      "uid": "35240-68fe0551-65ca-4987-9b0b-b0df1f8ca86e"
+                    },
+                    {
+                      "id": "5f3b37a8-a81e-4681-bb59-c3755e752a5d",
+                      "name": "The request was formatted incorrectly or missing required parameters.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"email_addresses\": [\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/recipients/erasejob",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "recipients",
+                            "erasejob"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        },
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "The number of requests allowed during the  window.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-RateLimit-Limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "The amount of time (in seconds) until the current window is over and the limit is reset",
+                            "type": "text/plain"
+                          },
+                          "key": "X-RateLimit-Reset",
+                          "value": "<integer>"
+                        },
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "The number of request remaining in the 60-second window before encountering a 429 error.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-RateLimit-Remaining",
+                          "value": "<integer>"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:17:41.000Z",
+                      "updatedAt": "2026-06-05T15:17:41.000Z",
+                      "uid": "35240-5f3b37a8-a81e-4681-bb59-c3755e752a5d"
+                    },
+                    {
+                      "id": "5ae8dccd-ae3c-4334-ab43-9b2bc1fa8ac9",
+                      "name": "Request lacks valid authentication credentials",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"email_addresses\": [\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/recipients/erasejob",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "recipients",
+                            "erasejob"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        },
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "The number of requests allowed during the  window.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-RateLimit-Limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "The amount of time (in seconds) until the current window is over and the limit is reset",
+                            "type": "text/plain"
+                          },
+                          "key": "X-RateLimit-Reset",
+                          "value": "<integer>"
+                        },
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "The number of request remaining in the 60-second window before encountering a 429 error.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-RateLimit-Remaining",
+                          "value": "<integer>"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:17:41.000Z",
+                      "updatedAt": "2026-06-05T15:17:41.000Z",
+                      "uid": "35240-5ae8dccd-ae3c-4334-ab43-9b2bc1fa8ac9"
+                    },
+                    {
+                      "id": "76568da3-ed59-4502-b1b6-8b3ecb9b3660",
+                      "name": "Not authorized to make the request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"email_addresses\": [\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/recipients/erasejob",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "recipients",
+                            "erasejob"
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        },
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "The number of requests allowed during the  window.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-RateLimit-Limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "The amount of time (in seconds) until the current window is over and the limit is reset",
+                            "type": "text/plain"
+                          },
+                          "key": "X-RateLimit-Reset",
+                          "value": "<integer>"
+                        },
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "The number of request remaining in the 60-second window before encountering a 429 error.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-RateLimit-Remaining",
+                          "value": "<integer>"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:17:41.000Z",
+                      "updatedAt": "2026-06-05T15:17:41.000Z",
+                      "uid": "35240-76568da3-ed59-4502-b1b6-8b3ecb9b3660"
+                    },
+                    {
+                      "id": "bb9b30fd-2827-4387-b0a4-72935fe3860d",
+                      "name": "Not Found",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"email_addresses\": [\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/recipients/erasejob",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "recipients",
+                            "erasejob"
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        },
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "The number of requests allowed during the  window.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-RateLimit-Limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "The amount of time (in seconds) until the current window is over and the limit is reset",
+                            "type": "text/plain"
+                          },
+                          "key": "X-RateLimit-Reset",
+                          "value": "<integer>"
+                        },
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "The number of request remaining in the 60-second window before encountering a 429 error.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-RateLimit-Remaining",
+                          "value": "<integer>"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:17:41.000Z",
+                      "updatedAt": "2026-06-05T15:17:41.000Z",
+                      "uid": "35240-bb9b30fd-2827-4387-b0a4-72935fe3860d"
+                    },
+                    {
+                      "id": "30d51e8e-515c-42a0-a64d-343e1690144d",
+                      "name": "User has sent too many requests in a given amount of time",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"email_addresses\": [\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/recipients/erasejob",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "recipients",
+                            "erasejob"
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "The number of requests allowed during the  window.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-RateLimit-Limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "The amount of time (in seconds) until the current window is over and the limit is reset",
+                            "type": "text/plain"
+                          },
+                          "key": "X-RateLimit-Reset",
+                          "value": "<integer>"
+                        },
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "The number of request remaining in the 60-second window before encountering a 429 error.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-RateLimit-Remaining",
+                          "value": "<integer>"
+                        },
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "Indicating that you've been ratelimited",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Envoy-Ratelimited",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:17:41.000Z",
+                      "updatedAt": "2026-06-05T15:17:41.000Z",
+                      "uid": "35240-30d51e8e-515c-42a0-a64d-343e1690144d"
+                    },
+                    {
+                      "id": "43b20c15-5d3e-4f84-9350-e667e27a7b56",
+                      "name": "Internal Server Error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"email_addresses\": [\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/recipients/erasejob",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "recipients",
+                            "erasejob"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        },
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "The number of requests allowed during the  window.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-RateLimit-Limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "The amount of time (in seconds) until the current window is over and the limit is reset",
+                            "type": "text/plain"
+                          },
+                          "key": "X-RateLimit-Reset",
+                          "value": "<integer>"
+                        },
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "The number of request remaining in the 60-second window before encountering a 429 error.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-RateLimit-Remaining",
+                          "value": "<integer>"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:17:41.000Z",
+                      "updatedAt": "2026-06-05T15:17:41.000Z",
+                      "uid": "35240-43b20c15-5d3e-4f84-9350-e667e27a7b56"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:17:41.000Z",
+                  "updatedAt": "2026-06-05T15:17:41.000Z",
+                  "uid": "35240-c5f6096d-fac4-47c8-88d4-59b5fe7d94a9"
+                }
+              ],
+              "id": "e9130ef1-3f1c-46a1-9e2a-542dbf9097d5",
+              "createdAt": "2026-06-05T15:17:41.000Z",
+              "updatedAt": "2026-06-05T15:17:41.000Z",
+              "uid": "35240-e9130ef1-3f1c-46a1-9e2a-542dbf9097d5"
+            }
+          ],
+          "id": "004c3900-8b81-4104-bb77-8e8298dc1736",
+          "createdAt": "2026-06-05T15:17:41.000Z",
+          "updatedAt": "2026-06-05T15:17:41.000Z",
+          "uid": "35240-004c3900-8b81-4104-bb77-8e8298dc1736"
+        }
+      ],
+      "id": "5f1fd91f-6300-4359-bd38-b367e2bbe4f1",
+      "createdAt": "2026-06-05T15:17:41.000Z",
+      "updatedAt": "2026-06-05T15:17:41.000Z",
+      "uid": "35240-5f1fd91f-6300-4359-bd38-b367e2bbe4f1"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.sendgrid.com"
+    }
+  ]
+}

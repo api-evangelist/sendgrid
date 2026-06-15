@@ -1,0 +1,581 @@
+{
+  "info": {
+    "_postman_id": "d010a9f1-c319-4fae-9ed7-da0b642adc98",
+    "name": "Twilio SendGrid IP Warmup API",
+    "description": "The Twilio SendGrid IP Warm Up API allows you to gradually increasing the volume of mail sent with a dedicated IP address according to a predetermined schedule. This gradual process helps to establish a reputation with ISPs (Internet Service Providers) as a legitimate email sender.\n\nSendGrid can automatically warm up dedicated IP addresses by limiting the amount of mail that can be sent through them per hour. The limit is determined by how long the IP address has been warming up.\n\nSee the [warmup schedule](https://sendgrid.com/docs/ui/sending-email/warming-up-an-ip-address/#automated-ip-warmup-hourly-send-schedule) to learn how SendGrid limits your email traffic for IPs in warmup.\n\nYou can also choose to use Twilio SendGrid's automated IP warmup for any of your IPs from the **IP Addresses** settings menu in the [Twilio SendGrid application user interface](https://app.sendgrid.com/settings/ip_addresses).\n\nContact Support:\n Name: Twilio SendGrid Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:16:44.000Z",
+    "updatedAt": "2026-06-05T15:16:44.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-d010a9f1-c319-4fae-9ed7-da0b642adc98"
+  },
+  "item": [
+    {
+      "name": "v3",
+      "item": [
+        {
+          "name": "ips",
+          "item": [
+            {
+              "name": "warmup",
+              "item": [
+                {
+                  "name": "{ip_address}",
+                  "item": [
+                    {
+                      "name": "Retrieve the warmup status for a specific IP address",
+                      "id": "8ee92e54-3ec6-4a60-8df8-bf2e04915be2",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/ips/warmup/:ip_address",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "ips",
+                            "warmup",
+                            ":ip_address"
+                          ],
+                          "variable": [
+                            {
+                              "id": "9469b1c6-26f2-4eb1-add7-3a0290edcd8c",
+                              "key": "ip_address",
+                              "value": "<string>",
+                              "description": "(Required) The IP address that you want to retrieve the warmup status for."
+                            }
+                          ]
+                        },
+                        "description": "**This endpoint allows you to retrieve the warmup status for a specific IP address.**\n\nYou can retrieve all of your warming IPs using the \"Retrieve all IPs currently in warmup\" endpoint."
+                      },
+                      "response": [
+                        {
+                          "id": "5e907bba-dcdc-45ee-88dc-18fd7d029659",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/ips/warmup/:ip_address",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "ips",
+                                "warmup",
+                                ":ip_address"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ip_address"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "[\n  {\n    \"ip\": \"<string>\",\n    \"start_date\": \"<integer>\"\n  },\n  {\n    \"ip\": \"<string>\",\n    \"start_date\": \"<integer>\"\n  }\n]",
+                          "createdAt": "2026-06-05T15:16:45.000Z",
+                          "updatedAt": "2026-06-05T15:16:45.000Z",
+                          "uid": "35240-5e907bba-dcdc-45ee-88dc-18fd7d029659"
+                        },
+                        {
+                          "id": "ca1c2db9-ba4c-4402-ad03-4e8aaf8f6d77",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/ips/warmup/:ip_address",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "ips",
+                                "warmup",
+                                ":ip_address"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ip_address"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:16:45.000Z",
+                          "updatedAt": "2026-06-05T15:16:45.000Z",
+                          "uid": "35240-ca1c2db9-ba4c-4402-ad03-4e8aaf8f6d77"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:16:44.000Z",
+                      "updatedAt": "2026-06-05T15:16:44.000Z",
+                      "uid": "35240-8ee92e54-3ec6-4a60-8df8-bf2e04915be2"
+                    },
+                    {
+                      "name": "Stop warming up an IP address",
+                      "id": "f1e1851f-8ef5-4056-9929-b96584a54a3e",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/ips/warmup/:ip_address",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "ips",
+                            "warmup",
+                            ":ip_address"
+                          ],
+                          "variable": [
+                            {
+                              "id": "25643605-044e-4ac0-aa8a-4d2ebdcb855a",
+                              "key": "ip_address",
+                              "value": "<string>",
+                              "description": "(Required) The IP address that you want to retrieve the warmup status for."
+                            }
+                          ]
+                        },
+                        "description": "**This endpoint allows you to remove an IP address from warmup mode.**\n\nYour request will return a 204 status code if the specified IP was successfully removed from warmup mode. To retrieve details of the IP\u2019s warmup status *before* removing it from warmup mode, call the  \"Retrieve the warmpup status for a specific IP address\" endpoint."
+                      },
+                      "response": [
+                        {
+                          "id": "9717676e-d1e9-4645-a5f1-c16f2f6906fd",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/ips/warmup/:ip_address",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "ips",
+                                "warmup",
+                                ":ip_address"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ip_address"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:16:45.000Z",
+                          "updatedAt": "2026-06-05T15:16:45.000Z",
+                          "uid": "35240-9717676e-d1e9-4645-a5f1-c16f2f6906fd"
+                        },
+                        {
+                          "id": "ae80cdc7-3523-4890-9db7-92857eb6556f",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/ips/warmup/:ip_address",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "ips",
+                                "warmup",
+                                ":ip_address"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ip_address"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:16:45.000Z",
+                          "updatedAt": "2026-06-05T15:16:45.000Z",
+                          "uid": "35240-ae80cdc7-3523-4890-9db7-92857eb6556f"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:16:44.000Z",
+                      "updatedAt": "2026-06-05T15:16:44.000Z",
+                      "uid": "35240-f1e1851f-8ef5-4056-9929-b96584a54a3e"
+                    }
+                  ],
+                  "id": "8721f3ff-3712-4655-8a3f-32e0c68c5815",
+                  "createdAt": "2026-06-05T15:16:44.000Z",
+                  "updatedAt": "2026-06-05T15:16:44.000Z",
+                  "uid": "35240-8721f3ff-3712-4655-8a3f-32e0c68c5815"
+                },
+                {
+                  "name": "Start warming up an IP address",
+                  "id": "f2b8388c-ac4d-46ae-9b01-6e71fcd0c4c3",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"ip\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/ips/warmup",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "ips",
+                        "warmup"
+                      ]
+                    },
+                    "description": "**This endpoint allows you to put an IP address into warmup mode.**"
+                  },
+                  "response": [
+                    {
+                      "id": "84ea9da4-d000-491f-9302-85b4aa6a47dd",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"ip\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/ips/warmup",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "ips",
+                            "warmup"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"ip\": \"<string>\",\n    \"start_date\": \"<integer>\"\n  },\n  {\n    \"ip\": \"<string>\",\n    \"start_date\": \"<integer>\"\n  }\n]",
+                      "createdAt": "2026-06-05T15:16:45.000Z",
+                      "updatedAt": "2026-06-05T15:16:45.000Z",
+                      "uid": "35240-84ea9da4-d000-491f-9302-85b4aa6a47dd"
+                    },
+                    {
+                      "id": "861945dd-05d0-47f1-9709-d4ea4a8afea0",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"ip\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/ips/warmup",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "ips",
+                            "warmup"
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:16:45.000Z",
+                      "updatedAt": "2026-06-05T15:16:45.000Z",
+                      "uid": "35240-861945dd-05d0-47f1-9709-d4ea4a8afea0"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:16:44.000Z",
+                  "updatedAt": "2026-06-05T15:16:44.000Z",
+                  "uid": "35240-f2b8388c-ac4d-46ae-9b01-6e71fcd0c4c3"
+                },
+                {
+                  "name": "Retrieve all IPs currently in warmup",
+                  "id": "d7a0e680-3782-47bf-863b-08ea50ea1f8e",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/ips/warmup",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "ips",
+                        "warmup"
+                      ]
+                    },
+                    "description": "**This endpoint allows you to retrieve all of your IP addresses that are currently warming up.**"
+                  },
+                  "response": [
+                    {
+                      "id": "8146f7e9-5583-4fa2-8b16-4b4825d2f3eb",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/ips/warmup",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "ips",
+                            "warmup"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"ip\": \"<string>\",\n    \"start_date\": \"<integer>\"\n  },\n  {\n    \"ip\": \"<string>\",\n    \"start_date\": \"<integer>\"\n  }\n]",
+                      "createdAt": "2026-06-05T15:16:45.000Z",
+                      "updatedAt": "2026-06-05T15:16:45.000Z",
+                      "uid": "35240-8146f7e9-5583-4fa2-8b16-4b4825d2f3eb"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:16:44.000Z",
+                  "updatedAt": "2026-06-05T15:16:44.000Z",
+                  "uid": "35240-d7a0e680-3782-47bf-863b-08ea50ea1f8e"
+                }
+              ],
+              "id": "8d759653-0628-4f4d-931c-f31743010c7a",
+              "createdAt": "2026-06-05T15:16:44.000Z",
+              "updatedAt": "2026-06-05T15:16:44.000Z",
+              "uid": "35240-8d759653-0628-4f4d-931c-f31743010c7a"
+            }
+          ],
+          "id": "1251190c-cf69-4f87-a9ff-d47b96b11e43",
+          "createdAt": "2026-06-05T15:16:44.000Z",
+          "updatedAt": "2026-06-05T15:16:44.000Z",
+          "uid": "35240-1251190c-cf69-4f87-a9ff-d47b96b11e43"
+        }
+      ],
+      "id": "b51af76d-3d5d-41f5-9b33-d1574dc9e388",
+      "createdAt": "2026-06-05T15:16:44.000Z",
+      "updatedAt": "2026-06-05T15:16:44.000Z",
+      "uid": "35240-b51af76d-3d5d-41f5-9b33-d1574dc9e388"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.sendgrid.com"
+    }
+  ]
+}

@@ -1,0 +1,1844 @@
+{
+  "info": {
+    "_postman_id": "f206a92a-dd0d-4362-9090-cd5fbe1af16a",
+    "name": "Twilio SendGrid Marketing Campaigns Segments 2.0 API",
+    "description": "The Twilio SendGrid Marketing Campaigns Segments V2 API allows you to create, edit, and delete segments as well as retrieve a list of segments or an individual segment by ID.\n\nSegments are similar to contact lists, except they update dynamically over time as information stored about your contacts or the criteria used to define your segments changes. When you segment your audience, you are able to create personalized Automation emails and Single Sends that directly address the wants and needs of your particular audience.\n\nNote that Twilio SendGrid checks for newly added or modified contacts who meet a segment's criteria on an hourly schedule. Only existing contacts who meet a segment's criteria will be included in the segment searches within 15 minutes.\n\nSegments built using engagement data such as \"was sent\" or \"clicked\" will take approximately 30 minutes to begin populating.\n\nSegment samples and counts are refreshed approximately once per hour; they do not update immediately. If no contacts are added to or removed from a segment since the last refresh, the sample and UI count displayed will be refreshed at increasing time intervals with a maximum sample and count refresh delay of 24 hours.\n\nYou can also manage your Segments with the [Marketing Campaigns application user interface](https://mc.sendgrid.com/contacts). See [**Segmenting Your Contacts**](https://docs.sendgrid.com/ui/managing-contacts/segmenting-your-contacts) for more information.\n\nContact Support:\n Name: Twilio SendGrid Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:17:32.000Z",
+    "updatedAt": "2026-06-05T15:17:32.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-f206a92a-dd0d-4362-9090-cd5fbe1af16a"
+  },
+  "item": [
+    {
+      "name": "v3",
+      "item": [
+        {
+          "name": "marketing",
+          "item": [
+            {
+              "name": "segments",
+              "item": [
+                {
+                  "name": "2.0",
+                  "item": [
+                    {
+                      "name": "{segment_id}",
+                      "item": [
+                        {
+                          "name": "Update Segment",
+                          "id": "ecfa8e71-4b97-4a94-8398-2092206ad3b6",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"query_dsl\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/marketing/segments/2.0/:segment_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "marketing",
+                                "segments",
+                                "2.0",
+                                ":segment_id"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "59cf6052-cdf3-4de0-8209-56be1d11d94a",
+                                  "key": "segment_id",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Segment `name` has to be unique. A user can not create a new segment with an existing segment name."
+                          },
+                          "response": [
+                            {
+                              "id": "1d24fa79-26d4-4122-bd7b-3c6e43236bcf",
+                              "name": "response",
+                              "originalRequest": {
+                                "method": "PATCH",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"query_dsl\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/marketing/segments/2.0/:segment_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "marketing",
+                                    "segments",
+                                    "2.0",
+                                    ":segment_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "segment_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"query_dsl\": \"<string>\",\n  \"contacts_count\": \"<integer>\",\n  \"contacts_sample\": [\n    {\n      \"id\": \"FD46DAac-dC30-5a78-cCC6-D82Dc4B9BcCc\",\n      \"alternate_emails\": [\n        \"<email>\",\n        \"<email>\"\n      ],\n      \"first_name\": \"<string>\",\n      \"last_name\": \"<string>\",\n      \"address_line_1\": \"<string>\",\n      \"address_line_2\": \"<string>\",\n      \"city\": \"\u0241\u01a0\",\n      \"state_province_region\": \"<string>\",\n      \"postal_code\": \"<integer>\",\n      \"country\": \"<string>\",\n      \"custom_fields\": {\n        \"custom_field_name1\": \"<string>\",\n        \"custom_field_name2\": \"<string>\"\n      },\n      \"email\": \"<email>\",\n      \"phone_number_id\": \"<string>\",\n      \"external_id\": \"<string>\",\n      \"anonymous_id\": \"<string>\",\n      \"list_ids\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ],\n      \"segment_ids\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"id\": \"F7205ED5-dDB6-bBef-D35c-Fcdd69c94cA5\",\n      \"alternate_emails\": [\n        \"<email>\",\n        \"<email>\"\n      ],\n      \"first_name\": \"<string>\",\n      \"last_name\": \"<string>\",\n      \"address_line_1\": \"<string>\",\n      \"address_line_2\": \"<string>\",\n      \"city\": \"\u00db\u009c\",\n      \"state_province_region\": \"<string>\",\n      \"postal_code\": \"<integer>\",\n      \"country\": \"<string>\",\n      \"custom_fields\": {\n        \"custom_field_name1\": \"<string>\",\n        \"custom_field_name2\": \"<string>\"\n      },\n      \"email\": \"<email>\",\n      \"phone_number_id\": \"<string>\",\n      \"external_id\": \"<string>\",\n      \"anonymous_id\": \"<string>\",\n      \"list_ids\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ],\n      \"segment_ids\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    }\n  ],\n  \"created_at\": \"<string>\",\n  \"updated_at\": \"<string>\",\n  \"sample_updated_at\": \"<string>\",\n  \"next_sample_update\": \"<string>\",\n  \"parent_list_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"query_version\": \"<string>\",\n  \"status\": {\n    \"query_validation\": \"<string>\",\n    \"error_message\": \"<string>\"\n  },\n  \"refreshes_used\": \"<integer>\",\n  \"max_refreshes\": \"<integer>\",\n  \"last_refreshed_at\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:17:32.000Z",
+                              "updatedAt": "2026-06-05T15:17:32.000Z",
+                              "uid": "35240-1d24fa79-26d4-4122-bd7b-3c6e43236bcf"
+                            },
+                            {
+                              "id": "8d98d08c-4662-4426-ba27-abc362d903ce",
+                              "name": "response",
+                              "originalRequest": {
+                                "method": "PATCH",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"query_dsl\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/marketing/segments/2.0/:segment_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "marketing",
+                                    "segments",
+                                    "2.0",
+                                    ":segment_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "segment_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errors\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-06-05T15:17:32.000Z",
+                              "updatedAt": "2026-06-05T15:17:32.000Z",
+                              "uid": "35240-8d98d08c-4662-4426-ba27-abc362d903ce"
+                            },
+                            {
+                              "id": "7074bc81-16a5-426e-9d5f-51de0a86907a",
+                              "name": "response",
+                              "originalRequest": {
+                                "method": "PATCH",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"query_dsl\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/marketing/segments/2.0/:segment_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "marketing",
+                                    "segments",
+                                    "2.0",
+                                    ":segment_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "segment_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Too Many Requests",
+                              "code": 429,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:17:32.000Z",
+                              "updatedAt": "2026-06-05T15:17:32.000Z",
+                              "uid": "35240-7074bc81-16a5-426e-9d5f-51de0a86907a"
+                            },
+                            {
+                              "id": "0e96f5b2-a64b-4a2a-9abf-c97dad02f8a3",
+                              "name": "response",
+                              "originalRequest": {
+                                "method": "PATCH",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"query_dsl\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/marketing/segments/2.0/:segment_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "marketing",
+                                    "segments",
+                                    "2.0",
+                                    ":segment_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "segment_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errors\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-06-05T15:17:32.000Z",
+                              "updatedAt": "2026-06-05T15:17:32.000Z",
+                              "uid": "35240-0e96f5b2-a64b-4a2a-9abf-c97dad02f8a3"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:17:32.000Z",
+                          "updatedAt": "2026-06-05T15:17:32.000Z",
+                          "uid": "35240-ecfa8e71-4b97-4a94-8398-2092206ad3b6"
+                        },
+                        {
+                          "name": "Get Segment by ID",
+                          "id": "4f177889-084d-4408-a52c-14647212be25",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/marketing/segments/2.0/:segment_id?contacts_sample=<boolean>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "marketing",
+                                "segments",
+                                "2.0",
+                                ":segment_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Defaults to `true`. Set to `false` to exclude the contacts_sample in the response.",
+                                  "key": "contacts_sample",
+                                  "value": "<boolean>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "77907adc-9245-43d3-bd68-f28f75748b69",
+                                  "key": "segment_id",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Get Marketing Campaigns Segment by ID"
+                          },
+                          "response": [
+                            {
+                              "id": "f31bc44e-6a57-4b88-a917-a68c962e660c",
+                              "name": "response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/marketing/segments/2.0/:segment_id?contacts_sample=<boolean>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "marketing",
+                                    "segments",
+                                    "2.0",
+                                    ":segment_id"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Defaults to `true`. Set to `false` to exclude the contacts_sample in the response.",
+                                      "key": "contacts_sample",
+                                      "value": "<boolean>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "segment_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"query_dsl\": \"<string>\",\n  \"contacts_count\": \"<integer>\",\n  \"contacts_sample\": [\n    {\n      \"id\": \"FD46DAac-dC30-5a78-cCC6-D82Dc4B9BcCc\",\n      \"alternate_emails\": [\n        \"<email>\",\n        \"<email>\"\n      ],\n      \"first_name\": \"<string>\",\n      \"last_name\": \"<string>\",\n      \"address_line_1\": \"<string>\",\n      \"address_line_2\": \"<string>\",\n      \"city\": \"\u0241\u01a0\",\n      \"state_province_region\": \"<string>\",\n      \"postal_code\": \"<integer>\",\n      \"country\": \"<string>\",\n      \"custom_fields\": {\n        \"custom_field_name1\": \"<string>\",\n        \"custom_field_name2\": \"<string>\"\n      },\n      \"email\": \"<email>\",\n      \"phone_number_id\": \"<string>\",\n      \"external_id\": \"<string>\",\n      \"anonymous_id\": \"<string>\",\n      \"list_ids\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ],\n      \"segment_ids\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"id\": \"F7205ED5-dDB6-bBef-D35c-Fcdd69c94cA5\",\n      \"alternate_emails\": [\n        \"<email>\",\n        \"<email>\"\n      ],\n      \"first_name\": \"<string>\",\n      \"last_name\": \"<string>\",\n      \"address_line_1\": \"<string>\",\n      \"address_line_2\": \"<string>\",\n      \"city\": \"\u00db\u009c\",\n      \"state_province_region\": \"<string>\",\n      \"postal_code\": \"<integer>\",\n      \"country\": \"<string>\",\n      \"custom_fields\": {\n        \"custom_field_name1\": \"<string>\",\n        \"custom_field_name2\": \"<string>\"\n      },\n      \"email\": \"<email>\",\n      \"phone_number_id\": \"<string>\",\n      \"external_id\": \"<string>\",\n      \"anonymous_id\": \"<string>\",\n      \"list_ids\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ],\n      \"segment_ids\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    }\n  ],\n  \"created_at\": \"<string>\",\n  \"updated_at\": \"<string>\",\n  \"sample_updated_at\": \"<string>\",\n  \"next_sample_update\": \"<string>\",\n  \"parent_list_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"query_version\": \"<string>\",\n  \"status\": {\n    \"query_validation\": \"<string>\",\n    \"error_message\": \"<string>\"\n  },\n  \"refreshes_used\": \"<integer>\",\n  \"max_refreshes\": \"<integer>\",\n  \"last_refreshed_at\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:17:32.000Z",
+                              "updatedAt": "2026-06-05T15:17:32.000Z",
+                              "uid": "35240-f31bc44e-6a57-4b88-a917-a68c962e660c"
+                            },
+                            {
+                              "id": "dbd4c98e-f03b-4091-b143-4484a25f1071",
+                              "name": "response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/marketing/segments/2.0/:segment_id?contacts_sample=<boolean>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "marketing",
+                                    "segments",
+                                    "2.0",
+                                    ":segment_id"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Defaults to `true`. Set to `false` to exclude the contacts_sample in the response.",
+                                      "key": "contacts_sample",
+                                      "value": "<boolean>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "segment_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errors\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-06-05T15:17:32.000Z",
+                              "updatedAt": "2026-06-05T15:17:32.000Z",
+                              "uid": "35240-dbd4c98e-f03b-4091-b143-4484a25f1071"
+                            },
+                            {
+                              "id": "a84a431a-8f43-44ee-9230-5abcc4c322cc",
+                              "name": "response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/marketing/segments/2.0/:segment_id?contacts_sample=<boolean>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "marketing",
+                                    "segments",
+                                    "2.0",
+                                    ":segment_id"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Defaults to `true`. Set to `false` to exclude the contacts_sample in the response.",
+                                      "key": "contacts_sample",
+                                      "value": "<boolean>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "segment_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errors\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-06-05T15:17:32.000Z",
+                              "updatedAt": "2026-06-05T15:17:32.000Z",
+                              "uid": "35240-a84a431a-8f43-44ee-9230-5abcc4c322cc"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:17:32.000Z",
+                          "updatedAt": "2026-06-05T15:17:32.000Z",
+                          "uid": "35240-4f177889-084d-4408-a52c-14647212be25"
+                        },
+                        {
+                          "name": "Delete segment",
+                          "id": "671c2a6d-fe3e-4cf8-8615-362f132ad473",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/marketing/segments/2.0/:segment_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "marketing",
+                                "segments",
+                                "2.0",
+                                ":segment_id"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "6579dbb5-2030-472b-a8fe-14181b0a3659",
+                                  "key": "segment_id",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "**This endpoint allows you to delete a segment by ID.**"
+                          },
+                          "response": [
+                            {
+                              "id": "e3d5dd14-1ead-4af6-a16d-69b5be05aa10",
+                              "name": "response",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/marketing/segments/2.0/:segment_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "marketing",
+                                    "segments",
+                                    "2.0",
+                                    ":segment_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "segment_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Accepted",
+                              "code": 202,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:17:32.000Z",
+                              "updatedAt": "2026-06-05T15:17:32.000Z",
+                              "uid": "35240-e3d5dd14-1ead-4af6-a16d-69b5be05aa10"
+                            },
+                            {
+                              "id": "0755b78e-f212-495a-9a52-6d026baa61ce",
+                              "name": "response",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/marketing/segments/2.0/:segment_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "marketing",
+                                    "segments",
+                                    "2.0",
+                                    ":segment_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "segment_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errors\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-06-05T15:17:32.000Z",
+                              "updatedAt": "2026-06-05T15:17:32.000Z",
+                              "uid": "35240-0755b78e-f212-495a-9a52-6d026baa61ce"
+                            },
+                            {
+                              "id": "a084f10e-decd-4ec9-a1a7-47900f99a4a7",
+                              "name": "response",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/marketing/segments/2.0/:segment_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "marketing",
+                                    "segments",
+                                    "2.0",
+                                    ":segment_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "segment_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:17:32.000Z",
+                              "updatedAt": "2026-06-05T15:17:32.000Z",
+                              "uid": "35240-a084f10e-decd-4ec9-a1a7-47900f99a4a7"
+                            },
+                            {
+                              "id": "33e525cf-a857-4d73-93bb-f3722c9d80da",
+                              "name": "response",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/marketing/segments/2.0/:segment_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "marketing",
+                                    "segments",
+                                    "2.0",
+                                    ":segment_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "segment_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errors\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-06-05T15:17:32.000Z",
+                              "updatedAt": "2026-06-05T15:17:32.000Z",
+                              "uid": "35240-33e525cf-a857-4d73-93bb-f3722c9d80da"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:17:32.000Z",
+                          "updatedAt": "2026-06-05T15:17:32.000Z",
+                          "uid": "35240-671c2a6d-fe3e-4cf8-8615-362f132ad473"
+                        }
+                      ],
+                      "id": "9a26655d-0382-4cf5-969a-952f9699babe",
+                      "createdAt": "2026-06-05T15:17:32.000Z",
+                      "updatedAt": "2026-06-05T15:17:32.000Z",
+                      "uid": "35240-9a26655d-0382-4cf5-969a-952f9699babe"
+                    },
+                    {
+                      "name": "refresh",
+                      "item": [
+                        {
+                          "name": "{segment_id}",
+                          "item": [
+                            {
+                              "name": "Manually refresh a segment",
+                              "id": "b76a2df5-f5bd-4676-a2c0-491e76ea8660",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"user_time_zone\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/marketing/segments/2.0/refresh/:segment_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "marketing",
+                                    "segments",
+                                    "2.0",
+                                    "refresh",
+                                    ":segment_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "45975ca7-9bba-40fe-b8e1-954974c4c609",
+                                      "key": "segment_id",
+                                      "value": "<uuid>",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                },
+                                "description": "Manually refresh a segment by segment ID."
+                              },
+                              "response": [
+                                {
+                                  "id": "7b986b6e-adac-4b4c-846c-8b2456eaac1d",
+                                  "name": "The refresh was accepted and a request was sent to process.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"user_time_zone\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/v3/marketing/segments/2.0/refresh/:segment_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "v3",
+                                        "marketing",
+                                        "segments",
+                                        "2.0",
+                                        "refresh",
+                                        ":segment_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "segment_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Accepted",
+                                  "code": 202,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"job_id\": \"<string>\"\n}",
+                                  "createdAt": "2026-06-05T15:17:32.000Z",
+                                  "updatedAt": "2026-06-05T15:17:32.000Z",
+                                  "uid": "35240-7b986b6e-adac-4b4c-846c-8b2456eaac1d"
+                                },
+                                {
+                                  "id": "2554afcf-69e0-4bf5-905f-73afe5da9587",
+                                  "name": "Endpoint is forbidden to the user because they are a free user.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"user_time_zone\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/v3/marketing/segments/2.0/refresh/:segment_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "v3",
+                                        "marketing",
+                                        "segments",
+                                        "2.0",
+                                        "refresh",
+                                        ":segment_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "segment_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:17:32.000Z",
+                                  "updatedAt": "2026-06-05T15:17:32.000Z",
+                                  "uid": "35240-2554afcf-69e0-4bf5-905f-73afe5da9587"
+                                },
+                                {
+                                  "id": "06c1b9c4-136b-42ec-b53f-66187501b0fb",
+                                  "name": "Segment ID was not found",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"user_time_zone\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/v3/marketing/segments/2.0/refresh/:segment_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "v3",
+                                        "marketing",
+                                        "segments",
+                                        "2.0",
+                                        "refresh",
+                                        ":segment_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "segment_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": \"<string>\"\n}",
+                                  "createdAt": "2026-06-05T15:17:32.000Z",
+                                  "updatedAt": "2026-06-05T15:17:32.000Z",
+                                  "uid": "35240-06c1b9c4-136b-42ec-b53f-66187501b0fb"
+                                },
+                                {
+                                  "id": "656eaa64-a542-43ea-8841-b92018b29835",
+                                  "name": "The user has reached their limit of 2 requests per segment per day, 1 request per segment per hour, or 10 requests across all segments per day.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"user_time_zone\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/v3/marketing/segments/2.0/refresh/:segment_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "v3",
+                                        "marketing",
+                                        "segments",
+                                        "2.0",
+                                        "refresh",
+                                        ":segment_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "segment_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Too Many Requests",
+                                  "code": 429,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:17:32.000Z",
+                                  "updatedAt": "2026-06-05T15:17:32.000Z",
+                                  "uid": "35240-656eaa64-a542-43ea-8841-b92018b29835"
+                                },
+                                {
+                                  "id": "3ca3bcaf-0e05-4f95-8c48-12c79d7d19b8",
+                                  "name": "response",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"user_time_zone\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/v3/marketing/segments/2.0/refresh/:segment_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "v3",
+                                        "marketing",
+                                        "segments",
+                                        "2.0",
+                                        "refresh",
+                                        ":segment_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "segment_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Internal Server Error",
+                                  "code": 500,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": \"<string>\"\n}",
+                                  "createdAt": "2026-06-05T15:17:32.000Z",
+                                  "updatedAt": "2026-06-05T15:17:32.000Z",
+                                  "uid": "35240-3ca3bcaf-0e05-4f95-8c48-12c79d7d19b8"
+                                }
+                              ],
+                              "createdAt": "2026-06-05T15:17:32.000Z",
+                              "updatedAt": "2026-06-05T15:17:32.000Z",
+                              "uid": "35240-b76a2df5-f5bd-4676-a2c0-491e76ea8660"
+                            }
+                          ],
+                          "id": "6573116b-c7dc-49cc-8065-ea2e0fef5c02",
+                          "createdAt": "2026-06-05T15:17:32.000Z",
+                          "updatedAt": "2026-06-05T15:17:32.000Z",
+                          "uid": "35240-6573116b-c7dc-49cc-8065-ea2e0fef5c02"
+                        }
+                      ],
+                      "id": "cc0c40a1-51fd-402f-8d50-1620dc140dde",
+                      "createdAt": "2026-06-05T15:17:32.000Z",
+                      "updatedAt": "2026-06-05T15:17:32.000Z",
+                      "uid": "35240-cc0c40a1-51fd-402f-8d50-1620dc140dde"
+                    },
+                    {
+                      "name": "Create Segment",
+                      "id": "061aa959-d99f-4fab-94c3-557035cd7257",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"query_dsl\": \"<string>\",\n  \"parent_list_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/marketing/segments/2.0",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "marketing",
+                            "segments",
+                            "2.0"
+                          ]
+                        },
+                        "description": "Segment `name` has to be unique. A user can not create a new segment with an existing segment name."
+                      },
+                      "response": [
+                        {
+                          "id": "7b9272e3-4af8-44ed-81f5-b48e2910a3e4",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"query_dsl\": \"<string>\",\n  \"parent_list_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/marketing/segments/2.0",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "marketing",
+                                "segments",
+                                "2.0"
+                              ]
+                            }
+                          },
+                          "status": "Created",
+                          "code": 201,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"query_dsl\": \"<string>\",\n  \"contacts_count\": \"<integer>\",\n  \"contacts_sample\": [\n    {\n      \"id\": \"FD46DAac-dC30-5a78-cCC6-D82Dc4B9BcCc\",\n      \"alternate_emails\": [\n        \"<email>\",\n        \"<email>\"\n      ],\n      \"first_name\": \"<string>\",\n      \"last_name\": \"<string>\",\n      \"address_line_1\": \"<string>\",\n      \"address_line_2\": \"<string>\",\n      \"city\": \"\u0241\u01a0\",\n      \"state_province_region\": \"<string>\",\n      \"postal_code\": \"<integer>\",\n      \"country\": \"<string>\",\n      \"custom_fields\": {\n        \"custom_field_name1\": \"<string>\",\n        \"custom_field_name2\": \"<string>\"\n      },\n      \"email\": \"<email>\",\n      \"phone_number_id\": \"<string>\",\n      \"external_id\": \"<string>\",\n      \"anonymous_id\": \"<string>\",\n      \"list_ids\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ],\n      \"segment_ids\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"id\": \"F7205ED5-dDB6-bBef-D35c-Fcdd69c94cA5\",\n      \"alternate_emails\": [\n        \"<email>\",\n        \"<email>\"\n      ],\n      \"first_name\": \"<string>\",\n      \"last_name\": \"<string>\",\n      \"address_line_1\": \"<string>\",\n      \"address_line_2\": \"<string>\",\n      \"city\": \"\u00db\u009c\",\n      \"state_province_region\": \"<string>\",\n      \"postal_code\": \"<integer>\",\n      \"country\": \"<string>\",\n      \"custom_fields\": {\n        \"custom_field_name1\": \"<string>\",\n        \"custom_field_name2\": \"<string>\"\n      },\n      \"email\": \"<email>\",\n      \"phone_number_id\": \"<string>\",\n      \"external_id\": \"<string>\",\n      \"anonymous_id\": \"<string>\",\n      \"list_ids\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ],\n      \"segment_ids\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    }\n  ],\n  \"created_at\": \"<string>\",\n  \"updated_at\": \"<string>\",\n  \"sample_updated_at\": \"<string>\",\n  \"next_sample_update\": \"<string>\",\n  \"parent_list_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"query_version\": \"<string>\",\n  \"status\": {\n    \"query_validation\": \"<string>\",\n    \"error_message\": \"<string>\"\n  },\n  \"refreshes_used\": \"<integer>\",\n  \"max_refreshes\": \"<integer>\",\n  \"last_refreshed_at\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:17:32.000Z",
+                          "updatedAt": "2026-06-05T15:17:32.000Z",
+                          "uid": "35240-7b9272e3-4af8-44ed-81f5-b48e2910a3e4"
+                        },
+                        {
+                          "id": "36dbbd42-519f-44c4-aa2a-82df7d936f3d",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"query_dsl\": \"<string>\",\n  \"parent_list_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/marketing/segments/2.0",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "marketing",
+                                "segments",
+                                "2.0"
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:17:32.000Z",
+                          "updatedAt": "2026-06-05T15:17:32.000Z",
+                          "uid": "35240-36dbbd42-519f-44c4-aa2a-82df7d936f3d"
+                        },
+                        {
+                          "id": "4a7045d7-9295-4585-9845-d7d8a920b6a6",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"query_dsl\": \"<string>\",\n  \"parent_list_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/marketing/segments/2.0",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "marketing",
+                                "segments",
+                                "2.0"
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:17:32.000Z",
+                          "updatedAt": "2026-06-05T15:17:32.000Z",
+                          "uid": "35240-4a7045d7-9295-4585-9845-d7d8a920b6a6"
+                        },
+                        {
+                          "id": "662d6404-71c3-4c4a-a4d0-15de08122708",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"query_dsl\": \"<string>\",\n  \"parent_list_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/marketing/segments/2.0",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "marketing",
+                                "segments",
+                                "2.0"
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:17:32.000Z",
+                          "updatedAt": "2026-06-05T15:17:32.000Z",
+                          "uid": "35240-662d6404-71c3-4c4a-a4d0-15de08122708"
+                        },
+                        {
+                          "id": "eea43384-0b35-4d3d-8c42-7f918f4ad2a9",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"query_dsl\": \"<string>\",\n  \"parent_list_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/marketing/segments/2.0",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "marketing",
+                                "segments",
+                                "2.0"
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:17:32.000Z",
+                          "updatedAt": "2026-06-05T15:17:32.000Z",
+                          "uid": "35240-eea43384-0b35-4d3d-8c42-7f918f4ad2a9"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:17:32.000Z",
+                      "updatedAt": "2026-06-05T15:17:32.000Z",
+                      "uid": "35240-061aa959-d99f-4fab-94c3-557035cd7257"
+                    },
+                    {
+                      "name": "Get List of Segments",
+                      "id": "b132ccf5-e9a6-4484-a9dc-f4efd9385cf5",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/marketing/segments/2.0?ids=<string>&ids=<string>&parent_list_ids=<string>&no_parent_list_id=false",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "marketing",
+                            "segments",
+                            "2.0"
+                          ],
+                          "query": [
+                            {
+                              "description": "A list of segment IDs to retrieve. When this parameter is included, the `no_parent_list_ids` and `parent_list_ids` parameters are ignored and only segments with given IDs are returned.",
+                              "key": "ids",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "A list of segment IDs to retrieve. When this parameter is included, the `no_parent_list_ids` and `parent_list_ids` parameters are ignored and only segments with given IDs are returned.",
+                              "key": "ids",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "A comma separated list up to 50 in size, to filter segments on.  Only segments that have any of these list ids as the parent list will be retrieved. This is different from the parameter of the same name used when creating a segment.",
+                              "key": "parent_list_ids",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "If set to `true`, segments with an empty value of `parent_list_id` will be returned in the filter.  If the value is not present, it defaults to 'false'.",
+                              "key": "no_parent_list_id",
+                              "value": "false"
+                            }
+                          ]
+                        },
+                        "description": "**This endpoint allows you to retrieve a list of segments.**\n\nThe query param `parent_list_ids` is treated as a filter.  Any match will be returned.  Zero matches will return a response code of 200 with an empty `results` array.\n\n`parent_list_ids` | `no_parent_list_id` | `ids` | `result`\n-----------------:|:--------------------:|:-------------:|:-------------:\nempty | false | empty | all segments values\nlist_ids | false | empty | segments filtered by list_ids values\nlist_ids |true | empty | segments filtered by list_ids and segments with no parent list_ids empty\nempty | true | empty | segments with no parent list_ids\nanything | anything | ids | segments with matching segment ids |"
+                      },
+                      "response": [
+                        {
+                          "id": "b9b3c648-f3a4-405d-ac88-295615cbd143",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/marketing/segments/2.0?ids=<string>&parent_list_ids=<string>&no_parent_list_id=false",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "marketing",
+                                "segments",
+                                "2.0"
+                              ],
+                              "query": [
+                                {
+                                  "description": "A list of segment IDs to retrieve. When this parameter is included, the `no_parent_list_ids` and `parent_list_ids` parameters are ignored and only segments with given IDs are returned.",
+                                  "key": "ids",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "A comma separated list up to 50 in size, to filter segments on.  Only segments that have any of these list ids as the parent list will be retrieved. This is different from the parameter of the same name used when creating a segment.",
+                                  "key": "parent_list_ids",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "If set to `true`, segments with an empty value of `parent_list_id` will be returned in the filter.  If the value is not present, it defaults to 'false'.",
+                                  "key": "no_parent_list_id",
+                                  "value": "false"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"contacts_count\": \"<integer>\",\n  \"created_at\": \"<string>\",\n  \"updated_at\": \"<string>\",\n  \"sample_updated_at\": \"<string>\",\n  \"next_sample_update\": \"<string>\",\n  \"parent_list_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"query_version\": \"<string>\",\n  \"status\": {\n    \"query_validation\": \"<string>\",\n    \"error_message\": \"<string>\"\n  },\n  \"_metadata\": {\n    \"prev\": \"<uri>\",\n    \"self\": \"<uri>\",\n    \"next\": \"<uri>\",\n    \"count\": \"<integer>\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:17:32.000Z",
+                          "updatedAt": "2026-06-05T15:17:32.000Z",
+                          "uid": "35240-b9b3c648-f3a4-405d-ac88-295615cbd143"
+                        },
+                        {
+                          "id": "746b5ff2-3728-4490-aa4c-4177313b1ba2",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/marketing/segments/2.0?ids=<string>&parent_list_ids=<string>&no_parent_list_id=false",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "marketing",
+                                "segments",
+                                "2.0"
+                              ],
+                              "query": [
+                                {
+                                  "description": "A list of segment IDs to retrieve. When this parameter is included, the `no_parent_list_ids` and `parent_list_ids` parameters are ignored and only segments with given IDs are returned.",
+                                  "key": "ids",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "A comma separated list up to 50 in size, to filter segments on.  Only segments that have any of these list ids as the parent list will be retrieved. This is different from the parameter of the same name used when creating a segment.",
+                                  "key": "parent_list_ids",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "If set to `true`, segments with an empty value of `parent_list_id` will be returned in the filter.  If the value is not present, it defaults to 'false'.",
+                                  "key": "no_parent_list_id",
+                                  "value": "false"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:17:32.000Z",
+                          "updatedAt": "2026-06-05T15:17:32.000Z",
+                          "uid": "35240-746b5ff2-3728-4490-aa4c-4177313b1ba2"
+                        },
+                        {
+                          "id": "2bafa332-e5c4-45d6-9d32-86e52eef2aef",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/marketing/segments/2.0?ids=<string>&parent_list_ids=<string>&no_parent_list_id=false",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "marketing",
+                                "segments",
+                                "2.0"
+                              ],
+                              "query": [
+                                {
+                                  "description": "A list of segment IDs to retrieve. When this parameter is included, the `no_parent_list_ids` and `parent_list_ids` parameters are ignored and only segments with given IDs are returned.",
+                                  "key": "ids",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "A comma separated list up to 50 in size, to filter segments on.  Only segments that have any of these list ids as the parent list will be retrieved. This is different from the parameter of the same name used when creating a segment.",
+                                  "key": "parent_list_ids",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "If set to `true`, segments with an empty value of `parent_list_id` will be returned in the filter.  If the value is not present, it defaults to 'false'.",
+                                  "key": "no_parent_list_id",
+                                  "value": "false"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:17:32.000Z",
+                          "updatedAt": "2026-06-05T15:17:32.000Z",
+                          "uid": "35240-2bafa332-e5c4-45d6-9d32-86e52eef2aef"
+                        },
+                        {
+                          "id": "836f8d47-f4c9-40f3-97c6-5bfdea6e9a8d",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/marketing/segments/2.0?ids=<string>&parent_list_ids=<string>&no_parent_list_id=false",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "marketing",
+                                "segments",
+                                "2.0"
+                              ],
+                              "query": [
+                                {
+                                  "description": "A list of segment IDs to retrieve. When this parameter is included, the `no_parent_list_ids` and `parent_list_ids` parameters are ignored and only segments with given IDs are returned.",
+                                  "key": "ids",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "A comma separated list up to 50 in size, to filter segments on.  Only segments that have any of these list ids as the parent list will be retrieved. This is different from the parameter of the same name used when creating a segment.",
+                                  "key": "parent_list_ids",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "If set to `true`, segments with an empty value of `parent_list_id` will be returned in the filter.  If the value is not present, it defaults to 'false'.",
+                                  "key": "no_parent_list_id",
+                                  "value": "false"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:17:32.000Z",
+                          "updatedAt": "2026-06-05T15:17:32.000Z",
+                          "uid": "35240-836f8d47-f4c9-40f3-97c6-5bfdea6e9a8d"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:17:32.000Z",
+                      "updatedAt": "2026-06-05T15:17:32.000Z",
+                      "uid": "35240-b132ccf5-e9a6-4484-a9dc-f4efd9385cf5"
+                    }
+                  ],
+                  "id": "e245e548-2ba1-404b-b91a-e3280e7ec61f",
+                  "createdAt": "2026-06-05T15:17:32.000Z",
+                  "updatedAt": "2026-06-05T15:17:32.000Z",
+                  "uid": "35240-e245e548-2ba1-404b-b91a-e3280e7ec61f"
+                }
+              ],
+              "id": "2eab81b3-1462-4853-a07b-98b0410f2f34",
+              "createdAt": "2026-06-05T15:17:32.000Z",
+              "updatedAt": "2026-06-05T15:17:32.000Z",
+              "uid": "35240-2eab81b3-1462-4853-a07b-98b0410f2f34"
+            }
+          ],
+          "id": "7398e6f6-cf30-4b00-b880-b9736156550b",
+          "createdAt": "2026-06-05T15:17:32.000Z",
+          "updatedAt": "2026-06-05T15:17:32.000Z",
+          "uid": "35240-7398e6f6-cf30-4b00-b880-b9736156550b"
+        }
+      ],
+      "id": "0cba3950-413a-40ca-b0af-ee550e7b9d98",
+      "createdAt": "2026-06-05T15:17:32.000Z",
+      "updatedAt": "2026-06-05T15:17:32.000Z",
+      "uid": "35240-0cba3950-413a-40ca-b0af-ee550e7b9d98"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.sendgrid.com"
+    }
+  ]
+}

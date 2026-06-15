@@ -1,0 +1,977 @@
+{
+  "info": {
+    "_postman_id": "0540d7e1-c92e-4681-a111-571a42779beb",
+    "name": "Twilio SendGrid Tracking Settings API",
+    "description": "The Twilio SendGrid Tracking Settings API allows you to configure which tracking settings are enabled for your messages. You can track many of your recipients' interactions with your emails, including which emails they open, which links they click, and when they subscribe to or unsubscribe from your emails. See [**Tracking Settings**](https://docs.sendgrid.com/ui/account-and-settings/tracking) for more information.\n\nContact Support:\n Name: Twilio SendGrid Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:18:13.000Z",
+    "updatedAt": "2026-06-05T15:18:13.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-0540d7e1-c92e-4681-a111-571a42779beb"
+  },
+  "item": [
+    {
+      "name": "v3",
+      "item": [
+        {
+          "name": "tracking_settings",
+          "item": [
+            {
+              "name": "click",
+              "item": [
+                {
+                  "name": "Retrieve Click Track Settings",
+                  "id": "ae0c5907-4c9e-42e1-9c12-48c2748f884a",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/tracking_settings/click",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "tracking_settings",
+                        "click"
+                      ]
+                    },
+                    "description": "**This endpoint allows you to retrieve your current click tracking setting.**\n\nClick Tracking overrides all the links and URLs in your emails and points them to either SendGrid\u2019s servers or the domain with which you branded your link. When a customer clicks a link, SendGrid tracks those [clicks](https://sendgrid.com/docs/glossary/clicks/).\n\nClick tracking helps you understand how users are engaging with your communications. SendGrid can track up to 1000 links per email"
+                  },
+                  "response": [
+                    {
+                      "id": "c2b5b1df-5e76-42f9-acd1-626f9bfcd3d4",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/tracking_settings/click",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "tracking_settings",
+                            "click"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"enable_text\": \"<boolean>\",\n  \"enabled\": \"<boolean>\"\n}",
+                      "createdAt": "2026-06-05T15:18:13.000Z",
+                      "updatedAt": "2026-06-05T15:18:13.000Z",
+                      "uid": "35240-c2b5b1df-5e76-42f9-acd1-626f9bfcd3d4"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:13.000Z",
+                  "updatedAt": "2026-06-05T15:18:13.000Z",
+                  "uid": "35240-ae0c5907-4c9e-42e1-9c12-48c2748f884a"
+                },
+                {
+                  "name": "Update Click Tracking Settings",
+                  "id": "f94cc5ec-aa57-4180-9904-b16fb2bfd4e0",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"enabled\": \"<boolean>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/tracking_settings/click",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "tracking_settings",
+                        "click"
+                      ]
+                    },
+                    "description": "**This endpoint allows you to enable or disable your current click tracking setting.**\n\nClick Tracking overrides all the links and URLs in your emails and points them to either SendGrid\u2019s servers or the domain with which you branded your link. When a customer clicks a link, SendGrid tracks those [clicks](https://sendgrid.com/docs/glossary/clicks/).\n\nClick tracking helps you understand how users are engaging with your communications. SendGrid can track up to 1000 links per email"
+                  },
+                  "response": [
+                    {
+                      "id": "5d53cf09-279c-46d1-848b-ad35baa0eb64",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"enabled\": \"<boolean>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/tracking_settings/click",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "tracking_settings",
+                            "click"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"enable_text\": \"<boolean>\",\n  \"enabled\": \"<boolean>\"\n}",
+                      "createdAt": "2026-06-05T15:18:13.000Z",
+                      "updatedAt": "2026-06-05T15:18:13.000Z",
+                      "uid": "35240-5d53cf09-279c-46d1-848b-ad35baa0eb64"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:13.000Z",
+                  "updatedAt": "2026-06-05T15:18:13.000Z",
+                  "uid": "35240-f94cc5ec-aa57-4180-9904-b16fb2bfd4e0"
+                }
+              ],
+              "id": "163459bf-4e5a-4851-ba7e-c6a5e8c2e87f",
+              "createdAt": "2026-06-05T15:18:13.000Z",
+              "updatedAt": "2026-06-05T15:18:13.000Z",
+              "uid": "35240-163459bf-4e5a-4851-ba7e-c6a5e8c2e87f"
+            },
+            {
+              "name": "google_analytics",
+              "item": [
+                {
+                  "name": "Retrieve Google Analytics Settings",
+                  "id": "81d6f6a9-9eeb-4f12-b0b7-5d374c7b2cbd",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/tracking_settings/google_analytics",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "tracking_settings",
+                        "google_analytics"
+                      ]
+                    },
+                    "description": "**This endpoint allows you to retrieve your current setting for Google Analytics.**\n\n\nGoogle Analytics helps you understand how users got to your site and what they're doing there. For more information about using Google Analytics, please refer to [Google\u2019s URL Builder](https://support.google.com/analytics/answer/1033867?hl=en) and their article on [\"Best Practices for Campaign Building\"](https://support.google.com/analytics/answer/1037445).\n\nWe default the settings to Google\u2019s recommendations. For more information, see [Google Analytics Demystified](https://sendgrid.com/docs/ui/analytics-and-reporting/google-analytics/)."
+                  },
+                  "response": [
+                    {
+                      "id": "92e5881f-a2df-4fe6-9301-e1d2d463ef4d",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/tracking_settings/google_analytics",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "tracking_settings",
+                            "google_analytics"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"enabled\": \"<boolean>\",\n  \"utm_campaign\": \"<string>\",\n  \"utm_content\": \"<string>\",\n  \"utm_medium\": \"<string>\",\n  \"utm_source\": \"<string>\",\n  \"utm_term\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:18:13.000Z",
+                      "updatedAt": "2026-06-05T15:18:13.000Z",
+                      "uid": "35240-92e5881f-a2df-4fe6-9301-e1d2d463ef4d"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:13.000Z",
+                  "updatedAt": "2026-06-05T15:18:13.000Z",
+                  "uid": "35240-81d6f6a9-9eeb-4f12-b0b7-5d374c7b2cbd"
+                },
+                {
+                  "name": "Update Google Analytics Settings",
+                  "id": "0dbc9f5f-313f-4101-a8d4-cdef0bb39d39",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"enabled\": \"<boolean>\",\n  \"utm_campaign\": \"<string>\",\n  \"utm_content\": \"<string>\",\n  \"utm_medium\": \"<string>\",\n  \"utm_source\": \"<string>\",\n  \"utm_term\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/tracking_settings/google_analytics",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "tracking_settings",
+                        "google_analytics"
+                      ]
+                    },
+                    "description": "**This endpoint allows you to update your current setting for Google Analytics.**\n\nGoogle Analytics helps you understand how users got to your site and what they're doing there. For more information about using Google Analytics, please refer to [Google\u2019s URL Builder](https://support.google.com/analytics/answer/1033867?hl=en) and their article on [\"Best Practices for Campaign Building\"](https://support.google.com/analytics/answer/1037445).\n\nWe default the settings to Google\u2019s recommendations. For more information, see [Google Analytics Demystified](https://sendgrid.com/docs/ui/analytics-and-reporting/google-analytics/)."
+                  },
+                  "response": [
+                    {
+                      "id": "cf72a20a-cb1d-4008-93a8-d3732850916b",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"enabled\": \"<boolean>\",\n  \"utm_campaign\": \"<string>\",\n  \"utm_content\": \"<string>\",\n  \"utm_medium\": \"<string>\",\n  \"utm_source\": \"<string>\",\n  \"utm_term\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/tracking_settings/google_analytics",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "tracking_settings",
+                            "google_analytics"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"enabled\": \"<boolean>\",\n  \"utm_campaign\": \"<string>\",\n  \"utm_content\": \"<string>\",\n  \"utm_medium\": \"<string>\",\n  \"utm_source\": \"<string>\",\n  \"utm_term\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:18:13.000Z",
+                      "updatedAt": "2026-06-05T15:18:13.000Z",
+                      "uid": "35240-cf72a20a-cb1d-4008-93a8-d3732850916b"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:13.000Z",
+                  "updatedAt": "2026-06-05T15:18:13.000Z",
+                  "uid": "35240-0dbc9f5f-313f-4101-a8d4-cdef0bb39d39"
+                }
+              ],
+              "id": "734571a0-158d-47c8-a455-369ca2befcf7",
+              "createdAt": "2026-06-05T15:18:13.000Z",
+              "updatedAt": "2026-06-05T15:18:13.000Z",
+              "uid": "35240-734571a0-158d-47c8-a455-369ca2befcf7"
+            },
+            {
+              "name": "open",
+              "item": [
+                {
+                  "name": "Get Open Tracking Settings",
+                  "id": "942206e5-e1aa-4746-bb64-423450171b0f",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/tracking_settings/open",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "tracking_settings",
+                        "open"
+                      ]
+                    },
+                    "description": "**This endpoint allows you to retrieve your current settings for open tracking.**\n\nOpen Tracking adds an invisible image at the end of the email which can track email opens.\n\nIf the email recipient has images enabled on their email client, a request to SendGrid\u2019s server for the invisible image is executed and an open event is logged.\n\nThese events are logged in the Statistics portal, Email Activity interface, and are reported by the Event Webhook."
+                  },
+                  "response": [
+                    {
+                      "id": "dc21ed68-a751-4c66-950d-ed13e9fe5e70",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/tracking_settings/open",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "tracking_settings",
+                            "open"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"enabled\": \"<boolean>\"\n}",
+                      "createdAt": "2026-06-05T15:18:13.000Z",
+                      "updatedAt": "2026-06-05T15:18:13.000Z",
+                      "uid": "35240-dc21ed68-a751-4c66-950d-ed13e9fe5e70"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:13.000Z",
+                  "updatedAt": "2026-06-05T15:18:13.000Z",
+                  "uid": "35240-942206e5-e1aa-4746-bb64-423450171b0f"
+                },
+                {
+                  "name": "Update Open Tracking Settings",
+                  "id": "fedf45c8-a381-4c68-b4de-5514fb875c5f",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"enabled\": \"<boolean>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/tracking_settings/open",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "tracking_settings",
+                        "open"
+                      ]
+                    },
+                    "description": "**This endpoint allows you to update your current settings for open tracking.**\n\nOpen Tracking adds an invisible image at the end of the email which can track email opens.\n\nIf the email recipient has images enabled on their email client, a request to SendGrid\u2019s server for the invisible image is executed and an open event is logged.\n\nThese events are logged in the Statistics portal, Email Activity interface, and are reported by the Event Webhook."
+                  },
+                  "response": [
+                    {
+                      "id": "f0bfc2f4-545a-4560-9900-09acd8b4d01d",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"enabled\": \"<boolean>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/tracking_settings/open",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "tracking_settings",
+                            "open"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"enabled\": \"<boolean>\"\n}",
+                      "createdAt": "2026-06-05T15:18:13.000Z",
+                      "updatedAt": "2026-06-05T15:18:13.000Z",
+                      "uid": "35240-f0bfc2f4-545a-4560-9900-09acd8b4d01d"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:13.000Z",
+                  "updatedAt": "2026-06-05T15:18:13.000Z",
+                  "uid": "35240-fedf45c8-a381-4c68-b4de-5514fb875c5f"
+                }
+              ],
+              "id": "899c258d-a407-47c6-bfed-bb964449629e",
+              "createdAt": "2026-06-05T15:18:13.000Z",
+              "updatedAt": "2026-06-05T15:18:13.000Z",
+              "uid": "35240-899c258d-a407-47c6-bfed-bb964449629e"
+            },
+            {
+              "name": "subscription",
+              "item": [
+                {
+                  "name": "Retrieve Subscription Tracking Settings",
+                  "id": "814afc69-2fb3-41b6-848d-51ce960abd57",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/tracking_settings/subscription",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "tracking_settings",
+                        "subscription"
+                      ]
+                    },
+                    "description": "**This endpoint allows you to retrieve your current settings for subscription tracking.**\n\nSubscription tracking adds links to the bottom of your emails that allows your recipients to subscribe to, or unsubscribe from, your emails."
+                  },
+                  "response": [
+                    {
+                      "id": "4eb4a709-2d28-40d5-b82d-728c7c9639ac",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/tracking_settings/subscription",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "tracking_settings",
+                            "subscription"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"enabled\": \"<boolean>\",\n  \"html_content\": \"<string>\",\n  \"landing\": \"<string>\",\n  \"plain_content\": \"<string>\",\n  \"replace\": \"<string>\",\n  \"url\": \"<uri>\"\n}",
+                      "createdAt": "2026-06-05T15:18:13.000Z",
+                      "updatedAt": "2026-06-05T15:18:13.000Z",
+                      "uid": "35240-4eb4a709-2d28-40d5-b82d-728c7c9639ac"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:13.000Z",
+                  "updatedAt": "2026-06-05T15:18:13.000Z",
+                  "uid": "35240-814afc69-2fb3-41b6-848d-51ce960abd57"
+                },
+                {
+                  "name": "Update Subscription Tracking Settings",
+                  "id": "090ef1d3-45b5-4a39-8119-4b23ed91f4da",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"enabled\": \"<boolean>\",\n  \"html_content\": \"<string>\",\n  \"landing\": \"<string>\",\n  \"plain_content\": \"<string>\",\n  \"replace\": \"<string>\",\n  \"url\": \"<uri>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/tracking_settings/subscription",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "tracking_settings",
+                        "subscription"
+                      ]
+                    },
+                    "description": "**This endpoint allows you to update your current settings for subscription tracking.**\n\nSubscription tracking adds links to the bottom of your emails that allows your recipients to subscribe to, or unsubscribe from, your emails."
+                  },
+                  "response": [
+                    {
+                      "id": "7b8c0ab4-a26c-4e4f-a261-edf41204138e",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"enabled\": \"<boolean>\",\n  \"html_content\": \"<string>\",\n  \"landing\": \"<string>\",\n  \"plain_content\": \"<string>\",\n  \"replace\": \"<string>\",\n  \"url\": \"<uri>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/tracking_settings/subscription",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "tracking_settings",
+                            "subscription"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"enabled\": \"<boolean>\",\n  \"html_content\": \"<string>\",\n  \"landing\": \"<string>\",\n  \"plain_content\": \"<string>\",\n  \"replace\": \"<string>\",\n  \"url\": \"<uri>\"\n}",
+                      "createdAt": "2026-06-05T15:18:13.000Z",
+                      "updatedAt": "2026-06-05T15:18:13.000Z",
+                      "uid": "35240-7b8c0ab4-a26c-4e4f-a261-edf41204138e"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:13.000Z",
+                  "updatedAt": "2026-06-05T15:18:13.000Z",
+                  "uid": "35240-090ef1d3-45b5-4a39-8119-4b23ed91f4da"
+                }
+              ],
+              "id": "dbd1a7e3-18fa-409f-926b-9f75a50b99b2",
+              "createdAt": "2026-06-05T15:18:13.000Z",
+              "updatedAt": "2026-06-05T15:18:13.000Z",
+              "uid": "35240-dbd1a7e3-18fa-409f-926b-9f75a50b99b2"
+            },
+            {
+              "name": "Retrieve Tracking Settings",
+              "id": "ab48409a-97b1-4c3a-810a-ea5092fd2f28",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                    "key": "on-behalf-of",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v3/tracking_settings",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v3",
+                    "tracking_settings"
+                  ]
+                },
+                "description": "**This endpoint allows you to retrieve a list of all tracking settings on your account.**"
+              },
+              "response": [
+                {
+                  "id": "99fb7600-bd4c-4274-8328-b5df54fbd56b",
+                  "name": "response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/tracking_settings",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "tracking_settings"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"result\": [\n    {\n      \"name\": \"<string>\",\n      \"title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"enabled\": \"<boolean>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"enabled\": \"<boolean>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:18:13.000Z",
+                  "updatedAt": "2026-06-05T15:18:13.000Z",
+                  "uid": "35240-99fb7600-bd4c-4274-8328-b5df54fbd56b"
+                }
+              ],
+              "createdAt": "2026-06-05T15:18:13.000Z",
+              "updatedAt": "2026-06-05T15:18:13.000Z",
+              "uid": "35240-ab48409a-97b1-4c3a-810a-ea5092fd2f28"
+            }
+          ],
+          "id": "302c1551-174d-4013-b608-b4572aefc9f8",
+          "createdAt": "2026-06-05T15:18:13.000Z",
+          "updatedAt": "2026-06-05T15:18:13.000Z",
+          "uid": "35240-302c1551-174d-4013-b608-b4572aefc9f8"
+        }
+      ],
+      "id": "bcd3271e-5cca-4ad9-b29f-c843ab845655",
+      "createdAt": "2026-06-05T15:18:13.000Z",
+      "updatedAt": "2026-06-05T15:18:13.000Z",
+      "uid": "35240-bcd3271e-5cca-4ad9-b29f-c843ab845655"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.sendgrid.com"
+    }
+  ]
+}

@@ -1,0 +1,928 @@
+{
+  "info": {
+    "_postman_id": "eb49f1ff-a614-4429-917c-f4432cef057b",
+    "name": "Twilio SendGrid Engagement Quality API",
+    "description": "The SendGrid Engagement Quality (SEQ) API allows you to retrieve metrics that define the quality of your email program.\n\nAn SEQ score is correlated with:\n- The quality of the data in a sender\u2019s program.\n- How \u201cwanted\u201d the sender's email is by their recipients.\n\nBecause \u201cwanted\u201d email and deliverability are closely related, a higher SEQ metric is correlated with greater deliverability. This means the higher your SEQ score, the more likely you are to land in your recipients' inboxes. See the SEQ Overview page to understand SEQ, how it's calculated, and how you can address your score. The SEQ endpoints allow you to retrieve your scores and scores for your Subusers.\n\nContact Support:\n Name: Twilio SendGrid Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:17:44.000Z",
+    "updatedAt": "2026-06-05T15:17:45.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-eb49f1ff-a614-4429-917c-f4432cef057b"
+  },
+  "item": [
+    {
+      "name": "v3",
+      "item": [
+        {
+          "name": "engagementquality",
+          "item": [
+            {
+              "name": "scores",
+              "item": [
+                {
+                  "name": "Get Engagement Quality Scores",
+                  "id": "fbaa655f-7fef-4cf9-8fd5-3e150e84818c",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/engagementquality/scores?from=<date>&to=<date>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "engagementquality",
+                        "scores"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The starting date in YYYY-MM-DD format (UTC) for which you want to retrieve scores.",
+                          "key": "from",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "(Required) The ending date in YYYY-MM-DD format (UTC) for which you want to retrieve scores.",
+                          "key": "to",
+                          "value": "<date>"
+                        }
+                      ]
+                    },
+                    "description": "**This operation allows you to retrieve your SendGrid Engagement Quality (SEQ) scores for a specified date range**.\nA successful request with this API operation will return either a `200` or `202` response.\n### 202\nThis operation returns a `202` response when SendGrid does not yet have scores available for the specified date range. Scores are calculated asynchronously from requests to this endpoint. This means a score may be available for the specified date at a later time, but a score is not available at the time of your API request.\n### 200\nA 200 response will include all available scores beginning on the `from` and ending on the `to` dates specified. The `score` and `metrics` properties will be omitted from the response for any days in which the user is not eligible to receive a score.\nThe `score` property represents a user's overall engagement quality. The `metrics` property provides additional scores for the input categories that contribute to that overall score. All scores range from `1` to `5` with a higher number representing better engagement quality.\nSee [**SendGrid Engagement Quality Overview**](https://docs.sendgrid.com/api-reference/sendgrid-engagement-quality-api/overview) for more information"
+                  },
+                  "response": [
+                    {
+                      "id": "5a2cde0b-1ace-42cb-9fa8-b8fa482558b1",
+                      "name": "200 OK",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/engagementquality/scores?from=<date>&to=<date>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "engagementquality",
+                            "scores"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) The starting date in YYYY-MM-DD format (UTC) for which you want to retrieve scores.",
+                              "key": "from",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "(Required) The ending date in YYYY-MM-DD format (UTC) for which you want to retrieve scores.",
+                              "key": "to",
+                              "value": "<date>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"result\": [\n    {\n      \"user_id\": \"<string>\",\n      \"username\": \"<string>\",\n      \"date\": \"<date>\",\n      \"score\": \"<number>\",\n      \"metrics\": {\n        \"engagement_recency\": \"<number>\",\n        \"open_rate\": \"<number>\",\n        \"bounce_classification\": \"<number>\",\n        \"bounce_rate\": \"<number>\",\n        \"spam_rate\": \"<number>\"\n      }\n    },\n    {\n      \"user_id\": \"<string>\",\n      \"username\": \"<string>\",\n      \"date\": \"<date>\",\n      \"score\": \"<number>\",\n      \"metrics\": {\n        \"engagement_recency\": \"<number>\",\n        \"open_rate\": \"<number>\",\n        \"bounce_classification\": \"<number>\",\n        \"bounce_rate\": \"<number>\",\n        \"spam_rate\": \"<number>\"\n      }\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:17:45.000Z",
+                      "updatedAt": "2026-06-05T15:17:45.000Z",
+                      "uid": "35240-5a2cde0b-1ace-42cb-9fa8-b8fa482558b1"
+                    },
+                    {
+                      "id": "1878ee5d-29db-48d0-851b-1f7b4f34e035",
+                      "name": "202 Accepted",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/engagementquality/scores?from=<date>&to=<date>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "engagementquality",
+                            "scores"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) The starting date in YYYY-MM-DD format (UTC) for which you want to retrieve scores.",
+                              "key": "from",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "(Required) The ending date in YYYY-MM-DD format (UTC) for which you want to retrieve scores.",
+                              "key": "to",
+                              "value": "<date>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Accepted",
+                      "code": 202,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "",
+                      "createdAt": "2026-06-05T15:17:45.000Z",
+                      "updatedAt": "2026-06-05T15:17:45.000Z",
+                      "uid": "35240-1878ee5d-29db-48d0-851b-1f7b4f34e035"
+                    },
+                    {
+                      "id": "dd5a1805-80f7-4633-958c-817155d65676",
+                      "name": "Bad Request 400",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/engagementquality/scores?from=<date>&to=<date>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "engagementquality",
+                            "scores"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) The starting date in YYYY-MM-DD format (UTC) for which you want to retrieve scores.",
+                              "key": "from",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "(Required) The ending date in YYYY-MM-DD format (UTC) for which you want to retrieve scores.",
+                              "key": "to",
+                              "value": "<date>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:17:45.000Z",
+                      "updatedAt": "2026-06-05T15:17:45.000Z",
+                      "uid": "35240-dd5a1805-80f7-4633-958c-817155d65676"
+                    },
+                    {
+                      "id": "7e8a8237-5182-4038-916b-324b35861408",
+                      "name": "401 Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/engagementquality/scores?from=<date>&to=<date>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "engagementquality",
+                            "scores"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) The starting date in YYYY-MM-DD format (UTC) for which you want to retrieve scores.",
+                              "key": "from",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "(Required) The ending date in YYYY-MM-DD format (UTC) for which you want to retrieve scores.",
+                              "key": "to",
+                              "value": "<date>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "",
+                      "createdAt": "2026-06-05T15:17:45.000Z",
+                      "updatedAt": "2026-06-05T15:17:45.000Z",
+                      "uid": "35240-7e8a8237-5182-4038-916b-324b35861408"
+                    },
+                    {
+                      "id": "6d336870-9974-4d08-ad93-adffedad118d",
+                      "name": "Example response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/engagementquality/scores?from=<date>&to=<date>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "engagementquality",
+                            "scores"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) The starting date in YYYY-MM-DD format (UTC) for which you want to retrieve scores.",
+                              "key": "from",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "(Required) The ending date in YYYY-MM-DD format (UTC) for which you want to retrieve scores.",
+                              "key": "to",
+                              "value": "<date>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:17:45.000Z",
+                      "updatedAt": "2026-06-05T15:17:45.000Z",
+                      "uid": "35240-6d336870-9974-4d08-ad93-adffedad118d"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:17:45.000Z",
+                  "updatedAt": "2026-06-05T15:17:45.000Z",
+                  "uid": "35240-fbaa655f-7fef-4cf9-8fd5-3e150e84818c"
+                }
+              ],
+              "id": "2da87fdd-d7bb-469e-8c02-aecfc11d8ccf",
+              "createdAt": "2026-06-05T15:17:45.000Z",
+              "updatedAt": "2026-06-05T15:17:45.000Z",
+              "uid": "35240-2da87fdd-d7bb-469e-8c02-aecfc11d8ccf"
+            },
+            {
+              "name": "subusers",
+              "item": [
+                {
+                  "name": "scores",
+                  "item": [
+                    {
+                      "name": "Get Subusers' Engagement Quality Scores",
+                      "id": "ef04f97c-191a-4fe1-ad43-3cddd43a448d",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/engagementquality/subusers/scores?limit=1000&date=<date>&after_key=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "engagementquality",
+                            "subusers",
+                            "scores"
+                          ],
+                          "query": [
+                            {
+                              "description": "Specifies the number of results to be returned by the API. This parameter can be used to limit the results returned or in combination with the `after_key` parameter to iterate through paginated results.",
+                              "key": "limit",
+                              "value": "1000"
+                            },
+                            {
+                              "description": "(Required) The date in YYYY-MM-DD format (UTC) for which you want to retrieve a SendGrid Engagement Quality score.",
+                              "key": "date",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "Specifies which items to be returned by the API. When the `after_key` is specified, the API will return items beginning from the first item after the item specified. This parameter can be used in combination with `limit` to iterate through paginated results.",
+                              "key": "after_key",
+                              "value": "<integer>"
+                            }
+                          ]
+                        },
+                        "description": "**This operation allows you to retrieve SendGrid Engagement Quality (SEQ) scores for your Subusers or customer accounts for a specific date.**\nA successful request with this API operation will return either a `200` or `202` response.\n### 202\nThis operation returns a `202` response when SendGrid does not yet have scores available for the specified date range. Scores are calculated asynchronously from requests to this endpoint. This means a score may be available for the specified date at a later time, but a score is not available at the time of your API request.\n### 200\nA `200` response will include scores for all Subusers or customer accounts belonging to the requesting parent or reseller account. The `score` and `metrics` properties will be omitted from the response if a Subuser or customer account is not eligible to receive a score for the specified date.\nThe `score` property represents a Subuser or customer account's overall engagement quality. The `metrics` property provides additional scores for the input categories that contribute to that overall score. All scores range from `1` to `5` with a higher number representing better engagement quality.\nSee [**SendGrid Engagement Quality Overview**](https://docs.sendgrid.com/api-reference/sendgrid-engagement-quality-api/overview) for more information"
+                      },
+                      "response": [
+                        {
+                          "id": "a570f3cd-dead-4626-8d60-8e7016f767a4",
+                          "name": "Example response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/engagementquality/subusers/scores?limit=1000&date=<date>&after_key=<integer>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "engagementquality",
+                                "subusers",
+                                "scores"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Specifies the number of results to be returned by the API. This parameter can be used to limit the results returned or in combination with the `after_key` parameter to iterate through paginated results.",
+                                  "key": "limit",
+                                  "value": "1000"
+                                },
+                                {
+                                  "description": "(Required) The date in YYYY-MM-DD format (UTC) for which you want to retrieve a SendGrid Engagement Quality score.",
+                                  "key": "date",
+                                  "value": "<date>"
+                                },
+                                {
+                                  "description": "Specifies which items to be returned by the API. When the `after_key` is specified, the API will return items beginning from the first item after the item specified. This parameter can be used in combination with `limit` to iterate through paginated results.",
+                                  "key": "after_key",
+                                  "value": "<integer>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"result\": [\n    {\n      \"user_id\": \"<string>\",\n      \"username\": \"<string>\",\n      \"date\": \"<date>\",\n      \"score\": \"<number>\",\n      \"metrics\": {\n        \"engagement_recency\": \"<number>\",\n        \"open_rate\": \"<number>\",\n        \"bounce_classification\": \"<number>\",\n        \"bounce_rate\": \"<number>\",\n        \"spam_rate\": \"<number>\"\n      }\n    },\n    {\n      \"user_id\": \"<string>\",\n      \"username\": \"<string>\",\n      \"date\": \"<date>\",\n      \"score\": \"<number>\",\n      \"metrics\": {\n        \"engagement_recency\": \"<number>\",\n        \"open_rate\": \"<number>\",\n        \"bounce_classification\": \"<number>\",\n        \"bounce_rate\": \"<number>\",\n        \"spam_rate\": \"<number>\"\n      }\n    }\n  ],\n  \"_metadata\": {\n    \"next_params\": {\n      \"after_key\": \"<string>\"\n    }\n  }\n}",
+                          "createdAt": "2026-06-05T15:17:45.000Z",
+                          "updatedAt": "2026-06-05T15:17:45.000Z",
+                          "uid": "35240-a570f3cd-dead-4626-8d60-8e7016f767a4"
+                        },
+                        {
+                          "id": "2794fb1b-a939-4238-9354-16584b701d1e",
+                          "name": "A 202 is returned when the request is successfully received but a score is not calculated for requested date.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/engagementquality/subusers/scores?limit=1000&date=<date>&after_key=<integer>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "engagementquality",
+                                "subusers",
+                                "scores"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Specifies the number of results to be returned by the API. This parameter can be used to limit the results returned or in combination with the `after_key` parameter to iterate through paginated results.",
+                                  "key": "limit",
+                                  "value": "1000"
+                                },
+                                {
+                                  "description": "(Required) The date in YYYY-MM-DD format (UTC) for which you want to retrieve a SendGrid Engagement Quality score.",
+                                  "key": "date",
+                                  "value": "<date>"
+                                },
+                                {
+                                  "description": "Specifies which items to be returned by the API. When the `after_key` is specified, the API will return items beginning from the first item after the item specified. This parameter can be used in combination with `limit` to iterate through paginated results.",
+                                  "key": "after_key",
+                                  "value": "<integer>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Accepted",
+                          "code": 202,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:17:45.000Z",
+                          "updatedAt": "2026-06-05T15:17:45.000Z",
+                          "uid": "35240-2794fb1b-a939-4238-9354-16584b701d1e"
+                        },
+                        {
+                          "id": "758e70a7-501c-4a0d-8458-a6e5c327988a",
+                          "name": "Bad Request 400",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/engagementquality/subusers/scores?limit=1000&date=<date>&after_key=<integer>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "engagementquality",
+                                "subusers",
+                                "scores"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Specifies the number of results to be returned by the API. This parameter can be used to limit the results returned or in combination with the `after_key` parameter to iterate through paginated results.",
+                                  "key": "limit",
+                                  "value": "1000"
+                                },
+                                {
+                                  "description": "(Required) The date in YYYY-MM-DD format (UTC) for which you want to retrieve a SendGrid Engagement Quality score.",
+                                  "key": "date",
+                                  "value": "<date>"
+                                },
+                                {
+                                  "description": "Specifies which items to be returned by the API. When the `after_key` is specified, the API will return items beginning from the first item after the item specified. This parameter can be used in combination with `limit` to iterate through paginated results.",
+                                  "key": "after_key",
+                                  "value": "<integer>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:17:45.000Z",
+                          "updatedAt": "2026-06-05T15:17:45.000Z",
+                          "uid": "35240-758e70a7-501c-4a0d-8458-a6e5c327988a"
+                        },
+                        {
+                          "id": "67a306a7-dfa0-4a76-9052-ad2eb2174ebb",
+                          "name": "401 Unauthorized",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/engagementquality/subusers/scores?limit=1000&date=<date>&after_key=<integer>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "engagementquality",
+                                "subusers",
+                                "scores"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Specifies the number of results to be returned by the API. This parameter can be used to limit the results returned or in combination with the `after_key` parameter to iterate through paginated results.",
+                                  "key": "limit",
+                                  "value": "1000"
+                                },
+                                {
+                                  "description": "(Required) The date in YYYY-MM-DD format (UTC) for which you want to retrieve a SendGrid Engagement Quality score.",
+                                  "key": "date",
+                                  "value": "<date>"
+                                },
+                                {
+                                  "description": "Specifies which items to be returned by the API. When the `after_key` is specified, the API will return items beginning from the first item after the item specified. This parameter can be used in combination with `limit` to iterate through paginated results.",
+                                  "key": "after_key",
+                                  "value": "<integer>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "",
+                          "createdAt": "2026-06-05T15:17:45.000Z",
+                          "updatedAt": "2026-06-05T15:17:45.000Z",
+                          "uid": "35240-67a306a7-dfa0-4a76-9052-ad2eb2174ebb"
+                        },
+                        {
+                          "id": "48d3c1e2-fe6f-4913-b0e9-5dee15b94e11",
+                          "name": "Forbidden",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/engagementquality/subusers/scores?limit=1000&date=<date>&after_key=<integer>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "engagementquality",
+                                "subusers",
+                                "scores"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Specifies the number of results to be returned by the API. This parameter can be used to limit the results returned or in combination with the `after_key` parameter to iterate through paginated results.",
+                                  "key": "limit",
+                                  "value": "1000"
+                                },
+                                {
+                                  "description": "(Required) The date in YYYY-MM-DD format (UTC) for which you want to retrieve a SendGrid Engagement Quality score.",
+                                  "key": "date",
+                                  "value": "<date>"
+                                },
+                                {
+                                  "description": "Specifies which items to be returned by the API. When the `after_key` is specified, the API will return items beginning from the first item after the item specified. This parameter can be used in combination with `limit` to iterate through paginated results.",
+                                  "key": "after_key",
+                                  "value": "<integer>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:17:45.000Z",
+                          "updatedAt": "2026-06-05T15:17:45.000Z",
+                          "uid": "35240-48d3c1e2-fe6f-4913-b0e9-5dee15b94e11"
+                        },
+                        {
+                          "id": "5a643a1d-935d-444c-97c8-197cd8e582ea",
+                          "name": "Not Found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/engagementquality/subusers/scores?limit=1000&date=<date>&after_key=<integer>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "engagementquality",
+                                "subusers",
+                                "scores"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Specifies the number of results to be returned by the API. This parameter can be used to limit the results returned or in combination with the `after_key` parameter to iterate through paginated results.",
+                                  "key": "limit",
+                                  "value": "1000"
+                                },
+                                {
+                                  "description": "(Required) The date in YYYY-MM-DD format (UTC) for which you want to retrieve a SendGrid Engagement Quality score.",
+                                  "key": "date",
+                                  "value": "<date>"
+                                },
+                                {
+                                  "description": "Specifies which items to be returned by the API. When the `after_key` is specified, the API will return items beginning from the first item after the item specified. This parameter can be used in combination with `limit` to iterate through paginated results.",
+                                  "key": "after_key",
+                                  "value": "<integer>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:17:45.000Z",
+                          "updatedAt": "2026-06-05T15:17:45.000Z",
+                          "uid": "35240-5a643a1d-935d-444c-97c8-197cd8e582ea"
+                        },
+                        {
+                          "id": "40669b88-1d3c-42ac-befd-7076b1f1c303",
+                          "name": "Example response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/engagementquality/subusers/scores?limit=1000&date=<date>&after_key=<integer>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "engagementquality",
+                                "subusers",
+                                "scores"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Specifies the number of results to be returned by the API. This parameter can be used to limit the results returned or in combination with the `after_key` parameter to iterate through paginated results.",
+                                  "key": "limit",
+                                  "value": "1000"
+                                },
+                                {
+                                  "description": "(Required) The date in YYYY-MM-DD format (UTC) for which you want to retrieve a SendGrid Engagement Quality score.",
+                                  "key": "date",
+                                  "value": "<date>"
+                                },
+                                {
+                                  "description": "Specifies which items to be returned by the API. When the `after_key` is specified, the API will return items beginning from the first item after the item specified. This parameter can be used in combination with `limit` to iterate through paginated results.",
+                                  "key": "after_key",
+                                  "value": "<integer>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:17:45.000Z",
+                          "updatedAt": "2026-06-05T15:17:45.000Z",
+                          "uid": "35240-40669b88-1d3c-42ac-befd-7076b1f1c303"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:17:45.000Z",
+                      "updatedAt": "2026-06-05T15:17:45.000Z",
+                      "uid": "35240-ef04f97c-191a-4fe1-ad43-3cddd43a448d"
+                    }
+                  ],
+                  "id": "06317167-83db-41ea-90b8-ac6db5766f12",
+                  "createdAt": "2026-06-05T15:17:45.000Z",
+                  "updatedAt": "2026-06-05T15:17:45.000Z",
+                  "uid": "35240-06317167-83db-41ea-90b8-ac6db5766f12"
+                }
+              ],
+              "id": "c65349af-d587-4739-834b-9678a300d469",
+              "createdAt": "2026-06-05T15:17:45.000Z",
+              "updatedAt": "2026-06-05T15:17:45.000Z",
+              "uid": "35240-c65349af-d587-4739-834b-9678a300d469"
+            }
+          ],
+          "id": "1b28924d-c933-4616-bf67-c01f9b24f2bd",
+          "createdAt": "2026-06-05T15:17:45.000Z",
+          "updatedAt": "2026-06-05T15:17:45.000Z",
+          "uid": "35240-1b28924d-c933-4616-bf67-c01f9b24f2bd"
+        }
+      ],
+      "id": "447f3a78-8560-4b4c-b433-c99aa5a10071",
+      "createdAt": "2026-06-05T15:17:45.000Z",
+      "updatedAt": "2026-06-05T15:17:45.000Z",
+      "uid": "35240-447f3a78-8560-4b4c-b433-c99aa5a10071"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.sendgrid.com"
+    }
+  ]
+}

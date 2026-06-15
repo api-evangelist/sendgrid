@@ -1,0 +1,157 @@
+{
+  "info": {
+    "_postman_id": "0c22484e-2bc0-4f93-9d45-3dd766e74edf",
+    "name": "Twilio SendGrid Partner API",
+    "description": "The Twilio SendGrid Partner Settings API allows you to integrate your SendGrid account with our partners to increase your SendGrid experience and functionality. For more information about our partners and how you can begin integrating with them, please visit our [Partners page](https://sendgrid.com/partners/marketplace/).\n\nContact Support:\n Name: Twilio SendGrid Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:17:39.000Z",
+    "updatedAt": "2026-06-05T15:17:39.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-0c22484e-2bc0-4f93-9d45-3dd766e74edf"
+  },
+  "item": [
+    {
+      "name": "v3",
+      "item": [
+        {
+          "name": "partner_settings",
+          "item": [
+            {
+              "name": "Returns a list of all partner settings.",
+              "id": "23fd0531-bc9c-4030-a41a-0228c4e1585f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                    "key": "on-behalf-of",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v3/partner_settings?limit=<integer>&offset=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v3",
+                    "partner_settings"
+                  ],
+                  "query": [
+                    {
+                      "description": "`limit` sets the page size, i.e. maximum number of items from the list to be returned for a single API request. If omitted, the default page size is used.",
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "The number of items in the list to skip over before starting to retrieve the items for the requested page. The default `offset` of `0` represents the beginning of the list, i.e. the start of the first page. To request the second page of the list, set the `offset` to the page size as determined by `limit`. Use multiples of the page size as your `offset` to request further consecutive pages. E.g. assume your page size is set to `10`. An `offset` of `10` requests the second page, an `offset` of `20` requests the third page and so on, provided there are sufficiently many items in your list.",
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ]
+                },
+                "description": "**This endpoint allows you to retrieve a paginated list of all partner settings that you can enable.**\n\nYou can use the `limit` query parameter to set the page size. If your list contains more items than the page size permits, you can make multiple requests.\n\nUse the `offset` query parameter to control the position in the list from which to start retrieving additional items.'\n"
+              },
+              "response": [
+                {
+                  "id": "caeeabd7-a873-4ab3-8ae3-5233669cff41",
+                  "name": "response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/partner_settings?limit=<integer>&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "partner_settings"
+                      ],
+                      "query": [
+                        {
+                          "description": "`limit` sets the page size, i.e. maximum number of items from the list to be returned for a single API request. If omitted, the default page size is used.",
+                          "key": "limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "The number of items in the list to skip over before starting to retrieve the items for the requested page. The default `offset` of `0` represents the beginning of the list, i.e. the start of the first page. To request the second page of the list, set the `offset` to the page size as determined by `limit`. Use multiples of the page size as your `offset` to request further consecutive pages. E.g. assume your page size is set to `10`. An `offset` of `10` requests the second page, an `offset` of `20` requests the third page and so on, provided there are sufficiently many items in your list.",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"result\": [\n    {\n      \"title\": \"<string>\",\n      \"enabled\": \"<boolean>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"title\": \"<string>\",\n      \"enabled\": \"<boolean>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:17:40.000Z",
+                  "updatedAt": "2026-06-05T15:17:40.000Z",
+                  "uid": "35240-caeeabd7-a873-4ab3-8ae3-5233669cff41"
+                }
+              ],
+              "createdAt": "2026-06-05T15:17:40.000Z",
+              "updatedAt": "2026-06-05T15:17:40.000Z",
+              "uid": "35240-23fd0531-bc9c-4030-a41a-0228c4e1585f"
+            }
+          ],
+          "id": "06bf50f7-b5e9-4ba3-8295-86a8b8dda1a1",
+          "createdAt": "2026-06-05T15:17:40.000Z",
+          "updatedAt": "2026-06-05T15:17:40.000Z",
+          "uid": "35240-06bf50f7-b5e9-4ba3-8295-86a8b8dda1a1"
+        }
+      ],
+      "id": "541b3a90-6f3f-4614-8ed5-461004720e21",
+      "createdAt": "2026-06-05T15:17:40.000Z",
+      "updatedAt": "2026-06-05T15:17:40.000Z",
+      "uid": "35240-541b3a90-6f3f-4614-8ed5-461004720e21"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.sendgrid.com"
+    }
+  ]
+}

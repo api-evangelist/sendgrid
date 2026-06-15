@@ -1,0 +1,1423 @@
+{
+  "info": {
+    "_postman_id": "b1174d5e-7eff-4f7e-bd60-dc2c6223446b",
+    "name": "Twilio SendGrid Templates API",
+    "description": "The Twilio SendGrid Templates API allows you to create and manage email templates to be delivered with SendGrid's sending APIs. The templates you create will be available using a template ID that is passed to our sending APIs as part of the request. Each template may then have multiple versions associated with it. Whichever version is set as \"active\" at the time of the request will be sent to your recipients. This system allows you to update a single template's look and feel entirely without modifying your requests to our Mail Send API. For example, you could have a single template for welcome emails. That welcome template could then have a version for each season of the year that's themed appropriately and marked as active during the appropriate season. The template ID passed to our sending APIs never needs to change; you can just modify which version is active.\n\nThis API provides operations to create and manage your templates as well as their versions.\n\nEach user can create up to 300 different templates. Templates are specific to accounts and Subusers. Templates created on a parent account will not be accessible from the Subusers' accounts.\n\nContact Support:\n Name: Twilio SendGrid Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:18:11.000Z",
+    "updatedAt": "2026-06-05T15:18:12.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-b1174d5e-7eff-4f7e-bd60-dc2c6223446b"
+  },
+  "item": [
+    {
+      "name": "v3",
+      "item": [
+        {
+          "name": "templates",
+          "item": [
+            {
+              "name": "{template_id}",
+              "item": [
+                {
+                  "name": "versions",
+                  "item": [
+                    {
+                      "name": "{version_id}",
+                      "item": [
+                        {
+                          "name": "activate",
+                          "item": [
+                            {
+                              "name": "Activate a transactional template version.",
+                              "id": "c746250e-1159-47cf-91a8-0eabc73c2341",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                    "key": "on-behalf-of",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/templates/:template_id/versions/:version_id/activate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "templates",
+                                    ":template_id",
+                                    "versions",
+                                    ":version_id",
+                                    "activate"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "b4620a06-c7e6-4034-b338-cbd7bd0c2b6a",
+                                      "key": "template_id",
+                                      "value": "<uuid>",
+                                      "description": "(Required) The ID of the original template"
+                                    },
+                                    {
+                                      "id": "4909bcfa-dc37-4139-91a8-3fd045e46933",
+                                      "key": "version_id",
+                                      "value": "<uuid>",
+                                      "description": "(Required) The ID of the template version"
+                                    }
+                                  ]
+                                },
+                                "description": "**This endpoint allows you to activate a version of one of your templates.**"
+                              },
+                              "response": [
+                                {
+                                  "id": "fbad4770-20da-41be-9494-8b96dbf20237",
+                                  "name": "response",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                        "key": "on-behalf-of",
+                                        "value": "<string>"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/v3/templates/:template_id/versions/:version_id/activate",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "v3",
+                                        "templates",
+                                        ":template_id",
+                                        "versions",
+                                        ":version_id",
+                                        "activate"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "template_id"
+                                        },
+                                        {
+                                          "key": "version_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"name\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"warnings\": [\n    {\n      \"message\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\"\n    }\n  ],\n  \"active\": 1,\n  \"html_content\": \"<string>\",\n  \"plain_content\": \"<string>\",\n  \"generate_plain_content\": true,\n  \"editor\": \"design\",\n  \"test_data\": \"<string>\",\n  \"id\": \"<uuid>\",\n  \"template_id\": \"<string>\",\n  \"updated_at\": \"<string>\",\n  \"thumbnail_url\": \"<string>\"\n}",
+                                  "createdAt": "2026-06-05T15:18:12.000Z",
+                                  "updatedAt": "2026-06-05T15:18:12.000Z",
+                                  "uid": "35240-fbad4770-20da-41be-9494-8b96dbf20237"
+                                }
+                              ],
+                              "createdAt": "2026-06-05T15:18:12.000Z",
+                              "updatedAt": "2026-06-05T15:18:12.000Z",
+                              "uid": "35240-c746250e-1159-47cf-91a8-0eabc73c2341"
+                            }
+                          ],
+                          "id": "efe80508-686b-4cc2-8b5c-73b4b9ede630",
+                          "createdAt": "2026-06-05T15:18:12.000Z",
+                          "updatedAt": "2026-06-05T15:18:12.000Z",
+                          "uid": "35240-efe80508-686b-4cc2-8b5c-73b4b9ede630"
+                        },
+                        {
+                          "name": "Retrieve a specific transactional template version.",
+                          "id": "9dd0810a-e9f0-4515-827f-7e1fec384009",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/templates/:template_id/versions/:version_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "templates",
+                                ":template_id",
+                                "versions",
+                                ":version_id"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "5c1bfb7b-f9ec-453c-9155-5fd38d93fddd",
+                                  "key": "template_id",
+                                  "value": "<uuid>",
+                                  "description": "(Required)  The ID of the original template"
+                                },
+                                {
+                                  "id": "2ceacf0d-db88-42af-af60-b5771c230de4",
+                                  "key": "version_id",
+                                  "value": "<uuid>",
+                                  "description": "(Required) The ID of the template version"
+                                }
+                              ]
+                            },
+                            "description": "**This endpoint allows you to retrieve a specific version of a template.**"
+                          },
+                          "response": [
+                            {
+                              "id": "5d269b3b-14fb-478d-b059-148b8afaa8d4",
+                              "name": "response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                    "key": "on-behalf-of",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/templates/:template_id/versions/:version_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "templates",
+                                    ":template_id",
+                                    "versions",
+                                    ":version_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "template_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"name\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"warnings\": [\n    {\n      \"message\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\"\n    }\n  ],\n  \"active\": 1,\n  \"html_content\": \"<string>\",\n  \"plain_content\": \"<string>\",\n  \"generate_plain_content\": true,\n  \"editor\": \"design\",\n  \"test_data\": \"<string>\",\n  \"id\": \"<uuid>\",\n  \"template_id\": \"<string>\",\n  \"updated_at\": \"<string>\",\n  \"thumbnail_url\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:18:12.000Z",
+                              "updatedAt": "2026-06-05T15:18:12.000Z",
+                              "uid": "35240-5d269b3b-14fb-478d-b059-148b8afaa8d4"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:18:12.000Z",
+                          "updatedAt": "2026-06-05T15:18:12.000Z",
+                          "uid": "35240-9dd0810a-e9f0-4515-827f-7e1fec384009"
+                        },
+                        {
+                          "name": "Edit a transactional template version.",
+                          "id": "05f22c46-b37f-437b-ae04-c9baec60ce07",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"active\": 0,\n  \"html_content\": \"<string>\",\n  \"plain_content\": \"<generated from html_content if left empty>\",\n  \"generate_plain_content\": true,\n  \"editor\": \"code\",\n  \"test_data\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/templates/:template_id/versions/:version_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "templates",
+                                ":template_id",
+                                "versions",
+                                ":version_id"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "04b6a0b8-ff9d-4243-a0b9-db39a950543b",
+                                  "key": "template_id",
+                                  "value": "<uuid>",
+                                  "description": "(Required)  The ID of the original template"
+                                },
+                                {
+                                  "id": "0a0aa1ac-29b3-492d-a1c3-5cde0082ab03",
+                                  "key": "version_id",
+                                  "value": "<uuid>",
+                                  "description": "(Required) The ID of the template version"
+                                }
+                              ]
+                            },
+                            "description": "**This endpoint allows you to edit the content of your template version.**"
+                          },
+                          "response": [
+                            {
+                              "id": "c88585a0-cc37-485c-80b7-a5398fda46ad",
+                              "name": "response",
+                              "originalRequest": {
+                                "method": "PATCH",
+                                "header": [
+                                  {
+                                    "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                    "key": "on-behalf-of",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"active\": 0,\n  \"html_content\": \"<string>\",\n  \"plain_content\": \"<generated from html_content if left empty>\",\n  \"generate_plain_content\": true,\n  \"editor\": \"code\",\n  \"test_data\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/templates/:template_id/versions/:version_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "templates",
+                                    ":template_id",
+                                    "versions",
+                                    ":version_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "template_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"name\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"warnings\": [\n    {\n      \"message\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\"\n    }\n  ],\n  \"active\": 1,\n  \"html_content\": \"<string>\",\n  \"plain_content\": \"<string>\",\n  \"generate_plain_content\": true,\n  \"editor\": \"design\",\n  \"test_data\": \"<string>\",\n  \"id\": \"<uuid>\",\n  \"template_id\": \"<string>\",\n  \"updated_at\": \"<string>\",\n  \"thumbnail_url\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:18:12.000Z",
+                              "updatedAt": "2026-06-05T15:18:12.000Z",
+                              "uid": "35240-c88585a0-cc37-485c-80b7-a5398fda46ad"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:18:12.000Z",
+                          "updatedAt": "2026-06-05T15:18:12.000Z",
+                          "uid": "35240-05f22c46-b37f-437b-ae04-c9baec60ce07"
+                        },
+                        {
+                          "name": "Delete a transactional template version.",
+                          "id": "392e1c6d-9170-4319-b2b8-04fe913c4de0",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/templates/:template_id/versions/:version_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "templates",
+                                ":template_id",
+                                "versions",
+                                ":version_id"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "6a4a947f-5afc-4471-890b-68f025deb89c",
+                                  "key": "template_id",
+                                  "value": "<uuid>",
+                                  "description": "(Required)  The ID of the original template"
+                                },
+                                {
+                                  "id": "a7f0634b-09b9-4ff0-92b0-c2b2d4558ba2",
+                                  "key": "version_id",
+                                  "value": "<uuid>",
+                                  "description": "(Required) The ID of the template version"
+                                }
+                              ]
+                            },
+                            "description": "**This endpoint allows you to delete a transactional template version.**"
+                          },
+                          "response": [
+                            {
+                              "id": "6c91ba72-3e79-4801-8a0d-4162d2ea3aaf",
+                              "name": "response",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                    "key": "on-behalf-of",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/templates/:template_id/versions/:version_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "templates",
+                                    ":template_id",
+                                    "versions",
+                                    ":version_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "template_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "No Content",
+                              "code": 204,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:18:12.000Z",
+                              "updatedAt": "2026-06-05T15:18:12.000Z",
+                              "uid": "35240-6c91ba72-3e79-4801-8a0d-4162d2ea3aaf"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:18:12.000Z",
+                          "updatedAt": "2026-06-05T15:18:12.000Z",
+                          "uid": "35240-392e1c6d-9170-4319-b2b8-04fe913c4de0"
+                        }
+                      ],
+                      "id": "2ad9cb75-7f36-46a7-9cd7-9b4bb713128d",
+                      "createdAt": "2026-06-05T15:18:12.000Z",
+                      "updatedAt": "2026-06-05T15:18:12.000Z",
+                      "uid": "35240-2ad9cb75-7f36-46a7-9cd7-9b4bb713128d"
+                    },
+                    {
+                      "name": "Create a new transactional template version.",
+                      "id": "44f64977-7afb-42e6-97f6-d93d600fdddc",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"active\": 0,\n  \"html_content\": \"<string>\",\n  \"plain_content\": \"<generated from html_content if left empty>\",\n  \"generate_plain_content\": true,\n  \"editor\": \"code\",\n  \"test_data\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/templates/:template_id/versions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "templates",
+                            ":template_id",
+                            "versions"
+                          ],
+                          "variable": [
+                            {
+                              "id": "0a366a85-8fb9-46c4-ad8c-ef47a2a0934a",
+                              "key": "template_id",
+                              "value": "<uuid>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "**This endpoint allows you to create a new version of a template.**"
+                      },
+                      "response": [
+                        {
+                          "id": "42b687e9-897b-4788-8e8f-10bec47babc4",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"active\": 0,\n  \"html_content\": \"<string>\",\n  \"plain_content\": \"<generated from html_content if left empty>\",\n  \"generate_plain_content\": true,\n  \"editor\": \"code\",\n  \"test_data\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/templates/:template_id/versions",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "templates",
+                                ":template_id",
+                                "versions"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "template_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Created",
+                          "code": 201,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"name\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"warnings\": [\n    {\n      \"message\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\"\n    }\n  ],\n  \"active\": 1,\n  \"html_content\": \"<string>\",\n  \"plain_content\": \"<string>\",\n  \"generate_plain_content\": true,\n  \"editor\": \"design\",\n  \"test_data\": \"<string>\",\n  \"id\": \"<uuid>\",\n  \"template_id\": \"<string>\",\n  \"updated_at\": \"<string>\",\n  \"thumbnail_url\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:18:12.000Z",
+                          "updatedAt": "2026-06-05T15:18:12.000Z",
+                          "uid": "35240-42b687e9-897b-4788-8e8f-10bec47babc4"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:18:12.000Z",
+                      "updatedAt": "2026-06-05T15:18:12.000Z",
+                      "uid": "35240-44f64977-7afb-42e6-97f6-d93d600fdddc"
+                    }
+                  ],
+                  "id": "083f03cb-8db2-4b0a-b9d1-74f734691394",
+                  "createdAt": "2026-06-05T15:18:12.000Z",
+                  "updatedAt": "2026-06-05T15:18:12.000Z",
+                  "uid": "35240-083f03cb-8db2-4b0a-b9d1-74f734691394"
+                },
+                {
+                  "name": "Duplicate a transactional template.",
+                  "id": "7e9146fe-1815-461f-9a32-ecfe815591c7",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/templates/:template_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "templates",
+                        ":template_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "15297429-5fb0-4af8-ba39-0a5ceda672c2",
+                          "key": "template_id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "**This endpoint allows you to duplicate a transactional template.**"
+                  },
+                  "response": [
+                    {
+                      "id": "6cf1b6ca-8119-4c72-be68-f7c87e37cec6",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/templates/:template_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "templates",
+                            ":template_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "template_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"generation\": \"dynamic\",\n  \"id\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"updated_at\": \"3769-95-57 36:96:48\",\n  \"versions\": [\n    {\n      \"id\": \"<uuid>\",\n      \"template_id\": \"<string>\",\n      \"active\": 1,\n      \"name\": \"<string>\",\n      \"subject\": \"<string>\",\n      \"updated_at\": \"<string>\",\n      \"generate_plain_content\": true,\n      \"html_content\": \"<string>\",\n      \"plain_content\": \"<string>\",\n      \"editor\": \"design\",\n      \"thumbnail_url\": \"<string>\"\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"template_id\": \"<string>\",\n      \"active\": 1,\n      \"name\": \"<string>\",\n      \"subject\": \"<string>\",\n      \"updated_at\": \"<string>\",\n      \"generate_plain_content\": true,\n      \"html_content\": \"<string>\",\n      \"plain_content\": \"<string>\",\n      \"editor\": \"design\",\n      \"thumbnail_url\": \"<string>\"\n    }\n  ],\n  \"warning\": {\n    \"message\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:18:12.000Z",
+                      "updatedAt": "2026-06-05T15:18:12.000Z",
+                      "uid": "35240-6cf1b6ca-8119-4c72-be68-f7c87e37cec6"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:12.000Z",
+                  "updatedAt": "2026-06-05T15:18:12.000Z",
+                  "uid": "35240-7e9146fe-1815-461f-9a32-ecfe815591c7"
+                },
+                {
+                  "name": "Retrieve a single transactional template.",
+                  "id": "cbb4bf78-272b-47cb-b164-a4a130bd11f3",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/templates/:template_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "templates",
+                        ":template_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "d541d520-7909-41f4-ae5d-b505a520e754",
+                          "key": "template_id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "**This endpoint allows you to retrieve a single transactional template.**"
+                  },
+                  "response": [
+                    {
+                      "id": "7b3568a3-4d47-4c2b-ac21-0417c5c1768e",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/templates/:template_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "templates",
+                            ":template_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "template_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"generation\": \"dynamic\",\n  \"id\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"updated_at\": \"3769-95-57 36:96:48\",\n  \"versions\": [\n    {\n      \"id\": \"<uuid>\",\n      \"template_id\": \"<string>\",\n      \"active\": 1,\n      \"name\": \"<string>\",\n      \"subject\": \"<string>\",\n      \"updated_at\": \"<string>\",\n      \"generate_plain_content\": true,\n      \"html_content\": \"<string>\",\n      \"plain_content\": \"<string>\",\n      \"editor\": \"design\",\n      \"thumbnail_url\": \"<string>\"\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"template_id\": \"<string>\",\n      \"active\": 1,\n      \"name\": \"<string>\",\n      \"subject\": \"<string>\",\n      \"updated_at\": \"<string>\",\n      \"generate_plain_content\": true,\n      \"html_content\": \"<string>\",\n      \"plain_content\": \"<string>\",\n      \"editor\": \"design\",\n      \"thumbnail_url\": \"<string>\"\n    }\n  ],\n  \"warning\": {\n    \"message\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:18:12.000Z",
+                      "updatedAt": "2026-06-05T15:18:12.000Z",
+                      "uid": "35240-7b3568a3-4d47-4c2b-ac21-0417c5c1768e"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:12.000Z",
+                  "updatedAt": "2026-06-05T15:18:12.000Z",
+                  "uid": "35240-cbb4bf78-272b-47cb-b164-a4a130bd11f3"
+                },
+                {
+                  "name": "Edit a transactional template.",
+                  "id": "119b8ba8-17fd-4e37-a2a9-c34492d2fa6c",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/templates/:template_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "templates",
+                        ":template_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "766c98db-ba4a-4eff-99ca-4b3dfe50d051",
+                          "key": "template_id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "**This endpoint allows you to edit the name of a transactional template.**\n\nTo edit the template itself, [create a new transactional template version](https://docs.sendgrid.com/api-reference/transactional-templates-versions/create-a-new-transactional-template-version)."
+                  },
+                  "response": [
+                    {
+                      "id": "90c9e886-81a0-49aa-b9b6-7bd98f9ccac1",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/templates/:template_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "templates",
+                            ":template_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "template_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"generation\": \"dynamic\",\n  \"id\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"updated_at\": \"3769-95-57 36:96:48\",\n  \"versions\": [\n    {\n      \"id\": \"<uuid>\",\n      \"template_id\": \"<string>\",\n      \"active\": 1,\n      \"name\": \"<string>\",\n      \"subject\": \"<string>\",\n      \"updated_at\": \"<string>\",\n      \"generate_plain_content\": true,\n      \"html_content\": \"<string>\",\n      \"plain_content\": \"<string>\",\n      \"editor\": \"design\",\n      \"thumbnail_url\": \"<string>\"\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"template_id\": \"<string>\",\n      \"active\": 1,\n      \"name\": \"<string>\",\n      \"subject\": \"<string>\",\n      \"updated_at\": \"<string>\",\n      \"generate_plain_content\": true,\n      \"html_content\": \"<string>\",\n      \"plain_content\": \"<string>\",\n      \"editor\": \"design\",\n      \"thumbnail_url\": \"<string>\"\n    }\n  ],\n  \"warning\": {\n    \"message\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:18:12.000Z",
+                      "updatedAt": "2026-06-05T15:18:12.000Z",
+                      "uid": "35240-90c9e886-81a0-49aa-b9b6-7bd98f9ccac1"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:12.000Z",
+                  "updatedAt": "2026-06-05T15:18:12.000Z",
+                  "uid": "35240-119b8ba8-17fd-4e37-a2a9-c34492d2fa6c"
+                },
+                {
+                  "name": "Delete a template.",
+                  "id": "3209a6df-3a45-4fea-90c3-acc41328e3eb",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/templates/:template_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "templates",
+                        ":template_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "bee18db2-320e-4337-9d61-af1966948be5",
+                          "key": "template_id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "**This endpoint allows you to delete a transactional template.**"
+                  },
+                  "response": [
+                    {
+                      "id": "c4210d14-088c-46ef-a42d-2a1b76e601ba",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/templates/:template_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "templates",
+                            ":template_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "template_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:18:12.000Z",
+                      "updatedAt": "2026-06-05T15:18:12.000Z",
+                      "uid": "35240-c4210d14-088c-46ef-a42d-2a1b76e601ba"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:12.000Z",
+                  "updatedAt": "2026-06-05T15:18:12.000Z",
+                  "uid": "35240-3209a6df-3a45-4fea-90c3-acc41328e3eb"
+                }
+              ],
+              "id": "f7088102-b909-4aa6-b1be-e1ea63eb235f",
+              "createdAt": "2026-06-05T15:18:12.000Z",
+              "updatedAt": "2026-06-05T15:18:12.000Z",
+              "uid": "35240-f7088102-b909-4aa6-b1be-e1ea63eb235f"
+            },
+            {
+              "name": "Create a transactional template.",
+              "id": "710381c7-6918-4023-94d1-978152ae5c88",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                    "key": "on-behalf-of",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"generation\": \"legacy\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v3/templates",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v3",
+                    "templates"
+                  ]
+                },
+                "description": "**This endpoint allows you to create a transactional template.**"
+              },
+              "response": [
+                {
+                  "id": "049fdabd-561d-4673-89e6-74590205d29c",
+                  "name": "response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"generation\": \"legacy\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/templates",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "templates"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"generation\": \"dynamic\",\n  \"id\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"updated_at\": \"3769-95-57 36:96:48\",\n  \"versions\": [\n    {\n      \"id\": \"<uuid>\",\n      \"template_id\": \"<string>\",\n      \"active\": 1,\n      \"name\": \"<string>\",\n      \"subject\": \"<string>\",\n      \"updated_at\": \"<string>\",\n      \"generate_plain_content\": true,\n      \"html_content\": \"<string>\",\n      \"plain_content\": \"<string>\",\n      \"editor\": \"design\",\n      \"thumbnail_url\": \"<string>\"\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"template_id\": \"<string>\",\n      \"active\": 1,\n      \"name\": \"<string>\",\n      \"subject\": \"<string>\",\n      \"updated_at\": \"<string>\",\n      \"generate_plain_content\": true,\n      \"html_content\": \"<string>\",\n      \"plain_content\": \"<string>\",\n      \"editor\": \"design\",\n      \"thumbnail_url\": \"<string>\"\n    }\n  ],\n  \"warning\": {\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:18:12.000Z",
+                  "updatedAt": "2026-06-05T15:18:12.000Z",
+                  "uid": "35240-049fdabd-561d-4673-89e6-74590205d29c"
+                }
+              ],
+              "createdAt": "2026-06-05T15:18:12.000Z",
+              "updatedAt": "2026-06-05T15:18:12.000Z",
+              "uid": "35240-710381c7-6918-4023-94d1-978152ae5c88"
+            },
+            {
+              "name": "Retrieve paged transactional templates.",
+              "id": "a789aa68-dbe3-411e-9056-a11ba893c9b2",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                    "key": "on-behalf-of",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v3/templates?generations=legacy,dynamic&page_size=<number>&page_token=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v3",
+                    "templates"
+                  ],
+                  "query": [
+                    {
+                      "description": "Comma-delimited list specifying which generations of templates to return. Options are `legacy`, `dynamic` or `legacy,dynamic`.",
+                      "key": "generations",
+                      "value": "legacy,dynamic"
+                    },
+                    {
+                      "description": "(Required) The number of templates to be returned in each page of results",
+                      "key": "page_size",
+                      "value": "<number>"
+                    },
+                    {
+                      "description": "A token corresponding to a specific page of results, as provided by metadata",
+                      "key": "page_token",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "**This endpoint allows you to retrieve all transactional templates.**"
+              },
+              "response": [
+                {
+                  "id": "ce8e09bf-b5d2-46ff-a5b8-5d7a8097fec2",
+                  "name": "response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/templates?generations=legacy,dynamic&page_size=<number>&page_token=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "templates"
+                      ],
+                      "query": [
+                        {
+                          "description": "Comma-delimited list specifying which generations of templates to return. Options are `legacy`, `dynamic` or `legacy,dynamic`.",
+                          "key": "generations",
+                          "value": "legacy,dynamic"
+                        },
+                        {
+                          "description": "(Required) The number of templates to be returned in each page of results",
+                          "key": "page_size",
+                          "value": "<number>"
+                        },
+                        {
+                          "description": "A token corresponding to a specific page of results, as provided by metadata",
+                          "key": "page_token",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"result\": [\n    {\n      \"id\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"generation\": \"legacy\",\n      \"updated_at\": \"1983-29-82 88:61:21\",\n      \"versions\": [\n        {\n          \"id\": \"<uuid>\",\n          \"template_id\": \"<string>\",\n          \"active\": 0,\n          \"name\": \"<string>\",\n          \"subject\": \"<string>\",\n          \"updated_at\": \"<string>\",\n          \"generate_plain_content\": true,\n          \"html_content\": \"<string>\",\n          \"plain_content\": \"<string>\",\n          \"editor\": \"code\",\n          \"thumbnail_url\": \"<string>\"\n        },\n        {\n          \"id\": \"<uuid>\",\n          \"template_id\": \"<string>\",\n          \"active\": 1,\n          \"name\": \"<string>\",\n          \"subject\": \"<string>\",\n          \"updated_at\": \"<string>\",\n          \"generate_plain_content\": true,\n          \"html_content\": \"<string>\",\n          \"plain_content\": \"<string>\",\n          \"editor\": \"code\",\n          \"thumbnail_url\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"generation\": \"dynamic\",\n      \"updated_at\": \"4332-07-55 30:51:77\",\n      \"versions\": [\n        {\n          \"id\": \"<uuid>\",\n          \"template_id\": \"<string>\",\n          \"active\": 0,\n          \"name\": \"<string>\",\n          \"subject\": \"<string>\",\n          \"updated_at\": \"<string>\",\n          \"generate_plain_content\": true,\n          \"html_content\": \"<string>\",\n          \"plain_content\": \"<string>\",\n          \"editor\": \"code\",\n          \"thumbnail_url\": \"<string>\"\n        },\n        {\n          \"id\": \"<uuid>\",\n          \"template_id\": \"<string>\",\n          \"active\": 0,\n          \"name\": \"<string>\",\n          \"subject\": \"<string>\",\n          \"updated_at\": \"<string>\",\n          \"generate_plain_content\": true,\n          \"html_content\": \"<string>\",\n          \"plain_content\": \"<string>\",\n          \"editor\": \"code\",\n          \"thumbnail_url\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"_metadata\": {\n    \"prev\": \"<uri>\",\n    \"self\": \"<uri>\",\n    \"next\": \"<uri>\",\n    \"count\": \"<integer>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:18:12.000Z",
+                  "updatedAt": "2026-06-05T15:18:12.000Z",
+                  "uid": "35240-ce8e09bf-b5d2-46ff-a5b8-5d7a8097fec2"
+                },
+                {
+                  "id": "bbc87257-be20-4f4c-b322-ca0c8e52f5c0",
+                  "name": "response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/templates?generations=legacy,dynamic&page_size=<number>&page_token=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "templates"
+                      ],
+                      "query": [
+                        {
+                          "description": "Comma-delimited list specifying which generations of templates to return. Options are `legacy`, `dynamic` or `legacy,dynamic`.",
+                          "key": "generations",
+                          "value": "legacy,dynamic"
+                        },
+                        {
+                          "description": "(Required) The number of templates to be returned in each page of results",
+                          "key": "page_size",
+                          "value": "<number>"
+                        },
+                        {
+                          "description": "A token corresponding to a specific page of results, as provided by metadata",
+                          "key": "page_token",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"error_id\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:18:12.000Z",
+                  "updatedAt": "2026-06-05T15:18:12.000Z",
+                  "uid": "35240-bbc87257-be20-4f4c-b322-ca0c8e52f5c0"
+                }
+              ],
+              "createdAt": "2026-06-05T15:18:12.000Z",
+              "updatedAt": "2026-06-05T15:18:12.000Z",
+              "uid": "35240-a789aa68-dbe3-411e-9056-a11ba893c9b2"
+            }
+          ],
+          "id": "8d3ae7a9-7cb3-46dd-ac8a-805198a8343b",
+          "createdAt": "2026-06-05T15:18:12.000Z",
+          "updatedAt": "2026-06-05T15:18:12.000Z",
+          "uid": "35240-8d3ae7a9-7cb3-46dd-ac8a-805198a8343b"
+        }
+      ],
+      "id": "7de84405-d956-4914-9d78-eaec2164ebd8",
+      "createdAt": "2026-06-05T15:18:12.000Z",
+      "updatedAt": "2026-06-05T15:18:12.000Z",
+      "uid": "35240-7de84405-d956-4914-9d78-eaec2164ebd8"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.sendgrid.com"
+    }
+  ]
+}

@@ -1,0 +1,2014 @@
+{
+  "info": {
+    "_postman_id": "367a1404-f838-420f-8876-f63c6a22d7bb",
+    "name": "Twilio SendGrid Domain Authentication API",
+    "description": "The Twilio SendGrid Domain Authentication API allows you to manage your authenticated domains and their settings.\n\nDomain Authentication is a required step when setting up your Twilio SendGrid account because it's essential to ensuring the deliverability of your email. Domain Authentication signals trustworthiness to email inbox providers and your recipients by approving SendGrid to send email on behalf of your domain. For more information, see [**How to Set Up Domain Authentication**](https://sendgrid.com/docs/ui/account-and-settings/how-to-set-up-domain-authentication/).\n\nEach user may have a maximum of 3,000 authenticated domains and 3,000 link brandings. This limit is at the user level, meaning each Subuser belonging to a parent account may have its own 3,000 authenticated domains and 3,000 link brandings.\n\nContact Support:\n Name: Twilio SendGrid Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:16:33.000Z",
+    "updatedAt": "2026-06-05T15:16:33.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-367a1404-f838-420f-8876-f63c6a22d7bb"
+  },
+  "item": [
+    {
+      "name": "v3",
+      "item": [
+        {
+          "name": "whitelabel",
+          "item": [
+            {
+              "name": "dns",
+              "item": [
+                {
+                  "name": "email",
+                  "item": [
+                    {
+                      "name": "Email DNS records to a co-worker",
+                      "id": "1be966fb-e9cb-4d7b-b3ea-e530bcb843b2",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"link_id\": \"<integer>\",\n  \"domain_id\": \"<integer>\",\n  \"email\": \"<email>\",\n  \"message\": \"Please set these DNS records in our hosting solution.\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/whitelabel/dns/email",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "whitelabel",
+                            "dns",
+                            "email"
+                          ]
+                        },
+                        "description": "**This endpoint is used to share DNS records with a colleagues**\n\nUse this endpoint to send SendGrid-generated DNS record information to a co-worker so they can enter it into your DNS provider to validate your domain and link branding. \n\nWhat type of records are sent will depend on whether you have chosen Automated Security or not. When using Automated Security, SendGrid provides you with three CNAME records. If you turn Automated Security off, you are instead given TXT and MX records.\n\nIf you pass a `link_id` to this endpoint, the generated email will supply the DNS records necessary to complete [Link Branding](https://sendgrid.com/docs/ui/account-and-settings/how-to-set-up-link-branding/) setup. If you pass a `domain_id` to this endpoint, the generated email will supply the DNS records needed to complete [Domain Authentication](https://sendgrid.com/docs/ui/account-and-settings/how-to-set-up-domain-authentication/). Passing both IDs will generate an email with the records needed to complete both setup steps.\n\nYou can retrieve all your domain IDs from the returned `id` fields for each domain using the \"List all authenticated domains\" endpoint. You can retrieve all of your link IDs using the \"Retrieve all branded links\" endpoint."
+                      },
+                      "response": [
+                        {
+                          "id": "e426356f-1f99-4c7e-a113-037ab06e17de",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"link_id\": \"<integer>\",\n  \"domain_id\": \"<integer>\",\n  \"email\": \"<email>\",\n  \"message\": \"Please set these DNS records in our hosting solution.\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/whitelabel/dns/email",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "whitelabel",
+                                "dns",
+                                "email"
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:16:34.000Z",
+                          "updatedAt": "2026-06-05T15:16:34.000Z",
+                          "uid": "35240-e426356f-1f99-4c7e-a113-037ab06e17de"
+                        },
+                        {
+                          "id": "dad22920-d283-45f7-a5b4-727db849a760",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"link_id\": \"<integer>\",\n  \"domain_id\": \"<integer>\",\n  \"email\": \"<email>\",\n  \"message\": \"Please set these DNS records in our hosting solution.\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/whitelabel/dns/email",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "whitelabel",
+                                "dns",
+                                "email"
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": {\n    \"error\": \"<string>\",\n    \"field\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:16:34.000Z",
+                          "updatedAt": "2026-06-05T15:16:34.000Z",
+                          "uid": "35240-dad22920-d283-45f7-a5b4-727db849a760"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:16:33.000Z",
+                      "updatedAt": "2026-06-05T15:16:33.000Z",
+                      "uid": "35240-1be966fb-e9cb-4d7b-b3ea-e530bcb843b2"
+                    }
+                  ],
+                  "id": "679abebc-640f-42a2-bae3-1df0704325f2",
+                  "createdAt": "2026-06-05T15:16:33.000Z",
+                  "updatedAt": "2026-06-05T15:16:33.000Z",
+                  "uid": "35240-679abebc-640f-42a2-bae3-1df0704325f2"
+                }
+              ],
+              "id": "0bfe7715-75c7-4efb-a8a7-fceb3d1fb2d6",
+              "createdAt": "2026-06-05T15:16:33.000Z",
+              "updatedAt": "2026-06-05T15:16:33.000Z",
+              "uid": "35240-0bfe7715-75c7-4efb-a8a7-fceb3d1fb2d6"
+            },
+            {
+              "name": "domains",
+              "item": [
+                {
+                  "name": "{domain_id}",
+                  "item": [
+                    {
+                      "name": "subuser",
+                      "item": [
+                        {
+                          "name": "Associate an authenticated domain with a given user.",
+                          "id": "ba29b94c-fad6-4e0f-944b-e14f6abddc49",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"username\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/whitelabel/domains/:domain_id/subuser",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "whitelabel",
+                                "domains",
+                                ":domain_id",
+                                "subuser"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "96957785-c079-462c-8b70-998b95a7a278",
+                                  "key": "domain_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) ID of the authenticated domain to associate with the subuser."
+                                }
+                              ]
+                            },
+                            "description": "**This endpoint allows you to associate a specific authenticated domain with a subuser.**\nAuthenticated domains can be associated with (i.e. assigned to) subusers from a parent account. This functionality allows subusers to send mail using their parent's domain. To associate an authenticated domain with a subuser, the parent account must first authenticate and validate the domain. The parent may then associate the authenticated domain via the subuser management tools.\n\n\n[You can associate more than one domain with a subuser using the `v3/whitelabel/domains/{domain_id}/subuser:add` endpoint](https://www.twilio.com/docs/sendgrid/api-reference/domain-authentication/associate-an-authenticated-domain-with-a-subuser-multiple)."
+                          },
+                          "response": [
+                            {
+                              "id": "9b5b83ab-ea36-4cec-84e5-af95dcd920cc",
+                              "name": "response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"username\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/whitelabel/domains/:domain_id/subuser",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "whitelabel",
+                                    "domains",
+                                    ":domain_id",
+                                    "subuser"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "domain_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Created",
+                              "code": 201,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<integer>\",\n  \"domain\": \"<string>\",\n  \"username\": \"<string>\",\n  \"user_id\": \"<integer>\",\n  \"ips\": [],\n  \"custom_spf\": \"<boolean>\",\n  \"default\": \"<boolean>\",\n  \"legacy\": \"<boolean>\",\n  \"automatic_security\": \"<boolean>\",\n  \"valid\": \"<boolean>\",\n  \"dns\": {\n    \"mail_server\": {\n      \"host\": \"<string>\",\n      \"type\": \"<string>\",\n      \"data\": \"<string>\",\n      \"valid\": \"<boolean>\"\n    },\n    \"subdomain_spf\": {\n      \"host\": \"<string>\",\n      \"type\": \"<string>\",\n      \"data\": \"<string>\",\n      \"valid\": \"<boolean>\"\n    },\n    \"domain_spf\": {\n      \"host\": \"<string>\",\n      \"type\": \"<string>\",\n      \"data\": \"<string>\",\n      \"valid\": \"<boolean>\"\n    },\n    \"dkim\": {\n      \"host\": \"<string>\",\n      \"type\": \"<string>\",\n      \"data\": \"<string>\",\n      \"valid\": \"<boolean>\"\n    }\n  },\n  \"subdomain\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:16:34.000Z",
+                              "updatedAt": "2026-06-05T15:16:34.000Z",
+                              "uid": "35240-9b5b83ab-ea36-4cec-84e5-af95dcd920cc"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:16:33.000Z",
+                          "updatedAt": "2026-06-05T15:16:33.000Z",
+                          "uid": "35240-ba29b94c-fad6-4e0f-944b-e14f6abddc49"
+                        },
+                        {
+                          "name": "Disassociate an authenticated domain from a given user for users with up to five associated domains.",
+                          "id": "47e10ba8-bc43-41ba-a062-ff9968c58b51",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "DELETE",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/whitelabel/domains/:domain_id/subuser?username=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "whitelabel",
+                                "domains",
+                                ":domain_id",
+                                "subuser"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Username for the subuser to find associated authenticated domain.",
+                                  "key": "username",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "babd29ce-bfa2-4d06-8430-d69cd7d18312",
+                                  "key": "domain_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) ID of the authenticated domain to be disassociated with the subuser."
+                                }
+                              ]
+                            },
+                            "description": "**This endpoint allows you to disassociate a specific authenticated domain from a subuser, for users with up to five associated domains.**\n\n\nThis functionality allows subusers to send mail using their parent's domain. Authenticated domains can be associated with (i.e. assigned to) subusers kknt, and a subuser can have up to five associated authenticated domains. \n\nYou can dissociate an authenticated domain from any subuser that has one or more authenticated domains using this endpoint."
+                          },
+                          "response": [
+                            {
+                              "id": "2dbef6f2-f403-4224-b870-f4c82f0c5a52",
+                              "name": "response",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/whitelabel/domains/:domain_id/subuser?username=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "whitelabel",
+                                    "domains",
+                                    ":domain_id",
+                                    "subuser"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Username for the subuser to find associated authenticated domain.",
+                                      "key": "username",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "domain_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "No Content",
+                              "code": 204,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:16:34.000Z",
+                              "updatedAt": "2026-06-05T15:16:34.000Z",
+                              "uid": "35240-2dbef6f2-f403-4224-b870-f4c82f0c5a52"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:16:33.000Z",
+                          "updatedAt": "2026-06-05T15:16:33.000Z",
+                          "uid": "35240-47e10ba8-bc43-41ba-a062-ff9968c58b51"
+                        }
+                      ],
+                      "id": "3aa4a628-cb81-4253-8cf7-794fde2ff68f",
+                      "createdAt": "2026-06-05T15:16:33.000Z",
+                      "updatedAt": "2026-06-05T15:16:33.000Z",
+                      "uid": "35240-3aa4a628-cb81-4253-8cf7-794fde2ff68f"
+                    },
+                    {
+                      "name": "subuser:add",
+                      "item": [
+                        {
+                          "name": "Associate an authenticated domain with a given user, for up to five domains.",
+                          "id": "6d68d008-00c7-4e65-8f7d-c7d9bf5dc099",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"username\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/whitelabel/domains/:domain_id/subuser:add",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "whitelabel",
+                                "domains",
+                                ":domain_id",
+                                "subuser:add"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "c397d4d4-ce6b-4f46-96c6-3c373d34279b",
+                                  "key": "domain_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) ID of the authenticated domain to associate with the subuser."
+                                }
+                              ]
+                            },
+                            "description": "**This endpoint allows you to associate a specific authenticated domain with a subuser. It can be used to associate up to five authenticated domains.**\n\n\nThis functionality allows subusers to send mail using their parent's domain. Authenticated domains can be associated with (i.e. assigned to) subusers from a parent account. To associate an authenticated domain with a subuser, the parent account must first authenticate and validate the domain. The parent may then associate the authenticated domain via the subuser management tools.\n\n\nA subuser can have up to five associated authenticated domains. To see the domains that have already been associated with this user, you can [use the API to list the domains currently associated with the subuser](https://www.twilio.com/docs/sendgrid/api-reference/domain-authentication/list-the-authenticated-domain-associated-with-a-subuser-multiple).\n\n\nWhen selecting a domain to send email from, SendGrid checks for domains in the following order and chooses the first one that appears in the hierarchy: \n1. Domain assigned by the subuser that matches the email's `From` address domain. \n2. The subuser's default domain. \n3. Domain assigned by the parent user that matches the `From` address domain. \n4. Parent user's default domain. \n5. sendgrid.net"
+                          },
+                          "response": [
+                            {
+                              "id": "adfa1d51-839d-4b24-ada9-161e291e467d",
+                              "name": "response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"username\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/whitelabel/domains/:domain_id/subuser:add",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "whitelabel",
+                                    "domains",
+                                    ":domain_id",
+                                    "subuser:add"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "domain_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Created",
+                              "code": 201,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<integer>\",\n  \"domain\": \"<string>\",\n  \"username\": \"<string>\",\n  \"user_id\": \"<integer>\",\n  \"ips\": [],\n  \"custom_spf\": \"<boolean>\",\n  \"default\": \"<boolean>\",\n  \"legacy\": \"<boolean>\",\n  \"automatic_security\": \"<boolean>\",\n  \"valid\": \"<boolean>\",\n  \"dns\": {\n    \"mail_server\": {\n      \"host\": \"<string>\",\n      \"type\": \"<string>\",\n      \"data\": \"<string>\",\n      \"valid\": \"<boolean>\"\n    },\n    \"subdomain_spf\": {\n      \"host\": \"<string>\",\n      \"type\": \"<string>\",\n      \"data\": \"<string>\",\n      \"valid\": \"<boolean>\"\n    },\n    \"domain_spf\": {\n      \"host\": \"<string>\",\n      \"type\": \"<string>\",\n      \"data\": \"<string>\",\n      \"valid\": \"<boolean>\"\n    },\n    \"dkim\": {\n      \"host\": \"<string>\",\n      \"type\": \"<string>\",\n      \"data\": \"<string>\",\n      \"valid\": \"<boolean>\"\n    }\n  },\n  \"subdomain\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:16:34.000Z",
+                              "updatedAt": "2026-06-05T15:16:34.000Z",
+                              "uid": "35240-adfa1d51-839d-4b24-ada9-161e291e467d"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:16:33.000Z",
+                          "updatedAt": "2026-06-05T15:16:33.000Z",
+                          "uid": "35240-6d68d008-00c7-4e65-8f7d-c7d9bf5dc099"
+                        }
+                      ],
+                      "id": "cd7ecf39-ecb7-4e73-a7d0-5b957c9e7821",
+                      "createdAt": "2026-06-05T15:16:33.000Z",
+                      "updatedAt": "2026-06-05T15:16:33.000Z",
+                      "uid": "35240-cd7ecf39-ecb7-4e73-a7d0-5b957c9e7821"
+                    },
+                    {
+                      "name": "Retrieve an authenticated domain",
+                      "id": "9f876ec8-d90c-4134-86f0-69b2e3ad026e",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/whitelabel/domains/:domain_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "whitelabel",
+                            "domains",
+                            ":domain_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "4b7a8714-a21b-46f8-98a0-d21d8885424a",
+                              "key": "domain_id",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "**This endpoint allows you to retrieve a specific authenticated domain.**"
+                      },
+                      "response": [
+                        {
+                          "id": "e44ecbfd-4372-4536-a556-cca9c09f18bd",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/whitelabel/domains/:domain_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "whitelabel",
+                                "domains",
+                                ":domain_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "domain_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<number>\",\n  \"user_id\": \"<number>\",\n  \"subdomain\": \"<string>\",\n  \"domain\": \"<string>\",\n  \"username\": \"<string>\",\n  \"ips\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"custom_spf\": \"<boolean>\",\n  \"default\": \"<boolean>\",\n  \"legacy\": \"<boolean>\",\n  \"automatic_security\": \"<boolean>\",\n  \"valid\": \"<boolean>\",\n  \"dns\": {\n    \"mail_cname\": {\n      \"valid\": \"<boolean>\",\n      \"type\": \"<string>\",\n      \"host\": \"<hostname>\",\n      \"data\": \"<string>\"\n    },\n    \"dkim1\": {\n      \"valid\": \"<boolean>\",\n      \"type\": \"<string>\",\n      \"host\": \"<string>\",\n      \"data\": \"<string>\"\n    },\n    \"dkim2\": {\n      \"valid\": \"<boolean>\",\n      \"type\": \"<string>\",\n      \"host\": \"<string>\",\n      \"data\": \"<string>\"\n    }\n  }\n}",
+                          "createdAt": "2026-06-05T15:16:34.000Z",
+                          "updatedAt": "2026-06-05T15:16:34.000Z",
+                          "uid": "35240-e44ecbfd-4372-4536-a556-cca9c09f18bd"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:16:33.000Z",
+                      "updatedAt": "2026-06-05T15:16:33.000Z",
+                      "uid": "35240-9f876ec8-d90c-4134-86f0-69b2e3ad026e"
+                    },
+                    {
+                      "name": "Update an authenticated domain",
+                      "id": "3ba85399-6822-4e7b-bdbe-426370ec5dc7",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"default\": false,\n  \"custom_spf\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/whitelabel/domains/:domain_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "whitelabel",
+                            "domains",
+                            ":domain_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "c892dbd8-be3a-4dc4-b56d-a1d9d126eac9",
+                              "key": "domain_id",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "**This endpoint allows you to update the settings for an authenticated domain.**"
+                      },
+                      "response": [
+                        {
+                          "id": "ebd04825-8ae5-4f5e-8918-87699ffc81df",
+                          "name": "Success response",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"default\": false,\n  \"custom_spf\": false\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/whitelabel/domains/:domain_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "whitelabel",
+                                "domains",
+                                ":domain_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "domain_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "[\n  {\n    \"automatic_security\": \"<boolean>\",\n    \"custom_spf\": \"<boolean>\",\n    \"default\": \"<boolean>\",\n    \"dns\": {\n      \"mail_cname\": {\n        \"valid\": \"<boolean>\",\n        \"type\": \"<string>\",\n        \"host\": \"<hostname>\",\n        \"data\": \"<string>\"\n      },\n      \"dkim1\": {\n        \"valid\": \"<boolean>\",\n        \"type\": \"<string>\",\n        \"host\": \"<string>\",\n        \"data\": \"<string>\"\n      },\n      \"dkim2\": {\n        \"valid\": \"<boolean>\",\n        \"type\": \"<string>\",\n        \"host\": \"<string>\",\n        \"data\": \"<string>\"\n      }\n    },\n    \"domain\": \"<string>\",\n    \"id\": \"<number>\",\n    \"ips\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"legacy\": \"<boolean>\",\n    \"subdomain\": \"<string>\",\n    \"user_id\": \"<number>\",\n    \"username\": \"<string>\",\n    \"valid\": \"<boolean>\",\n    \"subusers\": [\n      {\n        \"user_id\": \"<integer>\",\n        \"username\": \"<string>\"\n      },\n      {\n        \"user_id\": \"<integer>\",\n        \"username\": \"<string>\"\n      }\n    ],\n    \"last_validation_attempt_at\": \"<integer>\"\n  },\n  {\n    \"automatic_security\": \"<boolean>\",\n    \"custom_spf\": \"<boolean>\",\n    \"default\": \"<boolean>\",\n    \"dns\": {\n      \"mail_cname\": {\n        \"valid\": \"<boolean>\",\n        \"type\": \"<string>\",\n        \"host\": \"<hostname>\",\n        \"data\": \"<string>\"\n      },\n      \"dkim1\": {\n        \"valid\": \"<boolean>\",\n        \"type\": \"<string>\",\n        \"host\": \"<string>\",\n        \"data\": \"<string>\"\n      },\n      \"dkim2\": {\n        \"valid\": \"<boolean>\",\n        \"type\": \"<string>\",\n        \"host\": \"<string>\",\n        \"data\": \"<string>\"\n      }\n    },\n    \"domain\": \"<string>\",\n    \"id\": \"<number>\",\n    \"ips\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"legacy\": \"<boolean>\",\n    \"subdomain\": \"<string>\",\n    \"user_id\": \"<number>\",\n    \"username\": \"<string>\",\n    \"valid\": \"<boolean>\",\n    \"subusers\": [\n      {\n        \"user_id\": \"<integer>\",\n        \"username\": \"<string>\"\n      },\n      {\n        \"user_id\": \"<integer>\",\n        \"username\": \"<string>\"\n      }\n    ],\n    \"last_validation_attempt_at\": \"<integer>\"\n  }\n]",
+                          "createdAt": "2026-06-05T15:16:34.000Z",
+                          "updatedAt": "2026-06-05T15:16:34.000Z",
+                          "uid": "35240-ebd04825-8ae5-4f5e-8918-87699ffc81df"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:16:33.000Z",
+                      "updatedAt": "2026-06-05T15:16:33.000Z",
+                      "uid": "35240-3ba85399-6822-4e7b-bdbe-426370ec5dc7"
+                    },
+                    {
+                      "name": "Delete an authenticated domain.",
+                      "id": "d4d383c9-ca9c-4f99-bf95-a3081853e52b",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/whitelabel/domains/:domain_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "whitelabel",
+                            "domains",
+                            ":domain_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "e56539c2-c06a-4977-a600-f0dcd5212aef",
+                              "key": "domain_id",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "**This endpoint allows you to delete an authenticated domain.**"
+                      },
+                      "response": [
+                        {
+                          "id": "e7ce5fbb-896e-430d-ad6b-4d7548281528",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/whitelabel/domains/:domain_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "whitelabel",
+                                "domains",
+                                ":domain_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "domain_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:16:34.000Z",
+                          "updatedAt": "2026-06-05T15:16:34.000Z",
+                          "uid": "35240-e7ce5fbb-896e-430d-ad6b-4d7548281528"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:16:33.000Z",
+                      "updatedAt": "2026-06-05T15:16:33.000Z",
+                      "uid": "35240-d4d383c9-ca9c-4f99-bf95-a3081853e52b"
+                    }
+                  ],
+                  "id": "71f4c7fe-9590-4680-8fe4-6e2a1e552f9c",
+                  "createdAt": "2026-06-05T15:16:33.000Z",
+                  "updatedAt": "2026-06-05T15:16:33.000Z",
+                  "uid": "35240-71f4c7fe-9590-4680-8fe4-6e2a1e552f9c"
+                },
+                {
+                  "name": "{id}",
+                  "item": [
+                    {
+                      "name": "ips",
+                      "item": [
+                        {
+                          "name": "{ip}",
+                          "item": [
+                            {
+                              "name": "Remove an IP from an authenticated domain.",
+                              "id": "ab7eda20-9c42-464d-ad44-7f8c40e064f5",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                    "key": "on-behalf-of",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/whitelabel/domains/:id/ips/:ip",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "whitelabel",
+                                    "domains",
+                                    ":id",
+                                    "ips",
+                                    ":ip"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "1fb5f7a5-2520-4639-91f5-3d1352874926",
+                                      "key": "id",
+                                      "value": "<integer>",
+                                      "description": "(Required) ID of the domain to delete the IP from."
+                                    },
+                                    {
+                                      "id": "d345a871-edf5-4d93-95dc-e882b7877038",
+                                      "key": "ip",
+                                      "value": "<string>",
+                                      "description": "(Required) IP to remove from the domain."
+                                    }
+                                  ]
+                                },
+                                "description": "**This endpoint allows you to remove an IP address from that domain's authentication.**"
+                              },
+                              "response": [
+                                {
+                                  "id": "9a4c66c9-f1c6-4c04-89b3-f0a24f31d3f2",
+                                  "name": "response",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                        "key": "on-behalf-of",
+                                        "value": "<string>"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/v3/whitelabel/domains/:id/ips/:ip",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "v3",
+                                        "whitelabel",
+                                        "domains",
+                                        ":id",
+                                        "ips",
+                                        ":ip"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "id"
+                                        },
+                                        {
+                                          "key": "ip"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"id\": \"<integer>\",\n  \"domain\": \"<string>\",\n  \"username\": \"<string>\",\n  \"user_id\": \"<integer>\",\n  \"ips\": [],\n  \"custom_spf\": \"<boolean>\",\n  \"default\": \"<boolean>\",\n  \"legacy\": \"<boolean>\",\n  \"automatic_security\": \"<boolean>\",\n  \"valid\": \"<boolean>\",\n  \"dns\": {\n    \"mail_server\": {\n      \"host\": \"<string>\",\n      \"type\": \"<string>\",\n      \"data\": \"<string>\",\n      \"valid\": \"<boolean>\"\n    },\n    \"subdomain_spf\": {\n      \"host\": \"<string>\",\n      \"type\": \"<string>\",\n      \"data\": \"<string>\",\n      \"valid\": \"<boolean>\"\n    },\n    \"domain_spf\": {\n      \"host\": \"<string>\",\n      \"type\": \"<string>\",\n      \"data\": \"<string>\",\n      \"valid\": \"<boolean>\"\n    },\n    \"dkim\": {\n      \"host\": \"<string>\",\n      \"type\": \"<string>\",\n      \"data\": \"<string>\",\n      \"valid\": \"<boolean>\"\n    }\n  },\n  \"subdomain\": \"<string>\"\n}",
+                                  "createdAt": "2026-06-05T15:16:34.000Z",
+                                  "updatedAt": "2026-06-05T15:16:34.000Z",
+                                  "uid": "35240-9a4c66c9-f1c6-4c04-89b3-f0a24f31d3f2"
+                                }
+                              ],
+                              "createdAt": "2026-06-05T15:16:33.000Z",
+                              "updatedAt": "2026-06-05T15:16:33.000Z",
+                              "uid": "35240-ab7eda20-9c42-464d-ad44-7f8c40e064f5"
+                            }
+                          ],
+                          "id": "923fd1fb-2087-40a9-9dcc-443e87796846",
+                          "createdAt": "2026-06-05T15:16:33.000Z",
+                          "updatedAt": "2026-06-05T15:16:33.000Z",
+                          "uid": "35240-923fd1fb-2087-40a9-9dcc-443e87796846"
+                        },
+                        {
+                          "name": "Add an IP to an authenticated domain",
+                          "id": "0ce6eb4e-36c6-4ac4-8512-a49ecebd939d",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"ip\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/whitelabel/domains/:id/ips",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "whitelabel",
+                                "domains",
+                                ":id",
+                                "ips"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "89c8caed-8bd5-4195-99c5-71b14895f94b",
+                                  "key": "id",
+                                  "value": "<integer>",
+                                  "description": "(Required) ID of the domain to which you are adding an IP"
+                                }
+                              ]
+                            },
+                            "description": "**This endpoint allows you to add an IP address to an authenticated domain.**"
+                          },
+                          "response": [
+                            {
+                              "id": "59e8b91a-76a7-4123-b238-6a7da20bb403",
+                              "name": "response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                    "key": "on-behalf-of",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"ip\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/whitelabel/domains/:id/ips",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "whitelabel",
+                                    "domains",
+                                    ":id",
+                                    "ips"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<integer>\",\n  \"domain\": \"<string>\",\n  \"username\": \"<string>\",\n  \"user_id\": \"<integer>\",\n  \"ips\": [],\n  \"custom_spf\": \"<boolean>\",\n  \"default\": \"<boolean>\",\n  \"legacy\": \"<boolean>\",\n  \"automatic_security\": \"<boolean>\",\n  \"valid\": \"<boolean>\",\n  \"dns\": {\n    \"mail_server\": {\n      \"host\": \"<string>\",\n      \"type\": \"<string>\",\n      \"data\": \"<string>\",\n      \"valid\": \"<boolean>\"\n    },\n    \"subdomain_spf\": {\n      \"host\": \"<string>\",\n      \"type\": \"<string>\",\n      \"data\": \"<string>\",\n      \"valid\": \"<boolean>\"\n    },\n    \"domain_spf\": {\n      \"host\": \"<string>\",\n      \"type\": \"<string>\",\n      \"data\": \"<string>\",\n      \"valid\": \"<boolean>\"\n    },\n    \"dkim\": {\n      \"host\": \"<string>\",\n      \"type\": \"<string>\",\n      \"data\": \"<string>\",\n      \"valid\": \"<boolean>\"\n    }\n  },\n  \"subdomain\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:16:34.000Z",
+                              "updatedAt": "2026-06-05T15:16:34.000Z",
+                              "uid": "35240-59e8b91a-76a7-4123-b238-6a7da20bb403"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:16:33.000Z",
+                          "updatedAt": "2026-06-05T15:16:33.000Z",
+                          "uid": "35240-0ce6eb4e-36c6-4ac4-8512-a49ecebd939d"
+                        }
+                      ],
+                      "id": "5f647181-7005-4ab4-8840-49a2479ca64b",
+                      "createdAt": "2026-06-05T15:16:33.000Z",
+                      "updatedAt": "2026-06-05T15:16:33.000Z",
+                      "uid": "35240-5f647181-7005-4ab4-8840-49a2479ca64b"
+                    },
+                    {
+                      "name": "validate",
+                      "item": [
+                        {
+                          "name": "Validate a domain authentication.",
+                          "id": "09131805-b1a6-4c1f-937d-c515ea5eddba",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/whitelabel/domains/:id/validate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "whitelabel",
+                                "domains",
+                                ":id",
+                                "validate"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "57c09488-d62c-4fc6-81f5-919789b89bf3",
+                                  "key": "id",
+                                  "value": "<integer>",
+                                  "description": "(Required) ID of the domain to validate."
+                                }
+                              ]
+                            },
+                            "description": "**This endpoint allows you to validate an authenticated domain. If it fails, it will return an error message describing why the domain could not be validated.**"
+                          },
+                          "response": [
+                            {
+                              "id": "dc2760e1-9e52-4252-8836-a44a37b8e396",
+                              "name": "response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                    "key": "on-behalf-of",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/whitelabel/domains/:id/validate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "whitelabel",
+                                    "domains",
+                                    ":id",
+                                    "validate"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<integer>\",\n  \"valid\": \"<boolean>\",\n  \"validation_results\": {\n    \"mail_cname\": {\n      \"valid\": \"<boolean>\",\n      \"reason\": \"<string>\"\n    },\n    \"dkim1\": {\n      \"valid\": \"<boolean>\",\n      \"reason\": \"<string>\"\n    },\n    \"dkim2\": {\n      \"valid\": \"<boolean>\",\n      \"reason\": \"<string>\"\n    },\n    \"spf\": {\n      \"valid\": \"<boolean>\",\n      \"reason\": \"<string>\"\n    }\n  }\n}",
+                              "createdAt": "2026-06-05T15:16:34.000Z",
+                              "updatedAt": "2026-06-05T15:16:34.000Z",
+                              "uid": "35240-dc2760e1-9e52-4252-8836-a44a37b8e396"
+                            },
+                            {
+                              "id": "e05e3b1a-05ce-41a0-ac95-d76d2c33b0ea",
+                              "name": "response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                    "key": "on-behalf-of",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/whitelabel/domains/:id/validate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "whitelabel",
+                                    "domains",
+                                    ":id",
+                                    "validate"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-06-05T15:16:34.000Z",
+                              "updatedAt": "2026-06-05T15:16:34.000Z",
+                              "uid": "35240-e05e3b1a-05ce-41a0-ac95-d76d2c33b0ea"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:16:33.000Z",
+                          "updatedAt": "2026-06-05T15:16:33.000Z",
+                          "uid": "35240-09131805-b1a6-4c1f-937d-c515ea5eddba"
+                        }
+                      ],
+                      "id": "538a21b5-8fc7-4386-90ae-a2ecadafd92c",
+                      "createdAt": "2026-06-05T15:16:33.000Z",
+                      "updatedAt": "2026-06-05T15:16:33.000Z",
+                      "uid": "35240-538a21b5-8fc7-4386-90ae-a2ecadafd92c"
+                    }
+                  ],
+                  "id": "4d4e2ddb-5146-48de-b258-d1d3f70268ae",
+                  "createdAt": "2026-06-05T15:16:33.000Z",
+                  "updatedAt": "2026-06-05T15:16:33.000Z",
+                  "uid": "35240-4d4e2ddb-5146-48de-b258-d1d3f70268ae"
+                },
+                {
+                  "name": "default",
+                  "item": [
+                    {
+                      "name": "Get the default authentication",
+                      "id": "5462b9bc-5048-4a1e-9c7e-e53ba83e0835",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/whitelabel/domains/default?domain=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "whitelabel",
+                            "domains",
+                            "default"
+                          ],
+                          "query": [
+                            {
+                              "description": "The domain to find a default authentication.",
+                              "key": "domain",
+                              "value": "<string>"
+                            }
+                          ]
+                        },
+                        "description": "**This endpoint allows you to retrieve the default authentication for a domain.**\n\nWhen creating or updating a domain authentication, you can set the domain as a default. The default domain will be used to send all mail. If you have multiple authenticated domains, the authenticated domain matching the domain of the From address will be used, and the default will be overridden.\n\nThis endpoint will return a default domain and its details only if a default is set. You are not required to set a default. If you do not set a default domain, this endpoint will return general information about your domain authentication status."
+                      },
+                      "response": [
+                        {
+                          "id": "4da30d33-fc3a-4530-9b0f-3088ee8dbd29",
+                          "name": "Success response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                                "key": "on-behalf-of",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/whitelabel/domains/default?domain=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "whitelabel",
+                                "domains",
+                                "default"
+                              ],
+                              "query": [
+                                {
+                                  "description": "The domain to find a default authentication.",
+                                  "key": "domain",
+                                  "value": "<string>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "[\n  {\n    \"automatic_security\": \"<boolean>\",\n    \"custom_spf\": \"<boolean>\",\n    \"default\": \"<boolean>\",\n    \"dns\": {\n      \"mail_cname\": {\n        \"valid\": \"<boolean>\",\n        \"type\": \"<string>\",\n        \"host\": \"<hostname>\",\n        \"data\": \"<string>\"\n      },\n      \"dkim1\": {\n        \"valid\": \"<boolean>\",\n        \"type\": \"<string>\",\n        \"host\": \"<string>\",\n        \"data\": \"<string>\"\n      },\n      \"dkim2\": {\n        \"valid\": \"<boolean>\",\n        \"type\": \"<string>\",\n        \"host\": \"<string>\",\n        \"data\": \"<string>\"\n      }\n    },\n    \"domain\": \"<string>\",\n    \"id\": \"<number>\",\n    \"ips\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"legacy\": \"<boolean>\",\n    \"subdomain\": \"<string>\",\n    \"user_id\": \"<number>\",\n    \"username\": \"<string>\",\n    \"valid\": \"<boolean>\",\n    \"subusers\": [\n      {\n        \"user_id\": \"<integer>\",\n        \"username\": \"<string>\"\n      },\n      {\n        \"user_id\": \"<integer>\",\n        \"username\": \"<string>\"\n      }\n    ],\n    \"last_validation_attempt_at\": \"<integer>\"\n  },\n  {\n    \"automatic_security\": \"<boolean>\",\n    \"custom_spf\": \"<boolean>\",\n    \"default\": \"<boolean>\",\n    \"dns\": {\n      \"mail_cname\": {\n        \"valid\": \"<boolean>\",\n        \"type\": \"<string>\",\n        \"host\": \"<hostname>\",\n        \"data\": \"<string>\"\n      },\n      \"dkim1\": {\n        \"valid\": \"<boolean>\",\n        \"type\": \"<string>\",\n        \"host\": \"<string>\",\n        \"data\": \"<string>\"\n      },\n      \"dkim2\": {\n        \"valid\": \"<boolean>\",\n        \"type\": \"<string>\",\n        \"host\": \"<string>\",\n        \"data\": \"<string>\"\n      }\n    },\n    \"domain\": \"<string>\",\n    \"id\": \"<number>\",\n    \"ips\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"legacy\": \"<boolean>\",\n    \"subdomain\": \"<string>\",\n    \"user_id\": \"<number>\",\n    \"username\": \"<string>\",\n    \"valid\": \"<boolean>\",\n    \"subusers\": [\n      {\n        \"user_id\": \"<integer>\",\n        \"username\": \"<string>\"\n      },\n      {\n        \"user_id\": \"<integer>\",\n        \"username\": \"<string>\"\n      }\n    ],\n    \"last_validation_attempt_at\": \"<integer>\"\n  }\n]",
+                          "createdAt": "2026-06-05T15:16:34.000Z",
+                          "updatedAt": "2026-06-05T15:16:34.000Z",
+                          "uid": "35240-4da30d33-fc3a-4530-9b0f-3088ee8dbd29"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:16:33.000Z",
+                      "updatedAt": "2026-06-05T15:16:33.000Z",
+                      "uid": "35240-5462b9bc-5048-4a1e-9c7e-e53ba83e0835"
+                    }
+                  ],
+                  "id": "438500fa-1006-416a-a5fc-62369fd26f6b",
+                  "createdAt": "2026-06-05T15:16:33.000Z",
+                  "updatedAt": "2026-06-05T15:16:33.000Z",
+                  "uid": "35240-438500fa-1006-416a-a5fc-62369fd26f6b"
+                },
+                {
+                  "name": "subuser",
+                  "item": [
+                    {
+                      "name": "all",
+                      "item": [
+                        {
+                          "name": "List all the authenticated domains associated with the given user.",
+                          "id": "95c963f8-4e5b-4fe9-a4e1-38c90949469a",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/whitelabel/domains/subuser/all?username=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "whitelabel",
+                                "domains",
+                                "subuser",
+                                "all"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) Username for the subuser to find associated authenticated domains.",
+                                  "key": "username",
+                                  "value": "<string>"
+                                }
+                              ]
+                            },
+                            "description": "**This endpoint allows you to retrieve all of the authenticated domains that have been assigned to a specific subuser.**\n\n\nThis functionality allows subusers to send mail using their parent's domain. Authenticated domains can be associated with (i.e. assigned to) subusers from a parent account, and a subuser can have up to five associated domains. \n\nTo associate an authenticated domain with a subuser, the parent account must first authenticate and validate the domain. The parent may then associate the authenticated domain via the subuser management tools.\n\n\nWhen selecting a domain to send email from, SendGrid checks for domains in the following order and chooses the first one that appears in the hierarchy: \n1. Domain assigned by the subuser that matches the email's `From` address domain. \n2. The subuser's default domain. \n3. Domain assigned by the parent user that matches the `From` address domain. \n4. Parent user's default domain. \n5. sendgrid.net"
+                          },
+                          "response": [
+                            {
+                              "id": "3458bcd2-e8a3-49c3-895a-11eb516102ef",
+                              "name": "response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/whitelabel/domains/subuser/all?username=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "whitelabel",
+                                    "domains",
+                                    "subuser",
+                                    "all"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "(Required) Username for the subuser to find associated authenticated domains.",
+                                      "key": "username",
+                                      "value": "<string>"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "[\n  {\n    \"automatic_security\": \"<boolean>\",\n    \"custom_spf\": \"<boolean>\",\n    \"default\": \"<boolean>\",\n    \"dns\": {\n      \"mail_cname\": {\n        \"valid\": \"<boolean>\",\n        \"type\": \"<string>\",\n        \"host\": \"<hostname>\",\n        \"data\": \"<string>\"\n      },\n      \"dkim1\": {\n        \"valid\": \"<boolean>\",\n        \"type\": \"<string>\",\n        \"host\": \"<string>\",\n        \"data\": \"<string>\"\n      },\n      \"dkim2\": {\n        \"valid\": \"<boolean>\",\n        \"type\": \"<string>\",\n        \"host\": \"<string>\",\n        \"data\": \"<string>\"\n      }\n    },\n    \"domain\": \"<string>\",\n    \"id\": \"<number>\",\n    \"ips\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"legacy\": \"<boolean>\",\n    \"subdomain\": \"<string>\",\n    \"user_id\": \"<number>\",\n    \"username\": \"<string>\",\n    \"valid\": \"<boolean>\"\n  },\n  {\n    \"automatic_security\": \"<boolean>\",\n    \"custom_spf\": \"<boolean>\",\n    \"default\": \"<boolean>\",\n    \"dns\": {\n      \"mail_cname\": {\n        \"valid\": \"<boolean>\",\n        \"type\": \"<string>\",\n        \"host\": \"<hostname>\",\n        \"data\": \"<string>\"\n      },\n      \"dkim1\": {\n        \"valid\": \"<boolean>\",\n        \"type\": \"<string>\",\n        \"host\": \"<string>\",\n        \"data\": \"<string>\"\n      },\n      \"dkim2\": {\n        \"valid\": \"<boolean>\",\n        \"type\": \"<string>\",\n        \"host\": \"<string>\",\n        \"data\": \"<string>\"\n      }\n    },\n    \"domain\": \"<string>\",\n    \"id\": \"<number>\",\n    \"ips\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"legacy\": \"<boolean>\",\n    \"subdomain\": \"<string>\",\n    \"user_id\": \"<number>\",\n    \"username\": \"<string>\",\n    \"valid\": \"<boolean>\"\n  }\n]",
+                              "createdAt": "2026-06-05T15:16:34.000Z",
+                              "updatedAt": "2026-06-05T15:16:34.000Z",
+                              "uid": "35240-3458bcd2-e8a3-49c3-895a-11eb516102ef"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:16:33.000Z",
+                          "updatedAt": "2026-06-05T15:16:33.000Z",
+                          "uid": "35240-95c963f8-4e5b-4fe9-a4e1-38c90949469a"
+                        }
+                      ],
+                      "id": "6690d62a-1f3c-43ab-8d4c-10a1dd583e8b",
+                      "createdAt": "2026-06-05T15:16:33.000Z",
+                      "updatedAt": "2026-06-05T15:16:33.000Z",
+                      "uid": "35240-6690d62a-1f3c-43ab-8d4c-10a1dd583e8b"
+                    },
+                    {
+                      "name": "List the authenticated domain associated with the given user.",
+                      "id": "9aa288b9-e4ae-488a-96bc-49e64ce57ae5",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/whitelabel/domains/subuser?username=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "whitelabel",
+                            "domains",
+                            "subuser"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Username for the subuser to find associated authenticated domain.",
+                              "key": "username",
+                              "value": "<string>"
+                            }
+                          ]
+                        },
+                        "description": "**This endpoint allows you to retrieve all of the authenticated domains that have been assigned to a specific subuser.**\n\nAuthenticated domains can be associated with (i.e. assigned to) subusers from a parent account. This functionality allows subusers to send mail using their parent's domain. To associate an authenticated domain with a subuser, the parent account must first authenticate and validate the domain. The parent may then associate the authenticated domain via the subuser management tools.\n\n\nNote that if you used the [`/v3/whitelabel/domains/{domain_id}/subuser:add` endpoint]( https://www.twilio.com/docs/sendgrid/api-reference/domain-authentication/associate-an-authenticated-domain-with-a-subuser-multiple) to add multiple domains to the subuser, you can use the [`/v3/whitelabel/domains/subuser/all` endpoint](https://www.twilio.com/docs/sendgrid/api-reference/domain-authentication/list-the-authenticated-domain-associated-with-a-subuser-multiple) to list those associated domains."
+                      },
+                      "response": [
+                        {
+                          "id": "2bbbd2c9-bd0b-4669-a006-839706f3ec49",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/whitelabel/domains/subuser?username=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "whitelabel",
+                                "domains",
+                                "subuser"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) Username for the subuser to find associated authenticated domain.",
+                                  "key": "username",
+                                  "value": "<string>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<integer>\",\n  \"domain\": \"<string>\",\n  \"username\": \"<string>\",\n  \"user_id\": \"<integer>\",\n  \"ips\": [],\n  \"custom_spf\": \"<boolean>\",\n  \"default\": \"<boolean>\",\n  \"legacy\": \"<boolean>\",\n  \"automatic_security\": \"<boolean>\",\n  \"valid\": \"<boolean>\",\n  \"dns\": {\n    \"mail_server\": {\n      \"host\": \"<string>\",\n      \"type\": \"<string>\",\n      \"data\": \"<string>\",\n      \"valid\": \"<boolean>\"\n    },\n    \"subdomain_spf\": {\n      \"host\": \"<string>\",\n      \"type\": \"<string>\",\n      \"data\": \"<string>\",\n      \"valid\": \"<boolean>\"\n    },\n    \"domain_spf\": {\n      \"host\": \"<string>\",\n      \"type\": \"<string>\",\n      \"data\": \"<string>\",\n      \"valid\": \"<boolean>\"\n    },\n    \"dkim\": {\n      \"host\": \"<string>\",\n      \"type\": \"<string>\",\n      \"data\": \"<string>\",\n      \"valid\": \"<boolean>\"\n    }\n  },\n  \"subdomain\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:16:34.000Z",
+                          "updatedAt": "2026-06-05T15:16:34.000Z",
+                          "uid": "35240-2bbbd2c9-bd0b-4669-a006-839706f3ec49"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:16:33.000Z",
+                      "updatedAt": "2026-06-05T15:16:33.000Z",
+                      "uid": "35240-9aa288b9-e4ae-488a-96bc-49e64ce57ae5"
+                    },
+                    {
+                      "name": "Disassociate an authenticated domain from a given user.",
+                      "id": "da8ef78d-c7fb-49f2-9faf-394c6c70e7be",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/whitelabel/domains/subuser?username=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "whitelabel",
+                            "domains",
+                            "subuser"
+                          ],
+                          "query": [
+                            {
+                              "description": "Username for the subuser to find associated authenticated domain.",
+                              "key": "username",
+                              "value": "<string>"
+                            }
+                          ]
+                        },
+                        "description": "**This endpoint allows you to disassociate a specific authenticated domain from a subuser.**\n\nAuthenticated domains can be associated with (i.e. assigned to) subusers from a parent account. This functionality allows subusers to send mail using their parent's domain. To associate an authenticated domain with a subuser, the parent account must first authenticate and validate the domain. The parent may then associate the authenticated domain via the subuser management tools.\n\n\nNote that if you used the [`/v3/whitelabel/domains/{domain_id}/subuser:add` endpoint](https://www.twilio.com/docs/sendgrid/api-reference/domain-authentication/associate-an-authenticated-domain-with-a-subuser-multiple) to add multiple domains to the subuser, you should use the [`/v3/whitelabel/domains/{domain_id}/subuser` endpoint](https://www.twilio.com/docs/sendgrid/api-reference/domain-authentication/disassociate-an-authenticated-domain-from-a-subuser-multiple) to disassociate those domains."
+                      },
+                      "response": [
+                        {
+                          "id": "0866dc45-834b-457a-9596-a4606f2c72a0",
+                          "name": "response",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/whitelabel/domains/subuser?username=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "whitelabel",
+                                "domains",
+                                "subuser"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Username for the subuser to find associated authenticated domain.",
+                                  "key": "username",
+                                  "value": "<string>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:16:34.000Z",
+                          "updatedAt": "2026-06-05T15:16:34.000Z",
+                          "uid": "35240-0866dc45-834b-457a-9596-a4606f2c72a0"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:16:33.000Z",
+                      "updatedAt": "2026-06-05T15:16:33.000Z",
+                      "uid": "35240-da8ef78d-c7fb-49f2-9faf-394c6c70e7be"
+                    }
+                  ],
+                  "id": "8023b5ee-eb4e-4410-aee9-5309fd295fbe",
+                  "createdAt": "2026-06-05T15:16:33.000Z",
+                  "updatedAt": "2026-06-05T15:16:33.000Z",
+                  "uid": "35240-8023b5ee-eb4e-4410-aee9-5309fd295fbe"
+                },
+                {
+                  "name": "List all authenticated domains",
+                  "id": "33e7d7bf-ac1f-46af-9213-b96d96c684be",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/whitelabel/domains?limit=<integer>&offset=0&exclude_subusers=<boolean>&username=<string>&domain=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "whitelabel",
+                        "domains"
+                      ],
+                      "query": [
+                        {
+                          "description": "`limit` sets the page size, i.e. maximum number of items from the list to be returned for a single API request. If omitted, the default page size is used.",
+                          "key": "limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "The number of items in the list to skip over before starting to retrieve the items for the requested page. The default `offset` of `0` represents the beginning of the list, i.e. the start of the first page. To request the second page of the list, set the `offset` to the page size as determined by `limit`. Use multiples of the page size as your `offset` to request further consecutive pages. E.g. assume your page size is set to `10`. An `offset` of `10` requests the second page, an `offset` of `20` requests the third page and so on, provided there are sufficiently many items in your list.",
+                          "key": "offset",
+                          "value": "0"
+                        },
+                        {
+                          "description": "Exclude subuser domains from the result.",
+                          "key": "exclude_subusers",
+                          "value": "<boolean>"
+                        },
+                        {
+                          "description": "The username associated with an authenticated domain.",
+                          "key": "username",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Search for authenticated domains.",
+                          "key": "domain",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "description": "**This endpoint allows you to retrieve a paginated list of all domains you have authenticated.**\n\nYou can use the `limit` query parameter to set the page size. If your list contains more items than the page size permits, you can make multiple requests. Use the `offset` query parameter to control the position in the list from which to start retrieving additional items."
+                  },
+                  "response": [
+                    {
+                      "id": "fdd4a7b7-e430-4749-955e-fe167f4fe48c",
+                      "name": "Success response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/whitelabel/domains?limit=<integer>&offset=0&exclude_subusers=<boolean>&username=<string>&domain=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "whitelabel",
+                            "domains"
+                          ],
+                          "query": [
+                            {
+                              "description": "`limit` sets the page size, i.e. maximum number of items from the list to be returned for a single API request. If omitted, the default page size is used.",
+                              "key": "limit",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "The number of items in the list to skip over before starting to retrieve the items for the requested page. The default `offset` of `0` represents the beginning of the list, i.e. the start of the first page. To request the second page of the list, set the `offset` to the page size as determined by `limit`. Use multiples of the page size as your `offset` to request further consecutive pages. E.g. assume your page size is set to `10`. An `offset` of `10` requests the second page, an `offset` of `20` requests the third page and so on, provided there are sufficiently many items in your list.",
+                              "key": "offset",
+                              "value": "0"
+                            },
+                            {
+                              "description": "Exclude subuser domains from the result.",
+                              "key": "exclude_subusers",
+                              "value": "<boolean>"
+                            },
+                            {
+                              "description": "The username associated with an authenticated domain.",
+                              "key": "username",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Search for authenticated domains.",
+                              "key": "domain",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"automatic_security\": \"<boolean>\",\n    \"custom_spf\": \"<boolean>\",\n    \"default\": \"<boolean>\",\n    \"dns\": {\n      \"mail_cname\": {\n        \"valid\": \"<boolean>\",\n        \"type\": \"<string>\",\n        \"host\": \"<hostname>\",\n        \"data\": \"<string>\"\n      },\n      \"dkim1\": {\n        \"valid\": \"<boolean>\",\n        \"type\": \"<string>\",\n        \"host\": \"<string>\",\n        \"data\": \"<string>\"\n      },\n      \"dkim2\": {\n        \"valid\": \"<boolean>\",\n        \"type\": \"<string>\",\n        \"host\": \"<string>\",\n        \"data\": \"<string>\"\n      }\n    },\n    \"domain\": \"<string>\",\n    \"id\": \"<number>\",\n    \"ips\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"legacy\": \"<boolean>\",\n    \"subdomain\": \"<string>\",\n    \"user_id\": \"<number>\",\n    \"username\": \"<string>\",\n    \"valid\": \"<boolean>\",\n    \"subusers\": [\n      {\n        \"user_id\": \"<integer>\",\n        \"username\": \"<string>\"\n      },\n      {\n        \"user_id\": \"<integer>\",\n        \"username\": \"<string>\"\n      }\n    ],\n    \"last_validation_attempt_at\": \"<integer>\"\n  },\n  {\n    \"automatic_security\": \"<boolean>\",\n    \"custom_spf\": \"<boolean>\",\n    \"default\": \"<boolean>\",\n    \"dns\": {\n      \"mail_cname\": {\n        \"valid\": \"<boolean>\",\n        \"type\": \"<string>\",\n        \"host\": \"<hostname>\",\n        \"data\": \"<string>\"\n      },\n      \"dkim1\": {\n        \"valid\": \"<boolean>\",\n        \"type\": \"<string>\",\n        \"host\": \"<string>\",\n        \"data\": \"<string>\"\n      },\n      \"dkim2\": {\n        \"valid\": \"<boolean>\",\n        \"type\": \"<string>\",\n        \"host\": \"<string>\",\n        \"data\": \"<string>\"\n      }\n    },\n    \"domain\": \"<string>\",\n    \"id\": \"<number>\",\n    \"ips\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"legacy\": \"<boolean>\",\n    \"subdomain\": \"<string>\",\n    \"user_id\": \"<number>\",\n    \"username\": \"<string>\",\n    \"valid\": \"<boolean>\",\n    \"subusers\": [\n      {\n        \"user_id\": \"<integer>\",\n        \"username\": \"<string>\"\n      },\n      {\n        \"user_id\": \"<integer>\",\n        \"username\": \"<string>\"\n      }\n    ],\n    \"last_validation_attempt_at\": \"<integer>\"\n  }\n]",
+                      "createdAt": "2026-06-05T15:16:34.000Z",
+                      "updatedAt": "2026-06-05T15:16:34.000Z",
+                      "uid": "35240-fdd4a7b7-e430-4749-955e-fe167f4fe48c"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:16:33.000Z",
+                  "updatedAt": "2026-06-05T15:16:33.000Z",
+                  "uid": "35240-33e7d7bf-ac1f-46af-9213-b96d96c684be"
+                },
+                {
+                  "name": "Authenticate a domain",
+                  "id": "0ab5bed9-e5d2-4861-bf05-40f8ae37cd8b",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                        "key": "on-behalf-of",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"domain\": \"<string>\",\n  \"subdomain\": \"<string>\",\n  \"username\": \"<string>\",\n  \"ips\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"custom_spf\": \"<boolean>\",\n  \"default\": \"<boolean>\",\n  \"automatic_security\": \"<boolean>\",\n  \"custom_dkim_selector\": \"<string>\",\n  \"region\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/whitelabel/domains",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "whitelabel",
+                        "domains"
+                      ]
+                    },
+                    "description": "**This endpoint allows you to authenticate a domain.**\n\nIf you are authenticating a domain for a subuser, you have two options:\n1. Use the \"username\" parameter. This allows you to authenticate a domain on behalf of your subuser. This means the subuser is able to see and modify the authenticated domain.\n2. Use the Association workflow (see Associate Domain section). This allows you to authenticate a domain created by the parent to a subuser. This means the subuser will default to the assigned domain, but will not be able to see or modify that authenticated domain. However, if the subuser authenticates their own domain it will overwrite the assigned domain."
+                  },
+                  "response": [
+                    {
+                      "id": "441f3da4-8035-435f-987d-a6fd80cc042d",
+                      "name": "response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent's Subusers or customer accounts. You will use the parent account's API key when using this header. When making a call on behalf of a customer account, the property value should be \"account-id\" followed by the customer account's ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser's username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.",
+                            "key": "on-behalf-of",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"domain\": \"<string>\",\n  \"subdomain\": \"<string>\",\n  \"username\": \"<string>\",\n  \"ips\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"custom_spf\": \"<boolean>\",\n  \"default\": \"<boolean>\",\n  \"automatic_security\": \"<boolean>\",\n  \"custom_dkim_selector\": \"<string>\",\n  \"region\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/whitelabel/domains",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "whitelabel",
+                            "domains"
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<number>\",\n  \"user_id\": \"<number>\",\n  \"subdomain\": \"<string>\",\n  \"domain\": \"<string>\",\n  \"username\": \"<string>\",\n  \"ips\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"custom_spf\": \"<boolean>\",\n  \"default\": \"<boolean>\",\n  \"legacy\": \"<boolean>\",\n  \"automatic_security\": \"<boolean>\",\n  \"valid\": \"<boolean>\",\n  \"dns\": {\n    \"mail_cname\": {\n      \"valid\": \"<boolean>\",\n      \"type\": \"<string>\",\n      \"host\": \"<hostname>\",\n      \"data\": \"<string>\"\n    },\n    \"dkim1\": {\n      \"valid\": \"<boolean>\",\n      \"type\": \"<string>\",\n      \"host\": \"<string>\",\n      \"data\": \"<string>\"\n    },\n    \"dkim2\": {\n      \"valid\": \"<boolean>\",\n      \"type\": \"<string>\",\n      \"host\": \"<string>\",\n      \"data\": \"<string>\"\n    }\n  }\n}",
+                      "createdAt": "2026-06-05T15:16:34.000Z",
+                      "updatedAt": "2026-06-05T15:16:34.000Z",
+                      "uid": "35240-441f3da4-8035-435f-987d-a6fd80cc042d"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:16:33.000Z",
+                  "updatedAt": "2026-06-05T15:16:33.000Z",
+                  "uid": "35240-0ab5bed9-e5d2-4861-bf05-40f8ae37cd8b"
+                }
+              ],
+              "id": "9a72d0d6-7e7b-434f-bea0-6dcca02fd3da",
+              "createdAt": "2026-06-05T15:16:33.000Z",
+              "updatedAt": "2026-06-05T15:16:33.000Z",
+              "uid": "35240-9a72d0d6-7e7b-434f-bea0-6dcca02fd3da"
+            }
+          ],
+          "id": "8d544086-2e6a-4bd6-ac96-e9ef0f159566",
+          "createdAt": "2026-06-05T15:16:33.000Z",
+          "updatedAt": "2026-06-05T15:16:33.000Z",
+          "uid": "35240-8d544086-2e6a-4bd6-ac96-e9ef0f159566"
+        }
+      ],
+      "id": "71833037-3eb9-470e-8b8c-847265b9e2fd",
+      "createdAt": "2026-06-05T15:16:33.000Z",
+      "updatedAt": "2026-06-05T15:16:33.000Z",
+      "uid": "35240-71833037-3eb9-470e-8b8c-847265b9e2fd"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.sendgrid.com"
+    }
+  ]
+}
