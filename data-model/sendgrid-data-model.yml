@@ -1,0 +1,157 @@
+generated: '2026-06-20'
+method: derived
+source: >-
+  openapi/ (44 SendGrid v3 specs) — entities and relationships derived from
+  resource paths, id path/query parameters, and id-reference request/response
+  fields. Enriched with the SendGrid object reference for domains.
+description: >-
+  Entity-relationship graph for the SendGrid v3 platform, grouped by product
+  domain (Email Sending, Marketing Campaigns, Deliverability/Authentication,
+  Account/Access, Suppressions). Relationships are derived from id references in
+  the specs (e.g. a Single Send targets Lists and Segments; a Template owns
+  Template Versions; a Contact belongs to Lists and Segments). SendGrid uses
+  UUID-style ids for most Marketing Campaigns resources and integer/string ids
+  for classic resources; there is no Stripe-style typed id prefix scheme.
+domains:
+  - email_sending
+  - marketing_campaigns
+  - deliverability
+  - account_access
+  - suppressions
+  - analytics
+entities:
+  - name: Mail
+    domain: email_sending
+    spec: openapi/tsg_mail_v3.yaml
+    key: none (transient send request)
+    relationships:
+      - {type: has_many, target: MailBatch, via: batch_id}
+      - {type: references, target: Template, via: template_id}
+      - {type: references, target: SuppressionGroup, via: asm.group_id}
+  - name: MailBatch
+    domain: email_sending
+    spec: openapi/tsg_mail_v3.yaml
+    key: batch_id
+  - name: Contact
+    domain: marketing_campaigns
+    spec: openapi/tsg_mc_contacts_v3.yaml
+    key: id
+    relationships:
+      - {type: has_many, target: MarketingList, via: list_ids}
+      - {type: has_many, target: Segment, via: segment_ids}
+      - {type: has_many, target: CustomField, via: custom_fields}
+  - name: MarketingList
+    domain: marketing_campaigns
+    spec: openapi/tsg_mc_lists_v3.yaml
+    key: id
+    relationships:
+      - {type: has_many, target: Contact, via: contacts}
+      - {type: has_many, target: Segment, via: parent_list_ids}
+  - name: Segment
+    domain: marketing_campaigns
+    spec: openapi/tsg_mc_segments_2.0_v3.yaml
+    key: id
+    relationships:
+      - {type: belongs_to, target: MarketingList, via: parent_list_ids}
+  - name: SingleSend
+    domain: marketing_campaigns
+    spec: openapi/tsg_mc_singlesends_v3.yaml
+    key: id
+    relationships:
+      - {type: references, target: MarketingList, via: send_to.list_ids}
+      - {type: references, target: Segment, via: send_to.segment_ids}
+      - {type: references, target: Design, via: template_id}
+      - {type: references, target: Sender, via: sender_id}
+      - {type: references, target: SuppressionGroup, via: suppression_group_id}
+  - name: CustomField
+    domain: marketing_campaigns
+    spec: openapi/tsg_mc_custom_fields_v3.yaml
+    key: id
+  - name: Design
+    domain: marketing_campaigns
+    spec: openapi/tsg_mc_designs_v3.yaml
+    key: id
+  - name: Sender
+    domain: marketing_campaigns
+    spec: openapi/tsg_mc_senders_v3.yaml
+    key: id
+    relationships:
+      - {type: has_one, target: VerifiedSender, via: verified}
+  - name: Template
+    domain: email_sending
+    spec: openapi/tsg_templates_v3.yaml
+    key: template_id (id)
+    relationships:
+      - {type: has_many, target: TemplateVersion, via: versions}
+  - name: TemplateVersion
+    domain: email_sending
+    spec: openapi/tsg_templates_v3.yaml
+    key: version_id (id)
+    relationships:
+      - {type: belongs_to, target: Template, via: template_id}
+  - name: SuppressionGroup
+    domain: suppressions
+    spec: openapi/tsg_suppressions_v3.yaml
+    key: group_id (id)
+    relationships:
+      - {type: has_many, target: Suppression, via: suppressions}
+  - name: Suppression
+    domain: suppressions
+    spec: openapi/tsg_suppressions_v3.yaml
+    key: email
+    relationships:
+      - {type: belongs_to, target: SuppressionGroup, via: group_id}
+  - name: ApiKey
+    domain: account_access
+    spec: openapi/tsg_api_keys_v3.yaml
+    key: api_key_id
+    relationships:
+      - {type: has_many, target: Scope, via: scopes}
+  - name: Scope
+    domain: account_access
+    spec: openapi/tsg_scopes_v3.yaml
+    key: scope name
+  - name: Teammate
+    domain: account_access
+    spec: openapi/tsg_teammates_v3.yaml
+    key: username
+    relationships:
+      - {type: has_many, target: Scope, via: scopes}
+  - name: Subuser
+    domain: account_access
+    spec: openapi/tsg_subusers_v3.yaml
+    key: username (id)
+    relationships:
+      - {type: has_many, target: IpAddress, via: ips}
+  - name: IpAddress
+    domain: deliverability
+    spec: openapi/tsg_ip_address_management_v3.yaml
+    key: ip
+    relationships:
+      - {type: belongs_to, target: IpPool, via: pool}
+      - {type: has_many, target: Subuser, via: subusers}
+  - name: IpPool
+    domain: deliverability
+    spec: openapi/tsg_ip_address_management_v3.yaml
+    key: name (id)
+    relationships:
+      - {type: has_many, target: IpAddress, via: ips}
+  - name: AuthenticatedDomain
+    domain: deliverability
+    spec: openapi/tsg_domain_authentication_v3.yaml
+    key: id
+    relationships:
+      - {type: has_many, target: Subuser, via: subusers}
+  - name: VerifiedSender
+    domain: deliverability
+    spec: openapi/tsg_verified_senders_v3.yaml
+    key: id
+  - name: Alert
+    domain: analytics
+    spec: openapi/tsg_alerts_v3.yaml
+    key: id
+notes:
+  - >-
+    Derived structurally; id-prefix/domain conventions were confirmed against
+    the SendGrid object model where documented. Marketing Campaigns resources
+    use UUID ids; classic resources use integer or string ids.

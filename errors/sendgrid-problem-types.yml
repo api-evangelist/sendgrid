@@ -1,0 +1,90 @@
+generated: '2026-06-20'
+method: searched
+format: sendgrid-errors-envelope
+source: >-
+  https://www.twilio.com/docs/sendgrid/api-reference/how-to-use-the-sendgrid-v3-api/errors
+  (titles/meanings) enriched by DERIVing the 4xx/5xx response inventory from the
+  44 OpenAPI specs in openapi/.
+docs: https://www.twilio.com/docs/sendgrid/api-reference/how-to-use-the-sendgrid-v3-api/errors
+description: >-
+  SendGrid does NOT use RFC 9457 problem+json. Failed requests return a JSON
+  body with an `errors` array; each element has a `message` (human-readable
+  explanation) and, where applicable, a `field` (the offending request field)
+  and sometimes a `help`/`error_id` pointer to documentation. Successful
+  non-sandbox mail sends return 202 Accepted; sandbox-mode validations return
+  200 OK. The status codes below were confirmed against SendGrid's errors
+  reference and cross-checked against the response inventory derived from the
+  OpenAPI (occurrence counts across all 44 specs shown as spec_occurrences).
+envelope:
+  shape: '{ "errors": [ { "field": "<field or null>", "message": "<explanation>", "help": "<optional docs pointer>" } ] }'
+  media_type: application/json
+  fields:
+    - {name: "errors", type: array, description: One entry per validation/processing error.}
+    - {name: "errors[].message", type: string, description: Human-readable explanation of the error.}
+    - {name: "errors[].field", type: "string|null", description: The request field the error applies to, when known.}
+    - {name: "errors[].help", type: "object|string", description: Optional pointer to relevant documentation.}
+problems:
+  - status: 400
+    title: Bad request
+    meaning: Invalid JSON structure, malformed payload, or missing/invalid required fields.
+    spec_occurrences: 170
+    remediation: Validate the request body shape and required fields; sandbox mode returns the same errors[] without sending.
+  - status: 401
+    title: Requires authentication
+    meaning: Missing or invalid API key in the Authorization bearer header.
+    spec_occurrences: 154
+    remediation: 'Send a valid API key as "Authorization: Bearer <API_KEY>".'
+  - status: 403
+    title: Forbidden / too many bad requests (temporary block)
+    meaning: >-
+      API key lacks the required scope/permission, or the account/IP is
+      temporarily blocked after too many bad requests.
+    spec_occurrences: 109
+    remediation: Grant the key the needed scope; back off after repeated 4xx responses.
+  - status: 404
+    title: Not found
+    meaning: The requested resource does not exist.
+    spec_occurrences: 165
+  - status: 405
+    title: Method not allowed
+    meaning: HTTP method not supported on this resource.
+    spec_occurrences: 3
+  - status: 406
+    title: Missing Accept header
+    meaning: 'The Accept header is required, e.g. Accept: application/json.'
+    spec_occurrences: 0
+    remediation: 'Send Accept: application/json.'
+  - status: 408
+    title: Request timeout
+    meaning: The request took too long to process.
+    spec_occurrences: 1
+  - status: 413
+    title: Payload too large
+    meaning: The request body exceeds the allowed size.
+    spec_occurrences: 1
+  - status: 429
+    title: Too many requests / rate limit exceeded
+    meaning: Rate limit exceeded; X-RateLimit-Remaining is 0.
+    spec_occurrences: 19
+    remediation: Honor X-RateLimit-Reset (Unix timestamp) before retrying.
+  - status: 451
+    title: Unavailable due to data residency restrictions
+    meaning: The request cannot be served from this host due to EU/global data residency configuration.
+    spec_occurrences: 0
+    remediation: Use the correct regional host (api.sendgrid.com vs api.eu.sendgrid.com).
+  - status: 500
+    title: Internal server error
+    meaning: An unexpected error occurred on SendGrid's side.
+    spec_occurrences: 140
+  - status: 502
+    title: Bad gateway
+    meaning: Upstream gateway error.
+    spec_occurrences: 9
+  - status: 503
+    title: Service unavailable
+    meaning: The service is temporarily unavailable.
+    spec_occurrences: 9
+  - status: 504
+    title: Gateway timeout
+    meaning: Upstream gateway timeout.
+    spec_occurrences: 9

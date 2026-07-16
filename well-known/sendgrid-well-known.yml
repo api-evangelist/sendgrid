@@ -1,0 +1,26 @@
+generated: '2026-06-20'
+method: probed
+source: live HTTP probes of the SendGrid API and website hosts
+description: >-
+  Probe of the standard /.well-known/ discovery surface on the SendGrid hosts
+  drawn from apis.yml (baseURL/Website) and the OpenAPI servers[] (api.sendgrid.com,
+  api.eu.sendgrid.com, sendgrid.com). Every probed path returned HTTP 403
+  (nginx "Forbidden") — SendGrid does not publish any machine-readable
+  well-known discovery documents (no security.txt, OIDC, OAuth authorization
+  server, api-catalog, or ai-plugin). Absence is valid, recorded data; no raw
+  documents were saved. SendGrid authenticates with bearer API keys and does
+  not run an OAuth2/OIDC authorization server, consistent with the empty
+  discovery surface.
+hosts:
+  - host: https://api.sendgrid.com
+    documents:
+      - {path: /.well-known/security.txt, status: 403}
+      - {path: /.well-known/openid-configuration, status: 403}
+      - {path: /.well-known/oauth-authorization-server, status: 403}
+      - {path: /.well-known/api-catalog, status: 403}
+  - host: https://sendgrid.com
+    documents:
+      - {path: /.well-known/security.txt, status: 403}
+      - {path: /.well-known/openid-configuration, status: 403}
+      - {path: /.well-known/oauth-authorization-server, status: 403}
+      - {path: /.well-known/api-catalog, status: 403}

@@ -1,0 +1,59 @@
+generated: '2026-06-20'
+method: searched
+source: >-
+  SendGrid v3 API reference, the Twilio changelog, status.sendgrid.com, and the
+  deprecation signals derived from the OpenAPI specs (Segments v1 API
+  deprecation, Legacy Marketing Campaigns).
+description: >-
+  Versioning, deprecation, and reliability posture for the SendGrid platform.
+  SendGrid carries its API version in the URL path (v3); it does not mint dated
+  API versions pinned by a header. Deprecations are announced through the Twilio
+  changelog and product docs rather than via RFC 8594 Sunset/Deprecation
+  response headers (none are documented). Two coexisting API "generations" exist:
+  current v3 (Marketing Campaigns) and the Legacy Marketing Campaigns family,
+  which remains operational but is superseded.
+versioning:
+  scheme: uri-path
+  current: v3
+  detail: >-
+    All product APIs are served under /v3 on api.sendgrid.com (global) and
+    api.eu.sendgrid.com (EU data residency). There is no version-pinning request
+    header; new behavior ships additively or as new endpoints.
+  docs: https://www.twilio.com/docs/sendgrid/api-reference
+deprecation:
+  policy_url: https://www.twilio.com/en-us/changelog?product=sendgrid-email-api,twilio-sendgrid-platform
+  sunset_header: false
+  deprecation_header: false
+  detail: >-
+    No RFC 8594 Sunset/Deprecation headers are documented. Deprecations are
+    communicated via the changelog and product documentation with advance notice.
+  known_deprecations:
+    - name: Marketing Campaigns Segments (v1) API
+      status: deprecated
+      date: '2022-12-31'
+      note: >-
+        Deprecated 2022-12-31; GET and DELETE operations remain available for
+        migration/data retrieval. New segments use Segments 2.0 (openapi/tsg_mc_segments_2.0_v3.yaml).
+        Spec: openapi/tsg_mc_segments_v3.yaml.
+    - name: Legacy Marketing Campaigns (Campaigns / ContactDB / Sender Identities)
+      status: superseded
+      note: >-
+        Operational but superseded by current Marketing Campaigns (Single Sends,
+        Contacts, Lists, Segments 2.0). Specs: openapi/tsg_lmc_campaigns_v3.yaml,
+        openapi/tsg_lmc_contactdb_v3.yaml, openapi/tsg_lmc_senders_v3.yaml.
+  openapi_deprecated_operations: []
+  openapi_deprecated_note: 'No operation in the 44 OpenAPI specs carries a `deprecated: true` flag.'
+sla:
+  url: https://sendgrid.com/en-us/policies/tos
+  note: >-
+    Uptime/SLA commitments are contract-tier dependent (Premier custom
+    agreements); no single public uptime-target percentage is published for the
+    self-serve tiers.
+status_page: https://status.sendgrid.com/
+changelog: https://www.twilio.com/en-us/changelog?product=sendgrid-email-api,twilio-sendgrid-platform
+data_residency:
+  regions: [global, eu]
+  hosts:
+    global: https://api.sendgrid.com
+    eu: https://api.eu.sendgrid.com
+  note: HTTP 451 is returned when a request violates the account's data residency configuration.

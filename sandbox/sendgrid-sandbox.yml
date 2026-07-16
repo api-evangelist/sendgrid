@@ -1,0 +1,37 @@
+generated: '2026-06-20'
+method: searched
+source: https://www.twilio.com/docs/sendgrid/for-developers/sending-email/sandbox-mode
+description: >-
+  SendGrid's test surface. SendGrid has no separate sandbox host or test-vs-live
+  key prefixes; instead the Mail Send API accepts a per-request "sandbox mode"
+  that validates the request without delivering email. There are no magic test
+  recipient addresses, test cards, or test clocks (SendGrid is not a payments
+  API). Captured verbatim from the Sandbox Mode documentation.
+docs:
+  - https://www.twilio.com/docs/sendgrid/for-developers/sending-email/sandbox-mode
+modes:
+  - name: sandbox
+    trigger: 'mail_settings.sandbox_mode.enable = true (boolean, unquoted) in the Mail Send request body'
+    scope: v3 Mail Send API (POST /v3/mail/send)
+    behavior: >-
+      Validates the form, type, and shape of the request (every parameter and
+      the JSON payload structure) WITHOUT delivering to any recipient.
+    success_response: 200 OK on a valid request (versus 202 Accepted for a real, non-sandbox send).
+    error_response: >-
+      Same errors[] envelope as a live request. A non-boolean enable value
+      returns "The sandbox mode enable param should be a boolean value."
+    billing: Sandbox-mode Mail Send calls do NOT count against monthly or trial account limits.
+  - name: live
+    trigger: mail_settings.sandbox_mode omitted or enable = false
+    behavior: Normal delivery; returns 202 Accepted.
+example_request_fragment:
+  mail_settings:
+    sandbox_mode:
+      enable: true
+notes:
+  - No dedicated sandbox base URL — sandbox mode is a request flag on the production host.
+  - No first-party test API keys or magic test recipient addresses are published.
+  - >-
+    For end-to-end webhook/event testing, use the Event Webhook "test your
+    integration" tooling and Inbound Parse against a real (or ngrok-tunneled)
+    endpoint; those are not test credentials but real delivery to your endpoint.

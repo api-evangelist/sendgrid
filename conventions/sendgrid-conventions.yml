@@ -1,0 +1,77 @@
+generated: '2026-06-20'
+method: searched
+source: >-
+  SendGrid v3 API "How to use the v3 API" docs (authentication, rate-limits,
+  errors, pagination) plus conventions DERIVED from the 44 OpenAPI specs in
+  openapi/ (bearer securityScheme, limit/offset and page_size/page_token
+  parameters, JSON media types).
+description: >-
+  Cross-cutting request/response semantics that apply across every SendGrid v3
+  product API — the developer-experience conventions OpenAPI does not fully
+  express. Cross-links this repo's errors/, lifecycle/, authentication/, and
+  rate-limits/ artifacts.
+base_url: https://api.sendgrid.com
+eu_base_url: https://api.eu.sendgrid.com
+api_style: REST over HTTPS, JSON request and response bodies, bearer API-key auth.
+authentication:
+  style: bearer API key
+  header: 'Authorization: Bearer <API_KEY>'
+  detail: >-
+    A single HTTP bearer securityScheme across all specs. API keys carry scoped
+    permissions (see the Scopes and API Keys APIs); there is no OAuth2/OIDC.
+  see: authentication/sendgrid-authentication.yml
+content_types:
+  request: application/json
+  response: application/json
+  accept_required: >-
+    Some endpoints require an explicit Accept header (application/json);
+    a missing Accept can return 406.
+pagination:
+  styles:
+    - name: limit-offset
+      params: [limit, offset]
+      used_by: >-
+        Classic list endpoints (suppressions, stats, IPs, subusers, and most
+        v3 resource lists). 22 specs use `limit`; 6 use `offset`.
+    - name: cursor
+      params: [page_size, page_token]
+      used_by: >-
+        Marketing Campaigns Contacts/Lists list endpoints. Responses carry a
+        _metadata object with next/prev/self page links. 7 specs use page_size;
+        4 use page_token.
+    - name: page-number
+      params: [page]
+      used_by: A few endpoints use a page/page_number parameter.
+  note: SendGrid pagination is not uniform across products; consult each operation.
+idempotency:
+  supported: false
+  detail: >-
+    No Idempotency-Key header is documented. The Mail Send API instead supports
+    batching via a client-supplied batch_id (POST /v3/mail/batch), letting you
+    schedule and cancel/pause a group of sends by that ID up to 10 minutes
+    before send time.
+rate_limiting:
+  headers: [X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset]
+  on_exceed: HTTP 429 with X-RateLimit-Remaining 0; honor X-RateLimit-Reset (Unix timestamp).
+  retry_after: not documented (use X-RateLimit-Reset)
+  see: rate-limits/sendgrid-rate-limits.yml
+error_envelope:
+  format: 'custom (not RFC 9457): { "errors": [ { "field", "message", "help" } ] }'
+  see: errors/sendgrid-problem-types.yml
+versioning:
+  scheme: uri-path (v3), no version header
+  see: lifecycle/sendgrid-lifecycle.yml
+request_tracing:
+  detail: >-
+    No documented client request-id echo header; the Event Webhook includes a
+    sg_message_id / sg_event_id for correlating delivery events.
+multi_tenancy:
+  detail: >-
+    Subusers isolate sending domains, IPs, and reporting; the On-Behalf-Of
+    header ("on-behalf-of: <subuser_username>") lets a parent account act as a
+    subuser on many endpoints.
+sandbox:
+  detail: Mail Send supports mail_settings.sandbox_mode to validate without delivering.
+  see: sandbox/sendgrid-sandbox.yml
+data_residency:
+  detail: Global vs EU hosts; HTTP 451 on residency violations.
