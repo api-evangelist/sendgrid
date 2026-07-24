@@ -1,0 +1,296 @@
+openapi: 3.1.0
+info:
+  title: Twilio SendGrid Provisioning Account Webhook Security API
+  summary: The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts.
+  description: 'The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts. This API is for companies that have a formal reseller partnership with Twilio SendGrid.
+
+
+    You can access Twilio SendGrid sub-account functionality without becoming a reseller. If you require sub-account functionality, see the Twilio [SendGrid Subusers](https://docs.sendgrid.com/ui/account-and-settings/subusers) feature, which is available with [Pro and Premier plans](https://sendgrid.com/pricing/).'
+  termsOfService: https://www.twilio.com/legal/tos
+  contact:
+    name: Twilio SendGrid Support
+    url: https://support.sendgrid.com/hc/en-us
+  license:
+    name: MIT
+    url: https://code.hq.twilio.com/twilio/sendgrid-oas/blob/main/LICENSE
+  version: 1.0.0
+  x-sendgrid:
+    libraryPackage: account_provisioning
+servers:
+- url: https://api.sendgrid.com
+  description: for global users and subusers
+- url: https://api.eu.sendgrid.com
+  description: for EU regional subusers
+security:
+- BearerAuth: []
+tags:
+- name: Webhook Security
+  description: Twilio SendGrid Webhook Security API
+paths:
+  /v3/user/webhooks/security/policies:
+    post:
+      operationId: CreateSecurityPolicy
+      summary: Create a new webhook security policy
+      tags:
+      - Webhook Security
+      description: 'Create a new webhook security policy. Note: One of signature or oauth must be given to have a valid security policy.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/OnBehalfOf'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: User-defined policy name
+                oauth:
+                  type: object
+                  properties:
+                    client_id:
+                      type: string
+                    client_secret:
+                      type: string
+                    token_url:
+                      type: string
+                    scopes:
+                      type: array
+                      items:
+                        type: string
+                signature:
+                  type: object
+                  properties:
+                    enabled:
+                      type: boolean
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  policy:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      name:
+                        type: string
+                      oauth:
+                        type: object
+                        properties:
+                          client_id:
+                            type: string
+                          token_url:
+                            type: string
+                          scopes:
+                            type: array
+                            items:
+                              type: string
+                      signature:
+                        type: object
+                        properties:
+                          public_key:
+                            type: string
+    get:
+      operationId: ListAllSecurityPolicies
+      summary: Retrieve all webhook security policies for your account
+      tags:
+      - Webhook Security
+      description: Returns a list of all webhook security policies configured for your account, including their IDs, names, and security configurations.
+      parameters:
+      - $ref: '#/components/parameters/OnBehalfOf'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  policies:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        oauth:
+                          type: object
+                          properties:
+                            client_id:
+                              type: string
+                            token_url:
+                              type: string
+                            scopes:
+                              type: array
+                              items:
+                                type: string
+                        signature:
+                          type: object
+                          properties:
+                            public_key:
+                              type: string
+  /v3/user/webhooks/security/policies/{id}:
+    patch:
+      operationId: UpdateSecurityPolicy
+      summary: Update an existing webhook security policy
+      tags:
+      - Webhook Security
+      description: Update an existing webhook security policy with new configuration values.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/OnBehalfOf'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: User-defined policy name
+                oauth:
+                  type: object
+                  properties:
+                    client_id:
+                      type: string
+                    client_secret:
+                      type: string
+                    token_url:
+                      type: string
+                    scopes:
+                      type: array
+                      items:
+                        type: string
+                signature:
+                  type: object
+                  properties:
+                    enabled:
+                      type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  policy:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      name:
+                        type: string
+                      oauth:
+                        type: object
+                        properties:
+                          client_id:
+                            type: string
+                          token_url:
+                            type: string
+                          scopes:
+                            type: array
+                            items:
+                              type: string
+    get:
+      operationId: GetSecurityPolicy
+      summary: Retrieve a specific webhook security policy
+      tags:
+      - Webhook Security
+      description: Retrieve the details of a specific webhook security policy by its ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/OnBehalfOf'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  policy:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      name:
+                        type: string
+                      oauth:
+                        type: object
+                        properties:
+                          client_id:
+                            type: string
+                          token_url:
+                            type: string
+                          scopes:
+                            type: array
+                            items:
+                              type: string
+                      signature:
+                        type: object
+                        properties:
+                          public_key:
+                            type: string
+    delete:
+      operationId: DeleteSecurityPolicy
+      summary: Delete a specific webhook security policy
+      tags:
+      - Webhook Security
+      description: Permanently delete a webhook security policy by its ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: force
+        in: query
+        required: false
+        schema:
+          type: boolean
+      - $ref: '#/components/parameters/OnBehalfOf'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  policy:
+                    type: string
+                    nullable: true
+components:
+  parameters:
+    OnBehalfOf:
+      name: on-behalf-of
+      in: header
+      description: 'The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent''s Subusers or customer accounts. You will use the parent account''s API key when using this header. When making a call on behalf of a customer account, the property value should be "account-id" followed by the customer account''s ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser''s username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.'
+      required: false
+      schema:
+        type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Twilio SendGrid requires you to authenticate with its APIs using an API key. The API key must be sent as a bearer token in the Authorization header.
+externalDocs:
+  description: Twilio SendGrid's official developer documentation.
+  url: https://www.twilio.com/docs/sendgrid

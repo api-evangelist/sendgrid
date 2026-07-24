@@ -1,0 +1,1286 @@
+openapi: 3.1.0
+info:
+  title: Twilio SendGrid Provisioning Account Lists API
+  summary: The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts.
+  description: 'The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts. This API is for companies that have a formal reseller partnership with Twilio SendGrid.
+
+
+    You can access Twilio SendGrid sub-account functionality without becoming a reseller. If you require sub-account functionality, see the Twilio [SendGrid Subusers](https://docs.sendgrid.com/ui/account-and-settings/subusers) feature, which is available with [Pro and Premier plans](https://sendgrid.com/pricing/).'
+  termsOfService: https://www.twilio.com/legal/tos
+  contact:
+    name: Twilio SendGrid Support
+    url: https://support.sendgrid.com/hc/en-us
+  license:
+    name: MIT
+    url: https://code.hq.twilio.com/twilio/sendgrid-oas/blob/main/LICENSE
+  version: 1.0.0
+  x-sendgrid:
+    libraryPackage: account_provisioning
+servers:
+- url: https://api.sendgrid.com
+  description: for global users and subusers
+- url: https://api.eu.sendgrid.com
+  description: for EU regional subusers
+security:
+- BearerAuth: []
+tags:
+- name: Lists
+  description: 'Twilio SendGrid Legacy Marketing Campaigns Contacts: Lists API'
+paths:
+  /v3/contactdb/lists:
+    post:
+      operationId: CreateContactDbList
+      summary: Create a List
+      tags:
+      - Lists
+      description: '**This endpoint allows you to create a list for your recipients.**'
+      parameters:
+      - $ref: '#/components/parameters/OnBehalfOf'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: Create a List request
+              type: object
+              properties:
+                name:
+                  type: string
+              required:
+              - name
+              example:
+                name: your list name
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactdbList2xx'
+              examples:
+                response:
+                  value:
+                    id: 1
+                    name: your list name
+                    recipient_count: 0
+        '400':
+          description: The request was formatted incorrectly or missing required parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    errors:
+                    - field: null
+                      message: Returned if request body is invalid JSON
+                    - field: name
+                      message: Returned if list name is not a string
+                    - field: name
+                      message: Returned if list name is a duplicate of an existing list or segment
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    errors:
+                    - field: null
+                      message: authorization required
+    get:
+      operationId: ListContactDbList
+      summary: Retrieve all lists
+      tags:
+      - Lists
+      description: '**This endpoint allows you to retrieve all of your recipient lists. If you don''t have any lists, an empty array will be returned.**'
+      parameters:
+      - $ref: '#/components/parameters/OnBehalfOf'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                title: List All Lists response
+                type: object
+                properties:
+                  lists:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ContactdbList2xx'
+                required:
+                - lists
+              examples:
+                response:
+                  value:
+                    lists:
+                    - id: 1
+                      name: the jones
+                      recipient_count: 1
+    delete:
+      operationId: DeleteContactDbLists
+      summary: Delete Multiple lists
+      tags:
+      - Lists
+      description: '**This endpoint allows you to delete multiple recipient lists.**'
+      parameters:
+      - $ref: '#/components/parameters/OnBehalfOf'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: integer
+              example:
+              - 1
+              - 2
+              - 3
+              - 4
+      responses:
+        '204':
+          description: ''
+        '400':
+          description: All list ids are not valid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    errors:
+                    - field: null
+                      message: list id was invalid
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    errors:
+                    - field: null
+                      message: authorization required
+  /v3/contactdb/lists/{list_id}:
+    parameters:
+    - name: list_id
+      in: path
+      required: true
+      schema:
+        type: integer
+    get:
+      operationId: GetContactDbList
+      summary: Retrieve a single list
+      tags:
+      - Lists
+      description: '**This endpoint allows you to retrieve a single recipient list.**'
+      parameters:
+      - $ref: '#/components/parameters/OnBehalfOf'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactdbList2xx'
+              examples:
+                response:
+                  value:
+                    id: 1
+                    name: listname
+                    recipient_count: 0
+        '400':
+          description: Provided `list_id` is not valid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    errors:
+                    - message: invalid id
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    errors:
+                    - field: null
+                      message: authorization required
+        '404':
+          description: Provided `list_id` does not exist
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    errors:
+                    - field: null
+                      message: List ID does not exist
+    patch:
+      operationId: UpdateContactDbList
+      summary: Update a List
+      tags:
+      - Lists
+      description: '**This endpoint allows you to update the name of one of your recipient lists.**'
+      parameters:
+      - $ref: '#/components/parameters/OnBehalfOf'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: Update a List request
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'The new name for your list. '
+              required:
+              - name
+              example:
+                name: newlistname
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: The ID of the list
+                  name:
+                    type: string
+                    description: The new name for the list
+                  recipient_count:
+                    type: integer
+                    description: The number of recipients on the list
+              examples:
+                response:
+                  value:
+                    id: 1234
+                    name: 2016 iPhone Users
+                    recipient_count: 0
+        '400':
+          description: The request was formatted incorrectly or missing required parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    errors:
+                    - message: invalid id
+        '404':
+          description: Returned if `list_id` does not exist
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    errors:
+                    - message: List ID does not exist
+    delete:
+      operationId: DeleteContactDbList
+      summary: Delete a List
+      tags:
+      - Lists
+      description: '**This endpoint allows you to delete a specific recipient list with the given ID.**'
+      parameters:
+      - name: delete_contacts
+        in: query
+        description: Adds the ability to delete all contacts on the list in addition to deleting the list.
+        schema:
+          type: boolean
+          $ref: '#/components/schemas/DeleteContacts'
+      - $ref: '#/components/parameters/OnBehalfOf'
+      responses:
+        '202':
+          description: ''
+          content:
+            application/json:
+              schema:
+                nullable: true
+        '400':
+          description: Returned if `list_id` or `delete_contacts` are not valid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    errors:
+                    - field: delete_contacts
+                      message: delete_contacts not a bool
+                    - field: list_id
+                      message: Returned if list_id is not valid
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    errors:
+                    - field: null
+                      message: authorization required
+        '404':
+          description: Returned if `list_id` does not exist
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    errors:
+                    - message: 'List not found: 5'
+  /v3/contactdb/lists/{list_id}/recipients:
+    parameters:
+    - name: list_id
+      in: path
+      description: The id of the list of recipients you want to retrieve.
+      required: true
+      schema:
+        type: integer
+    get:
+      operationId: ListRecipientsFromContactDbList
+      summary: Retrieve all recipients on a List
+      tags:
+      - Lists
+      description: '**This endpoint allows you to retrieve all recipients on the list with the given ID.**'
+      parameters:
+      - name: page
+        in: query
+        description: Page index of first recipient to return (must be a positive integer)
+        required: false
+        schema:
+          type: integer
+      - name: page_size
+        in: query
+        description: Number of recipients to return at a time (must be a positive integer between 1 and 1000)
+        required: false
+        schema:
+          type: integer
+      - $ref: '#/components/parameters/OnBehalfOf'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recipients:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ContactdbRecipient200'
+              examples:
+                response:
+                  value:
+                    recipients:
+                    - created_at: 1433348344
+                      custom_fields:
+                      - id: 6234
+                        name: age
+                        type: number
+                        value: null
+                      - id: 6233
+                        name: country
+                        type: text
+                        value: null
+                      - id: 6235
+                        name: fname
+                        type: text
+                        value: Example
+                      - id: 6239
+                        name: lname
+                        type: text
+                        value: User
+                      - id: 6240
+                        name: lname
+                        type: text
+                        value: null
+                      email: example@example.com
+                      first_name: Example
+                      id: ZGVWfyZWsuYmFpbmVzQHNlbmRmCmLkLmNv==
+                      last_clicked: 1438616117
+                      last_emailed: 1438613272
+                      last_name: User
+                      last_opened: 1438616109
+                      updated_at: 1438616119
+        '400':
+          description: Input failed validation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    errors:
+                    - field: list_id
+                      message: Returned if list_id is not a valid integer
+                    - field: page
+                      message: Returned if page is not a valid integer
+                    - field: page
+                      message: Returned if page is less than 1
+                    - field: page_size
+                      message: Returned if page_size is not a valid integer
+                    - field: page_size
+                      message: Returned if page_size is less than 1 or greater than 1000
+        '404':
+          description: Returned if `list_id` does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                response:
+                  value:
+                    errors:
+                    - field: list_id
+                      message: Returned if list_id is invalid
+    post:
+      operationId: AddRecipientsToContactDbList
+      summary: Add Multiple Recipients to a List
+      tags:
+      - Lists
+      description: '**This endpoint allows you to add multiple recipients to a list.**
+
+
+        Adds existing recipients to a list, passing in the recipient IDs to add. Recipient IDs (base64-encoded email addresses) should be passed exactly as they are returned from recipient endpoints.'
+      parameters:
+      - $ref: '#/components/parameters/OnBehalfOf'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+              example:
+              - ZW1haWwxQGV4YW1wbGUuY29t
+              - ZW1haWwyQHRlc3QubmV0
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                nullable: true
+        '400':
+          description: The request was formatted incorrectly or missing required parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    errors:
+                    - field: list_id
+                      message: list_id is invalid
+                    - field: recipient_id
+                      message: no valid recipients were provided
+                    - field: null
+                      message: no recipients were added
+                    - field: null
+                      message: request body is invalid JSON
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    errors:
+                    - field: null
+                      message: authorization required
+        '404':
+          description: Returned if `list_id` does not exist
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    errors:
+                    - field: list_id
+                      message: list_id does not exist
+                    - field: recipient_id
+                      message: recipient_id does not exist
+  /v3/contactdb/lists/{list_id}/recipients/{recipient_id}:
+    parameters:
+    - name: list_id
+      in: path
+      description: The ID of the list that you want to add the recipient to.
+      required: true
+      schema:
+        type: integer
+    - name: recipient_id
+      in: path
+      description: The ID of the recipient you are adding to the list.
+      required: true
+      schema:
+        type: string
+    post:
+      operationId: AddRecipientToContactDbList
+      summary: Add a Single Recipient to a List
+      tags:
+      - Lists
+      description: '**This endpoint allows you to add a single recipient to a list.**'
+      parameters:
+      - $ref: '#/components/parameters/OnBehalfOf'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                nullable: true
+        '400':
+          description: Input failed validation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    errors:
+                    - field: list_id
+                      message: Returned if list_id is invalid
+                    - field: recipient_id
+                      message: Returned if recipient_id is invalid
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    errors:
+                    - field: null
+                      message: authorization required
+        '404':
+          description: Input failed validation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    errors:
+                    - field: list_id
+                      message: Returned if list_id does not exist
+                    - field: recipient_id
+                      message: Returned if recipient_id does not exist
+    delete:
+      operationId: DeleteRecipientFromContactDbList
+      summary: Delete a Single Recipient from a Single List
+      tags:
+      - Lists
+      description: '**This endpoint allows you to delete a single recipient from a list.**'
+      parameters:
+      - $ref: '#/components/parameters/OnBehalfOf'
+      responses:
+        '204':
+          description: ''
+        '400':
+          description: Input failed validation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    errors:
+                    - field: list_id
+                      message: Returned if list_id is invalid
+                    - field: recipient_id
+                      message: no valid recipients were provided
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    errors:
+                    - field: null
+                      message: authorization required
+        '404':
+          description: Returned if list_id or recipient_id does not exist
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    errors:
+                    - field: list_id
+                      message: Returned if list_id does not exist
+                    - field: recipient_id
+                      message: Returned if recipient_id does not exist
+  /v3/marketing/lists:
+    post:
+      operationId: CreateMarketingList
+      summary: Create List
+      tags:
+      - Lists
+      description: '**This endpoint creates a new contacts list.**
+
+
+        Once you create a list, you can use the UI to [trigger an automation](https://sendgrid.com/docs/ui/sending-email/getting-started-with-automation/#create-an-automation) every time you add a new contact to the list.
+
+
+        A link to the newly created object is in `_metadata`.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Your name for your list
+                  minLength: 1
+                  maxLength: 100
+              required:
+              - name
+              example:
+                name: list-name
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/List'
+              examples:
+                response:
+                  value:
+                    id: ca7a3796-e8a8-4029-9ccb-df8937940562
+                    name: list-name
+                    contact_count: 0
+                    _metadata:
+                      self: https://api.sendgrid.com/v3/marketing/lists/ca7a3796-e8a8-4029-9ccb-df8937940562
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+    get:
+      operationId: ListMarketingList
+      summary: Get All Lists
+      tags:
+      - Lists
+      description: '**This endpoint returns an array of all of your contact lists.**'
+      parameters:
+      - name: page_size
+        in: query
+        description: Maximum number of elements to return. Defaults to 100, returns 1000 max
+        required: false
+        schema:
+          type: number
+          minimum: 1
+          maximum: 1000
+          default: 100
+      - name: page_token
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/List'
+                  _metadata:
+                    $ref: '#/components/schemas/Metadata'
+              examples:
+                response:
+                  value:
+                    result:
+                    - id: abc12312-x3y4-1234-abcd-123qwe456rty
+                      name: list-name
+                      contact_count: 0
+                      _metadata:
+                        self: https://api.sendgrid.com/v3/marketing/lists/abc12312-x3y4-1234-abcd-123qwe456rty
+                    _metadata:
+                      self: https://api.sendgrid.com/v3/marketing/lists?page_size=100&page_token=
+  /v3/marketing/lists/{id}:
+    parameters:
+    - name: id
+      in: path
+      required: true
+      description: The ID of the list on which you want to perform the operation.
+      schema:
+        type: string
+    get:
+      operationId: GetMarketingList
+      summary: Get a List by ID
+      tags:
+      - Lists
+      description: '**This endpoint returns data about a specific list.**
+
+        Setting the optional parameter `contact_sample=true` returns the `contact_sample` in the response body. Up to 50 of the most recent contacts uploaded or attached to a list will be returned.
+
+        The full contact count is also returned.'
+      parameters:
+      - name: contact_sample
+        in: query
+        description: Setting this parameter to the true  will cause the contact_sample to be returned
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: The generated ID for your list.
+                    minLength: 36
+                    maxLength: 36
+                  name:
+                    type: string
+                    description: The name you gave your list.
+                  contact_count:
+                    type: integer
+                    description: The number of contacts currently stored on the list.
+                  _metadata:
+                    $ref: '#/components/schemas/SelfMetadata'
+                  contact_sample:
+                    $ref: '#/components/schemas/ContactDetails'
+              examples:
+                response:
+                  value:
+                    contact_count: 2
+                    contact_sample:
+                      id: c3445f88-5c69-4237-86e6-9ec9de958050
+                      list_ids:
+                      - 199abb98-0af3-4a8d-b371-6811ff85d062
+                      created_at: '2620-06-16T17:03:54.867Z'
+                      updated_at: '4780-12-06T06:51:30.024Z'
+                    _metadata:
+                      self: https://api.sendgrid.com/v3/marketing/lists/199abb98-0af3-4a8d-b371-6811ff85d062
+                    id: 199abb98-0af3-4a8d-b371-6811ff85d062
+                    name: list-name
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Error'
+    patch:
+      operationId: UpdateMarketingList
+      summary: Update List
+      tags:
+      - Lists
+      description: '**This endpoint updates the name of a list.**'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Your name for your list.
+              example:
+                name: updated-list-name
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/List'
+              examples:
+                response:
+                  value:
+                    id: abc12312-x3y4-1234-abcd-123qwe456rty
+                    name: updated-list-name
+                    contact_count: 0
+                    _metadata:
+                      self: https://api.sendgrid.com/v3/marketing/lists/abc12312-x3y4-1234-abcd-123qwe456rty
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+    delete:
+      operationId: DeleteMarketingList
+      summary: Delete a list
+      tags:
+      - Lists
+      description: '**This endpoint allows you to deletes a specific list.**
+
+
+        Optionally, you can also delete contacts associated to the list. The query parameter, `delete_contacts=true`, will delete the list and start an asynchronous job to delete associated contacts.'
+      parameters:
+      - name: delete_contacts
+        in: query
+        description: Flag indicates that all contacts on the list are also to be deleted.
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                description: The delete has been accepted and is processing.
+                properties:
+                  job_id:
+                    type: string
+                    description: job_id of the async job
+              examples:
+                response:
+                  value:
+                    job_id: abc12312-x3y4-1234-abcd-123qwe456rty
+        '204':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: string
+                description: 'The delete has been processed. '
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                required:
+                - errors
+  /v3/marketing/lists/{id}/contacts:
+    parameters:
+    - name: id
+      in: path
+      required: true
+      description: The ID of the list on which you want to perform the operation.
+      schema:
+        type: string
+    delete:
+      operationId: DeleteContact
+      summary: Remove Contacts from a List
+      tags:
+      - Lists
+      description: '**This endpoint allows you to remove contacts from a given list.**
+
+
+        The contacts will not be deleted. Only their list membership will be changed.'
+      parameters:
+      - name: contact_ids
+        in: query
+        description: Comma separated list of contact IDs that you want to remove from the specified contacts list.
+        required: true
+        schema:
+          type: string
+          minLength: 1
+      responses:
+        '202':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                description: The removal is accepted and processing.
+                properties:
+                  job_id:
+                    type: string
+                    description: job_id of the async job
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                description: The specified list ID does not exist or one or more contact IDs do not exist.
+  /v3/marketing/lists/{id}/contacts/count:
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      operationId: ListContactCount
+      summary: Get List Contact Count
+      tags:
+      - Lists
+      description: '**This endpoint returns the number of contacts on a specific list.**'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  contact_count:
+                    type: integer
+                  billable_count:
+                    type: integer
+              examples:
+                response:
+                  value:
+                    contact_count: 0
+                    'billable_count:': 0
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+components:
+  schemas:
+    ContactDetails:
+      title: contact-details2
+      type: object
+      properties:
+        id:
+          type: string
+          minLength: 36
+          maxLength: 36
+          format: uuid
+        first_name:
+          type: string
+        last_name:
+          type: string
+        unique_name:
+          type: string
+        email:
+          type: string
+          format: email
+        phone_number_id:
+          type: string
+        external_id:
+          type: string
+        anonymous_id:
+          type: string
+        alternate_emails:
+          items:
+            type: string
+            format: email
+          nullable: true
+          type: array
+        address_line_1:
+          type: string
+        address_line_2:
+          type: string
+        city:
+          type: string
+        state_province_region:
+          type: string
+        country:
+          type: string
+        postal_code:
+          type: string
+        phone_number:
+          type: string
+        whatsapp:
+          type: string
+        line:
+          type: string
+        facebook:
+          type: string
+        list_ids:
+          type: array
+          items:
+            type: string
+            format: uuid
+        segment_ids:
+          type: array
+          items:
+            type: string
+            format: uuid
+        custom_fields:
+          type: object
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        _metadata:
+          $ref: '#/components/schemas/SelfMetadata'
+      required:
+      - id
+      - list_ids
+      - created_at
+      - updated_at
+    List:
+      title: list
+      type: object
+      properties:
+        id:
+          type: string
+          description: The generated ID for your list.
+          minLength: 36
+          maxLength: 36
+        name:
+          type: string
+          description: The name you gave your list.
+        contact_count:
+          type: integer
+          description: The number of contacts currently stored on the list.
+        _metadata:
+          $ref: '#/components/schemas/SelfMetadata'
+    ContactdbCustomFieldIdValue:
+      title: ContactDB Custom field schema.
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the field
+        type:
+          type: string
+          description: The type of the field.
+          $ref: '#/components/schemas/Type'
+        id:
+          type: number
+          description: The ID of the custom field.
+        value:
+          description: The value of this recipient's custom field
+          nullable: true
+          type: string
+    Type:
+      type: string
+      enum:
+      - date
+      - text
+      - number
+    ContactdbList2xx:
+      title: ContactDB lists
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The reference ID of your list.
+        name:
+          type: string
+          description: The name of your list. Must be unique against all other list and segment names.
+        recipient_count:
+          type: integer
+          description: The count of recipients currently in the list.
+      required:
+      - id
+      - name
+      - recipient_count
+      example:
+        id: 1
+        name: listname
+        recipient_count: 0
+    DeleteContacts:
+      type: boolean
+      enum:
+      - true
+      - false
+    ErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: An error message.
+              field:
+                description: When applicable, this property value will be the field that generated the error.
+                nullable: true
+                type: string
+              help:
+                type: object
+                description: When applicable, this property value will be helper text or a link to documentation to help you troubleshoot the error.
+        id:
+          type: string
+          description: When applicable, this property value will be an error ID.
+      example:
+        errors:
+        - field: field_name
+          message: error message
+    Metadata:
+      title: metadata
+      type: object
+      properties:
+        prev:
+          type: string
+          format: uri
+          description: The URL of the previous page of results. If this field isn't present, you're at the start of the list.
+        self:
+          type: string
+          format: uri
+          description: The URL of the current page of results.
+        next:
+          type: string
+          format: uri
+          description: The URL of the next page of results. If this field isn't present, you're at the end of the list.
+        count:
+          type: number
+          description: The number of items in the entire list, i.e., across all pages.
+    ContactdbRecipient200:
+      title: 'ContactDB: Recipient'
+      type: object
+      properties:
+        recipients:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: The ID of this recipient.
+              created_at:
+                type: number
+                description: The time this record was created in your contactdb, in unixtime.
+              custom_fields:
+                type: array
+                description: The custom fields assigned to this recipient and their values.
+                items:
+                  $ref: '#/components/schemas/ContactdbCustomFieldIdValue'
+              email:
+                type: string
+                description: The email address of this recipient. This is a default custom field that SendGrid provides.
+                format: email
+              first_name:
+                description: The first name of this recipient. This is a default custom field that SendGrid provides.
+                nullable: true
+                type: string
+              last_name:
+                description: The last name of the recipient.
+                nullable: true
+                type: string
+              last_clicked:
+                description: The last time this recipient clicked a link from one of your campaigns, in unixtime.
+                nullable: true
+                type: number
+              last_emailed:
+                description: The last time this user was emailed by one of your campaigns, in unixtime.
+                nullable: true
+                type: number
+              last_opened:
+                description: The last time this recipient opened an email from you, in unixtime.
+                nullable: true
+                type: number
+              updated_at:
+                type: number
+                description: The last update date for this recipient's record.
+            required:
+            - email
+    Error:
+      title: error
+      type: object
+      properties:
+        message:
+          type: string
+        field:
+          type: string
+        error_id:
+          type: string
+        parameter:
+          type: string
+      required:
+      - message
+    SelfMetadata:
+      title: selfMetadata
+      type: object
+      properties:
+        self:
+          type: string
+          description: A link to this object.
+  parameters:
+    OnBehalfOf:
+      name: on-behalf-of
+      in: header
+      description: 'The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent''s Subusers or customer accounts. You will use the parent account''s API key when using this header. When making a call on behalf of a customer account, the property value should be "account-id" followed by the customer account''s ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser''s username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.'
+      required: false
+      schema:
+        type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Twilio SendGrid requires you to authenticate with its APIs using an API key. The API key must be sent as a bearer token in the Authorization header.
+externalDocs:
+  description: Twilio SendGrid's official developer documentation.
+  url: https://www.twilio.com/docs/sendgrid

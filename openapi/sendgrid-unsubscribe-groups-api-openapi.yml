@@ -1,0 +1,285 @@
+openapi: 3.1.0
+info:
+  title: Twilio SendGrid Provisioning Account Unsubscribe Groups API
+  summary: The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts.
+  description: 'The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts. This API is for companies that have a formal reseller partnership with Twilio SendGrid.
+
+
+    You can access Twilio SendGrid sub-account functionality without becoming a reseller. If you require sub-account functionality, see the Twilio [SendGrid Subusers](https://docs.sendgrid.com/ui/account-and-settings/subusers) feature, which is available with [Pro and Premier plans](https://sendgrid.com/pricing/).'
+  termsOfService: https://www.twilio.com/legal/tos
+  contact:
+    name: Twilio SendGrid Support
+    url: https://support.sendgrid.com/hc/en-us
+  license:
+    name: MIT
+    url: https://code.hq.twilio.com/twilio/sendgrid-oas/blob/main/LICENSE
+  version: 1.0.0
+  x-sendgrid:
+    libraryPackage: account_provisioning
+servers:
+- url: https://api.sendgrid.com
+  description: for global users and subusers
+- url: https://api.eu.sendgrid.com
+  description: for EU regional subusers
+security:
+- BearerAuth: []
+tags:
+- name: Unsubscribe Groups
+  description: 'Twilio SendGrid Suppressions API: Unsubscribe Group operations'
+paths:
+  /v3/asm/groups:
+    post:
+      operationId: CreatAsmGroup
+      summary: Create a new suppression group
+      tags:
+      - Unsubscribe Groups
+      description: '**This endpoint allows you to create a new suppression group.**
+
+
+        To add an email address to the suppression group, [create a Suppression](https://docs.sendgrid.com/api-reference/suppressions-suppressions/add-suppressions-to-a-suppression-group).'
+      parameters:
+      - $ref: '#/components/parameters/OnBehalfOf'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SuppressionGroupRequestBaseProps'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: The ID of the suppression group.
+                  name:
+                    type: string
+                    description: The name of the suppression group.
+                  description:
+                    type: string
+                    description: A brief description of the suppression group.
+                  is_default:
+                    type: boolean
+                    description: Indicates if this is the default suppression group.
+                required:
+                - id
+                - name
+                - description
+                - is_default
+              examples:
+                response:
+                  value:
+                    id: 103
+                    name: Product Suggestions
+                    description: Suggestions for products our users might like.
+                    is_default: false
+    get:
+      operationId: ListAsmGroup
+      summary: Retrieve all suppression groups associated with the user.
+      tags:
+      - Unsubscribe Groups
+      description: '**This endpoint allows you to retrieve a list of all suppression groups created by this user.**
+
+
+        This endpoint can also return information for multiple group IDs that you include in your request. To add a group ID to your request, simply append `?id=123456&id=123456`, with the appropriate group IDs.'
+      parameters:
+      - name: id
+        in: query
+        description: The ID of the suppression group(s) you want to retrieve.
+        schema:
+          type: integer
+      - $ref: '#/components/parameters/OnBehalfOf'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SuppressionGroup'
+              examples:
+                response:
+                  value:
+                  - id: 1234
+                    name: Unsubscribe Group
+                    description: An Unsubscribe Group
+                    is_default: true
+                    unsubscribes: 1234
+                  - id: 1234
+                    name: Unsubscribe Group
+                    description: An Unsubscribe Group
+                    is_default: true
+                    unsubscribes: 1234
+  /v3/asm/groups/{group_id}:
+    parameters:
+    - name: group_id
+      in: path
+      description: The ID of the suppression group you would like to retrieve.
+      required: true
+      schema:
+        type: string
+    get:
+      operationId: GetAsmGroup
+      summary: Get information on a single suppression group.
+      tags:
+      - Unsubscribe Groups
+      description: '**This endpoint allows you to retrieve a single suppression group.**'
+      parameters:
+      - $ref: '#/components/parameters/OnBehalfOf'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    description: The name of your suppression group. Required when creating a group.
+                    maxLength: 30
+                  description:
+                    type: string
+                    description: A brief description of your suppression group. Required when creating a group.
+                    maxLength: 100
+                  is_default:
+                    type: boolean
+                    description: Indicates if you would like this to be your default suppression group.
+                  id:
+                    type: integer
+                    description: The ID of the suppression group.
+                  unsubscribes:
+                    type: integer
+                    description: The number of unsubscribes, or suppressions, in this group.
+                required:
+                - id
+              examples:
+                response:
+                  value:
+                    description: Our monthly newsletter.
+                    id: 100
+                    is_default: true
+                    name: Newsletters
+                    unsubscribes: 400
+    patch:
+      operationId: UpdateAsmGroup
+      summary: Update a suppression group.
+      tags:
+      - Unsubscribe Groups
+      description: '**This endpoint allows you to update or change a suppression group.**'
+      parameters:
+      - $ref: '#/components/parameters/OnBehalfOf'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+                id: 103
+                name: Item Suggestions
+                description: Suggestions for items our users might like.
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: The name of your suppression group. Required when creating a group.
+                  maxLength: 30
+                description:
+                  type: string
+                  description: A brief description of your suppression group. Required when creating a group.
+                  maxLength: 100
+                is_default:
+                  type: boolean
+                  description: Indicates if you would like this to be your default suppression group.
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuppressionGroup'
+              examples:
+                response:
+                  value:
+                    id: 103
+                    name: Item Suggestions
+                    description: Suggestions for items our users might like.
+    delete:
+      operationId: DeleteAsmGroup
+      summary: Delete a Suppression Group
+      tags:
+      - Unsubscribe Groups
+      description: '**This endpoint allows you to delete a suppression group.**
+
+
+        If a recipient uses the "one-click unsubscribe" option on an email associated with a deleted group, that recipient will be added to the global suppression list.
+
+
+        Deleting a suppression group will remove the suppression, meaning email will once again be sent to the previously suppressed addresses. This should be avoided unless a recipient indicates they wish to receive email from you again. You can use our [bypass filters](https://sendgrid.com/docs/ui/sending-email/index-suppressions/#bypass-suppressions) to deliver messages to otherwise suppressed addresses when exceptions are required.'
+      parameters:
+      - $ref: '#/components/parameters/OnBehalfOf'
+      responses:
+        '204':
+          description: ''
+components:
+  schemas:
+    SuppressionGroup:
+      title: 'Suppressions: Suppression Group'
+      type: object
+      properties:
+        id:
+          type: number
+          description: The id of the suppression group.
+        name:
+          type: string
+          description: The name of the suppression group. Each group created by a user must have a unique name.
+          maxLength: 30
+        description:
+          type: string
+          description: A description of the suppression group.
+          maxLength: 100
+        is_default:
+          type: boolean
+          default: false
+          description: Indicates if this is the default suppression group.
+        unsubscribes:
+          type: integer
+          description: The unsubscribes associated with this group.
+      required:
+      - id
+      - name
+      - description
+    SuppressionGroupRequestBaseProps:
+      title: Suppression Group Request Base
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of your suppression group. Required when creating a group.
+          maxLength: 30
+        description:
+          type: string
+          description: A brief description of your suppression group. Required when creating a group.
+          maxLength: 100
+        is_default:
+          type: boolean
+          description: Indicates if you would like this to be your default suppression group.
+  parameters:
+    OnBehalfOf:
+      name: on-behalf-of
+      in: header
+      description: 'The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent''s Subusers or customer accounts. You will use the parent account''s API key when using this header. When making a call on behalf of a customer account, the property value should be "account-id" followed by the customer account''s ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser''s username (e.g., `on-behalf-of: <subuser-username>`). It is important to use the Base URL that corresponds to the region of the account or Subuser you specify in the `on-behalf-of` header. See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.'
+      required: false
+      schema:
+        type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Twilio SendGrid requires you to authenticate with its APIs using an API key. The API key must be sent as a bearer token in the Authorization header.
+externalDocs:
+  description: Twilio SendGrid's official developer documentation.
+  url: https://www.twilio.com/docs/sendgrid

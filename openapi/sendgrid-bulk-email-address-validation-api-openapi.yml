@@ -1,0 +1,331 @@
+openapi: 3.1.0
+info:
+  title: Twilio SendGrid Provisioning Account Bulk Email Address Validation API
+  summary: The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts.
+  description: 'The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts. This API is for companies that have a formal reseller partnership with Twilio SendGrid.
+
+
+    You can access Twilio SendGrid sub-account functionality without becoming a reseller. If you require sub-account functionality, see the Twilio [SendGrid Subusers](https://docs.sendgrid.com/ui/account-and-settings/subusers) feature, which is available with [Pro and Premier plans](https://sendgrid.com/pricing/).'
+  termsOfService: https://www.twilio.com/legal/tos
+  contact:
+    name: Twilio SendGrid Support
+    url: https://support.sendgrid.com/hc/en-us
+  license:
+    name: MIT
+    url: https://code.hq.twilio.com/twilio/sendgrid-oas/blob/main/LICENSE
+  version: 1.0.0
+  x-sendgrid:
+    libraryPackage: account_provisioning
+servers:
+- url: https://api.sendgrid.com
+  description: for global users and subusers
+- url: https://api.eu.sendgrid.com
+  description: for EU regional subusers
+security:
+- BearerAuth: []
+tags:
+- name: Bulk Email Address Validation
+  description: The Twilio SendGrid Bulk Email Address Validation API
+paths:
+  /v3/validations/email/jobs:
+    put:
+      operationId: ListEmailJobForVerification
+      summary: Request a presigned URL and headers for Bulk Email Address Validation list upload.
+      tags:
+      - Bulk Email Address Validation
+      description: '**This endpoint returns a presigned URL and request headers. Use this information to upload a list of email addresses for verification.**
+
+
+        Note that in a successful response the `content-type` header value matches the provided `file_type` parameter in the `PUT` request.
+
+
+        Once you have an `upload_uri` and the `upload_headers`, you''re ready to upload your email address list for verification. For the expected format of the email address list and a sample upload request, see the [Bulk Email Address Validation Overview page](https://www.twilio.com/docs/sendgrid/ui/managing-contacts/email-address-validation/bulk-email-address-validation-overview).
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                file_type:
+                  type: string
+                  description: The format of the file you wish to upload.
+                  $ref: '#/components/schemas/FileType'
+              required:
+              - file_type
+              example:
+                file_type: csv
+      responses:
+        '200':
+          description: The request was successful. The response contains the URI and headers where you will upload your email address list.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PutValidationsEmailJobs200Response'
+              examples:
+                response:
+                  value:
+                    job_id: 01H793APATD899ESMY25ZNPNCF
+                    upload_uri: https://example.com/
+                    upload_headers:
+                    - header: x-amz-server-side-encryption
+                      value: aws:kms
+                    - header: content-type
+                      value: text/csv
+        '400':
+          description: Bad request. Invalid or missing `file_type` or malformed request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    errors:
+                    - message: Error message
+        '500':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    errors:
+                    - message: error message
+    get:
+      operationId: GetValidationsEmailJobs
+      summary: This request lists all of a user's Bulk Email Validation Jobs.
+      tags:
+      - Bulk Email Address Validation
+      description: '**This endpoint returns a list of all of a user''s Bulk Email Validation Jobs.**'
+      responses:
+        '200':
+          description: The request was successful. The response contains a list of all of your Bulk Email Validation Jobs.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetValidationsEmailJobs200Response'
+              examples:
+                response:
+                  value:
+                    result:
+                    - id: 01HV9ZZQAFEXW18KFEPTB9YD5E
+                      status: Queued
+                      started_at: 1712954639
+                      finished_at: 0
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    errors:
+                    - message: error message
+        '500':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v3/validations/email/jobs/{job_id}:
+    parameters:
+    - name: job_id
+      in: path
+      description: The ID of the Bulk Email Address Validation Job you wish to retrieve.
+      required: true
+      schema:
+        type: string
+    get:
+      operationId: GetEmailJobForVerification
+      summary: This request returns a single Bulk Email Validation Job.
+      tags:
+      - Bulk Email Address Validation
+      description: '**This endpoint returns a specific Bulk Email Validation Job. You can use this endpoint to check on the progress of a Job.**
+
+        '
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetValidationsEmailJobsJobId200Response'
+              example:
+                response:
+                  value:
+                    result:
+                      id: 01HV9ZZQAFEXW18KFEPTB9YD5E
+                      status: Queued
+                      segments: 0
+                      segments_processed: 0
+                      is_download_available: false
+                      started_at: 1712954639
+                      finished_at: 0
+                      errors: []
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    errors:
+                    - message: error message
+        '500':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    Status1:
+      type: string
+      enum:
+      - Initiated
+      - Queued
+      - Ready
+      - Processing
+      - Done
+      - Error
+    Status:
+      type: string
+      enum:
+      - Initiated
+      - Queued
+      - Ready
+      - Processing
+      - Done
+      - Error
+    GetValidationsEmailJobs200Response:
+      title: GET Validations Email Jobs 200 Response
+      type: object
+      properties:
+        result:
+          type: array
+          description: ''
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: The unique ID of the Bulk Email Address Validation Job.
+              status:
+                type: string
+                description: The status of the Bulk Email Address Validation Job.
+                $ref: '#/components/schemas/Status'
+              started_at:
+                description: The ISO8601 timestamp when the Job was created. This is the time at which the upload request was sent to the `upload_uri`.
+                type: number
+              finished_at:
+                description: The ISO8601 timestamp when the Job was finished.
+                type: number
+    FileType:
+      type: string
+      enum:
+      - csv
+      - zip
+    GetValidationsEmailJobsJobId200Response:
+      title: GET Validations Email Jobs job_id 200 Response
+      type: object
+      properties:
+        result:
+          type: object
+          description: ''
+          properties:
+            id:
+              type: string
+              description: The unique ID of the Bulk Email Address Validation Job.
+            status:
+              type: string
+              description: The status of the Bulk Email Address Validation Job.
+              $ref: '#/components/schemas/Status1'
+            segments:
+              type: number
+              description: The total number of segments in the Bulk Email Address Validation Job. There are 1,500 email addresses per segment. The value is `0` until the Job `status` is `Processing`.
+            segments_processed:
+              type: number
+              description: The number of segments processed at the time of the request. 100 segments process in parallel at a time.
+            is_download_available:
+              type: boolean
+              description: Boolean indicating whether the results CSV file is available for download.
+            started_at:
+              description: The ISO8601 timestamp when the Job was created. This is the time at which the upload request was sent to the `upload_uri`.
+              type: number
+            finished_at:
+              description: The ISO8601 timestamp when the Job was finished.
+              type: number
+            errors:
+              type: array
+              description: Array containing error messages related to the Bulk Email Address Validation Job. Array is empty if no errors ocurred.
+              items:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Description of the error encountered during execution of the Bulk Email Address Validation Job.
+    ErrorResponse:
+      title: Error
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: The message representing the error from the API.
+              field:
+                type: string
+                description: The field associated with the error.
+              help:
+                type: object
+                description: Helper text or docs for troubleshooting.
+            required:
+            - message
+        id:
+          type: string
+          description: ID representing the error.
+      example:
+        errors:
+        - field: field_name
+          message: error message
+    PutValidationsEmailJobs200Response:
+      title: Update Email Validations Jobs 200 Response
+      type: object
+      properties:
+        job_id:
+          type: string
+          description: The unique ID of the Bulk Email Address Validation Job.
+        upload_uri:
+          type: string
+          description: The URI to use for the request to upload your list of email addresses.
+        upload_headers:
+          type: array
+          description: Array containing headers and header values.
+          items:
+            type: object
+            properties:
+              header:
+                type: string
+                description: The name of the header that must be included in the upload request.
+              value:
+                type: string
+                description: The value of the header that must be included in the upload request.
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Twilio SendGrid requires you to authenticate with its APIs using an API key. The API key must be sent as a bearer token in the Authorization header.
+externalDocs:
+  description: Twilio SendGrid's official developer documentation.
+  url: https://www.twilio.com/docs/sendgrid

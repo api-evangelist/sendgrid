@@ -1,0 +1,731 @@
+openapi: 3.1.0
+info:
+  title: Twilio SendGrid Provisioning Account Subusers API
+  summary: The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts.
+  description: 'The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts. This API is for companies that have a formal reseller partnership with Twilio SendGrid.
+
+
+    You can access Twilio SendGrid sub-account functionality without becoming a reseller. If you require sub-account functionality, see the Twilio [SendGrid Subusers](https://docs.sendgrid.com/ui/account-and-settings/subusers) feature, which is available with [Pro and Premier plans](https://sendgrid.com/pricing/).'
+  termsOfService: https://www.twilio.com/legal/tos
+  contact:
+    name: Twilio SendGrid Support
+    url: https://support.sendgrid.com/hc/en-us
+  license:
+    name: MIT
+    url: https://code.hq.twilio.com/twilio/sendgrid-oas/blob/main/LICENSE
+  version: 1.0.0
+  x-sendgrid:
+    libraryPackage: account_provisioning
+servers:
+- url: https://api.sendgrid.com
+  description: for global users and subusers
+- url: https://api.eu.sendgrid.com
+  description: for EU regional subusers
+security:
+- BearerAuth: []
+tags:
+- name: Subusers
+  description: Twilio SendGrid Subusers API
+paths:
+  /v3/subusers:
+    get:
+      operationId: ListSubuser
+      summary: List all Subusers
+      tags:
+      - Subusers
+      description: '**This endpoint allows you to retrieve a paginated list of all your subusers.**
+
+
+        You can use the `username` query parameter to filter the list for specific subusers.
+
+
+        You can use the `limit` query parameter to set the page size. If your list contains more items than the page size permits, you can make multiple requests. Use the `offset` query parameter to control the position in the list from which to start retrieving additional items.'
+      parameters:
+      - name: username
+        in: query
+        description: The username of this subuser.
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: '`limit` sets the page size, i.e. maximum number of items from the list to be returned for a single API request. If omitted, the default page size is used.'
+        schema:
+          type: integer
+      - name: region
+        in: query
+        description: Filter for Subusers in this region. If not provided, all Subusers will be returned. All users can also be explicitly requested by using the filter `all`. Users who are not pinned to a region will be displayed as `global`.
+        schema:
+          type: string
+          default: all
+          $ref: '#/components/schemas/Region'
+      - name: include_region
+        in: query
+        description: Optional flag to include the regions of the Subusers in the response. If not provided, the region will be omitted from the response.
+        schema:
+          type: boolean
+          default: false
+      - $ref: '#/components/parameters/PaginationCommonOffset'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Subuser'
+              examples:
+                response:
+                  value:
+                  - disabled: false
+                    email: example@example.com
+                    id: 1234
+                    username: example_subuser
+                  - disabled: false
+                    email: example2@example.com
+                    id: 1234
+                    username: example_subuser2
+        '401':
+          description: Unexpected error in API call. See HTTP response body for details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    errors:
+                    - field: null
+                      message: authorization required
+    post:
+      operationId: CreateSubuser
+      summary: Create Subuser
+      tags:
+      - Subusers
+      description: '**This endpoint allows you to create a new subuser.**'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: The username for this subuser.
+                email:
+                  type: string
+                  description: The email address of the subuser.
+                  format: email
+                password:
+                  type: string
+                  description: The password this subuser will use when logging into SendGrid.
+                ips:
+                  type: array
+                  description: The IP addresses that should be assigned to this subuser.
+                  items:
+                    type: string
+                    format: ipv4
+                region:
+                  type: string
+                  description: The region this Subuser should be assigned to. Can be `global` or `eu`. (Regional email is in Public Beta and requires SendGrid Pro plan or above.).
+                  default: global
+                  $ref: '#/components/schemas/Region1'
+                include_region:
+                  type: boolean
+                  description: A flag that determines if the Subuser's region should be returned in the response. (Regional email is in Public Beta and requires SendGrid Pro plan or above.)
+                  default: false
+              required:
+              - username
+              - email
+              - password
+              - ips
+              example:
+                username: John@example.com
+                email: John@example.com
+                password: johns_password
+                ips:
+                - 1.1.1.1
+                - 2.2.2.2
+                region: global
+                include_region: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubuserPost'
+              examples:
+                response:
+                  value:
+                    username: example_subuser
+                    user_id: 1234
+                    email: example@example.com
+                    credit_allocation:
+                      type: unlimited
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    errors:
+                    - message: username exists
+                    - message: unable to validate IPs at this time
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    errors:
+                    - field: null
+                      message: authorization required
+        '403':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    errors:
+                    - message: you dont have permission to access this resource
+        '500':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                response:
+                  value:
+                    errors:
+                    - message: unable to validate IPs at this time
+  /v3/subusers/{subuser_name}:
+    parameters:
+    - $ref: '#/components/parameters/UserName'
+    patch:
+      operationId: UpdateSubuser
+      summary: Enable/disable a subuser
+      tags:
+      - Subusers
+      description: '**This endpoint allows you to enable or disable a subuser.**'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                disabled:
+                  type: boolean
+                  description: Whether or not this subuser is disabled. `true` means disabled, `false` means enabled.
+              example:
+                disabled: false
+      responses:
+        '204':
+          description: ''
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    errors:
+                    - message: invalid username
+                    - message: no fields provided
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    errors:
+                    - field: null
+                      message: authorization required
+        '500':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    errors:
+                    - message: unable to enable user
+    delete:
+      operationId: DeleteSubuser
+      summary: Delete a subuser
+      tags:
+      - Subusers
+      description: '**This endpoint allows you to delete a subuser.**
+
+
+        This is a permanent action. Once deleted, a subuser cannot be retrieved.'
+      responses:
+        '204':
+          description: ''
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    errors:
+                    - field: null
+                      message: authorization required
+  /v3/subusers/{subuser_name}/credits:
+    parameters:
+    - $ref: '#/components/parameters/UserName'
+    get:
+      operationId: GetSubuserCredit
+      summary: Get the Credits for a Subuser
+      tags:
+      - Subusers
+      description: '**This endpoint allows you to retrieve a Credits overview for a Subuser.**'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubuserCredits'
+              examples:
+                response:
+                  value:
+                    remain: 99
+                    total: 100
+                    used: 1
+                    type: recurring
+                    reset_frequency: monthly
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    errors:
+                    - field: null
+                      message: No user found
+    put:
+      operationId: UpdateSubuserCredit
+      summary: Update the Credits for a Subuser
+      tags:
+      - Subusers
+      description: '**This endpoint allows you to update the Credits for a Subuser.**'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubuserCreditsRequest'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubuserCredits'
+              examples:
+                response:
+                  value:
+                    remain: 100
+                    total: 100
+                    used: 0
+                    type: recurring
+                    reset_frequency: monthly
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    errors:
+                    - field: type
+                      message: Type should be set to 'recurring', 'nonrecurring', or 'unlimited'
+  /v3/subusers/{subuser_name}/credits/remaining:
+    parameters:
+    - $ref: '#/components/parameters/UserName'
+    patch:
+      operationId: UpdateSubuserRemainingCredit
+      summary: Update the remaining credits for a Subuser
+      tags:
+      - Subusers
+      description: '**This endpoint allows you to update the remaining credits for a Subuser.**'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                allocation_update:
+                  type: integer
+                  description: The number of credits to add to or subtract from the current remaining credits for the Subuser. Use a positive number to increase the remaining credits or a negative number to reduce the remaining credits.
+              required:
+              - allocation_update
+              example:
+                allocation_update: 99
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubuserCredits'
+              examples:
+                response:
+                  value:
+                    remain: 100
+                    total: 100
+                    used: 0
+                    type: recurring
+                    reset_frequency: monthly
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    errors:
+                    - field: null
+                      message: No user found
+  /v3/subusers/{subuser_name}/ips:
+    parameters:
+    - $ref: '#/components/parameters/UserName'
+    put:
+      operationId: UpdateSubuserIp
+      summary: Update IPs assigned to a subuser
+      tags:
+      - Subusers
+      description: "**This endpoint allows you update your subusers' assigned IP.**\n\nEach subuser should be assigned to an IP address from which all of this subuser's mail will be sent. Often, this is the same IP as the parent account, but each subuser can have one or more of their own IP addresses as well. \n\nMore information:\n\n* [How to request more IPs](https://sendgrid.com/docs/ui/account-and-settings/dedicated-ip-addresses/)\n* [Setup Reverse DNS](https://sendgrid.com/docs/ui/account-and-settings/how-to-set-up-reverse-dns/)"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              description: The IP addresses you would like to assign to the subuser.
+              items:
+                type: string
+                format: ipv4
+              example:
+              - 127.0.0.1
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ips:
+                    type: array
+                    description: The IP addresses that are assigned to the subuser.
+                    items:
+                      type: string
+                      format: ipv4
+              examples:
+                response:
+                  value:
+                    ips:
+                    - 127.0.0.1
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                response:
+                  value:
+                    errors:
+                    - field: null
+                      message: authorization required
+  /v3/subusers/reputations:
+    get:
+      operationId: ListReputation
+      summary: Retrieve Subuser Reputations
+      tags:
+      - Subusers
+      description: '**This endpoint allows you to request the reputations for your subusers.**
+
+
+        Subuser sender reputations give a good idea how well a sender is doing with regards to how recipients and recipient servers react to the mail that is being received. When a bounce, spam report, or other negative action happens on a sent email, it will affect your sender rating.'
+      parameters:
+      - name: usernames
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    reputation:
+                      type: number
+                      description: The sender reputation this subuser has attained.
+                    username:
+                      type: string
+                      description: The subuser that has this reputation.
+                  required:
+                  - reputation
+                  - username
+              examples:
+                response:
+                  value:
+                  - username: example_subuser
+                    reputation: 99
+                  - username: example_subuser2
+                    reputation: 95.2
+components:
+  schemas:
+    SubuserPost:
+      title: Subuser::POST
+      type: object
+      properties:
+        username:
+          type: string
+          description: The username of the subuser.
+        user_id:
+          type: number
+          description: The user ID for this subuser.
+        email:
+          type: string
+          description: The email address for this subuser.
+          format: email
+        credit_allocation:
+          type: object
+          properties:
+            type:
+              type: string
+        region:
+          type: string
+          description: The region this Subuser is assigned to. The property is returned only if the `include_region` parameter is included and set to `true` in the API request.
+          default: global
+          $ref: '#/components/schemas/Region3'
+      required:
+      - username
+      - user_id
+      - email
+      example:
+        username: example_subuser
+        user_id: 1234
+        email: example@example.com
+        credit_allocation:
+          type: unlimited
+        region: global
+    Type:
+      type: string
+      enum:
+      - unlimited
+      - recurring
+      - nonrecurring
+    Region1:
+      type: string
+      enum:
+      - global
+      - eu
+    SubuserCreditsRequest:
+      title: Subuser Credits reset request body
+      type: object
+      properties:
+        type:
+          type: string
+          description: Type determines how credits are reset for a Subuser. `unlimited` indicates that there is no limit to the Subuser's credits. `recurring` indicates that the credits for the Subuser are reset according to the frequency determined by `reset_frequency`. `nonrecurring` indicates that there is no recurring schedule to reset credits and resets must be done on an ad hoc basis.
+          $ref: '#/components/schemas/Type1'
+        reset_frequency:
+          type: string
+          description: The frequency with which a Subuser's credits are reset if `type` is set to `recurring`. Do _not_ include `reset_frequency` if you choose a reset `type` value of `unlimited` or `nonrecurring`.
+          $ref: '#/components/schemas/ResetFrequency1'
+        total:
+          type: integer
+          description: Total number of credits to which the Subuser is to be reset. If `type` is `nonrecurring` then the Subuser's credits will be reset to `total` on a one-time basis. If `type` is `recurring` then the Subuser's credits will be reset to `total` every time a reset is scheduled in accordance with the `reset_frequency`. Do _not_ include `total` if you choose a reset `type` value of `unlimited`.
+          minimum: 1
+      required:
+      - type
+    Type1:
+      type: string
+      enum:
+      - unlimited
+      - recurring
+      - nonrecurring
+    Region3:
+      type: string
+      enum:
+      - global
+      - eu
+    ResetFrequency:
+      type: string
+      enum:
+      - monthly
+      - weekly
+      - daily
+    Subuser:
+      title: List all Subusers for a parent response
+      type: object
+      properties:
+        disabled:
+          type: boolean
+          description: Whether or not the user is enabled or disabled.
+        id:
+          type: number
+          description: The ID of this subuser.
+        username:
+          type: string
+          description: The name by which this subuser will be referred.
+        email:
+          type: string
+          description: The email address to contact this subuser.
+          format: email
+        region:
+          type: string
+          description: The region this Subuser is assigned to. This property is returned only if the `include_region` parameter was included and set to `true` in the API request.
+          $ref: '#/components/schemas/Region2'
+      required:
+      - disabled
+      - id
+      - username
+      - email
+      example:
+        disabled: false
+        email: example@example.com
+        id: 1234
+        username: example_subuser
+    ErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: An error message.
+              field:
+                description: When applicable, this property value will be the field that generated the error.
+                nullable: true
+                type: string
+              help:
+                type: object
+                description: When applicable, this property value will be helper text or a link to documentation to help you troubleshoot the error.
+        id:
+          type: string
+          description: When applicable, this property value will be an error ID.
+      example:
+        errors:
+        - field: field_name
+          message: error message
+    Region2:
+      type: string
+      enum:
+      - global
+      - eu
+    Region:
+      type: string
+      enum:
+      - all
+      - global
+      - eu
+    ResetFrequency1:
+      type: string
+      enum:
+      - monthly
+      - weekly
+      - daily
+    SubuserCredits:
+      title: Credits of a Subuser
+      type: object
+      properties:
+        type:
+          type: string
+          description: Type determines how credits are reset for a Subuser. `unlimited` indicates that there is no limit to the Subuser's credits. `recurring` indicates that the credits for the Subuser are reset according to the frequency determined by `reset_frequency`. `nonrecurring` indicates that there is no recurring schedule to reset credits and resets must be done on an ad hoc basis.
+          $ref: '#/components/schemas/Type'
+        reset_frequency:
+          type: string
+          nullable: true
+          description: The frequency with which a Subuser's credits are reset if `type` is set to `recurring`, otherwise `null`.
+          $ref: '#/components/schemas/ResetFrequency'
+        remain:
+          type: integer
+          nullable: true
+          description: Total number of remaining credits. `remain` is `null` if the reset `type` for the Subuser's credits is set to `unlimited`.
+          minimum: 0
+        total:
+          type: integer
+          nullable: true
+          description: Total number of allowable credits. `total` is `null` if the reset `type` for the Subuser's credits is set to `unlimited` or `nonrecurring`.
+          minimum: 0
+        used:
+          type: integer
+          nullable: true
+          description: Total number of used credits. `used` is `null` if the reset `type` for the Subuser's credits is set to `unlimited` or `nonrecurring`.
+          minimum: 0
+      required:
+      - type
+      - reset_frequency
+      - remain
+      - total
+      - used
+      example:
+        type: recurring
+        reset_frequency: monthly
+        remain: 99
+        total: 100
+        used: 1
+  parameters:
+    PaginationCommonOffset:
+      name: offset
+      in: query
+      required: false
+      description: The number of items in the list to skip over before starting to retrieve the items for the requested page. The default `offset` of `0` represents the beginning of the list, i.e. the start of the first page. To request the second page of the list, set the `offset` to the page size as determined by `limit`. Use multiples of the page size as your `offset` to request further consecutive pages. E.g. assume your page size is set to `10`. An `offset` of `10` requests the second page, an `offset` of `20` requests the third page and so on, provided there are sufficiently many items in your list.
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    UserName:
+      name: subuser_name
+      in: path
+      required: true
+      description: The username of the Subuser.
+      schema:
+        type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Twilio SendGrid requires you to authenticate with its APIs using an API key. The API key must be sent as a bearer token in the Authorization header.
+externalDocs:
+  description: Twilio SendGrid's official developer documentation.
+  url: https://www.twilio.com/docs/sendgrid

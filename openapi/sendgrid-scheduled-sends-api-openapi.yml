@@ -1,0 +1,341 @@
+openapi: 3.1.0
+info:
+  title: Twilio SendGrid Provisioning Account Scheduled Sends API
+  summary: The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts.
+  description: 'The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts. This API is for companies that have a formal reseller partnership with Twilio SendGrid.
+
+
+    You can access Twilio SendGrid sub-account functionality without becoming a reseller. If you require sub-account functionality, see the Twilio [SendGrid Subusers](https://docs.sendgrid.com/ui/account-and-settings/subusers) feature, which is available with [Pro and Premier plans](https://sendgrid.com/pricing/).'
+  termsOfService: https://www.twilio.com/legal/tos
+  contact:
+    name: Twilio SendGrid Support
+    url: https://support.sendgrid.com/hc/en-us
+  license:
+    name: MIT
+    url: https://code.hq.twilio.com/twilio/sendgrid-oas/blob/main/LICENSE
+  version: 1.0.0
+  x-sendgrid:
+    libraryPackage: account_provisioning
+servers:
+- url: https://api.sendgrid.com
+  description: for global users and subusers
+- url: https://api.eu.sendgrid.com
+  description: for EU regional subusers
+security:
+- BearerAuth: []
+tags:
+- name: Scheduled Sends
+  description: Twilio SendGrid Scheduled Sends API
+paths:
+  /v3/user/scheduled_sends:
+    post:
+      operationId: CreateScheduledSend
+      summary: Cancel or pause a scheduled send
+      tags:
+      - Scheduled Sends
+      description: '**This endpoint allows you to cancel or pause a scheduled send associated with a `batch_id`.**
+
+
+        Passing this endpoint a `batch_id` and status will cancel or pause the scheduled send.
+
+
+        Once a scheduled send is set to `pause` or `cancel` you must use the "Update a scheduled send" endpoint to change its status or the "Delete a cancellation or pause from a scheduled send" endpoint to remove the status. Passing a status change to a scheduled send that has already been paused or cancelled will result in a `400` level status code.
+
+
+        If the maximum number of cancellations/pauses are added to a send, a `400` level status code will be returned.'
+      parameters:
+      - $ref: '#/components/parameters/OnBehalfOf'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: Cancel or pause a scheduled send request
+              type: object
+              properties:
+                batch_id:
+                  type: string
+                  description: The batch ID is the identifier that your scheduled mail sends share.
+                  pattern: ^[a-zA-Z0-9]
+                status:
+                  type: string
+                  default: pause
+                  description: The status of the send you would like to implement. This can be pause or cancel. To delete a pause or cancel status see DELETE /v3/user/scheduled_sends/{batch_id}
+                  $ref: '#/components/schemas/Status'
+              required:
+              - batch_id
+              - status
+              example:
+                batch_id: YOUR_BATCH_ID
+                status: pause
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduledSendStatus'
+        '400':
+          $ref: '#/components/responses/ScheduledSends400'
+        '401':
+          $ref: '#/components/responses/ScheduledSends401'
+        '403':
+          $ref: '#/components/responses/ScheduledSends403'
+        '404':
+          $ref: '#/components/responses/ScheduledSends404'
+        '500':
+          $ref: '#/components/responses/ScheduledSends500'
+    get:
+      operationId: ListScheduledSend
+      summary: Retrieve all scheduled sends
+      tags:
+      - Scheduled Sends
+      description: '**This endpoint allows you to retrieve all cancelled and paused scheduled send information.**
+
+
+        This endpoint will return only the scheduled sends that are associated with a `batch_id`. If you have scheduled a send using the `/mail/send` endpoint and the `send_at` field but no `batch_id`, the send will be scheduled for delivery; however, it will not be returned by this endpoint. For this reason, you should assign a `batch_id` to any scheduled send you may need to pause or cancel in the future.'
+      parameters:
+      - $ref: '#/components/parameters/OnBehalfOf'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ScheduledSendStatus'
+              examples:
+                response:
+                  value:
+                  - batch_id: QzZmYzLTVWIwYgYzJlM2NhNWI
+                    status: cancel
+                  - batch_id: mQzZmYzLTVlM2NhNWIwYgYzJl
+                    status: cancel
+        '400':
+          $ref: '#/components/responses/ScheduledSends400'
+        '401':
+          $ref: '#/components/responses/ScheduledSends401'
+        '403':
+          $ref: '#/components/responses/ScheduledSends403'
+        '404':
+          $ref: '#/components/responses/ScheduledSends404'
+        '500':
+          $ref: '#/components/responses/ScheduledSends500'
+  /v3/user/scheduled_sends/{batch_id}:
+    parameters:
+    - name: batch_id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      operationId: GetScheduledSend
+      summary: Retrieve scheduled send
+      tags:
+      - Scheduled Sends
+      description: '**This endpoint allows you to retrieve the cancel/paused scheduled send information for a specific `batch_id`.**'
+      parameters:
+      - $ref: '#/components/parameters/OnBehalfOf'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                title: Retrieve scheduled send response
+                items:
+                  $ref: '#/components/schemas/ScheduledSendStatus'
+              examples:
+                response:
+                  value:
+                  - batch_id: HkJ5yLYULb7Rj8GKSx7u025ouWVlMgAi
+                    status: cancel
+                  - batch_id: IbLdyLYULb7Rj8GKSx7u025ouWVlAiMg
+                    status: pause
+        '400':
+          $ref: '#/components/responses/ScheduledSends400'
+        '401':
+          $ref: '#/components/responses/ScheduledSends401'
+        '403':
+          $ref: '#/components/responses/ScheduledSends403'
+        '404':
+          $ref: '#/components/responses/ScheduledSends404'
+        '500':
+          $ref: '#/components/responses/ScheduledSends500'
+    patch:
+      operationId: UpdateScheduledSend
+      summary: Update a scheduled send
+      tags:
+      - Scheduled Sends
+      description: '**This endpoint allows you to update the status of a scheduled send for the given `batch_id`.**
+
+
+        If you have already set a `cancel` or `pause` status on a scheduled send using the "Cancel or pause a scheduled send" endpoint, you can update it''s status using this endpoint. Attempting to update a status once it has been set with the "Cancel or pause a scheduled send" endpoint will result in a `400` error.'
+      parameters:
+      - $ref: '#/components/parameters/OnBehalfOf'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: The status you would like the scheduled send to have.
+                  $ref: '#/components/schemas/Status1'
+              required:
+              - status
+              example:
+                status: pause
+      responses:
+        '204':
+          description: ''
+        '400':
+          $ref: '#/components/responses/ScheduledSends400'
+        '401':
+          $ref: '#/components/responses/ScheduledSends401'
+        '403':
+          $ref: '#/components/responses/ScheduledSends403'
+        '404':
+          $ref: '#/components/responses/ScheduledSends404'
+        '500':
+          $ref: '#/components/responses/ScheduledSends500'
+    delete:
+      operationId: DeleteScheduledSend
+      summary: Delete a cancellation or pause from a scheduled send
+      tags:
+      - Scheduled Sends
+      description: '**This endpoint allows you to delete the cancellation/pause of a scheduled send.**
+
+
+        Scheduled sends cancelled less than 10 minutes before the scheduled time are not guaranteed to be cancelled.'
+      parameters:
+      - $ref: '#/components/parameters/OnBehalfOf'
+      responses:
+        '204':
+          description: ''
+        '400':
+          $ref: '#/components/responses/ScheduledSends400'
+        '401':
+          $ref: '#/components/responses/ScheduledSends401'
+        '403':
+          $ref: '#/components/responses/ScheduledSends403'
+        '404':
+          $ref: '#/components/responses/ScheduledSends404'
+        '500':
+          $ref: '#/components/responses/ScheduledSends500'
+components:
+  schemas:
+    Status1:
+      type: string
+      enum:
+      - cancel
+      - pause
+    Status:
+      type: string
+      enum:
+      - pause
+      - cancel
+    ScheduledSendStatus:
+      title: User Scheduled Send status
+      example:
+        batch_id: HkJ5yLYULb7Rj8GKSx7u025ouWVlMgAi
+        status: pause
+      type: object
+      properties:
+        batch_id:
+          type: string
+          pattern: ^[a-zA-Z0-9\-\_]
+        status:
+          type: string
+          description: The status of the scheduled send.
+          $ref: '#/components/schemas/Status2'
+      required:
+      - batch_id
+      - status
+    Status2:
+      type: string
+      enum:
+      - cancel
+      - pause
+    ErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: An error message.
+              field:
+                description: When applicable, this property value will be the field that generated the error.
+                nullable: true
+                type: string
+              help:
+                type: object
+                description: When applicable, this property value will be helper text or a link to documentation to help you troubleshoot the error.
+        id:
+          type: string
+          description: When applicable, this property value will be an error ID.
+      example:
+        errors:
+        - field: field_name
+          message: error message
+  responses:
+    ScheduledSends401:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    ScheduledSends400:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    ScheduledSends500:
+      description: ''
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+    ScheduledSends403:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    ScheduledSends404:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    OnBehalfOf:
+      name: on-behalf-of
+      in: header
+      description: 'The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent''s Subusers or customer accounts. You will use the parent account''s API key when using this header. When making a call on behalf of a customer account, the property value should be "account-id" followed by the customer account''s ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser''s username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.'
+      required: false
+      schema:
+        type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Twilio SendGrid requires you to authenticate with its APIs using an API key. The API key must be sent as a bearer token in the Authorization header.
+externalDocs:
+  description: Twilio SendGrid's official developer documentation.
+  url: https://www.twilio.com/docs/sendgrid

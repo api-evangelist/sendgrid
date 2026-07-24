@@ -1,0 +1,216 @@
+openapi: 3.1.0
+info:
+  title: Twilio SendGrid Provisioning Account Blocks API
+  summary: The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts.
+  description: 'The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts. This API is for companies that have a formal reseller partnership with Twilio SendGrid.
+
+
+    You can access Twilio SendGrid sub-account functionality without becoming a reseller. If you require sub-account functionality, see the Twilio [SendGrid Subusers](https://docs.sendgrid.com/ui/account-and-settings/subusers) feature, which is available with [Pro and Premier plans](https://sendgrid.com/pricing/).'
+  termsOfService: https://www.twilio.com/legal/tos
+  contact:
+    name: Twilio SendGrid Support
+    url: https://support.sendgrid.com/hc/en-us
+  license:
+    name: MIT
+    url: https://code.hq.twilio.com/twilio/sendgrid-oas/blob/main/LICENSE
+  version: 1.0.0
+  x-sendgrid:
+    libraryPackage: account_provisioning
+servers:
+- url: https://api.sendgrid.com
+  description: for global users and subusers
+- url: https://api.eu.sendgrid.com
+  description: for EU regional subusers
+security:
+- BearerAuth: []
+tags:
+- name: Blocks
+  description: 'Twilio SendGrid Suppressions API: Blocks operations'
+paths:
+  /v3/suppression/blocks:
+    get:
+      operationId: ListSuppressionBlock
+      summary: Retrieve all blocks
+      tags:
+      - Blocks
+      description: '**This endpoint allows you to retrieve a paginated list of all email addresses that are currently on your blocks list.**
+
+
+        You can use the `limit` query parameter to set the page size. If your list contains more items than the page size permits, you can make multiple requests. Use the `offset` query parameter to control the position in the list from which to start retrieving additional items.'
+      parameters:
+      - name: start_time
+        in: query
+        description: The start of the time range when a blocked email was created (inclusive). This is a unix timestamp.
+        schema:
+          type: integer
+      - name: end_time
+        in: query
+        description: The end of the time range when a blocked email was created (inclusive). This is a unix timestamp.
+        schema:
+          type: integer
+      - $ref: '#/components/parameters/PaginationCommonLimit'
+      - $ref: '#/components/parameters/PaginationCommonOffset'
+      - $ref: '#/components/parameters/EmailPartialMatch'
+      - $ref: '#/components/parameters/OnBehalfOf'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BlocksResponse'
+              examples:
+                response:
+                  value:
+                  - created: 1443651154
+                    email: example@example.com
+                    reason: 'error dialing remote address: dial tcp 10.57.152.165:25: no route to host'
+                    status: 4.0.0
+                  - created: 1443651155
+                    email: example1@example.com
+                    reason: 'unable to resolve MX record for example.com: servfail'
+                    status: 4.0.0
+    delete:
+      operationId: DeleteSuppressionBlocks
+      summary: Delete blocks
+      tags:
+      - Blocks
+      description: "**This endpoint allows you to delete all email addresses on your blocks list.**\n\nThere are two options for deleting blocked emails: \n\n1. You can delete all blocked emails by setting `delete_all` to `true` in the request body. \n2. You can delete a selection of blocked emails by specifying the email addresses in the `emails` array of the request body."
+      parameters:
+      - $ref: '#/components/parameters/OnBehalfOf'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                delete_all:
+                  type: boolean
+                  description: Indicates if you want to delete all blocked email addresses.
+                emails:
+                  type: array
+                  description: The specific blocked email addresses that you want to delete.
+                  items:
+                    type: string
+              example:
+                delete_all: false
+                emails:
+                - example1@example.com
+                - example2@example.com
+      responses:
+        '204':
+          description: ''
+  /v3/suppression/blocks/{email}:
+    parameters:
+    - name: email
+      in: path
+      description: The email address of the specific block.
+      required: true
+      schema:
+        type: string
+        format: email
+    get:
+      operationId: GetSuppressionBlock
+      summary: Retrieve a specific block
+      tags:
+      - Blocks
+      description: '**This endpoint allows you to retrieve a specific email address from your blocks list.**'
+      parameters:
+      - $ref: '#/components/parameters/OnBehalfOf'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BlocksResponse'
+              examples:
+                response:
+                  value:
+                  - created: 1443651154
+                    email: example@example.com
+                    reason: 'error dialing remote address: dial tcp 10.57.152.165:25: no route to host'
+                    status: 4.0.0
+    delete:
+      operationId: DeleteSuppressionBlock
+      summary: Delete a specific block
+      tags:
+      - Blocks
+      description: '**This endpoint allows you to delete a specific email address from your blocks list.**'
+      parameters:
+      - $ref: '#/components/parameters/OnBehalfOf'
+      responses:
+        '204':
+          description: ''
+components:
+  schemas:
+    BlocksResponse:
+      title: Blocks Response
+      type: array
+      items:
+        type: object
+        properties:
+          created:
+            type: integer
+            description: A Unix timestamp indicating when the email address was added to the blocks list.
+          email:
+            type: string
+            description: The email address that was added to the block list.
+            format: email
+          reason:
+            type: string
+            description: An explanation for the reason of the block.
+          status:
+            type: string
+            description: The status of the block.
+        required:
+        - created
+        - email
+        - reason
+        - status
+      example:
+      - created: 1443651154
+        email: example@example.com
+        reason: 'error dialing remote address: dial tcp 10.57.152.165:25: no route to host'
+        status: 4.0.0
+  parameters:
+    PaginationCommonLimit:
+      name: limit
+      in: query
+      required: false
+      description: '`limit` sets the page size, i.e. maximum number of items from the list to be returned for a single API request. If omitted, the default page size is used. The maximum page size for this endpoint is 500 items per page.'
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 500
+    PaginationCommonOffset:
+      name: offset
+      in: query
+      required: false
+      description: The number of items in the list to skip over before starting to retrieve the items for the requested page. The default `offset` of `0` represents the beginning of the list, i.e. the start of the first page. To request the second page of the list, set the `offset` to the page size as determined by `limit`. Use multiples of the page size as your `offset` to request further consecutive pages. E.g. assume your page size is set to `10`. An `offset` of `10` requests the second page, an `offset` of `20` requests the third page and so on, provided there are sufficiently many items in your list.
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    OnBehalfOf:
+      name: on-behalf-of
+      in: header
+      description: 'The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent''s Subusers or customer accounts. You will use the parent account''s API key when using this header. When making a call on behalf of a customer account, the property value should be "account-id" followed by the customer account''s ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser''s username (e.g., `on-behalf-of: <subuser-username>`). It is important to use the Base URL that corresponds to the region of the account or Subuser you specify in the `on-behalf-of` header. See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.'
+      required: false
+      schema:
+        type: string
+    EmailPartialMatch:
+      name: email
+      in: query
+      description: Specifies which records to return based on the records' associated email addresses. For example, `sales` returns records with email addresses that start with 'sales', such as `salesdepartment@example.com` or `sales@example.com`.  You can also use `%25` as a wildcard. For example, `%25market` returns records containing email addresses with the string 'market' anywhere in the email address, and `%25market%25tree` returns records containing email addresses with the string 'market' followed by the string 'tree'. Any reserved characters should be [percent-encoded](https://en.wikipedia.org/wiki/Percent-encoding#Reserved_characters), e.g., the `@` symbol should be encoded as `%40`.
+      required: false
+      schema:
+        type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Twilio SendGrid requires you to authenticate with its APIs using an API key. The API key must be sent as a bearer token in the Authorization header.
+externalDocs:
+  description: Twilio SendGrid's official developer documentation.
+  url: https://www.twilio.com/docs/sendgrid

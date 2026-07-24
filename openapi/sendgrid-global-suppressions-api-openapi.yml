@@ -1,0 +1,231 @@
+openapi: 3.1.0
+info:
+  title: Twilio SendGrid Provisioning Account Global Suppressions API
+  summary: The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts.
+  description: 'The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts. This API is for companies that have a formal reseller partnership with Twilio SendGrid.
+
+
+    You can access Twilio SendGrid sub-account functionality without becoming a reseller. If you require sub-account functionality, see the Twilio [SendGrid Subusers](https://docs.sendgrid.com/ui/account-and-settings/subusers) feature, which is available with [Pro and Premier plans](https://sendgrid.com/pricing/).'
+  termsOfService: https://www.twilio.com/legal/tos
+  contact:
+    name: Twilio SendGrid Support
+    url: https://support.sendgrid.com/hc/en-us
+  license:
+    name: MIT
+    url: https://code.hq.twilio.com/twilio/sendgrid-oas/blob/main/LICENSE
+  version: 1.0.0
+  x-sendgrid:
+    libraryPackage: account_provisioning
+servers:
+- url: https://api.sendgrid.com
+  description: for global users and subusers
+- url: https://api.eu.sendgrid.com
+  description: for EU regional subusers
+security:
+- BearerAuth: []
+tags:
+- name: Global Suppressions
+  description: 'Twilio SendGrid Suppressions API: Global Suppressions operations'
+paths:
+  /v3/asm/suppressions/global:
+    post:
+      operationId: CreateGlobalSuppression
+      summary: Add recipient addresses to the global suppression group.
+      tags:
+      - Global Suppressions
+      description: '**This endpoint allows you to add one or more email addresses to the global suppressions group.**'
+      parameters:
+      - $ref: '#/components/parameters/OnBehalfOf'
+      requestBody:
+        $ref: '#/components/requestBodies/PostSuppressions'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recipient_emails:
+                    type: array
+                    description: The email addresses that are globally suppressed
+                    items:
+                      type: string
+                      format: email
+                required:
+                - recipient_emails
+              examples:
+                response:
+                  value:
+                    recipient_emails:
+                    - test1@example.com
+                    - test2@example.com
+  /v3/asm/suppressions/global/{email}:
+    parameters:
+    - name: email
+      in: path
+      description: The email address of the global suppression you want to retrieve. Or, if you want to check if an email address is on the global suppressions list, enter that email address here.
+      required: true
+      schema:
+        type: string
+    get:
+      operationId: GetGlobalSuppression
+      summary: Retrieve a Global Suppression
+      tags:
+      - Global Suppressions
+      description: '**This endpoint allows you to retrieve a global suppression. You can also use this endpoint to confirm if an email address is already globally suppresed.**
+
+
+        If the email address you include in the URL path parameter `{email}` is already globally suppressed, the response will include that email address. If the address you enter for `{email}` is not globally suppressed, an empty JSON object `{}` will be returned.'
+      parameters:
+      - $ref: '#/components/parameters/OnBehalfOf'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                title: Retrieve a Global Suppression response
+                type: object
+                properties:
+                  recipient_email:
+                    type: string
+                    description: The email address that is globally suppressed. This will be an empty object if the email address you included in your call is not globally suppressed.
+                    format: email
+                required:
+                - recipient_email
+              examples:
+                response:
+                  value:
+                    recipient_email: test@example.com
+    delete:
+      operationId: DeleteGlobalSuppression
+      summary: Delete a Global Suppression
+      tags:
+      - Global Suppressions
+      description: '**This endpoint allows you to remove an email address from the global suppressions group.**
+
+
+        Deleting a suppression group will remove the suppression, meaning email will once again be sent to the previously suppressed addresses. This should be avoided unless a recipient indicates they wish to receive email from you again. You can use our [bypass filters](https://sendgrid.com/docs/ui/sending-email/index-suppressions/#bypass-suppressions) to deliver messages to otherwise suppressed addresses when exceptions are required.'
+      parameters:
+      - $ref: '#/components/parameters/OnBehalfOf'
+      responses:
+        '204':
+          description: ''
+  /v3/suppression/unsubscribes:
+    get:
+      operationId: ListGlobalSuppression
+      summary: Retrieve all global suppressions
+      tags:
+      - Global Suppressions
+      description: '**This endpoint allows you to retrieve a paginated list of all email address that are globally suppressed.**
+
+
+        You can use the `limit` query parameter to set the page size. If your list contains more items than the page size permits, you can make multiple requests. Use the `offset` query parameter to control the position in the list from which to start retrieving additional items.'
+      parameters:
+      - name: start_time
+        in: query
+        description: Refers start of the time range in unix timestamp when an unsubscribe email was created (inclusive).
+        schema:
+          type: integer
+      - name: end_time
+        in: query
+        description: Refers end of the time range in unix timestamp when an unsubscribe email was created (inclusive).
+        schema:
+          type: integer
+      - $ref: '#/components/parameters/PaginationCommonLimit'
+      - $ref: '#/components/parameters/PaginationCommonOffset'
+      - $ref: '#/components/parameters/EmailPartialMatch'
+      - $ref: '#/components/parameters/OnBehalfOf'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    created:
+                      type: integer
+                      description: A Unix timestamp indicating when the recipient was added to the global suppression list.
+                    email:
+                      type: string
+                      description: The email address of the recipient who is globally suppressed.
+                      format: email
+                  required:
+                  - created
+                  - email
+              examples:
+                response:
+                  value:
+                  - created: 1443651141
+                    email: user1@example.com
+                  - created: 1443651154
+                    email: user2@example.com
+components:
+  requestBodies:
+    PostSuppressions:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuppressionsRequest'
+  schemas:
+    SuppressionsRequest:
+      title: Suppressions Request Body
+      type: object
+      properties:
+        recipient_emails:
+          type: array
+          description: The array of email addresses to add or find.
+          items:
+            type: string
+            format: email
+      required:
+      - recipient_emails
+      example:
+        recipient_emails:
+        - test1@example.com
+        - test2@example.com
+  parameters:
+    PaginationCommonLimit:
+      name: limit
+      in: query
+      required: false
+      description: '`limit` sets the page size, i.e. maximum number of items from the list to be returned for a single API request. If omitted, the default page size is used. The maximum page size for this endpoint is 500 items per page.'
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 500
+    PaginationCommonOffset:
+      name: offset
+      in: query
+      required: false
+      description: The number of items in the list to skip over before starting to retrieve the items for the requested page. The default `offset` of `0` represents the beginning of the list, i.e. the start of the first page. To request the second page of the list, set the `offset` to the page size as determined by `limit`. Use multiples of the page size as your `offset` to request further consecutive pages. E.g. assume your page size is set to `10`. An `offset` of `10` requests the second page, an `offset` of `20` requests the third page and so on, provided there are sufficiently many items in your list.
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    OnBehalfOf:
+      name: on-behalf-of
+      in: header
+      description: 'The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent''s Subusers or customer accounts. You will use the parent account''s API key when using this header. When making a call on behalf of a customer account, the property value should be "account-id" followed by the customer account''s ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser''s username (e.g., `on-behalf-of: <subuser-username>`). It is important to use the Base URL that corresponds to the region of the account or Subuser you specify in the `on-behalf-of` header. See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.'
+      required: false
+      schema:
+        type: string
+    EmailPartialMatch:
+      name: email
+      in: query
+      description: Specifies which records to return based on the records' associated email addresses. For example, `sales` returns records with email addresses that start with 'sales', such as `salesdepartment@example.com` or `sales@example.com`.  You can also use `%25` as a wildcard. For example, `%25market` returns records containing email addresses with the string 'market' anywhere in the email address, and `%25market%25tree` returns records containing email addresses with the string 'market' followed by the string 'tree'. Any reserved characters should be [percent-encoded](https://en.wikipedia.org/wiki/Percent-encoding#Reserved_characters), e.g., the `@` symbol should be encoded as `%40`.
+      required: false
+      schema:
+        type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Twilio SendGrid requires you to authenticate with its APIs using an API key. The API key must be sent as a bearer token in the Authorization header.
+externalDocs:
+  description: Twilio SendGrid's official developer documentation.
+  url: https://www.twilio.com/docs/sendgrid

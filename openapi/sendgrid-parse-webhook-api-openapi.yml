@@ -1,0 +1,522 @@
+openapi: 3.1.0
+info:
+  title: Twilio SendGrid Provisioning Account Parse Webhook API
+  summary: The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts.
+  description: 'The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts. This API is for companies that have a formal reseller partnership with Twilio SendGrid.
+
+
+    You can access Twilio SendGrid sub-account functionality without becoming a reseller. If you require sub-account functionality, see the Twilio [SendGrid Subusers](https://docs.sendgrid.com/ui/account-and-settings/subusers) feature, which is available with [Pro and Premier plans](https://sendgrid.com/pricing/).'
+  termsOfService: https://www.twilio.com/legal/tos
+  contact:
+    name: Twilio SendGrid Support
+    url: https://support.sendgrid.com/hc/en-us
+  license:
+    name: MIT
+    url: https://code.hq.twilio.com/twilio/sendgrid-oas/blob/main/LICENSE
+  version: 1.0.0
+  x-sendgrid:
+    libraryPackage: account_provisioning
+servers:
+- url: https://api.sendgrid.com
+  description: for global users and subusers
+- url: https://api.eu.sendgrid.com
+  description: for EU regional subusers
+security:
+- BearerAuth: []
+tags:
+- name: Parse Webhook
+  description: Twilio SendGrid Parse Webhook API
+paths:
+  /v3/user/webhooks/parse/settings:
+    get:
+      operationId: ListParseSetting
+      summary: Retrieve all parse settings
+      tags:
+      - Parse Webhook
+      description: '**This endpoint allows you to retrieve all of your current inbound parse settings.**'
+      parameters:
+      - $ref: '#/components/parameters/OnBehalfOf'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: array
+                    description: The list of your current inbound parse settings.
+                    items:
+                      $ref: '#/components/schemas/ParseSetting'
+              examples:
+                response:
+                  value:
+                    result:
+                    - url: http://mydomain.com/parse
+                      hostname: mail.mydomain.com
+                      spam_check: true
+                      send_raw: true
+        '401':
+          $ref: '#/components/responses/Webhook401'
+        '403':
+          $ref: '#/components/responses/Webhook403'
+        '404':
+          $ref: '#/components/responses/Webhook404'
+        '500':
+          $ref: '#/components/responses/Webhook500'
+    post:
+      operationId: CreateParseSetting
+      summary: Create a parse setting
+      tags:
+      - Parse Webhook
+      description: '**This endpoint allows you to create a new inbound parse setting.**
+
+
+        Creating an Inbound Parse setting requires two pieces of information: a `url` and a `hostname`.
+
+
+        The `hostname` must correspond to a domain authenticated by Twilio SendGrid on your account. If you need to complete domain authentication, you can use the [Twilio SendGrid App](https://app.sendgrid.com/settings/sender_auth) or the **Authenticate a Domain** endpoint. See [**How to Set Up Domain Authentication**](https://sendgrid.com/docs/ui/account-and-settings/how-to-set-up-domain-authentication/) for instructions.
+
+
+        Any email received by the `hostname` will be parsed when you complete this setup. You must also add a Twilio SendGrid MX record to this domain''s DNS records. See [**Setting up the Inbound Parse Webhook**](https://sendgrid.com/docs/for-developers/parsing-email/setting-up-the-inbound-parse-webhook/) for full instructions.
+
+
+        The `url` represents a location where the parsed message data will be delivered. Twilio SendGrid will make an HTTP POST request to this `url` with the message data. The `url` must be publicly reachable, and your application must return a `200` status code to signal that the message data has been received.'
+      parameters:
+      - $ref: '#/components/parameters/OnBehalfOf'
+      requestBody:
+        $ref: '#/components/requestBodies/PostPatchParseSetting'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ParseSetting'
+              examples:
+                response:
+                  value:
+                    url: http://email.myhostname.com
+                    hostname: myhostname.com
+                    spam_check: false
+                    send_raw: true
+        '401':
+          $ref: '#/components/responses/Webhook401'
+        '403':
+          $ref: '#/components/responses/Webhook403'
+        '404':
+          $ref: '#/components/responses/Webhook404'
+        '500':
+          $ref: '#/components/responses/Webhook500'
+  /v3/user/webhooks/parse/settings/{hostname}:
+    parameters:
+    - name: hostname
+      in: path
+      description: The hostname associated with the inbound parse setting that you would like to retrieve.
+      required: true
+      schema:
+        type: string
+    get:
+      operationId: GetParseSetting
+      summary: Retrieve a specific parse setting
+      tags:
+      - Parse Webhook
+      description: '**This endpoint allows you to retrieve a specific inbound parse setting by hostname.**
+
+
+        You can retrieve all your Inbound Parse settings and their associated host names with the "Retrieve all parse settings" endpoint.'
+      parameters:
+      - $ref: '#/components/parameters/OnBehalfOf'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ParseSetting'
+              examples:
+                response:
+                  value:
+                    url: http://mydomain.com/parse
+                    hostname: mail.mydomain.com
+                    spam_check: true
+                    send_raw: true
+        '401':
+          $ref: '#/components/responses/Webhook401'
+        '403':
+          $ref: '#/components/responses/Webhook403'
+        '404':
+          $ref: '#/components/responses/Webhook404'
+        '500':
+          $ref: '#/components/responses/Webhook500'
+    patch:
+      operationId: UpdateParseSetting
+      summary: Update a parse setting
+      tags:
+      - Parse Webhook
+      description: '**This endpoint allows you to update a specific inbound parse setting by hostname.**
+
+
+        You can retrieve all your Inbound Parse settings and their associated host names with the "Retrieve all parse settings" endpoint.'
+      parameters:
+      - $ref: '#/components/parameters/OnBehalfOf'
+      requestBody:
+        $ref: '#/components/requestBodies/PostPatchParseSetting'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ParseSetting'
+              examples:
+                response:
+                  value:
+                    url: http://mydomain.com/parse
+                    hostname: mail.mydomain.com
+                    spam_check: true
+                    send_raw: true
+        '401':
+          $ref: '#/components/responses/Webhook401'
+        '403':
+          $ref: '#/components/responses/Webhook403'
+        '404':
+          $ref: '#/components/responses/Webhook404'
+        '500':
+          $ref: '#/components/responses/Webhook500'
+    delete:
+      operationId: DeleteParseSetting
+      summary: Delete a parse setting
+      tags:
+      - Parse Webhook
+      description: '**This endpoint allows you to delete a specific inbound parse setting by hostname.**
+
+
+        You can retrieve all your Inbound Parse settings and their associated host names with the "Retrieve all parse settings" endpoint.'
+      parameters:
+      - $ref: '#/components/parameters/OnBehalfOf'
+      responses:
+        '204':
+          description: ''
+        '401':
+          $ref: '#/components/responses/Webhook401'
+        '403':
+          $ref: '#/components/responses/Webhook403'
+        '404':
+          $ref: '#/components/responses/Webhook404'
+        '500':
+          $ref: '#/components/responses/Webhook500'
+  /v3/user/webhooks/parse/stats:
+    get:
+      operationId: ListParseStatic
+      summary: Retrieves Inbound Parse Webhook statistics.
+      tags:
+      - Parse Webhook
+      description: '**This endpoint allows you to retrieve the statistics for your Parse Webhook usage.**
+
+
+        SendGrid''s Inbound Parse Webhook allows you to parse the contents and attachments of incoming emails. The Parse API can then POST the parsed emails to a URL that you specify. The Inbound Parse Webhook cannot parse messages greater than 30MB in size, including all attachments.
+
+
+        There are a number of pre-made integrations for the SendGrid Parse Webhook which make processing events easy. You can find these integrations in the [Library Index](https://docs.sendgrid.com/for-developers/sending-email/libraries#webhook-libraries).'
+      parameters:
+      - name: limit
+        in: query
+        description: The number of statistics to return on each page.
+        required: false
+        schema:
+          type: string
+      - name: offset
+        in: query
+        description: The number of statistics to skip.
+        required: false
+        schema:
+          type: string
+      - name: aggregated_by
+        in: query
+        description: 'How you would like the statistics to by grouped. '
+        required: false
+        schema:
+          type: string
+          $ref: '#/components/schemas/AggregatedBy'
+      - name: start_date
+        in: query
+        description: The starting date of the statistics you want to retrieve. Must be in the format YYYY-MM-DD
+        required: true
+        schema:
+          type: string
+      - name: end_date
+        in: query
+        description: The end date of the statistics you want to retrieve. Must be in the format YYYY-MM-DD
+        required: false
+        schema:
+          type: string
+          default: The day the request is made.
+      - $ref: '#/components/parameters/OnBehalfOf'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    date:
+                      type: string
+                      description: The date that the stats were collected.
+                    stats:
+                      type: array
+                      description: The Parse Webhook usage statistics.
+                      items:
+                        type: object
+                        properties:
+                          metrics:
+                            type: object
+                            properties:
+                              received:
+                                type: number
+                                description: The number of emails received and parsed by the Parse Webhook.
+                            required:
+                            - received
+                  required:
+                  - date
+                  - stats
+              examples:
+                response:
+                  value:
+                  - date: '2015-10-11'
+                    stats:
+                    - metrics:
+                        received: 0
+                  - date: '2015-10-12'
+                    stats:
+                    - metrics:
+                        received: 0
+                  - date: '2015-10-13'
+                    stats:
+                    - metrics:
+                        received: 0
+                  - date: '2015-10-14'
+                    stats:
+                    - metrics:
+                        received: 0
+                  - date: '2015-10-15'
+                    stats:
+                    - metrics:
+                        received: 0
+                  - date: '2015-10-16'
+                    stats:
+                    - metrics:
+                        received: 0
+                  - date: '2015-10-17'
+                    stats:
+                    - metrics:
+                        received: 0
+                  - date: '2015-10-18'
+                    stats:
+                    - metrics:
+                        received: 0
+                  - date: '2015-10-19'
+                    stats:
+                    - metrics:
+                        received: 0
+                  - date: '2015-10-20'
+                    stats:
+                    - metrics:
+                        received: 0
+                  - date: '2015-10-21'
+                    stats:
+                    - metrics:
+                        received: 0
+                  - date: '2015-10-22'
+                    stats:
+                    - metrics:
+                        received: 0
+                  - date: '2015-10-23'
+                    stats:
+                    - metrics:
+                        received: 0
+                  - date: '2015-10-24'
+                    stats:
+                    - metrics:
+                        received: 0
+                  - date: '2015-10-25'
+                    stats:
+                    - metrics:
+                        received: 0
+                  - date: '2015-10-26'
+                    stats:
+                    - metrics:
+                        received: 0
+                  - date: '2015-10-27'
+                    stats:
+                    - metrics:
+                        received: 0
+                  - date: '2015-10-28'
+                    stats:
+                    - metrics:
+                        received: 0
+                  - date: '2015-10-29'
+                    stats:
+                    - metrics:
+                        received: 0
+                  - date: '2015-10-30'
+                    stats:
+                    - metrics:
+                        received: 0
+                  - date: '2015-10-31'
+                    stats:
+                    - metrics:
+                        received: 0
+                  - date: '2015-11-01'
+                    stats:
+                    - metrics:
+                        received: 0
+                  - date: '2015-11-02'
+                    stats:
+                    - metrics:
+                        received: 0
+                  - date: '2015-11-03'
+                    stats:
+                    - metrics:
+                        received: 0
+                  - date: '2015-11-04'
+                    stats:
+                    - metrics:
+                        received: 0
+                  - date: '2015-11-05'
+                    stats:
+                    - metrics:
+                        received: 0
+                  - date: '2015-11-06'
+                    stats:
+                    - metrics:
+                        received: 0
+                  - date: '2015-11-07'
+                    stats:
+                    - metrics:
+                        received: 0
+                  - date: '2015-11-08'
+                    stats:
+                    - metrics:
+                        received: 0
+                  - date: '2015-11-09'
+                    stats:
+                    - metrics:
+                        received: 0
+                  - date: '2015-11-10'
+                    stats:
+                    - metrics:
+                        received: 0
+components:
+  responses:
+    Webhook500:
+      description: ''
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+    Webhook401:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Webhook403:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Webhook404:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    AggregatedBy:
+      type: string
+      enum:
+      - day
+      - week
+      - month
+    ErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: An error message.
+              field:
+                description: When applicable, this property value will be the field that generated the error.
+                nullable: true
+                type: string
+              help:
+                type: object
+                description: When applicable, this property value will be helper text or a link to documentation to help you troubleshoot the error.
+        id:
+          type: string
+          description: When applicable, this property value will be an error ID.
+      example:
+        errors:
+        - field: field_name
+          message: error message
+    ParseSetting:
+      title: Parse Setting
+      type: object
+      properties:
+        url:
+          type: string
+          description: The public URL where you would like SendGrid to POST the data parsed from your email. Any emails sent with the given hostname provided (whose MX records have been updated to point to SendGrid) will be parsed and POSTed to this URL.
+        hostname:
+          type: string
+          description: A specific and unique domain or subdomain that you have created to use exclusively to parse your incoming email. For example, `parse.yourdomain.com`.
+        spam_check:
+          type: boolean
+          description: Indicates if you would like SendGrid to check the content parsed from your emails for spam before POSTing them to your domain.
+        send_raw:
+          type: boolean
+          description: Indicates if you would like SendGrid to post the original MIME-type content of your parsed email. When this parameter is set to `true`, SendGrid will send a JSON payload of the content of your email.
+      example:
+        url: http://email.myhostname.com
+        hostname: myhostname.com
+        spam_check: false
+        send_raw: true
+  parameters:
+    OnBehalfOf:
+      name: on-behalf-of
+      in: header
+      description: 'The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent''s Subusers or customer accounts. You will use the parent account''s API key when using this header. When making a call on behalf of a customer account, the property value should be "account-id" followed by the customer account''s ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser''s username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.'
+      required: false
+      schema:
+        type: string
+  requestBodies:
+    PostPatchParseSetting:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ParseSetting'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Twilio SendGrid requires you to authenticate with its APIs using an API key. The API key must be sent as a bearer token in the Authorization header.
+externalDocs:
+  description: Twilio SendGrid's official developer documentation.
+  url: https://www.twilio.com/docs/sendgrid

@@ -1,0 +1,1175 @@
+openapi: 3.1.0
+info:
+  title: Twilio SendGrid Provisioning Account SSO Teammates API
+  summary: The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts.
+  description: 'The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts. This API is for companies that have a formal reseller partnership with Twilio SendGrid.
+
+
+    You can access Twilio SendGrid sub-account functionality without becoming a reseller. If you require sub-account functionality, see the Twilio [SendGrid Subusers](https://docs.sendgrid.com/ui/account-and-settings/subusers) feature, which is available with [Pro and Premier plans](https://sendgrid.com/pricing/).'
+  termsOfService: https://www.twilio.com/legal/tos
+  contact:
+    name: Twilio SendGrid Support
+    url: https://support.sendgrid.com/hc/en-us
+  license:
+    name: MIT
+    url: https://code.hq.twilio.com/twilio/sendgrid-oas/blob/main/LICENSE
+  version: 1.0.0
+  x-sendgrid:
+    libraryPackage: account_provisioning
+servers:
+- url: https://api.sendgrid.com
+  description: for global users and subusers
+- url: https://api.eu.sendgrid.com
+  description: for EU regional subusers
+security:
+- BearerAuth: []
+tags:
+- name: SSO Teammates
+  description: Twilio SendGrid Single Sign-On Teammates Operations
+paths:
+  /v3/sso/teammates:
+    post:
+      operationId: CreateSsoTeammate
+      summary: Create an SSO Teammate.
+      tags:
+      - SSO Teammates
+      description: '**This endpoint allows you to create an SSO Teammate.**
+
+
+        The email address provided for the Teammate will also function as the Teammate''s username. Once created, the Teammate''s email address cannot be changed.
+
+
+        ### Scopes
+
+
+        When creating a Teammate, you will assign it permissions or scopes. These scopes determine which actions the Teammate can perform and which features they can access. Scopes are provided with one of three properties passed to this endpoint: `is_admin`, `scopes`, and `persona`.
+
+
+        You can make a Teammate an administrator by setting `is_admin` to `true`. Administrators will have all scopes assigned to them. Alternatively, you can assign a `persona` to the teammate, which will assign them a block of permissions commonly required for that type of user. See the "Persona scopes" section of [**Teammate Permissions**](https://docs.sendgrid.com/ui/account-and-settings/teammate-permissions#persona-scopes) for a list of permsissions granted by persona. Lastly, you can assign individual permissions with the `scopes` property. See [**Teammate Permissions**](https://docs.sendgrid.com/ui/account-and-settings/teammate-permissions) for a full list of scopes that can be assigned to a Teammate.
+
+
+        ### Subuser access
+
+
+        SendGrid Teammates may be assigned access to one or more Subusers. Subusers function like SendGrid sub-accounts with their own resources. See [**Subusers**](https://docs.sendgrid.com/ui/account-and-settings/subusers) for more information.
+
+
+        When assigning Subuser access to a Teammate, you may set the `has_restricted_subuser_access` property to `true` to constrain the Teammate so that they can operate only on behalf of the Subusers to which they are assigned. You may further set the level of access the Teammate has to each Subuser with the `subuser_access` property.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostSsoTeammatesRequest'
+            examples:
+              Create Teammate with Subuser Access:
+                value:
+                  first_name: Jane
+                  last_name: Doe
+                  email: jane_doe@example.com
+                  has_restricted_subuser_access: true
+                  subuser_access:
+                  - id: 12345
+                    permission_type: admin
+              Create Admin Teammate:
+                value:
+                  first_name: Jane
+                  last_name: Doe
+                  email: jane_doe@example.com
+                  is_admin: true
+                  has_restricted_subuser_access: false
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostSsoTeammates201'
+              examples:
+                response:
+                  value:
+                    first_name: Jane
+                    last_name: Doe
+                    email: jane_doe@example.com
+                    is_admin: true
+                    is_sso: true
+                    scopes:
+                    - alerts.create
+                    - alerts.read
+                    - alerts.update
+                    - alerts.delete
+                    - asm.groups.create
+                    - asm.groups.read
+                    - asm.groups.update
+                    - asm.groups.delete
+                    - asm.groups.suppressions.create
+                    - asm.groups.suppressions.read
+                    - asm.groups.suppressions.update
+                    - asm.groups.suppressions.delete
+                    - asm.suppressions.global.create
+                    - asm.suppressions.global.read
+                    - asm.suppressions.global.update
+                    - asm.suppressions.global.delete
+                    - billing.create
+                    - billing.read
+                    - billing.update
+                    - billing.delete
+                    - ui.confirm_email
+                    - signup.trigger_confirmation
+                    - ui.provision
+                    - ips.warmup.create
+                    - ips.warmup.read
+                    - ips.warmup.update
+                    - ips.warmup.delete
+                    - ips.pools.create
+                    - ips.pools.read
+                    - ips.pools.update
+                    - ips.pools.delete
+                    - ips.pools.ips.create
+                    - ips.pools.ips.read
+                    - ips.pools.ips.update
+                    - ips.pools.ips.delete
+                    - ips.assigned.read
+                    - ips.create
+                    - ips.read
+                    - ips.update
+                    - ips.delete
+                    - mail.send
+                    - mail_settings.read
+                    - mail_settings.bcc.create
+                    - mail_settings.bcc.read
+                    - mail_settings.bcc.update
+                    - mail_settings.bcc.delete
+                    - mail_settings.address_whitelist.create
+                    - mail_settings.address_whitelist.read
+                    - mail_settings.address_whitelist.update
+                    - mail_settings.address_whitelist.delete
+                    - mail_settings.footer.create
+                    - mail_settings.footer.read
+                    - mail_settings.footer.update
+                    - mail_settings.footer.delete
+                    - mail_settings.forward_spam.create
+                    - mail_settings.forward_spam.read
+                    - mail_settings.forward_spam.update
+                    - mail_settings.forward_spam.delete
+                    - mail_settings.plain_content.create
+                    - mail_settings.plain_content.read
+                    - mail_settings.plain_content.update
+                    - mail_settings.plain_content.delete
+                    - mail_settings.spam_check.create
+                    - mail_settings.spam_check.read
+                    - mail_settings.spam_check.update
+                    - mail_settings.spam_check.delete
+                    - mail_settings.bounce_purge.create
+                    - mail_settings.bounce_purge.read
+                    - mail_settings.bounce_purge.update
+                    - mail_settings.bounce_purge.delete
+                    - mail_settings.forward_bounce.create
+                    - mail_settings.forward_bounce.read
+                    - mail_settings.forward_bounce.update
+                    - mail_settings.forward_bounce.delete
+                    - partner_settings.read
+                    - partner_settings.new_relic.create
+                    - partner_settings.new_relic.read
+                    - partner_settings.new_relic.update
+                    - partner_settings.new_relic.delete
+                    - partner_settings.sendwithus.create
+                    - partner_settings.sendwithus.read
+                    - partner_settings.sendwithus.update
+                    - partner_settings.sendwithus.delete
+                    - tracking_settings.read
+                    - tracking_settings.click.create
+                    - tracking_settings.click.read
+                    - tracking_settings.click.update
+                    - tracking_settings.click.delete
+                    - tracking_settings.subscription.create
+                    - tracking_settings.subscription.read
+                    - tracking_settings.subscription.update
+                    - tracking_settings.subscription.delete
+                    - tracking_settings.open.create
+                    - tracking_settings.open.read
+                    - tracking_settings.open.update
+                    - tracking_settings.open.delete
+                    - tracking_settings.google_analytics.create
+                    - tracking_settings.google_analytics.read
+                    - tracking_settings.google_analytics.update
+                    - tracking_settings.google_analytics.delete
+                    - user.webhooks.event.settings.create
+                    - user.webhooks.event.settings.read
+                    - user.webhooks.event.settings.update
+                    - user.webhooks.event.settings.delete
+                    - user.webhooks.event.test.create
+                    - user.webhooks.event.test.read
+                    - user.webhooks.event.test.update
+                    - user.webhooks.event.test.delete
+                    - user.webhooks.parse.settings.create
+                    - user.webhooks.parse.settings.read
+                    - user.webhooks.parse.settings.update
+                    - user.webhooks.parse.settings.delete
+                    - stats.read
+                    - stats.global.read
+                    - categories.stats.read
+                    - categories.stats.sums.read
+                    - devices.stats.read
+                    - clients.stats.read
+                    - clients.phone.stats.read
+                    - clients.tablet.stats.read
+                    - clients.webmail.stats.read
+                    - clients.desktop.stats.read
+                    - geo.stats.read
+                    - mailbox_providers.stats.read
+                    - browsers.stats.read
+                    - subusers.stats.read
+                    - subusers.stats.sums.read
+                    - subusers.stats.monthly.read
+                    - user.webhooks.parse.stats.read
+                    - subusers.create
+                    - subusers.read
+                    - subusers.update
+                    - subusers.delete
+                    - subusers.monitor.create
+                    - subusers.monitor.read
+                    - subusers.monitor.update
+                    - subusers.monitor.delete
+                    - subusers.credits.create
+                    - subusers.credits.read
+                    - subusers.credits.update
+                    - subusers.credits.delete
+                    - subusers.credits.remaining.create
+                    - subusers.credits.remaining.read
+                    - subusers.credits.remaining.update
+                    - subusers.credits.remaining.delete
+                    - subusers.reputations.read
+                    - subusers.summary.read
+                    - suppression.bounces.create
+                    - suppression.bounces.read
+                    - suppression.bounces.update
+                    - suppression.bounces.delete
+                    - suppression.blocks.create
+                    - suppression.blocks.read
+                    - suppression.blocks.update
+                    - suppression.blocks.delete
+                    - suppression.invalid_emails.create
+                    - suppression.invalid_emails.read
+                    - suppression.invalid_emails.update
+                    - suppression.invalid_emails.delete
+                    - suppression.spam_reports.create
+                    - suppression.spam_reports.read
+                    - suppression.spam_reports.update
+                    - suppression.spam_reports.delete
+                    - suppression.unsubscribes.create
+                    - suppression.unsubscribes.read
+                    - suppression.unsubscribes.update
+                    - suppression.unsubscribes.delete
+                    - templates.create
+                    - templates.read
+                    - templates.update
+                    - templates.delete
+                    - templates.versions.create
+                    - templates.versions.read
+                    - templates.versions.update
+                    - templates.versions.delete
+                    - templates.versions.activate.create
+                    - templates.versions.activate.read
+                    - templates.versions.activate.update
+                    - templates.versions.activate.delete
+                    - user.account.read
+                    - user.credits.read
+                    - user.email.create
+                    - user.email.read
+                    - user.email.update
+                    - user.email.delete
+                    - user.profile.create
+                    - user.profile.read
+                    - user.profile.update
+                    - user.profile.delete
+                    - user.password.create
+                    - user.password.read
+                    - user.password.update
+                    - user.password.delete
+                    - user.timezone.create
+                    - user.timezone.read
+                    - user.timezone.update
+                    - user.timezone.delete
+                    - user.username.create
+                    - user.username.read
+                    - user.username.update
+                    - user.username.delete
+                    - user.settings.enforced_tls.read
+                    - user.settings.enforced_tls.update
+                    - api_keys.create
+                    - api_keys.read
+                    - api_keys.update
+                    - api_keys.delete
+                    - credentials.create
+                    - credentials.read
+                    - credentials.update
+                    - credentials.delete
+                    - categories.create
+                    - categories.read
+                    - categories.update
+                    - categories.delete
+                    - mail_settings.template.create
+                    - mail_settings.template.read
+                    - mail_settings.template.update
+                    - mail_settings.template.delete
+                    - user.multifactor_authentication.create
+                    - user.multifactor_authentication.read
+                    - user.multifactor_authentication.update
+                    - user.multifactor_authentication.delete
+                    - newsletter.create
+                    - newsletter.read
+                    - newsletter.update
+                    - newsletter.delete
+                    - marketing_campaigns.create
+                    - marketing_campaigns.read
+                    - marketing_campaigns.update
+                    - marketing_campaigns.delete
+                    - ui.signup_complete
+                    - mail.batch.create
+                    - mail.batch.read
+                    - mail.batch.update
+                    - mail.batch.delete
+                    - user.scheduled_sends.create
+                    - user.scheduled_sends.read
+                    - user.scheduled_sends.update
+                    - user.scheduled_sends.delete
+                    - access_settings.whitelist.create
+                    - access_settings.whitelist.read
+                    - access_settings.whitelist.update
+                    - access_settings.whitelist.delete
+                    - access_settings.activity.read
+                    - whitelabel.create
+                    - whitelabel.read
+                    - whitelabel.update
+                    - whitelabel.delete
+                    - suppression.create
+                    - suppression.read
+                    - suppression.update
+                    - suppression.delete
+                    - teammates.create
+                    - teammates.read
+                    - teammates.update
+                    - teammates.delete
+                    - messages.read
+                    - validations.email.read
+                    - validations.email.create
+                    - marketing.read
+                    - marketing.automation.read
+                    - design_library.read
+                    - design_library.create
+                    - design_library.update
+                    - design_library.delete
+                    - email_testing.read
+                    - email_testing.write
+                    - sender_verification_eligible
+                    - sso.settings.create
+                    - sso.settings.read
+                    - sso.settings.update
+                    - sso.settings.delete
+                    - sender_verification_legacy
+                    - sso.teammates.create
+                    - sso.teammates.update
+                    - 2fa_required
+                    - di.bounce_block_classification.read
+                    has_restricted_subuser_access: false
+        '400':
+          $ref: '#/components/responses/Sso400'
+        '401':
+          $ref: '#/components/responses/Sso401'
+        '403':
+          $ref: '#/components/responses/Sso403'
+        '429':
+          $ref: '#/components/responses/Sso429'
+        '500':
+          $ref: '#/components/responses/Sso500'
+  /v3/sso/teammates/{username}:
+    parameters:
+    - name: username
+      in: path
+      description: Set this parameter to the Teammate's email address. This address must be the same address assigned to the Teammate in your IdP.
+      required: true
+      schema:
+        type: string
+        format: email
+    patch:
+      operationId: UpdateSsoTeammate
+      summary: Edit an SSO Teammate
+      tags:
+      - SSO Teammates
+      description: '**This endpoint allows you to modify an existing SSO Teammate.**
+
+
+        Only the parent user and Teammates with admin permissions can update another Teammate''s permissions.
+
+
+        ### Scopes
+
+
+        When updating a Teammate, you will assign it permissions or scopes. These scopes determine which actions the Teammate can perform and which features they can access. Scopes are provided with one of three properties passed to this endpoint: `is_admin`, `scopes`, and `persona`.
+
+
+        You can make a Teammate an administrator by setting `is_admin` to `true`. Administrators will have all scopes assigned to them. Alternatively, you can assign a `persona` to the teammate, which will assign them a block of permissions commonly required for that type of user. See the "Persona scopes" section of [**Teammate Permissions**](https://docs.sendgrid.com/ui/account-and-settings/teammate-permissions#persona-scopes) for a list of permsissions granted by persona. Lastly, you can assign individual permissions with the `scopes` property. See [**Teammate Permissions**](https://docs.sendgrid.com/ui/account-and-settings/teammate-permissions) for a full list of scopes that can be assigned to a Teammate.
+
+
+        ### Subuser access
+
+
+        SendGrid Teammates may be assigned access to one or more Subusers. Subusers function like SendGrid sub-accounts with their own resources. See [**Subusers**](https://docs.sendgrid.com/ui/account-and-settings/subusers) for more information.
+
+
+        When assigning Subuser access to a Teammate, you may set the `has_restricted_subuser_access` property to `true` to constrain the Teammate so that they can operate only on behalf of the Subusers to which they are assigned. You may further set the level of access the Teammate has to each Subuser with the `subuser_access` property.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchSsoTeammatesRequest'
+            examples:
+              Update Teammate with Subuser Access:
+                value:
+                  first_name: Jane
+                  last_name: Doe
+                  has_restricted_subuser_access: true
+                  subuser_access:
+                  - id: 12345
+                    permission_type: admin
+              Make Teammate an Admin:
+                value:
+                  first_name: Jane
+                  last_name: Doe
+                  is_admin: true
+                  has_restricted_subuser_access: false
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatchSsoTeammates200'
+              examples:
+                response:
+                  value:
+                    address: 1234 Fake St.
+                    address2: Suite 5
+                    city: San Francisco
+                    company: Example Dot Com, Inc.
+                    country: United States
+                    first_name: Jane
+                    last_name: Doe
+                    email: jane_doe@example.com
+                    username: jane_doe@example.com
+                    is_admin: true
+                    is_sso: true
+                    phone: '+15555555555'
+                    state: CA
+                    user_type: teammate
+                    website: https://www.example.com
+                    zip: '94105'
+                    scopes:
+                    - alerts.create
+                    - alerts.read
+                    - alerts.update
+                    - alerts.delete
+                    - asm.groups.create
+                    - asm.groups.read
+                    - asm.groups.update
+                    - asm.groups.delete
+                    - asm.groups.suppressions.create
+                    - asm.groups.suppressions.read
+                    - asm.groups.suppressions.update
+                    - asm.groups.suppressions.delete
+                    - asm.suppressions.global.create
+                    - asm.suppressions.global.read
+                    - asm.suppressions.global.update
+                    - asm.suppressions.global.delete
+                    - billing.create
+                    - billing.read
+                    - billing.update
+                    - billing.delete
+                    - ui.confirm_email
+                    - signup.trigger_confirmation
+                    - ui.provision
+                    - ips.warmup.create
+                    - ips.warmup.read
+                    - ips.warmup.update
+                    - ips.warmup.delete
+                    - ips.pools.create
+                    - ips.pools.read
+                    - ips.pools.update
+                    - ips.pools.delete
+                    - ips.pools.ips.create
+                    - ips.pools.ips.read
+                    - ips.pools.ips.update
+                    - ips.pools.ips.delete
+                    - ips.assigned.read
+                    - ips.create
+                    - ips.read
+                    - ips.update
+                    - ips.delete
+                    - mail.send
+                    - mail_settings.read
+                    - mail_settings.bcc.create
+                    - mail_settings.bcc.read
+                    - mail_settings.bcc.update
+                    - mail_settings.bcc.delete
+                    - mail_settings.address_whitelist.create
+                    - mail_settings.address_whitelist.read
+                    - mail_settings.address_whitelist.update
+                    - mail_settings.address_whitelist.delete
+                    - mail_settings.footer.create
+                    - mail_settings.footer.read
+                    - mail_settings.footer.update
+                    - mail_settings.footer.delete
+                    - mail_settings.forward_spam.create
+                    - mail_settings.forward_spam.read
+                    - mail_settings.forward_spam.update
+                    - mail_settings.forward_spam.delete
+                    - mail_settings.plain_content.create
+                    - mail_settings.plain_content.read
+                    - mail_settings.plain_content.update
+                    - mail_settings.plain_content.delete
+                    - mail_settings.spam_check.create
+                    - mail_settings.spam_check.read
+                    - mail_settings.spam_check.update
+                    - mail_settings.spam_check.delete
+                    - mail_settings.bounce_purge.create
+                    - mail_settings.bounce_purge.read
+                    - mail_settings.bounce_purge.update
+                    - mail_settings.bounce_purge.delete
+                    - mail_settings.forward_bounce.create
+                    - mail_settings.forward_bounce.read
+                    - mail_settings.forward_bounce.update
+                    - mail_settings.forward_bounce.delete
+                    - partner_settings.read
+                    - partner_settings.new_relic.create
+                    - partner_settings.new_relic.read
+                    - partner_settings.new_relic.update
+                    - partner_settings.new_relic.delete
+                    - partner_settings.sendwithus.create
+                    - partner_settings.sendwithus.read
+                    - partner_settings.sendwithus.update
+                    - partner_settings.sendwithus.delete
+                    - tracking_settings.read
+                    - tracking_settings.click.create
+                    - tracking_settings.click.read
+                    - tracking_settings.click.update
+                    - tracking_settings.click.delete
+                    - tracking_settings.subscription.create
+                    - tracking_settings.subscription.read
+                    - tracking_settings.subscription.update
+                    - tracking_settings.subscription.delete
+                    - tracking_settings.open.create
+                    - tracking_settings.open.read
+                    - tracking_settings.open.update
+                    - tracking_settings.open.delete
+                    - tracking_settings.google_analytics.create
+                    - tracking_settings.google_analytics.read
+                    - tracking_settings.google_analytics.update
+                    - tracking_settings.google_analytics.delete
+                    - user.webhooks.event.settings.create
+                    - user.webhooks.event.settings.read
+                    - user.webhooks.event.settings.update
+                    - user.webhooks.event.settings.delete
+                    - user.webhooks.event.test.create
+                    - user.webhooks.event.test.read
+                    - user.webhooks.event.test.update
+                    - user.webhooks.event.test.delete
+                    - user.webhooks.parse.settings.create
+                    - user.webhooks.parse.settings.read
+                    - user.webhooks.parse.settings.update
+                    - user.webhooks.parse.settings.delete
+                    - stats.read
+                    - stats.global.read
+                    - categories.stats.read
+                    - categories.stats.sums.read
+                    - devices.stats.read
+                    - clients.stats.read
+                    - clients.phone.stats.read
+                    - clients.tablet.stats.read
+                    - clients.webmail.stats.read
+                    - clients.desktop.stats.read
+                    - geo.stats.read
+                    - mailbox_providers.stats.read
+                    - browsers.stats.read
+                    - subusers.stats.read
+                    - subusers.stats.sums.read
+                    - subusers.stats.monthly.read
+                    - user.webhooks.parse.stats.read
+                    - subusers.create
+                    - subusers.read
+                    - subusers.update
+                    - subusers.delete
+                    - subusers.monitor.create
+                    - subusers.monitor.read
+                    - subusers.monitor.update
+                    - subusers.monitor.delete
+                    - subusers.credits.create
+                    - subusers.credits.read
+                    - subusers.credits.update
+                    - subusers.credits.delete
+                    - subusers.credits.remaining.create
+                    - subusers.credits.remaining.read
+                    - subusers.credits.remaining.update
+                    - subusers.credits.remaining.delete
+                    - subusers.reputations.read
+                    - subusers.summary.read
+                    - suppression.bounces.create
+                    - suppression.bounces.read
+                    - suppression.bounces.update
+                    - suppression.bounces.delete
+                    - suppression.blocks.create
+                    - suppression.blocks.read
+                    - suppression.blocks.update
+                    - suppression.blocks.delete
+                    - suppression.invalid_emails.create
+                    - suppression.invalid_emails.read
+                    - suppression.invalid_emails.update
+                    - suppression.invalid_emails.delete
+                    - suppression.spam_reports.create
+                    - suppression.spam_reports.read
+                    - suppression.spam_reports.update
+                    - suppression.spam_reports.delete
+                    - suppression.unsubscribes.create
+                    - suppression.unsubscribes.read
+                    - suppression.unsubscribes.update
+                    - suppression.unsubscribes.delete
+                    - templates.create
+                    - templates.read
+                    - templates.update
+                    - templates.delete
+                    - templates.versions.create
+                    - templates.versions.read
+                    - templates.versions.update
+                    - templates.versions.delete
+                    - templates.versions.activate.create
+                    - templates.versions.activate.read
+                    - templates.versions.activate.update
+                    - templates.versions.activate.delete
+                    - user.account.read
+                    - user.credits.read
+                    - user.email.create
+                    - user.email.read
+                    - user.email.update
+                    - user.email.delete
+                    - user.profile.create
+                    - user.profile.read
+                    - user.profile.update
+                    - user.profile.delete
+                    - user.password.create
+                    - user.password.read
+                    - user.password.update
+                    - user.password.delete
+                    - user.timezone.create
+                    - user.timezone.read
+                    - user.timezone.update
+                    - user.timezone.delete
+                    - user.username.create
+                    - user.username.read
+                    - user.username.update
+                    - user.username.delete
+                    - user.settings.enforced_tls.read
+                    - user.settings.enforced_tls.update
+                    - api_keys.create
+                    - api_keys.read
+                    - api_keys.update
+                    - api_keys.delete
+                    - credentials.create
+                    - credentials.read
+                    - credentials.update
+                    - credentials.delete
+                    - categories.create
+                    - categories.read
+                    - categories.update
+                    - categories.delete
+                    - mail_settings.template.create
+                    - mail_settings.template.read
+                    - mail_settings.template.update
+                    - mail_settings.template.delete
+                    - user.multifactor_authentication.create
+                    - user.multifactor_authentication.read
+                    - user.multifactor_authentication.update
+                    - user.multifactor_authentication.delete
+                    - newsletter.create
+                    - newsletter.read
+                    - newsletter.update
+                    - newsletter.delete
+                    - marketing_campaigns.create
+                    - marketing_campaigns.read
+                    - marketing_campaigns.update
+                    - marketing_campaigns.delete
+                    - ui.signup_complete
+                    - mail.batch.create
+                    - mail.batch.read
+                    - mail.batch.update
+                    - mail.batch.delete
+                    - user.scheduled_sends.create
+                    - user.scheduled_sends.read
+                    - user.scheduled_sends.update
+                    - user.scheduled_sends.delete
+                    - access_settings.whitelist.create
+                    - access_settings.whitelist.read
+                    - access_settings.whitelist.update
+                    - access_settings.whitelist.delete
+                    - access_settings.activity.read
+                    - whitelabel.create
+                    - whitelabel.read
+                    - whitelabel.update
+                    - whitelabel.delete
+                    - suppression.create
+                    - suppression.read
+                    - suppression.update
+                    - suppression.delete
+                    - teammates.create
+                    - teammates.read
+                    - teammates.update
+                    - teammates.delete
+                    - messages.read
+                    - validations.email.read
+                    - validations.email.create
+                    - marketing.read
+                    - marketing.automation.read
+                    - design_library.read
+                    - design_library.create
+                    - design_library.update
+                    - design_library.delete
+                    - email_testing.read
+                    - email_testing.write
+                    - sender_verification_eligible
+                    - sso.settings.create
+                    - sso.settings.read
+                    - sso.settings.update
+                    - sso.settings.delete
+                    - sender_verification_legacy
+                    - sso.teammates.create
+                    - sso.teammates.update
+                    - 2fa_required
+                    - di.bounce_block_classification.read
+                    has_restricted_subuser_access: false
+        '400':
+          $ref: '#/components/responses/Sso400'
+        '401':
+          $ref: '#/components/responses/Sso401'
+        '403':
+          $ref: '#/components/responses/Sso403'
+        '429':
+          $ref: '#/components/responses/Sso429'
+        '500':
+          $ref: '#/components/responses/Sso500'
+components:
+  schemas:
+    PatchSsoTeammates200:
+      title: Single Sign-On Teammates PATCH Response.
+      description: Successful SSO Teammates PATCH response.
+      type: object
+      properties:
+        address:
+          type: string
+          description: The Teammate's street address.
+        address2:
+          type: string
+          description: The Teammate's apartment number, suite number, or other secondary address information that is not part of the physical street address.
+        city:
+          type: string
+          description: The Teammate's city.
+        company:
+          type: string
+          description: The Teammate's company name.
+        country:
+          type: string
+          description: The Teammate's country of residence.
+        username:
+          type: string
+          description: The Teammate's username. This property is set to the Teammate's email address.
+        phone:
+          type: string
+          description: The Teammate's phone number.
+        state:
+          type: string
+          description: The Teammate's state or province.
+        user_type:
+          type: string
+          description: A Teammate can be an `admin`, `owner`, or `teammate`. Each role is associated with the scope of the Teammate's permissions.
+          $ref: '#/components/schemas/UserType'
+        website:
+          type: string
+          description: A website associated with the Teammate.
+        zip:
+          type: string
+          description: The Teammate's zip code.
+        first_name:
+          type: string
+          description: The Teammate's first name.
+        last_name:
+          type: string
+          description: The Teammate's last name.
+        email:
+          type: string
+          format: email
+          description: Teammate's email address. This email address also functions as the Teammate's username and must match the address assigned to the user in your IdP. This address cannot be changed after the Teammate is created.
+        is_admin:
+          type: boolean
+          description: Indicates if the Teammate has administrator permissions. When set to `true`, the Teammate is an admin.
+        is_sso:
+          type: boolean
+          description: Indicates how the Teammate authenticates with SendGrid. When set to `true`, the Teammate will access SendGrid via SSO and their IdP. When set to `false`, the Teammate will authenticate directly with SendGrid via a username and password.
+        scopes:
+          type: array
+          description: The permissions or scopes currently assigned to the Teammate. See [**Teammate Permissions**](https://docs.sendgrid.com/ui/account-and-settings/teammate-permissions) for a complete list of available scopes.
+          items:
+            type: string
+        has_restricted_subuser_access:
+          type: boolean
+          description: When this property is set to `true`, the Teammate has permissions to operate only on behalf of a Subuser. This property value is `true` when the `subuser_access` property is not empty. The `subuser_access` property determines which Subusers the Teammate may act on behalf of.
+        subuser_access:
+          type: array
+          description: Specifies which Subusers the Teammate may access and act on behalf of. If this property is populated, the `has_restricted_subuser_access` property will be `true`.
+          items:
+            type: object
+            description: An array of Subusers to which the Teammate has access.
+            properties:
+              id:
+                type: integer
+                description: The ID of a Subuser to which the Teammate has access. You can retrieve Subuser IDs from the [Subusers API](https://docs.sendgrid.com/api-reference/subusers-api/).
+              username:
+                type: string
+                description: The username of a Subuser to which the Teammate has access.
+              email:
+                type: string
+                description: The email address of a Subuser to which the Teammate has access.
+              disabled:
+                type: boolean
+                description: Indicates if the Subuser is active for the SendGrid account.
+              permission_type:
+                type: string
+                description: The level of access the Teammate has to the specified Subuser. This property value may be either `admin` or `restricted`. When is property is set to `restricted`, the Teammate has only the permissions assigned in the `scopes` property.
+                $ref: '#/components/schemas/PermissionType1'
+              scopes:
+                type: array
+                description: The permissions or scopes that the Teammate can access on behalf of the Subuser. See [**Teammate Permissions**](https://docs.sendgrid.com/ui/account-and-settings/teammate-permissions) for a complete list of available scopes.
+                items:
+                  type: string
+    PermissionType1:
+      type: string
+      enum:
+      - admin
+      - restricted
+    SsoErrorResponse:
+      title: SSO Error Response
+      type: array
+      items:
+        type: object
+        properties:
+          message:
+            type: string
+          field:
+            nullable: true
+            type: string
+          error_id:
+            type: string
+    Persona:
+      type: string
+      enum:
+      - accountant
+      - developer
+      - marketer
+      - observer
+    PatchSsoTeammatesRequest:
+      title: Single Sign-On Teammate Update Request Body
+      summary: Single Sign-on Teammate Request Body for update, PATCH, Teammate operations.
+      $ref: '#/components/schemas/SsoTeammatesBaseRequestProps'
+    PermissionType:
+      type: string
+      enum:
+      - admin
+      - restricted
+    PostSsoTeammatesRequest:
+      title: Single Sign-On Teammate Create Request Body
+      summary: The request body accepted by the POST endpoint that creates a new webhook.
+      example:
+        email: jane_doe@example.com
+        first_name: Jane
+        last_name: Doe
+        is_admin: false
+        has_restricted_subuser_access: true
+        subuser_access:
+        - id: 12345
+          permission_type: restricted
+          scopes:
+          - alerts.read
+          - asm.groups.read
+          - billing.read
+          - ips.warmup.read
+          - ips.pools.read
+          - ips.pools.ips.read
+          - ips.assigned.read
+          - ips.read
+          - mail_settings.read
+          - mail_settings.bcc.read
+          - mail_settings.address_whitelist.read
+          - mail_settings.footer.read
+          - mail_settings.forward_spam.read
+          - mail_settings.plain_content.read
+          - mail_settings.spam_check.read
+          - mail_settings.bounce_purge.update
+          - mail_settings.forward_bounce.read
+          - partner_settings.read
+          - partner_settings.new_relic.read
+          - partner_settings.sendwithus.read
+          - tracking_settings.read
+          - tracking_settings.click.read
+          - tracking_settings.subscription.read
+          - tracking_settings.open.read
+          - tracking_settings.google_analytics.read
+          - user.webhooks.event.settings.read
+          - user.webhooks.event.test.read
+          - user.webhooks.parse.settings.read
+          - stats.read
+          - stats.global.read
+          - categories.stats.read
+          - categories.stats.sums.read
+          - devices.stats.read
+          - clients.stats.read
+          - clients.phone.stats.read
+          - clients.tablet.stats.read
+          - clients.webmail.stats.read
+          - clients.desktop.stats.read
+          - geo.stats.read
+          - mailbox_providers.stats.read
+          - browsers.stats.read
+          - subusers.stats.read
+          - subusers.stats.sums.read
+          - subusers.stats.monthly.read
+          - user.webhooks.parse.stats.read
+          - subusers.read
+          - subusers.monitor.read
+          - subusers.credits.read
+          - subusers.credits.remaining.read
+          - subusers.reputations.read
+          - subusers.summary.read
+          - templates.read
+          - templates.versions.read
+          - user.account.read
+          - user.credits.read
+          - user.email.read
+          - user.profile.read
+          - user.profile.update
+          - user.timezone.read
+          - user.username.read
+          - user.settings.enforced_tls.read
+          - api_keys.read
+          - categories.read
+          - mail_settings.template.read
+          - mail.batch.read
+          - user.scheduled_sends.read
+          - access_settings.whitelist.read
+          - access_settings.activity.read
+          - suppression.read
+          - messages.read
+          - email_testing.read
+          - sender_verification_eligible
+          - sender_verification_legacy
+          - 2fa_exempt
+          - 2fa_required
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          description: Set this property to the Teammate's email address. This email address will also function as the Teammate's username and must match the address assigned to the user in your IdP. This address cannot be changed after the Teammate is created.
+        first_name:
+          type: string
+          description: Set this property to the Teammate's first name.
+        last_name:
+          type: string
+          description: Set this property to the Teammate's last name.
+        is_admin:
+          type: boolean
+          description: Set this property to `true` if the Teammate has admin permissions. You should not include the `scopes` or `persona` properties when setting the `is_admin` property to `true`—an admin will be allocated all scopes. See [**Teammate Permissions**](https://docs.sendgrid.com/ui/account-and-settings/teammate-permissions) for a complete list of scopes.
+        persona:
+          type: string
+          description: A persona represents a group of permissions often required by a type of Teammate such as a developer or marketer. Assigning a persona allows you to allocate a group of pre-defined permissions rather than assigning each scope individually. See [**Teammate Permissions**](https://docs.sendgrid.com/ui/account-and-settings/teammate-permissions) for a full list of the scopes assigned to each persona.
+          $ref: '#/components/schemas/Persona'
+        scopes:
+          type: array
+          description: Add or remove permissions from a Teammate using this `scopes` property. See [**Teammate Permissions**](https://docs.sendgrid.com/ui/account-and-settings/teammate-permissions) for a complete list of available scopes. You should not include this propety in the request when using the `persona` property or when setting the `is_admin` property to `true`—assigning a `persona` or setting `is_admin` to `true` will allocate a group of permissions to the Teammate.
+          items:
+            type: string
+        has_restricted_subuser_access:
+          type: boolean
+          description: Set this property to `true` to give the Teammate permissions to operate only on behalf of a Subuser. This property value must be `true` if the `subuser_access` property is not empty. The `subuser_access` property determines which Subusers the Teammate may act on behalf of. If this property is set to `true`, you cannot specify individual `scopes`, assign a `persona`, or set `is_admin` to `true`—a Teammate cannot specify scopes for the parent account and have restricted Subuser access.
+        subuser_access:
+          type: array
+          description: Specify which Subusers the Teammate may access and act on behalf of with this property. If this property is populated, you must set the `has_restricted_subuser_access` property to `true`.
+          items:
+            type: object
+            description: An array of Subusers to which the Teammate should have access.
+            properties:
+              id:
+                type: integer
+                description: Set this property to the ID of a Subuser to which the Teammate should have access. You can retrieve Subuser IDs from the [Subusers API](https://docs.sendgrid.com/api-reference/subusers-api/).
+              permission_type:
+                type: string
+                description: Grant the level of access the Teammate should have to the specified Subuser with this property. This property value may be either `admin` or `restricted`. When set to `restricted`, the Teammate has only the permissions assigned in the `scopes` property.
+                $ref: '#/components/schemas/PermissionType'
+              scopes:
+                type: array
+                description: Add or remove permissions that the Teammate can access on behalf of the Subuser. See [**Teammate Permissions**](https://docs.sendgrid.com/ui/account-and-settings/teammate-permissions) for a complete list of available scopes. You should not include this property in the request when the `permission_type` property is set to `admin`—administrators have full access to the specified Subuser.
+                items:
+                  type: string
+            required:
+            - id
+            - permission_type
+      required:
+      - email
+      - first_name
+      - last_name
+    PostSsoTeammates201:
+      title: Single Sign-On Teammates POST Response.
+      description: Successful SSO Teammates POST Response.
+      type: object
+      properties:
+        first_name:
+          type: string
+          description: The Teammate's first name.
+        last_name:
+          type: string
+          description: The Teammate's last name.
+        email:
+          type: string
+          format: email
+          description: Teammate's email address. This email address also functions as the Teammate's username and must match the address assigned to the user in your IdP. This address cannot be changed after the Teammate is created.
+        is_admin:
+          type: boolean
+          description: Indicates if the Teammate has administrator permissions. When set to `true`, the Teammate is an admin.
+        is_sso:
+          type: boolean
+          description: Indicates how the Teammate authenticates with SendGrid. When set to `true`, the Teammate will access SendGrid via SSO and their IdP. When set to `false`, the Teammate will authenticate directly with SendGrid via a username and password.
+        scopes:
+          type: array
+          description: The permissions or scopes currently assigned to the Teammate. See [**Teammate Permissions**](https://docs.sendgrid.com/ui/account-and-settings/teammate-permissions) for a complete list of available scopes.
+          items:
+            type: string
+        has_restricted_subuser_access:
+          type: boolean
+          description: When this property is set to `true`, the Teammate has permissions to operate only on behalf of a Subuser. This property value is `true` when the `subuser_access` property is not empty. The `subuser_access` property determines which Subusers the Teammate may act on behalf of.
+        subuser_access:
+          type: array
+          description: Specifies which Subusers the Teammate may access and act on behalf of. If this property is populated, the `has_restricted_subuser_access` property will be `true`.
+          items:
+            type: object
+            description: An array of Subusers to which the Teammate has access.
+            properties:
+              id:
+                type: integer
+                description: The ID of a Subuser to which the Teammate has access. You can retrieve Subuser IDs from the [Subusers API](https://docs.sendgrid.com/api-reference/subusers-api/).
+              username:
+                type: string
+                description: The username of a Subuser to which the Teammate has access.
+              email:
+                type: string
+                description: The email address of a Subuser to which the Teammate has access.
+              disabled:
+                type: boolean
+                description: Indicates if the Subuser is active for the SendGrid account.
+              permission_type:
+                type: string
+                description: The level of access the Teammate has to the specified Subuser. This property value may be either `admin` or `restricted`. When is property is set to `restricted`, the Teammate has only the permissions assigned in the `scopes` property.
+                $ref: '#/components/schemas/PermissionType1'
+              scopes:
+                type: array
+                description: The permissions or scopes that the Teammate can access on behalf of the Subuser. See [**Teammate Permissions**](https://docs.sendgrid.com/ui/account-and-settings/teammate-permissions) for a complete list of available scopes.
+                items:
+                  type: string
+    SsoTeammatesBaseRequestProps:
+      type: object
+      properties:
+        first_name:
+          type: string
+          description: Set this property to the Teammate's first name.
+        last_name:
+          type: string
+          description: Set this property to the Teammate's last name.
+        is_admin:
+          type: boolean
+          description: Set this property to `true` if the Teammate has admin permissions. You should not include the `scopes` or `persona` properties when setting the `is_admin` property to `true`—an admin will be allocated all scopes. See [**Teammate Permissions**](https://docs.sendgrid.com/ui/account-and-settings/teammate-permissions) for a complete list of scopes.
+        persona:
+          type: string
+          description: A persona represents a group of permissions often required by a type of Teammate such as a developer or marketer. Assigning a persona allows you to allocate a group of pre-defined permissions rather than assigning each scope individually. See [**Teammate Permissions**](https://docs.sendgrid.com/ui/account-and-settings/teammate-permissions) for a full list of the scopes assigned to each persona.
+          $ref: '#/components/schemas/Persona'
+        scopes:
+          type: array
+          description: Add or remove permissions from a Teammate using this `scopes` property. See [**Teammate Permissions**](https://docs.sendgrid.com/ui/account-and-settings/teammate-permissions) for a complete list of available scopes. You should not include this propety in the request when using the `persona` property or when setting the `is_admin` property to `true`—assigning a `persona` or setting `is_admin` to `true` will allocate a group of permissions to the Teammate.
+          items:
+            type: string
+        has_restricted_subuser_access:
+          type: boolean
+          description: Set this property to `true` to give the Teammate permissions to operate only on behalf of a Subuser. This property value must be `true` if the `subuser_access` property is not empty. The `subuser_access` property determines which Subusers the Teammate may act on behalf of. If this property is set to `true`, you cannot specify individual `scopes`, assign a `persona`, or set `is_admin` to `true`—a Teammate cannot specify scopes for the parent account and have restricted Subuser access.
+        subuser_access:
+          type: array
+          description: Specify which Subusers the Teammate may access and act on behalf of with this property. If this property is populated, you must set the `has_restricted_subuser_access` property to `true`.
+          items:
+            type: object
+            description: An array of Subusers to which the Teammate should have access.
+            properties:
+              id:
+                type: integer
+                description: Set this property to the ID of a Subuser to which the Teammate should have access. You can retrieve Subuser IDs from the [Subusers API](https://docs.sendgrid.com/api-reference/subusers-api/).
+              permission_type:
+                type: string
+                description: Grant the level of access the Teammate should have to the specified Subuser with this property. This property value may be either `admin` or `restricted`. When set to `restricted`, the Teammate has only the permissions assigned in the `scopes` property.
+                $ref: '#/components/schemas/PermissionType'
+              scopes:
+                type: array
+                description: Add or remove permissions that the Teammate can access on behalf of the Subuser. See [**Teammate Permissions**](https://docs.sendgrid.com/ui/account-and-settings/teammate-permissions) for a complete list of available scopes. You should not include this property in the request when the `permission_type` property is set to `admin`—administrators have full access to the specified Subuser.
+                items:
+                  type: string
+            required:
+            - id
+            - permission_type
+      required:
+      - first_name
+      - last_name
+    UserType:
+      type: string
+      enum:
+      - admin
+      - owner
+      - teammate
+  responses:
+    Sso401:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SsoErrorResponse'
+    Sso500:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SsoErrorResponse'
+    Sso400:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SsoErrorResponse'
+    Sso403:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SsoErrorResponse'
+    Sso429:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SsoErrorResponse'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Twilio SendGrid requires you to authenticate with its APIs using an API key. The API key must be sent as a bearer token in the Authorization header.
+externalDocs:
+  description: Twilio SendGrid's official developer documentation.
+  url: https://www.twilio.com/docs/sendgrid

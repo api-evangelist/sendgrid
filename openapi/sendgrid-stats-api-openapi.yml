@@ -1,0 +1,2542 @@
+openapi: 3.1.0
+info:
+  title: Twilio SendGrid Provisioning Account Stats API
+  summary: The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts.
+  description: 'The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts. This API is for companies that have a formal reseller partnership with Twilio SendGrid.
+
+
+    You can access Twilio SendGrid sub-account functionality without becoming a reseller. If you require sub-account functionality, see the Twilio [SendGrid Subusers](https://docs.sendgrid.com/ui/account-and-settings/subusers) feature, which is available with [Pro and Premier plans](https://sendgrid.com/pricing/).'
+  termsOfService: https://www.twilio.com/legal/tos
+  contact:
+    name: Twilio SendGrid Support
+    url: https://support.sendgrid.com/hc/en-us
+  license:
+    name: MIT
+    url: https://code.hq.twilio.com/twilio/sendgrid-oas/blob/main/LICENSE
+  version: 1.0.0
+  x-sendgrid:
+    libraryPackage: account_provisioning
+servers:
+- url: https://api.sendgrid.com
+  description: for global users and subusers
+- url: https://api.eu.sendgrid.com
+  description: for EU regional subusers
+security:
+- BearerAuth: []
+tags:
+- name: Stats
+  description: Twilio SendGrid Marketing Campaigns Stats API
+paths:
+  /v3/marketing/stats/automations:
+    get:
+      operationId: ListAutomationStat
+      summary: Get All Automation Stats
+      tags:
+      - Stats
+      description: '**This endpoint allows you to retrieve stats for all your Automations.**
+
+
+        By default, all of your Automations will be returned, but you can specify a selection by passing in a comma-separated list of Automation IDs as the value of the query string parameter `automation_ids`.
+
+
+        Responses are paginated. You can limit the number of responses returned per batch using the `page_size` query string parameter. The default is 25, but you can specify a value between 1 and 50.
+
+
+        You can retrieve a specific page of responses with the `page_token` query string parameter.'
+      parameters:
+      - name: automation_ids
+        in: query
+        description: This endpoint returns all automation IDs if no `automation_ids` are specified.
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+          minItems: 1
+          maxItems: 25
+      - $ref: '#/components/parameters/PaginationPageSize'
+      - $ref: '#/components/parameters/PaginationPageToken'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutomationsResponse'
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v3/marketing/stats/automations/{id}:
+    parameters:
+    - name: id
+      in: path
+      description: 'The ID of the Automation for which you want to retrieve statistics. '
+      required: true
+      schema:
+        type: string
+    get:
+      operationId: GetAutomationStat
+      summary: Get Automation Stats by ID
+      tags:
+      - Stats
+      description: '**This endpoint allows you to retrieve stats for a single Automation using its ID.**
+
+
+        Multiple Automation IDs can be retrieved using the "Get All Automation Stats" endpoint. Once you have an ID, this endpoint will return detailed stats for the single automation specified.
+
+
+        You may constrain the stats returned using the `start_date` and `end_date` query string parameters. You can also use the `group_by` and `aggregated_by` query string parameters to further refine the stats returned.'
+      parameters:
+      - $ref: '#/components/parameters/AutomationQueryParamsGroupBy'
+      - $ref: '#/components/parameters/AutomationQueryParamsStepId'
+      - $ref: '#/components/parameters/AggregatedByBaseProps'
+      - $ref: '#/components/parameters/StartDateBaseProps'
+      - $ref: '#/components/parameters/EndDateBaseProps'
+      - $ref: '#/components/parameters/TimezoneBaseProps'
+      - $ref: '#/components/parameters/PaginationPageSize'
+      - $ref: '#/components/parameters/PaginationPageToken'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutomationsResponse'
+        '400':
+          $ref: '#/components/responses/Stats400'
+        '404':
+          description: ''
+  /v3/marketing/stats/automations/{id}/links:
+    parameters:
+    - name: id
+      in: path
+      description: 'The ID of the Automation you want to get click tracking stats for. '
+      required: true
+      schema:
+        type: string
+        format: uuid
+    get:
+      operationId: ListClickTrackingStat
+      summary: Get Automation Click Tracking Stats by ID
+      tags:
+      - Stats
+      description: '**This endpoint lets you retrieve click-tracking stats for a single Automation**.
+
+
+        The stats returned list the URLs embedded in your Automation and the number of clicks each one received.'
+      parameters:
+      - $ref: '#/components/parameters/AutomationQueryParamsGroupBy'
+      - $ref: '#/components/parameters/AutomationQueryParamsStepId'
+      - $ref: '#/components/parameters/PaginationPageSize'
+      - $ref: '#/components/parameters/PaginationPageToken'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutmoationsLinkStatsResponse'
+        '400':
+          $ref: '#/components/responses/Stats400'
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v3/marketing/stats/automations/export:
+    get:
+      operationId: ExportAutomationStat
+      summary: Export Single Send Stats
+      tags:
+      - Stats
+      description: '**This endpoint allows you to export Single Send stats as .CSV data**.
+
+
+        You can specify one Single Send or many: include as many Single Send IDs as you need, separating them with commas, as the value of the `ids` query string parameter.
+
+
+        The data is returned as plain text response but in .CSV format, so your application making the call can present the information in whatever way is most appropriate, or just save the data as a .csv file.'
+      parameters:
+      - name: ids
+        in: query
+        description: The IDs of Single Sends for which to export stats.
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+          minItems: 1
+          maxItems: 50
+      - name: timezone
+        in: query
+        description: The [IANA Area/Region](https://en.wikipedia.org/wiki/Tz_database#Names_of_timezones) string representing the timezone in which the stats are to be presented; i.e. `"America/Chicago"`. This parameter changes the timezone format only; it does not alter which stats are returned.
+        schema:
+          type: string
+          default: UTC
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: string
+                description: CSV data
+        '400':
+          description: ''
+  /v3/marketing/stats/singlesends:
+    get:
+      operationId: ListSingleSendStat
+      summary: Get All Single Sends Stats
+      tags:
+      - Stats
+      description: '**This endpoint allows you to retrieve stats for all your Single Sends.**
+
+
+        By default, all of your Single Sends will be returned, but you can specify a selection by passing in a comma-separated list of Single Send IDs as the value of the query string parameter `singlesend_ids`.
+
+
+        Responses are paginated. You can limit the number of responses returned per batch using the `page_size` query string parameter. The default is 25, but you specify a value between 1 and 50.
+
+
+        You can retrieve a specific page of responses with the `page_token` query string parameter.'
+      parameters:
+      - name: singlesend_ids
+        in: query
+        description: This endpoint returns all Single Send IDs if no IDs are included in `singlesend_ids`.
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+          minItems: 1
+          maxItems: 25
+      - $ref: '#/components/parameters/PaginationPageSize'
+      - $ref: '#/components/parameters/PaginationPageToken'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SinglesendsResponse'
+        '400':
+          $ref: '#/components/responses/Stats400'
+  /v3/marketing/stats/singlesends/{id}:
+    parameters:
+    - name: id
+      in: path
+      description: The ID of Single Send for which you want to retrieve stats.
+      required: true
+      schema:
+        type: string
+    get:
+      operationId: GetSingleSendStat
+      summary: Get Single Send Stats by ID
+      tags:
+      - Stats
+      description: '**This endpoint allows you to retrieve stats for an individual Single Send using a Single Send ID.**
+
+
+        Multiple Single Send IDs can be retrieved using the "Get All Single Sends Stats" endpoint. Once you have an ID, this endpoint will return detailed stats for the Single Send specified.
+
+
+        You may constrain the stats returned using the `start_date` and `end_date` query string parameters. You can also use the `group_by` and `aggregated_by` query string parameters to further refine the stats returned.'
+      parameters:
+      - $ref: '#/components/parameters/AggregatedByBaseProps'
+      - $ref: '#/components/parameters/StartDateBaseProps'
+      - $ref: '#/components/parameters/EndDateBaseProps'
+      - $ref: '#/components/parameters/TimezoneBaseProps'
+      - $ref: '#/components/parameters/PaginationPageSize'
+      - $ref: '#/components/parameters/PaginationPageToken'
+      - $ref: '#/components/parameters/SinglesendQueryParamsGroupBy'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SinglesendsResponse'
+        '400':
+          $ref: '#/components/responses/Stats400'
+        '404':
+          description: ''
+  /v3/marketing/stats/singlesends/{id}/links:
+    parameters:
+    - name: id
+      in: path
+      description: The ID of Single Send for which you want to retrieve link stats.
+      required: true
+      schema:
+        type: string
+    get:
+      operationId: ListSingleSendTrackingStat
+      summary: Get Single Send Click Tracking Stats by ID
+      tags:
+      - Stats
+      description: '**This endpoint lets you retrieve click-tracking stats for one Single Send**.
+
+
+        The stats returned list the URLs embedded in the specified Single Send and the number of clicks each one received.'
+      parameters:
+      - $ref: '#/components/parameters/PaginationPageSize'
+      - $ref: '#/components/parameters/PaginationPageToken'
+      - $ref: '#/components/parameters/SinglesendQueryParams2GroupBy'
+      - $ref: '#/components/parameters/SinglesendQueryParams2VariationId'
+      - $ref: '#/components/parameters/SinglesendQueryParams2PhaseId'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SinglesendsLinkStatsResponse'
+        '400':
+          $ref: '#/components/responses/Stats400'
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+  /v3/marketing/stats/singlesends/export:
+    get:
+      operationId: ExportSingleSendStat
+      summary: Export Single Send Stats
+      tags:
+      - Stats
+      description: '**This endpoint allows you to export Single Send stats as .CSV data**.
+
+
+        You can specify one Single Send or many: include as many Single Send IDs as you need, separating them with commas, as the value of the `ids` query string parameter.
+
+
+        The data is returned as plain text response but in .CSV format, so your application making the call can present the information in whatever way is most appropriate, or just save the data as a .csv file.'
+      parameters:
+      - name: ids
+        in: query
+        description: The IDs of Single Sends for which to export stats.
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+          minItems: 1
+          maxItems: 50
+      - name: timezone
+        in: query
+        description: The [IANA Area/Region](https://en.wikipedia.org/wiki/Tz_database#Names_of_timezones) string representing the timezone in which the stats are to be presented; i.e. `"America/Chicago"`. This parameter changes the timezone format only; it does not alter which stats are returned.
+        schema:
+          type: string
+          default: UTC
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: string
+                description: CSV data
+        '400':
+          description: ''
+  /v3/browsers/stats:
+    get:
+      operationId: ListBrowserStat
+      summary: Retrieve email statistics by browser.
+      tags:
+      - Stats
+      description: '**This endpoint allows you to retrieve your email statistics segmented by browser type.**
+
+
+        **We only store up to 7 days of email activity in our database.** By default, 500 items will be returned per request via the Advanced Stats API endpoints.
+
+
+        Advanced Stats provide a more in-depth view of your email statistics and the actions taken by your recipients. You can segment these statistics by geographic location, device type, client type, browser, and mailbox provider. For more information about statistics, please see our [Statistics Overview](https://sendgrid.com/docs/ui/analytics-and-reporting/stats-overview/).'
+      parameters:
+      - name: browsers
+        in: query
+        description: The browsers to get statistics for. You can include up to 10 different browsers by including this parameter multiple times.
+        schema:
+          type: string
+      - $ref: '#/components/parameters/OnBehalfOf'
+      - $ref: '#/components/parameters/StatsAdvancedQueryStringsLimitOffsetLimit'
+      - $ref: '#/components/parameters/StatsAdvancedQueryStringsLimitOffsetOffset'
+      - $ref: '#/components/parameters/StatsAdvancedQueryStringsLimitOffsetAggregatedBy'
+      - $ref: '#/components/parameters/StatsAdvancedQueryStringsLimitOffsetStartDate'
+      - $ref: '#/components/parameters/StatsAdvancedQueryStringsLimitOffsetEndDate'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    date:
+                      type: string
+                      description: The date that the statistics were gathered.
+                    stats:
+                      type: array
+                      description: The list of statistics.
+                      items:
+                        type: object
+                        properties:
+                          type:
+                            type: string
+                            description: The type of segmentation.
+                          name:
+                            type: string
+                            description: The name of the specific segmentation.
+                          metrics:
+                            $ref: '#/components/schemas/AdvancedStatsClicks'
+              examples:
+                response:
+                  value:
+                  - date: '2014-10-01'
+                    stats:
+                    - metrics:
+                        clicks: 0
+                        unique_clicks: 0
+                      name: Chrome
+                      type: browser
+                    - metrics:
+                        clicks: 1
+                        unique_clicks: 1
+                      name: Firefox
+                      type: browser
+                  - date: '2014-10-02'
+                    stats:
+                    - metrics:
+                        clicks: 0
+                        unique_clicks: 0
+                      name: Chrome
+                      type: browser
+                    - metrics:
+                        clicks: 1
+                        unique_clicks: 1
+                      name: Firefox
+                      type: browser
+  /v3/clients/stats:
+    get:
+      operationId: ListClientStat
+      summary: Retrieve email statistics by client type.
+      tags:
+      - Stats
+      description: '**This endpoint allows you to retrieve your email statistics segmented by client type.**
+
+
+        **We only store up to 7 days of email activity in our database.** By default, 500 items will be returned per request via the Advanced Stats API endpoints.
+
+
+        Advanced Stats provide a more in-depth view of your email statistics and the actions taken by your recipients. You can segment these statistics by geographic location, device type, client type, browser, and mailbox provider. For more information about statistics, please see our [Statistics Overview](https://sendgrid.com/docs/ui/analytics-and-reporting/stats-overview/).'
+      parameters:
+      - $ref: '#/components/parameters/OnBehalfOf'
+      - $ref: '#/components/parameters/StatsAdvancedStatsBaseQueryStringsStartDate'
+      - $ref: '#/components/parameters/StatsAdvancedStatsBaseQueryStringsEndDate'
+      - $ref: '#/components/parameters/StatsAdvancedStatsBaseQueryStringsAggregatedBy'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    date:
+                      type: string
+                      description: The date that the statistics were gathered.
+                    stats:
+                      type: array
+                      description: The list of statistics.
+                      items:
+                        type: object
+                        properties:
+                          type:
+                            type: string
+                            description: The type of segmentation.
+                          name:
+                            type: string
+                            description: The name of the specific segmentation.
+                          metrics:
+                            $ref: '#/components/schemas/AdvancedStatsOpens'
+              examples:
+                response:
+                  value:
+                  - date: '2014-10-01'
+                    stats:
+                    - metrics:
+                        opens: 1
+                        unique_opens: 1
+                      name: Gmail
+                      type: client
+                  - date: '2014-10-02'
+                    stats:
+                    - metrics:
+                        opens: 0
+                        unique_opens: 0
+                      name: Gmail
+                      type: client
+  /v3/clients/{client_type}/stats:
+    parameters:
+    - name: client_type
+      in: path
+      description: Specifies the type of client to retrieve stats for. Must be either "phone", "tablet", "webmail", or "desktop".
+      required: true
+      schema:
+        type: string
+        $ref: '#/components/schemas/ClientType'
+    get:
+      operationId: GetClientStat
+      summary: Retrieve stats by a specific client type.
+      tags:
+      - Stats
+      description: '**This endpoint allows you to retrieve your email statistics segmented by a specific client type.**
+
+
+        **We only store up to 7 days of email activity in our database.** By default, 500 items will be returned per request via the Advanced Stats API endpoints.
+
+
+        ### Available Client Types
+
+        - phone
+
+        - tablet
+
+        - webmail
+
+        - desktop
+
+
+        Advanced Stats provide a more in-depth view of your email statistics and the actions taken by your recipients. You can segment these statistics by geographic location, device type, client type, browser, and mailbox provider. For more information about statistics, please see our [Statistics Overview](https://sendgrid.com/docs/ui/analytics-and-reporting/stats-overview/).'
+      parameters:
+      - $ref: '#/components/parameters/OnBehalfOf'
+      - $ref: '#/components/parameters/StatsAdvancedStatsBaseQueryStringsStartDate'
+      - $ref: '#/components/parameters/StatsAdvancedStatsBaseQueryStringsEndDate'
+      - $ref: '#/components/parameters/StatsAdvancedStatsBaseQueryStringsAggregatedBy'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    date:
+                      type: string
+                      description: The date that the statistics were gathered.
+                    stats:
+                      type: array
+                      description: The list of statistics.
+                      items:
+                        type: object
+                        properties:
+                          type:
+                            type: string
+                            description: The type of segmentation.
+                          name:
+                            type: string
+                            description: The name of the specific segmentation.
+                          metrics:
+                            $ref: '#/components/schemas/AdvancedStatsOpens'
+              examples:
+                response:
+                  value:
+                  - date: '2014-10-01'
+                    stats:
+                    - metrics:
+                        opens: 1
+                        unique_opens: 1
+                      name: Gmail
+                      type: client
+                  - date: '2014-10-02'
+                    stats:
+                    - metrics:
+                        opens: 0
+                        unique_opens: 0
+                      name: Gmail
+                      type: client
+  /v3/devices/stats:
+    get:
+      operationId: ListDeviceStat
+      summary: Retrieve email statistics by device type.
+      tags:
+      - Stats
+      description: "**This endpoint allows you to retrieve your email statistics segmented by the device type.**\n\n**We only store up to 7 days of email activity in our database.** By default, 500 items will be returned per request via the Advanced Stats API endpoints.\n\n## Available Device Types\n| **Device** | **Description** | **Example** |\n|---|---|---|\n| Desktop | Email software on desktop computer. | I.E., Outlook, Sparrow, or Apple Mail. |\n| Webmail |\tA web-based email client. | I.E., Yahoo, Google, AOL, or Outlook.com. |\n| Phone | A smart phone. | iPhone, Android, Blackberry, etc.\n| Tablet | A tablet computer. | iPad, android based tablet, etc. |\n| Other | An unrecognized device. |\n\nAdvanced Stats provide a more in-depth view of your email statistics and the actions taken by your recipients. You can segment these statistics by geographic location, device type, client type, browser, and mailbox provider. For more information about statistics, please see our [Statistics Overview](https://sendgrid.com/docs/ui/analytics-and-reporting/stats-overview/)."
+      parameters:
+      - $ref: '#/components/parameters/OnBehalfOf'
+      - $ref: '#/components/parameters/StatsAdvancedQueryStringsLimitOffsetLimit'
+      - $ref: '#/components/parameters/StatsAdvancedQueryStringsLimitOffsetOffset'
+      - $ref: '#/components/parameters/StatsAdvancedQueryStringsLimitOffsetAggregatedBy'
+      - $ref: '#/components/parameters/StatsAdvancedQueryStringsLimitOffsetStartDate'
+      - $ref: '#/components/parameters/StatsAdvancedQueryStringsLimitOffsetEndDate'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    date:
+                      type: string
+                      description: The date that the statistics were gathered.
+                    stats:
+                      type: array
+                      description: The list of statistics.
+                      items:
+                        type: object
+                        properties:
+                          type:
+                            type: string
+                            description: The type of segmentation.
+                          name:
+                            type: string
+                            description: The name of the specific segmentation.
+                          metrics:
+                            $ref: '#/components/schemas/AdvancedStatsOpens'
+              examples:
+                response:
+                  value:
+                  - date: '2015-10-11'
+                    stats:
+                    - type: device
+                      name: Webmail
+                      metrics:
+                        opens: 0
+                        unique_opens: 0
+                  - date: '2015-10-12'
+                    stats:
+                    - type: device
+                      name: Webmail
+                      metrics:
+                        opens: 0
+                        unique_opens: 0
+                  - date: '2015-10-13'
+                    stats:
+                    - type: device
+                      name: Webmail
+                      metrics:
+                        opens: 0
+                        unique_opens: 0
+                  - date: '2015-10-14'
+                    stats:
+                    - type: device
+                      name: Webmail
+                      metrics:
+                        opens: 0
+                        unique_opens: 0
+                  - date: '2015-10-15'
+                    stats:
+                    - type: device
+                      name: Webmail
+                      metrics:
+                        opens: 0
+                        unique_opens: 0
+                  - date: '2015-10-16'
+                    stats:
+                    - type: device
+                      name: Webmail
+                      metrics:
+                        opens: 0
+                        unique_opens: 0
+                  - date: '2015-10-17'
+                    stats:
+                    - type: device
+                      name: Webmail
+                      metrics:
+                        opens: 0
+                        unique_opens: 0
+                  - date: '2015-10-18'
+                    stats:
+                    - type: device
+                      name: Webmail
+                      metrics:
+                        opens: 0
+                        unique_opens: 0
+                  - date: '2015-10-19'
+                    stats:
+                    - type: device
+                      name: Webmail
+                      metrics:
+                        opens: 0
+                        unique_opens: 0
+                  - date: '2015-10-20'
+                    stats:
+                    - type: device
+                      name: Webmail
+                      metrics:
+                        opens: 0
+                        unique_opens: 0
+                  - date: '2015-10-21'
+                    stats:
+                    - type: device
+                      name: Webmail
+                      metrics:
+                        opens: 1
+                        unique_opens: 1
+                  - date: '2015-10-22'
+                    stats:
+                    - type: device
+                      name: Webmail
+                      metrics:
+                        opens: 0
+                        unique_opens: 0
+                  - date: '2015-10-23'
+                    stats:
+                    - type: device
+                      name: Webmail
+                      metrics:
+                        opens: 0
+                        unique_opens: 0
+                  - date: '2015-10-24'
+                    stats:
+                    - type: device
+                      name: Webmail
+                      metrics:
+                        opens: 0
+                        unique_opens: 0
+                  - date: '2015-10-25'
+                    stats:
+                    - type: device
+                      name: Webmail
+                      metrics:
+                        opens: 0
+                        unique_opens: 0
+                  - date: '2015-10-26'
+                    stats:
+                    - type: device
+                      name: Webmail
+                      metrics:
+                        opens: 2
+                        unique_opens: 2
+                  - date: '2015-10-27'
+                    stats:
+                    - type: device
+                      name: Webmail
+                      metrics:
+                        opens: 0
+                        unique_opens: 0
+                  - date: '2015-10-28'
+                    stats:
+                    - type: device
+                      name: Webmail
+                      metrics:
+                        opens: 0
+                        unique_opens: 0
+                  - date: '2015-10-29'
+                    stats:
+                    - type: device
+                      name: Webmail
+                      metrics:
+                        opens: 0
+                        unique_opens: 0
+                  - date: '2015-10-30'
+                    stats:
+                    - type: device
+                      name: Webmail
+                      metrics:
+                        opens: 0
+                        unique_opens: 0
+                  - date: '2015-10-31'
+                    stats:
+                    - type: device
+                      name: Webmail
+                      metrics:
+                        opens: 0
+                        unique_opens: 0
+                  - date: '2015-11-01'
+                    stats:
+                    - type: device
+                      name: Webmail
+                      metrics:
+                        opens: 0
+                        unique_opens: 0
+                  - date: '2015-11-02'
+                    stats:
+                    - type: device
+                      name: Webmail
+                      metrics:
+                        opens: 0
+                        unique_opens: 0
+                  - date: '2015-11-03'
+                    stats:
+                    - type: device
+                      name: Webmail
+                      metrics:
+                        opens: 0
+                        unique_opens: 0
+                  - date: '2015-11-04'
+                    stats:
+                    - type: device
+                      name: Webmail
+                      metrics:
+                        opens: 0
+                        unique_opens: 0
+                  - date: '2015-11-05'
+                    stats:
+                    - type: device
+                      name: Webmail
+                      metrics:
+                        opens: 0
+                        unique_opens: 0
+                  - date: '2015-11-06'
+                    stats:
+                    - type: device
+                      name: Webmail
+                      metrics:
+                        opens: 0
+                        unique_opens: 0
+                  - date: '2015-11-07'
+                    stats:
+                    - type: device
+                      name: Webmail
+                      metrics:
+                        opens: 0
+                        unique_opens: 0
+                  - date: '2015-11-08'
+                    stats:
+                    - type: device
+                      name: Webmail
+                      metrics:
+                        opens: 0
+                        unique_opens: 0
+                  - date: '2015-11-09'
+                    stats:
+                    - type: device
+                      name: Webmail
+                      metrics:
+                        opens: 0
+                        unique_opens: 0
+                  - date: '2015-11-10'
+                    stats:
+                    - type: device
+                      name: Webmail
+                      metrics:
+                        opens: 0
+                        unique_opens: 0
+  /v3/geo/stats:
+    get:
+      operationId: ListGeoStat
+      summary: Retrieve email statistics by country and state/province.
+      tags:
+      - Stats
+      description: '**This endpoint allows you to retrieve your email statistics segmented by country and state/province.**
+
+
+        **We only store up to 7 days of email activity in our database.** By default, 500 items will be returned per request via the Advanced Stats API endpoints.
+
+
+        Advanced Stats provide a more in-depth view of your email statistics and the actions taken by your recipients. You can segment these statistics by geographic location, device type, client type, browser, and mailbox provider. For more information about statistics, please see our [User Guide](https://wwww.twilio.com/docs/sendgrid/ui/analytics-and-reporting/stats-overview).'
+      parameters:
+      - name: country
+        in: query
+        description: The country you would like to see statistics for. Currently only supported for US and CA.
+        schema:
+          type: string
+          $ref: '#/components/schemas/Country'
+      - $ref: '#/components/parameters/OnBehalfOf'
+      - $ref: '#/components/parameters/StatsAdvancedQueryStringsLimitOffsetLimit'
+      - $ref: '#/components/parameters/StatsAdvancedQueryStringsLimitOffsetOffset'
+      - $ref: '#/components/parameters/StatsAdvancedQueryStringsLimitOffsetAggregatedBy'
+      - $ref: '#/components/parameters/StatsAdvancedQueryStringsLimitOffsetStartDate'
+      - $ref: '#/components/parameters/StatsAdvancedQueryStringsLimitOffsetEndDate'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    date:
+                      type: string
+                      description: The date that the statistics were gathered.
+                    stats:
+                      type: array
+                      description: The list of statistics.
+                      items:
+                        type: object
+                        properties:
+                          type:
+                            type: string
+                            description: The type of segmentation.
+                          name:
+                            type: string
+                            description: The name of the specific segmentation.
+                          metrics:
+                            $ref: '#/components/schemas/AdvancedStatsClicksOpens'
+              examples:
+                response:
+                  value:
+                  - date: '2015-10-11'
+                    stats:
+                    - type: province
+                      name: TX
+                      metrics:
+                        clicks: 0
+                        opens: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-10-12'
+                    stats:
+                    - type: province
+                      name: TX
+                      metrics:
+                        clicks: 0
+                        opens: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-10-13'
+                    stats:
+                    - type: province
+                      name: TX
+                      metrics:
+                        clicks: 0
+                        opens: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-10-14'
+                    stats:
+                    - type: province
+                      name: TX
+                      metrics:
+                        clicks: 0
+                        opens: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-10-15'
+                    stats:
+                    - type: province
+                      name: TX
+                      metrics:
+                        clicks: 0
+                        opens: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-10-16'
+                    stats:
+                    - type: province
+                      name: TX
+                      metrics:
+                        clicks: 0
+                        opens: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-10-17'
+                    stats:
+                    - type: province
+                      name: TX
+                      metrics:
+                        clicks: 0
+                        opens: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-10-18'
+                    stats:
+                    - type: province
+                      name: TX
+                      metrics:
+                        clicks: 0
+                        opens: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-10-19'
+                    stats:
+                    - type: province
+                      name: TX
+                      metrics:
+                        clicks: 0
+                        opens: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-10-20'
+                    stats:
+                    - type: province
+                      name: TX
+                      metrics:
+                        clicks: 0
+                        opens: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-10-21'
+                    stats:
+                    - type: province
+                      name: TX
+                      metrics:
+                        clicks: 0
+                        opens: 1
+                        unique_clicks: 0
+                        unique_opens: 1
+                  - date: '2015-10-22'
+                    stats:
+                    - type: province
+                      name: TX
+                      metrics:
+                        clicks: 0
+                        opens: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-10-23'
+                    stats:
+                    - type: province
+                      name: TX
+                      metrics:
+                        clicks: 0
+                        opens: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-10-24'
+                    stats:
+                    - type: province
+                      name: TX
+                      metrics:
+                        clicks: 0
+                        opens: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-10-25'
+                    stats:
+                    - type: province
+                      name: TX
+                      metrics:
+                        clicks: 0
+                        opens: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-10-26'
+                    stats:
+                    - type: province
+                      name: TX
+                      metrics:
+                        clicks: 0
+                        opens: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-10-27'
+                    stats:
+                    - type: province
+                      name: TX
+                      metrics:
+                        clicks: 0
+                        opens: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-10-28'
+                    stats:
+                    - type: province
+                      name: TX
+                      metrics:
+                        clicks: 0
+                        opens: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-10-29'
+                    stats:
+                    - type: province
+                      name: TX
+                      metrics:
+                        clicks: 0
+                        opens: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-10-30'
+                    stats:
+                    - type: province
+                      name: TX
+                      metrics:
+                        clicks: 0
+                        opens: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-10-31'
+                    stats:
+                    - type: province
+                      name: TX
+                      metrics:
+                        clicks: 0
+                        opens: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-11-01'
+                    stats:
+                    - type: province
+                      name: TX
+                      metrics:
+                        clicks: 0
+                        opens: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-11-02'
+                    stats:
+                    - type: province
+                      name: TX
+                      metrics:
+                        clicks: 0
+                        opens: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-11-03'
+                    stats:
+                    - type: province
+                      name: TX
+                      metrics:
+                        clicks: 0
+                        opens: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-11-04'
+                    stats:
+                    - type: province
+                      name: TX
+                      metrics:
+                        clicks: 0
+                        opens: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-11-05'
+                    stats:
+                    - type: province
+                      name: TX
+                      metrics:
+                        clicks: 0
+                        opens: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-11-06'
+                    stats:
+                    - type: province
+                      name: TX
+                      metrics:
+                        clicks: 0
+                        opens: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-11-07'
+                    stats:
+                    - type: province
+                      name: TX
+                      metrics:
+                        clicks: 0
+                        opens: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-11-08'
+                    stats:
+                    - type: province
+                      name: TX
+                      metrics:
+                        clicks: 0
+                        opens: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-11-09'
+                    stats:
+                    - type: province
+                      name: TX
+                      metrics:
+                        clicks: 0
+                        opens: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-11-10'
+                    stats:
+                    - type: province
+                      name: TX
+                      metrics:
+                        clicks: 0
+                        opens: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+  /v3/mailbox_providers/stats:
+    get:
+      operationId: ListMailboxProviderStat
+      summary: Retrieve email statistics by mailbox provider.
+      tags:
+      - Stats
+      description: '**This endpoint allows you to retrieve your email statistics segmented by recipient mailbox provider.**
+
+
+        **We only store up to 7 days of email activity in our database.** By default, 500 items will be returned per request via the Advanced Stats API endpoints.
+
+
+        Advanced Stats provide a more in-depth view of your email statistics and the actions taken by your recipients. You can segment these statistics by geographic location, device type, client type, browser, and mailbox provider. For more information about statistics, please see our [Statistics Overview](https://sendgrid.com/docs/ui/analytics-and-reporting/stats-overview/).'
+      parameters:
+      - name: mailbox_providers
+        in: query
+        description: The mail box providers to get statistics for. You can include up to 10 by including this parameter multiple times.
+        schema:
+          type: string
+      - $ref: '#/components/parameters/OnBehalfOf'
+      - $ref: '#/components/parameters/StatsAdvancedQueryStringsLimitOffsetLimit'
+      - $ref: '#/components/parameters/StatsAdvancedQueryStringsLimitOffsetOffset'
+      - $ref: '#/components/parameters/StatsAdvancedQueryStringsLimitOffsetAggregatedBy'
+      - $ref: '#/components/parameters/StatsAdvancedQueryStringsLimitOffsetStartDate'
+      - $ref: '#/components/parameters/StatsAdvancedQueryStringsLimitOffsetEndDate'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    date:
+                      type: string
+                      description: The date that the statistics were gathered.
+                    stats:
+                      type: array
+                      description: The list of statistics.
+                      items:
+                        type: object
+                        properties:
+                          type:
+                            type: string
+                            description: The type of segmentation.
+                          name:
+                            type: string
+                            description: The name of the specific segmentation.
+                          metrics:
+                            $ref: '#/components/schemas/AdvancedStatsMailboxProvider'
+              examples:
+                response:
+                  value:
+                  - date: '2015-10-11'
+                    stats:
+                    - type: mailbox_provider
+                      name: Gmail
+                      metrics:
+                        blocks: 0
+                        bounces: 0
+                        clicks: 0
+                        deferred: 0
+                        delivered: 0
+                        drops: 0
+                        opens: 0
+                        processed: 0
+                        requests: 0
+                        spam_reports: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-10-12'
+                    stats:
+                    - type: mailbox_provider
+                      name: Gmail
+                      metrics:
+                        blocks: 0
+                        bounces: 0
+                        clicks: 0
+                        deferred: 0
+                        delivered: 0
+                        drops: 0
+                        opens: 0
+                        processed: 0
+                        requests: 0
+                        spam_reports: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-10-13'
+                    stats:
+                    - type: mailbox_provider
+                      name: Gmail
+                      metrics:
+                        blocks: 0
+                        bounces: 0
+                        clicks: 0
+                        deferred: 0
+                        delivered: 0
+                        drops: 0
+                        opens: 0
+                        processed: 0
+                        requests: 0
+                        spam_reports: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-10-14'
+                    stats:
+                    - type: mailbox_provider
+                      name: Gmail
+                      metrics:
+                        blocks: 0
+                        bounces: 0
+                        clicks: 0
+                        deferred: 0
+                        delivered: 0
+                        drops: 0
+                        opens: 0
+                        processed: 0
+                        requests: 0
+                        spam_reports: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-10-15'
+                    stats:
+                    - type: mailbox_provider
+                      name: Gmail
+                      metrics:
+                        blocks: 0
+                        bounces: 0
+                        clicks: 0
+                        deferred: 0
+                        delivered: 0
+                        drops: 0
+                        opens: 0
+                        processed: 0
+                        requests: 0
+                        spam_reports: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-10-16'
+                    stats:
+                    - type: mailbox_provider
+                      name: Gmail
+                      metrics:
+                        blocks: 0
+                        bounces: 0
+                        clicks: 0
+                        deferred: 0
+                        delivered: 0
+                        drops: 0
+                        opens: 0
+                        processed: 0
+                        requests: 0
+                        spam_reports: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-10-17'
+                    stats:
+                    - type: mailbox_provider
+                      name: Gmail
+                      metrics:
+                        blocks: 0
+                        bounces: 0
+                        clicks: 0
+                        deferred: 0
+                        delivered: 0
+                        drops: 0
+                        opens: 0
+                        processed: 0
+                        requests: 0
+                        spam_reports: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-10-18'
+                    stats:
+                    - type: mailbox_provider
+                      name: Gmail
+                      metrics:
+                        blocks: 0
+                        bounces: 0
+                        clicks: 0
+                        deferred: 0
+                        delivered: 0
+                        drops: 0
+                        opens: 0
+                        processed: 0
+                        requests: 0
+                        spam_reports: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-10-19'
+                    stats:
+                    - type: mailbox_provider
+                      name: Gmail
+                      metrics:
+                        blocks: 0
+                        bounces: 0
+                        clicks: 0
+                        deferred: 0
+                        delivered: 0
+                        drops: 0
+                        opens: 0
+                        processed: 0
+                        requests: 0
+                        spam_reports: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-10-20'
+                    stats:
+                    - type: mailbox_provider
+                      name: Gmail
+                      metrics:
+                        blocks: 0
+                        bounces: 0
+                        clicks: 0
+                        deferred: 0
+                        delivered: 0
+                        drops: 0
+                        opens: 0
+                        processed: 0
+                        requests: 0
+                        spam_reports: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-10-21'
+                    stats:
+                    - type: mailbox_provider
+                      name: Gmail
+                      metrics:
+                        blocks: 0
+                        bounces: 0
+                        clicks: 0
+                        deferred: 0
+                        delivered: 1
+                        drops: 0
+                        opens: 1
+                        processed: 0
+                        requests: 0
+                        spam_reports: 0
+                        unique_clicks: 0
+                        unique_opens: 1
+                  - date: '2015-10-22'
+                    stats:
+                    - type: mailbox_provider
+                      name: Gmail
+                      metrics:
+                        blocks: 0
+                        bounces: 0
+                        clicks: 0
+                        deferred: 0
+                        delivered: 0
+                        drops: 0
+                        opens: 0
+                        spam_reports: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-10-23'
+                    stats:
+                    - type: mailbox_provider
+                      name: Gmail
+                      metrics:
+                        blocks: 0
+                        bounces: 0
+                        clicks: 0
+                        deferred: 0
+                        delivered: 0
+                        drops: 0
+                        opens: 0
+                        processed: 0
+                        requests: 0
+                        spam_reports: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-10-24'
+                    stats:
+                    - type: mailbox_provider
+                      name: Gmail
+                      metrics:
+                        blocks: 0
+                        bounces: 0
+                        clicks: 0
+                        deferred: 0
+                        delivered: 0
+                        drops: 0
+                        opens: 0
+                        processed: 0
+                        requests: 0
+                        spam_reports: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-10-25'
+                    stats:
+                    - type: mailbox_provider
+                      name: Gmail
+                      metrics:
+                        blocks: 0
+                        bounces: 0
+                        clicks: 0
+                        deferred: 0
+                        delivered: 0
+                        drops: 0
+                        opens: 0
+                        processed: 0
+                        requests: 0
+                        spam_reports: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-10-26'
+                    stats:
+                    - type: mailbox_provider
+                      name: Gmail
+                      metrics:
+                        blocks: 0
+                        bounces: 0
+                        clicks: 0
+                        deferred: 0
+                        delivered: 2
+                        drops: 0
+                        opens: 2
+                        processed: 0
+                        requests: 0
+                        spam_reports: 0
+                        unique_clicks: 0
+                        unique_opens: 2
+                  - date: '2015-10-27'
+                    stats:
+                    - type: mailbox_provider
+                      name: Gmail
+                      metrics:
+                        blocks: 0
+                        bounces: 0
+                        clicks: 0
+                        deferred: 0
+                        delivered: 0
+                        drops: 0
+                        opens: 0
+                        processed: 0
+                        requests: 0
+                        spam_reports: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-10-28'
+                    stats:
+                    - type: mailbox_provider
+                      name: Gmail
+                      metrics:
+                        blocks: 0
+                        bounces: 0
+                        clicks: 0
+                        deferred: 0
+                        delivered: 0
+                        drops: 0
+                        opens: 0
+                        processed: 0
+                        requests: 0
+                        spam_reports: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-10-29'
+                    stats:
+                    - type: mailbox_provider
+                      name: Gmail
+                      metrics:
+                        blocks: 0
+                        bounces: 0
+                        clicks: 0
+                        deferred: 0
+                        delivered: 0
+                        drops: 0
+                        opens: 0
+                        processed: 0
+                        requests: 0
+                        spam_reports: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-10-30'
+                    stats:
+                    - type: mailbox_provider
+                      name: Gmail
+                      metrics:
+                        blocks: 0
+                        bounces: 0
+                        clicks: 0
+                        deferred: 0
+                        delivered: 0
+                        drops: 0
+                        opens: 0
+                        processed: 0
+                        requests: 0
+                        spam_reports: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-10-31'
+                    stats:
+                    - type: mailbox_provider
+                      name: Gmail
+                      metrics:
+                        blocks: 0
+                        bounces: 0
+                        clicks: 0
+                        deferred: 0
+                        delivered: 0
+                        drops: 0
+                        opens: 0
+                        processed: 0
+                        requests: 0
+                        spam_reports: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-11-01'
+                    stats:
+                    - type: mailbox_provider
+                      name: Gmail
+                      metrics:
+                        blocks: 0
+                        bounces: 0
+                        clicks: 0
+                        deferred: 0
+                        delivered: 0
+                        drops: 0
+                        opens: 0
+                        processed: 0
+                        requests: 0
+                        spam_reports: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-11-02'
+                    stats:
+                    - type: mailbox_provider
+                      name: Gmail
+                      metrics:
+                        blocks: 0
+                        bounces: 0
+                        clicks: 0
+                        deferred: 0
+                        delivered: 0
+                        drops: 0
+                        opens: 0
+                        processed: 0
+                        requests: 0
+                        spam_reports: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-11-03'
+                    stats:
+                    - type: mailbox_provider
+                      name: Gmail
+                      metrics:
+                        blocks: 0
+                        bounces: 0
+                        clicks: 0
+                        deferred: 0
+                        delivered: 0
+                        drops: 0
+                        opens: 0
+                        processed: 0
+                        requests: 0
+                        spam_reports: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-11-04'
+                    stats:
+                    - type: mailbox_provider
+                      name: Gmail
+                      metrics:
+                        blocks: 0
+                        bounces: 0
+                        clicks: 0
+                        deferred: 0
+                        delivered: 0
+                        drops: 0
+                        opens: 0
+                        processed: 0
+                        requests: 0
+                        spam_reports: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-11-05'
+                    stats:
+                    - type: mailbox_provider
+                      name: Gmail
+                      metrics:
+                        blocks: 0
+                        bounces: 0
+                        clicks: 0
+                        deferred: 0
+                        delivered: 0
+                        drops: 0
+                        opens: 0
+                        processed: 0
+                        requests: 0
+                        spam_reports: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-11-06'
+                    stats:
+                    - type: mailbox_provider
+                      name: Gmail
+                      metrics:
+                        blocks: 0
+                        bounces: 0
+                        clicks: 0
+                        deferred: 0
+                        delivered: 0
+                        drops: 0
+                        opens: 0
+                        processed: 0
+                        requests: 0
+                        spam_reports: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-11-07'
+                    stats:
+                    - type: mailbox_provider
+                      name: Gmail
+                      metrics:
+                        blocks: 0
+                        bounces: 0
+                        clicks: 0
+                        deferred: 0
+                        delivered: 0
+                        drops: 0
+                        opens: 0
+                        processed: 0
+                        requests: 0
+                        spam_reports: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-11-08'
+                    stats:
+                    - type: mailbox_provider
+                      name: Gmail
+                      metrics:
+                        blocks: 0
+                        bounces: 0
+                        clicks: 0
+                        deferred: 0
+                        delivered: 0
+                        drops: 0
+                        opens: 0
+                        processed: 0
+                        requests: 0
+                        spam_reports: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-11-09'
+                    stats:
+                    - type: mailbox_provider
+                      name: Gmail
+                      metrics:
+                        blocks: 0
+                        bounces: 0
+                        clicks: 0
+                        deferred: 0
+                        delivered: 0
+                        drops: 0
+                        opens: 0
+                        processed: 0
+                        requests: 0
+                        spam_reports: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                  - date: '2015-11-10'
+                    stats:
+                    - type: mailbox_provider
+                      name: Gmail
+                      metrics:
+                        blocks: 0
+                        bounces: 0
+                        clicks: 0
+                        deferred: 0
+                        delivered: 0
+                        drops: 0
+                        opens: 0
+                        processed: 0
+                        requests: 0
+                        spam_reports: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+  /v3/stats:
+    get:
+      operationId: ListStat
+      summary: Retrieve global email statistics
+      tags:
+      - Stats
+      description: '**This endpoint allows you to retrieve all of your global email statistics between a given date range.**
+
+
+        Parent accounts can see either aggregated stats for the parent account or aggregated stats for a subuser specified in the `on-behalf-of` header. Subuser accounts will see only their own stats.'
+      parameters:
+      - $ref: '#/components/parameters/OnBehalfOf'
+      - $ref: '#/components/parameters/StatsAdvancedQueryStringsLimitOffsetLimit'
+      - $ref: '#/components/parameters/StatsAdvancedQueryStringsLimitOffsetOffset'
+      - $ref: '#/components/parameters/StatsAdvancedQueryStringsLimitOffsetAggregatedBy'
+      - $ref: '#/components/parameters/StatsAdvancedQueryStringsLimitOffsetStartDate'
+      - $ref: '#/components/parameters/StatsAdvancedQueryStringsLimitOffsetEndDate'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    date:
+                      type: string
+                      description: The date the stats were gathered.
+                    stats:
+                      type: array
+                      description: The individual email activity stats.
+                      items:
+                        type: object
+                        properties:
+                          metrics:
+                            $ref: '#/components/schemas/StatsAdvancedGlobalStats'
+                  required:
+                  - date
+                  - stats
+              examples:
+                response:
+                  value:
+                  - date: '2015-11-03'
+                    stats:
+                    - metrics:
+                        blocks: 0
+                        bounce_drops: 0
+                        bounces: 0
+                        clicks: 0
+                        deferred: 0
+                        delivered: 0
+                        invalid_emails: 0
+                        opens: 0
+                        processed: 0
+                        requests: 0
+                        spam_report_drops: 0
+                        spam_reports: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                        unsubscribe_drops: 0
+                        unsubscribes: 0
+                  - date: '2015-11-04'
+                    stats:
+                    - metrics:
+                        blocks: 0
+                        bounce_drops: 0
+                        bounces: 0
+                        clicks: 0
+                        deferred: 0
+                        delivered: 0
+                        invalid_emails: 0
+                        opens: 0
+                        processed: 0
+                        requests: 0
+                        spam_report_drops: 0
+                        spam_reports: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                        unsubscribe_drops: 0
+                        unsubscribes: 0
+                  - date: '2015-11-05'
+                    stats:
+                    - metrics:
+                        blocks: 0
+                        bounce_drops: 0
+                        bounces: 0
+                        clicks: 0
+                        deferred: 0
+                        delivered: 0
+                        invalid_emails: 0
+                        opens: 0
+                        processed: 0
+                        requests: 0
+                        spam_report_drops: 0
+                        spam_reports: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                        unsubscribe_drops: 0
+                        unsubscribes: 0
+                  - date: '2015-11-06'
+                    stats:
+                    - metrics:
+                        blocks: 0
+                        bounce_drops: 0
+                        bounces: 0
+                        clicks: 0
+                        deferred: 0
+                        delivered: 0
+                        invalid_emails: 0
+                        opens: 0
+                        processed: 0
+                        requests: 0
+                        spam_report_drops: 0
+                        spam_reports: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                        unsubscribe_drops: 0
+                        unsubscribes: 0
+                  - date: '2015-11-07'
+                    stats:
+                    - metrics:
+                        blocks: 0
+                        bounce_drops: 0
+                        bounces: 0
+                        clicks: 0
+                        deferred: 0
+                        delivered: 0
+                        invalid_emails: 0
+                        opens: 0
+                        processed: 0
+                        requests: 0
+                        spam_report_drops: 0
+                        spam_reports: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                        unsubscribe_drops: 0
+                        unsubscribes: 0
+                  - date: '2015-11-08'
+                    stats:
+                    - metrics:
+                        blocks: 0
+                        bounce_drops: 0
+                        bounces: 0
+                        clicks: 0
+                        deferred: 0
+                        delivered: 0
+                        invalid_emails: 0
+                        opens: 0
+                        processed: 0
+                        requests: 0
+                        spam_report_drops: 0
+                        spam_reports: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                        unsubscribe_drops: 0
+                        unsubscribes: 0
+                  - date: '2015-11-09'
+                    stats:
+                    - metrics:
+                        blocks: 0
+                        bounce_drops: 0
+                        bounces: 0
+                        clicks: 0
+                        deferred: 0
+                        delivered: 0
+                        invalid_emails: 0
+                        opens: 0
+                        processed: 0
+                        requests: 0
+                        spam_report_drops: 0
+                        spam_reports: 0
+                        unique_clicks: 0
+                        unique_opens: 0
+                        unsubscribe_drops: 0
+                        unsubscribes: 0
+components:
+  parameters:
+    TimezoneBaseProps:
+      name: timezone
+      in: query
+      description: '[IANA Area/Region](https://en.wikipedia.org/wiki/Tz_database#Names_of_timezones) string representing the timezone in which the stats are to be presented, e.g., "America/Chicago".'
+      schema:
+        type: string
+        default: UTC
+    StatsAdvancedStatsBaseQueryStringsEndDate:
+      name: end_date
+      in: query
+      description: The end date of the statistics to retrieve. Defaults to today. Must follow format YYYY-MM-DD.
+      required: false
+      schema:
+        type: string
+    StatsAdvancedStatsBaseQueryStringsAggregatedBy:
+      name: aggregated_by
+      in: query
+      description: How to group the statistics. Must be either "day", "week", or "month".
+      required: false
+      schema:
+        type: string
+        $ref: '#/components/schemas/AggregatedBy2'
+    StatsAdvancedStatsBaseQueryStringsStartDate:
+      name: start_date
+      in: query
+      description: The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD.
+      required: true
+      schema:
+        type: string
+    StatsAdvancedQueryStringsLimitOffsetEndDate:
+      name: end_date
+      in: query
+      description: The end date of the statistics to retrieve. Defaults to today. Must follow format YYYY-MM-DD.
+      required: false
+      schema:
+        type: string
+    StatsAdvancedQueryStringsLimitOffsetLimit:
+      name: limit
+      in: query
+      description: The number of results to return.
+      required: false
+      schema:
+        type: integer
+    EndDateBaseProps:
+      name: end_date
+      in: query
+      description: 'Format: `YYYY-MM-DD`.If this parameter is included, the stats'' end date is included in the search.'
+      schema:
+        type: string
+        format: date
+        default: '2021-12-31'
+    SinglesendQueryParams2VariationId:
+      name: ab_variation_id
+      in: query
+      schema:
+        type: string
+        format: uuid
+    SinglesendQueryParamsGroupBy:
+      name: group_by
+      in: query
+      description: A/B Single Sends have multiple variation IDs and phase IDs. Including these additional fields allows further granularity of stats by these fields.
+      style: form
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          $ref: '#/components/schemas/Items1'
+    AggregatedByBaseProps:
+      name: aggregated_by
+      in: query
+      description: Dictates how the stats are time-sliced. Currently, `"total"` and `"day"` are supported.
+      schema:
+        type: string
+        default: total
+        $ref: '#/components/schemas/AggregatedBy'
+    AutomationQueryParamsGroupBy:
+      name: group_by
+      in: query
+      description: Automations can have multiple steps. Including `step_id` as a `group_by` metric allows further granularity of stats.
+      style: form
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          $ref: '#/components/schemas/Items'
+    SinglesendQueryParams2PhaseId:
+      name: ab_phase_id
+      in: query
+      schema:
+        type: string
+        $ref: '#/components/schemas/AbPhaseId'
+    StatsAdvancedQueryStringsLimitOffsetOffset:
+      name: offset
+      in: query
+      description: The point in the list to begin retrieving results.
+      required: false
+      schema:
+        type: integer
+    SinglesendQueryParams2GroupBy:
+      name: group_by
+      in: query
+      description: A/B Single Sends have multiple variation IDs and phase IDs. Including these additional fields allows further granularity of stats by these fields.
+      style: form
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          $ref: '#/components/schemas/Items2'
+    PaginationPageSize:
+      name: page_size
+      in: query
+      description: The number of elements you want returned on each page.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 50
+        default: 25
+    PaginationPageToken:
+      name: page_token
+      in: query
+      description: The stats endpoints are paginated. To get the next page, call the passed `_metadata.next` URL. If `_metadata.prev` doesn't exist, you're at the first page. Similarly, if `_metadata.next` is not present, you're at the last page.
+      schema:
+        type: string
+    StatsAdvancedQueryStringsLimitOffsetAggregatedBy:
+      name: aggregated_by
+      in: query
+      description: How to group the statistics. Must be either "day", "week", or "month".
+      required: false
+      schema:
+        type: string
+        $ref: '#/components/schemas/AggregatedBy3'
+    OnBehalfOf:
+      name: on-behalf-of
+      in: header
+      description: 'The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent''s Subusers or customer accounts. You will use the parent account''s API key when using this header. When making a call on behalf of a customer account, the property value should be "account-id" followed by the customer account''s ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser''s username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.'
+      required: false
+      schema:
+        type: string
+    AutomationQueryParamsStepId:
+      name: step_ids
+      in: query
+      description: Comma-separated list of `step_ids` that you want the link stats for.
+      style: form
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          format: uuid
+        uniqueItems: true
+    StatsAdvancedQueryStringsLimitOffsetStartDate:
+      name: start_date
+      in: query
+      description: The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD.
+      required: true
+      schema:
+        type: string
+    StartDateBaseProps:
+      name: start_date
+      in: query
+      description: 'Format: `YYYY-MM-DD`. If this parameter is included, the stats'' start date is included in the search.'
+      schema:
+        type: string
+        format: date
+        default: '2021-01-01'
+  schemas:
+    SinglesendsResponse:
+      title: SinglesendsResponse
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: This is the ID of the Single Send you require stats for.
+                format: uuid
+              ab_variation:
+                type: string
+                default: a14dcc63-d651-4c57-9826-4a3705f5c78d
+                description: This is the A/B variation of the Single Send stat returned. If the `group_by` parameter doesn't include `ab_variation` in the request, then the value is "all".
+                format: uuid
+              ab_phase:
+                type: string
+                default: all
+                description: This is the A/B phase of the Single Send stat returned. If the `group_by` parameter doesn't include `ab_phase` in the request, then the value is "all".
+                $ref: '#/components/schemas/AbPhase'
+              aggregation:
+                type: string
+                description: This describes the time unit to which the stat is rolled up. It is based on the `aggregated_by` parameter included in the request. It can be "total" or the date (in YYYY-MM-DD format) the stats are for.
+                default: total
+              stats:
+                $ref: '#/components/schemas/Metrics'
+            required:
+            - id
+            - ab_variation
+            - ab_phase
+        _metadata:
+          $ref: '#/components/schemas/Metadata'
+      required:
+      - results
+      - _metadata
+    ErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: An error message.
+              field:
+                description: When applicable, this property value will be the field that generated the error.
+                nullable: true
+                type: string
+              help:
+                type: object
+                description: When applicable, this property value will be helper text or a link to documentation to help you troubleshoot the error.
+        id:
+          type: string
+          description: When applicable, this property value will be an error ID.
+      example:
+        errors:
+        - field: field_name
+          message: error message
+    AggregatedBy2:
+      type: string
+      enum:
+      - day
+      - week
+      - month
+    AdvancedStatsClicksOpens:
+      title: 'Stats: Advanced Stats with Clicks and Opens'
+      description: The individual events and their stats.
+      type: object
+      properties:
+        clicks:
+          type: integer
+          description: The number of links that were clicked in your emails.
+        unique_clicks:
+          type: integer
+          description: The number of unique recipients who clicked links in your emails.
+        opens:
+          type: integer
+          description: The total number of times your emails were opened by recipients.
+        unique_opens:
+          type: integer
+          description: The number of unique recipients who opened your emails.
+    AbPhase1:
+      type: string
+      enum:
+      - send
+      - test
+      - all
+    AbPhaseId:
+      type: string
+      enum:
+      - test
+      - send
+    ClientType:
+      type: string
+      enum:
+      - phone
+      - tablet
+      - webmail
+      - desktop
+    AbPhase:
+      type: string
+      enum:
+      - send
+      - test
+      - all
+    Metadata:
+      title: metadata
+      type: object
+      properties:
+        prev:
+          type: string
+          format: uri
+          description: The URL of the previous page of results. If this field isn't present, you're at the start of the list.
+        self:
+          type: string
+          format: uri
+          description: The URL of the current page of results.
+        next:
+          type: string
+          format: uri
+          description: The URL of the next page of results. If this field isn't present, you're at the end of the list.
+        count:
+          type: number
+          description: The number of items in the entire list, i.e., across all pages.
+    Items2:
+      type: string
+      enum:
+      - ab_variation
+      - ab_phase
+    AggregatedBy:
+      type: string
+      enum:
+      - day
+      - total
+    AdvancedStatsOpens:
+      title: 'Stats: Advanced Stats with Opens'
+      type: object
+      description: The individual events and their stats.
+      properties:
+        opens:
+          type: integer
+          description: The total number of times your emails were opened by recipients.
+        unique_opens:
+          type: integer
+          description: The number of unique recipients who opened your emails.
+    SinglesendsLinkStatsResponse:
+      title: SinglesendsLinkStatsResponse
+      type: object
+      properties:
+        results:
+          type: array
+          description: This is the index of the link's location in the email contents.
+          items:
+            type: object
+            properties:
+              url:
+                type: string
+                description: This is the URL of the link clicked. If `{{custom_fields}}` are part of the URL, they will be included.
+                format: uri
+              url_location:
+                type: integer
+                description: This is the location of the link clicked in each Single Send A/B variation, or in the Single Send itself if there are no variations. Links are numbered from the top down; the topmost link is index `0`.
+                minimum: 0
+              ab_variation:
+                type: string
+                description: This is the A/B variation of the Single Send stat returned. It is set to `"all"` if the `ab_variation` query parameter was not set in the request and `group_by` doesn't contain `ab_variation`.
+                format: uuid
+              ab_phase:
+                type: string
+                description: This is the A/B phase of the Single Send stat returned. If the `ab_phase` query parameter was not provided, it will return `"all"`.
+                $ref: '#/components/schemas/AbPhase1'
+              clicks:
+                type: integer
+                minimum: 1
+                description: the number of clicks on this particular link
+            required:
+            - url
+            - ab_variation
+            - ab_phase
+            - clicks
+        _metadata:
+          $ref: '#/components/schemas/LinkTrackingMetadata'
+        total_clicks:
+          type: integer
+      required:
+      - results
+      - _metadata
+    AutmoationsLinkStatsResponse:
+      title: AutmoationsLinkStatsResponse
+      type: object
+      properties:
+        results:
+          type: array
+          description: ''
+          items:
+            type: object
+            properties:
+              url:
+                type: string
+                description: This is the URL of the link clicked. If `{{custom_fields}}` are part of the URL, they will be included.
+                format: uri
+              url_location:
+                type: integer
+                description: This is the location of the link clicked in each Automation step. Links are located according to their position within the message; the topmost link has index `0`.
+                minimum: 0
+              step_id:
+                type: string
+                description: This is the ID of the step if the stats were requested to be grouped by `step_id`.
+                format: uuid
+              clicks:
+                type: integer
+                minimum: 1
+                description: The number of clicks on this particular link.
+            required:
+            - url
+            - step_id
+            - clicks
+        total_clicks:
+          type: integer
+        _metadata:
+          $ref: '#/components/schemas/LinkTrackingMetadata'
+      required:
+      - results
+      - total_clicks
+      - _metadata
+    StatsAdvancedGlobalStats:
+      title: 'Stats: Advanced Global Stats'
+      type: object
+      properties:
+        clicks:
+          type: integer
+          description: The number of links that were clicked in your emails.
+        unique_clicks:
+          type: integer
+          description: The number of unique recipients who clicked links in your emails.
+        opens:
+          type: integer
+          description: The total number of times your emails were opened by recipients.
+        unique_opens:
+          type: integer
+          description: The number of unique recipients who opened your emails.
+        blocks:
+          type: integer
+          description: The number of emails that were not allowed to be delivered by ISPs.
+        bounce_drops:
+          type: integer
+          description: The number of emails that were dropped because of a bounce.
+        bounces:
+          type: integer
+          description: The number of emails that bounced instead of being delivered.
+        deferred:
+          type: integer
+          description: 'The number of emails that temporarily could not be delivered. '
+        delivered:
+          type: integer
+          description: The number of emails SendGrid was able to confirm were actually delivered to a recipient.
+        invalid_emails:
+          type: integer
+          description: The number of recipients who had malformed email addresses or whose mail provider reported the address as invalid.
+        processed:
+          type: integer
+          description: Requests from your website, application, or mail client via SMTP Relay or the API that SendGrid processed.
+        requests:
+          type: integer
+          description: The number of emails that were requested to be delivered.
+        spam_report_drops:
+          type: integer
+          description: The number of emails that were dropped due to a recipient previously marking your emails as spam.
+        spam_reports:
+          type: integer
+          description: The number of recipients who marked your email as spam.
+        unsubscribe_drops:
+          type: integer
+          description: The number of emails dropped due to a recipient unsubscribing from your emails.
+        unsubscribes:
+          type: integer
+          description: The number of recipients who unsubscribed from your emails.
+    Country:
+      type: string
+      enum:
+      - US
+      - CA
+    Items:
+      type: string
+      enum:
+      - step_id
+    AggregatedBy3:
+      type: string
+      enum:
+      - day
+      - week
+      - month
+    AdvancedStatsClicks:
+      title: 'Stats: Advanced Stats with Clicks'
+      type: object
+      description: The individual events and their stats.
+      properties:
+        clicks:
+          type: integer
+          description: The number of links that were clicked in your emails.
+        unique_clicks:
+          type: integer
+          description: The number of unique recipients who clicked links in your emails.
+    LinkTrackingMetadata:
+      title: link tracking metadata
+      type: object
+      properties:
+        prev:
+          type: string
+          format: uri
+          description: The URL of the previous page of results. If this field isn't present, you're at the start of the list.
+        self:
+          type: string
+          format: uri
+          description: The URL of the current page of results.
+        next:
+          type: string
+          format: uri
+          description: The URL of the next page of results. If this field isn't present, you're at the end of the list.
+        count:
+          type: number
+          description: The number of items in the entire list, i.e., across all pages.
+    AutomationsResponse:
+      title: AutomationsResponse
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: This is the ID of the Automation you are requesting stats for.
+                format: uuid
+              aggregation:
+                type: string
+                description: This describes the time unit to which the stat is rolled up. It is based on the `aggregated_by` parameter included in the request. It can be "total" or the date (in YYYY-MM-DD format) the stats are for.
+                default: total
+              step_id:
+                type: string
+                description: This is the ID of the step if the stats were requested to be grouped by `step_id`.
+                default: all
+              stats:
+                $ref: '#/components/schemas/Metrics'
+            required:
+            - id
+            - aggregation
+            - step_id
+        _metadata:
+          $ref: '#/components/schemas/Metadata'
+      required:
+      - results
+    Items1:
+      type: string
+      enum:
+      - ab_variation
+      - ab_phase
+    Metrics:
+      title: metrics
+      type: object
+      properties:
+        bounce_drops:
+          type: integer
+        bounces:
+          type: integer
+        clicks:
+          type: integer
+        delivered:
+          type: integer
+        invalid_emails:
+          type: integer
+        opens:
+          type: integer
+        requests:
+          type: integer
+        spam_report_drops:
+          type: integer
+        spam_reports:
+          type: integer
+        unique_clicks:
+          type: integer
+        unique_opens:
+          type: integer
+        unsubscribes:
+          type: integer
+      required:
+      - bounce_drops
+      - bounces
+      - clicks
+      - delivered
+      - invalid_emails
+      - opens
+      - requests
+      - spam_report_drops
+      - spam_reports
+      - unique_clicks
+      - unique_opens
+      - unsubscribes
+    AdvancedStatsMailboxProvider:
+      title: 'Stats: Advanced Stats for Mailbox Provider'
+      description: The individual events and their stats.
+      type: object
+      properties:
+        blocks:
+          type: integer
+          description: The number of emails that were not allowed to be delivered by ISPs.
+        bounces:
+          type: integer
+          description: The number of emails that bounced instead of being delivered.
+        deferred:
+          type: integer
+          description: The number of emails that temporarily could not be delivered.
+        delivered:
+          type: integer
+          description: The number of emails SendGrid was able to confirm were actually delivered to a recipient.
+        drops:
+          type: integer
+          description: The number of emails that were not delivered due to the recipient email address being on a suppression list.
+        requests:
+          type: integer
+          description: The number of emails that were requested to be delivered.
+        processed:
+          type: integer
+          description: Requests from your website, application, or mail client via SMTP Relay or the Web API that SendGrid processed.
+        spam_reports:
+          type: integer
+          description: The number of recipients who marked your email as spam.
+  responses:
+    Stats400:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Twilio SendGrid requires you to authenticate with its APIs using an API key. The API key must be sent as a bearer token in the Authorization header.
+externalDocs:
+  description: Twilio SendGrid's official developer documentation.
+  url: https://www.twilio.com/docs/sendgrid
