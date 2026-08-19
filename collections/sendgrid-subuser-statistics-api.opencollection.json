@@ -1,0 +1,226 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Twilio SendGrid Provisioning Account Subuser Statistics API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Subuser Statistics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve the monthly email statistics for a single subuser",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/subusers/:subuser_name/stats/monthly",
+            "params": [
+              {
+                "name": "subuser_name",
+                "value": "",
+                "type": "path",
+                "description": "The username of the Subuser."
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "The date of the month to retrieve statistics for. Must be formatted YYYY-MM-DD"
+              },
+              {
+                "name": "sort_by_metric",
+                "value": "",
+                "type": "query",
+                "description": "The metric that you want to sort by. Metrics that you can sort by are: `blocks`, `bounces`, `clicks`, `delivered`, `opens`, `requests`, `unique_clicks`, `unique_opens`, and `unsubscribes`.'"
+              },
+              {
+                "name": "sort_by_direction",
+                "value": "",
+                "type": "query",
+                "description": "The direction you want to sort."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Optional field to limit the number of results returned."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Optional beginning point in the list to retrieve from."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrive the monthly email statistics for a specific subuser.**\n\nWhen using the `sort_by_metric` to sort your stats by a specific metric, you can not sort by the following metrics:\n`bounce_drops`, `deferred`, `invalid_emails`, `processed`, `spam_report_drops`, `spam_reports`, or `unsubscribe_drops`."
+        },
+        {
+          "info": {
+            "name": "Retrieve email statistics for your subusers.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/subusers/stats",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limits the number of results returned per page."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The point in the list to begin retrieving results from."
+              },
+              {
+                "name": "aggregated_by",
+                "value": "",
+                "type": "query",
+                "description": "How to group the statistics. Must be either \"day\", \"week\", or \"month\"."
+              },
+              {
+                "name": "subusers",
+                "value": "",
+                "type": "query",
+                "description": "The subuser you want to retrieve statistics for. You may include this parameter up to 10 times to retrieve statistics for multiple subusers."
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "The end date of the statistics to retrieve. Defaults to today."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve the email statistics for the given subusers.**\n\nYou may retrieve statistics for up to 10 different subusers by including an additional _subusers_ parameter for each additional subuser."
+        },
+        {
+          "info": {
+            "name": "Retrieve monthly stats for all subusers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/subusers/stats/monthly",
+            "params": [
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "The date of the month to retrieve statistics for. Must be formatted YYYY-MM-DD"
+              },
+              {
+                "name": "subuser",
+                "value": "",
+                "type": "query",
+                "description": "A substring search of your subusers."
+              },
+              {
+                "name": "sort_by_metric",
+                "value": "",
+                "type": "query",
+                "description": "The metric that you want to sort by. Metrics that you can sort by are: `blocks`, `bounces`, `clicks`, `delivered`, `opens`, `requests`, `unique_clicks`, `unique_opens`, and `unsubscribes`.'"
+              },
+              {
+                "name": "sort_by_direction",
+                "value": "",
+                "type": "query",
+                "description": "The direction you want to sort."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Optional field to limit the number of results returned."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Optional beginning point in the list to retrieve from."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve the monthly email statistics for all subusers over the given date range.**\n\nWhen using the `sort_by_metric` to sort your stats by a specific metric, you can not sort by the following metrics:\n`bounce_drops`, `deferred`, `invalid_emails`, `processed`, `spam_report_drops`, `spam_reports`, or `unsubscribe_drops`."
+        },
+        {
+          "info": {
+            "name": "Retrieve the totals for each email statistic metric for all subusers.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/subusers/stats/sums",
+            "params": [
+              {
+                "name": "sort_by_direction",
+                "value": "",
+                "type": "query",
+                "description": "The direction you want to sort. "
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "The end date of the statistics to retrieve. Defaults to today. Must follow format YYYY-MM-DD."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limits the number of results returned per page."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The point in the list to begin retrieving results from."
+              },
+              {
+                "name": "aggregated_by",
+                "value": "",
+                "type": "query",
+                "description": "How to group the statistics. Defaults to today. Must follow format YYYY-MM-DD."
+              },
+              {
+                "name": "sort_by_metric",
+                "value": "",
+                "type": "query",
+                "description": "The metric that you want to sort by.  Must be a single metric."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve the total sums of each email statistic metric for all subusers over the given date range.**"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

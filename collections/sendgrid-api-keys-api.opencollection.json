@@ -1,0 +1,173 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Twilio SendGrid Provisioning Account API Keys API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "API Keys",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve all API Keys belonging to the authenticated user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/api_keys",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve all API Keys that belong to the authenticated user.**\n\nA successful response from this API will include all available API keys' names and IDs.\n\nFor security reasons, there is not a way to retrieve the key itself after it's created. If you lose your API key, you must create a new one. Only the \"Create API keys\" endpoint will return a key to you and only at the time of creation.\n\nAn `api_key_id` can be used to update or delete the key, as well as retrieve the"
+        },
+        {
+          "info": {
+            "name": "Create API keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/api_keys",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to create a new API Key for the user.**\n\nTo create your initial SendGrid API Key, you should [use the SendGrid App](https://app.sendgrid.com/settings/api_keys). Once you have created a first key with scopes to manage additional API keys, you can use this API for all other key management.\nA JSON request body containing a `name` property is required when making requests to this endpoint. If the number of maximum keys, 100, is reached, a `403` status will be returned.\nTho"
+        },
+        {
+          "info": {
+            "name": "Retrieve an existing API Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/api_keys/:api_key_id",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "api_key_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve a single API key using an `api_key_id`.**\n\nThe endpoint will return a key's name, ID, and scopes. If the API Key ID does not, exist a `404` status will be returned.\n\nSee the [API Key Permissions List](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/authorization) for all available scopes. An API key's scopes can be updated after creation using the \"Update API keys\" endpoint."
+        },
+        {
+          "info": {
+            "name": "Update API key name and scopes",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.sendgrid.com/v3/api_keys/:api_key_id",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "api_key_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to update the name and scopes of a given API key.**\n\nYou must pass this endpoint a JSON request body with a `name` field and a `scopes` array containing at least one scope. The `name` and `scopes` fields will be used to update the key associated with the `api_key_id` in the request URL.\n\nIf you need to update a key's scopes only, pass the `name` field with the key's existing name; the `name` will not be modified. If you need to update a key's name only, use the \"Update"
+        },
+        {
+          "info": {
+            "name": "Update API key name",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.sendgrid.com/v3/api_keys/:api_key_id",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "api_key_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to update the name of an existing API Key.**\n\nYou must pass this endpoint a JSON request body with a `name` property, which will be used to rename the key associated with the `api_key_id` passed in the URL."
+        },
+        {
+          "info": {
+            "name": "Delete API keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendgrid.com/v3/api_keys/:api_key_id",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "api_key_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to revoke an existing API Key using an `api_key_id`**\n\nAuthentications using a revoked API Key will fail after after some small propogation delay. If the API Key ID does not exist, a `404` status will be returned."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

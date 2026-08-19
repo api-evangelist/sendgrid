@@ -1,0 +1,166 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Twilio SendGrid Provisioning Account Sender Identities API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sender Identities",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Sender Identities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/senders",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve a list of all sender identities that have been created for your account.**"
+        },
+        {
+          "info": {
+            "name": "Create a Sender Identity",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/senders",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to create a new sender identity.**\n\nYou may create up to 100 unique sender identities."
+        },
+        {
+          "info": {
+            "name": "View a Sender Identity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/senders/:sender_id",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sender_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the sender identity that you want to retrieve."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve a specific sender identity.**"
+        },
+        {
+          "info": {
+            "name": "Update a Sender Identity",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.sendgrid.com/v3/senders/:sender_id",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sender_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the sender identity that you want to retrieve."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to update a sender identity.**\n\nUpdates to `from.email` require re-verification.\n\nPartial updates are allowed, but fields that are marked as \"required\" in the POST (create) endpoint must not be nil if that field is included in the PATCH request."
+        },
+        {
+          "info": {
+            "name": "Delete a Sender Identity",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendgrid.com/v3/senders/:sender_id",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sender_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the sender identity that you want to retrieve."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to delete one of your sender identities.**"
+        },
+        {
+          "info": {
+            "name": "Resend Sender Identity Verification",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/senders/:sender_id/resend_verification",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sender_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the sender identity for which you would like to resend a verification email."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to resend a sender identity verification email.**"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

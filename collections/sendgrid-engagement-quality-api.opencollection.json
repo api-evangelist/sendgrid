@@ -1,0 +1,92 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Twilio SendGrid Provisioning Account Engagement Quality API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Engagement Quality",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Engagement Quality Scores",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/engagementquality/scores",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "The starting date in YYYY-MM-DD format (UTC) for which you want to retrieve scores."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "The ending date in YYYY-MM-DD format (UTC) for which you want to retrieve scores."
+              }
+            ]
+          },
+          "docs": "**This operation allows you to retrieve your SendGrid Engagement Quality (SEQ) scores for a specified date range**.\nA successful request with this API operation will return either a `200` or `202` response.\n### 202\nThis operation returns a `202` response when SendGrid does not yet have scores available for the specified date range. Scores are calculated asynchronously from requests to this endpoint. This means a score may be available for the specified date at a later time, but a score is not av"
+        },
+        {
+          "info": {
+            "name": "Get Subusers' Engagement Quality Scores",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/engagementquality/subusers/scores",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the number of results to be returned by the API. This parameter can be used to limit the results returned or in combination with the `after_key` parameter to iterate through paginated results."
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "The date in YYYY-MM-DD format (UTC) for which you want to retrieve a SendGrid Engagement Quality score."
+              },
+              {
+                "name": "after_key",
+                "value": "",
+                "type": "query",
+                "description": "Specifies which items to be returned by the API. When the `after_key` is specified, the API will return items beginning from the first item after the item specified. This parameter can be used in combination with `limit` to iterate through paginated results."
+              }
+            ]
+          },
+          "docs": "**This operation allows you to retrieve SendGrid Engagement Quality (SEQ) scores for your Subusers or customer accounts for a specific date.**\nA successful request with this API operation will return either a `200` or `202` response.\n### 202\nThis operation returns a `202` response when SendGrid does not yet have scores available for the specified date range. Scores are calculated asynchronously from requests to this endpoint. This means a score may be available for the specified date at a later "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

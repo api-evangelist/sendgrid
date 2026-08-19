@@ -1,0 +1,144 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Twilio SendGrid Provisioning Account Invalid Emails API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Invalid Emails",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve all invalid emails",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/suppression/invalid_emails",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "start_time",
+                "value": "",
+                "type": "query",
+                "description": "Refers start of the time range in unix timestamp when an invalid email was created (inclusive)."
+              },
+              {
+                "name": "end_time",
+                "value": "",
+                "type": "query",
+                "description": "Refers end of the time range in unix timestamp when an invalid email was created (inclusive)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "`limit` sets the page size, i.e. maximum number of items from the list to be returned for a single API request. If omitted, the default page size is used. The maximum page size for this endpoint is 500 items per page."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of items in the list to skip over before starting to retrieve the items for the requested page. The default `offset` of `0` represents the beginning of the list, i.e. the start of the first page. To request the second page of the list, set the `offset` to the page size as determined by `limit`. Use multiples of the page size as your `offset` to request further consecutive pages. E.g. assume your page size is set to `10`. An `offset` of `10` requests the second page, an `offset` of `20` requests the third page and so on, provided there are sufficiently many items in your list."
+              },
+              {
+                "name": "email",
+                "value": "",
+                "type": "query",
+                "description": "This parameter allows you to filter results by email address. Only invalid addresses matching an address passed in this parameter will be returned."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve a paginated list of all invalid email addresses.**\n\nYou can use the `limit` query parameter to set the page size. If your list contains more items than the page size permits, you can make multiple requests. Use the `offset` query parameter to control the position in the list from which to start retrieving additional items."
+        },
+        {
+          "info": {
+            "name": "Delete invalid emails",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendgrid.com/v3/suppression/invalid_emails",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to remove email addresses from your invalid email address list.**\n\nThere are two options for deleting invalid email addresses: \n\n1) You can delete all invalid email addresses by setting `delete_all` to true in the request body.\n2) You can delete some invalid email addresses by specifying certain addresses in an array in the request body."
+        },
+        {
+          "info": {
+            "name": "Retrieve a specific invalid email",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/suppression/invalid_emails/:email",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "path",
+                "description": "The specific email address of the invalid email entry that you want to retrieve."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve a specific invalid email addresses.**"
+        },
+        {
+          "info": {
+            "name": "Delete a specific invalid email",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendgrid.com/v3/suppression/invalid_emails/:email",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "path",
+                "description": "The specific email address of the invalid email entry that you want to retrieve."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to remove a specific email address from the invalid email address list.**"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,144 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Twilio SendGrid Provisioning Account Blocks API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Blocks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve all blocks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/suppression/blocks",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "start_time",
+                "value": "",
+                "type": "query",
+                "description": "The start of the time range when a blocked email was created (inclusive). This is a unix timestamp."
+              },
+              {
+                "name": "end_time",
+                "value": "",
+                "type": "query",
+                "description": "The end of the time range when a blocked email was created (inclusive). This is a unix timestamp."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "`limit` sets the page size, i.e. maximum number of items from the list to be returned for a single API request. If omitted, the default page size is used. The maximum page size for this endpoint is 500 items per page."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of items in the list to skip over before starting to retrieve the items for the requested page. The default `offset` of `0` represents the beginning of the list, i.e. the start of the first page. To request the second page of the list, set the `offset` to the page size as determined by `limit`. Use multiples of the page size as your `offset` to request further consecutive pages. E.g. assume your page size is set to `10`. An `offset` of `10` requests the second page, an `offset` of `20` requests the third page and so on, provided there are sufficiently many items in your list."
+              },
+              {
+                "name": "email",
+                "value": "",
+                "type": "query",
+                "description": "Specifies which records to return based on the records' associated email addresses. For example, `sales` returns records with email addresses that start with 'sales', such as `salesdepartment@example.com` or `sales@example.com`.  You can also use `%25` as a wildcard. For example, `%25market` returns records containing email addresses with the string 'market' anywhere in the email address, and `%25market%25tree` returns records containing email addresses with the string 'market' followed by the string 'tree'. Any reserved characters should be [percent-encoded](https://en.wikipedia.org/wiki/Percent-encoding#Reserved_characters), e.g., the `@` symbol should be encoded as `%40`."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve a paginated list of all email addresses that are currently on your blocks list.**\n\nYou can use the `limit` query parameter to set the page size. If your list contains more items than the page size permits, you can make multiple requests. Use the `offset` query parameter to control the position in the list from which to start retrieving additional items."
+        },
+        {
+          "info": {
+            "name": "Delete blocks",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendgrid.com/v3/suppression/blocks",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to delete all email addresses on your blocks list.**\n\nThere are two options for deleting blocked emails: \n\n1. You can delete all blocked emails by setting `delete_all` to `true` in the request body. \n2. You can delete a selection of blocked emails by specifying the email addresses in the `emails` array of the request body."
+        },
+        {
+          "info": {
+            "name": "Retrieve a specific block",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/suppression/blocks/:email",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "path",
+                "description": "The email address of the specific block."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve a specific email address from your blocks list.**"
+        },
+        {
+          "info": {
+            "name": "Delete a specific block",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendgrid.com/v3/suppression/blocks/:email",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "path",
+                "description": "The email address of the specific block."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to delete a specific email address from your blocks list.**"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

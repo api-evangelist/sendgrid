@@ -1,5 +1,5 @@
-generated: '2026-06-20'
-method: derived
+generated: '2026-08-13'
+method: searched
 source: >-
   openapi/ (44 SendGrid v3 specs), the SendGrid errors and rate-limits
   documentation, and the SendGrid SSO product. Cross-cutting industry-standard
@@ -52,6 +52,31 @@ standards:
     evidence: >-
       Event Webhook and Inbound Parse are modeled as AsyncAPI in asyncapi/;
       Event Webhook supports signed payloads (ECDSA signature verification).
+  - id: mcp
+    conforms: true
+    evidence: >-
+      Twilio (SendGrid's parent) serves a live, unauthenticated Model Context
+      Protocol endpoint at https://mcp.twilio.com/docs. Probed 2026-08-13:
+      initialize returned protocolVersion 2025-11-25 and serverInfo
+      twilio-docs-mcp 0.1.0; tools/list returned two tools with full
+      inputSchemas. It is a documentation/discovery server, not an execution
+      server — see mcp/sendgrid-tool-crosswalk.yml.
+  - id: agent-skills
+    conforms: true
+    evidence: >-
+      Twilio publishes eight SendGrid Agent Skills (SKILL.md with name +
+      description frontmatter) at github.com/twilio/ai/tree/main/skills/sendgrid,
+      distributed as the twilio-developer-kit plugin. Saved verbatim in skills/.
+  - id: a2a-agent-card
+    conforms: false
+    evidence: >-
+      No /.well-known/agent-card.json or /.well-known/agent.json on
+      sendgrid.com (403), api.sendgrid.com (403) or www.twilio.com (404).
+  - id: rfc8594-sunset-header
+    conforms: false
+    evidence: >-
+      No Sunset or Deprecation response headers are documented; deprecations are
+      announced through the Twilio changelog. See lifecycle/sendgrid-lifecycle.yml.
   - id: scim2
     conforms: false
   - id: fhir-r4

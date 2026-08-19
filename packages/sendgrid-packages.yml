@@ -1,13 +1,23 @@
-generated: '2026-06-20'
+generated: '2026-08-13'
 method: searched
 source: https://www.twilio.com/docs/sendgrid/for-developers/sending-email/libraries
+registry_metadata_checked: '2026-08-13'
 description: >-
   First-party Twilio SendGrid helper libraries. Each is published from the
   github.com/sendgrid organization and to its language's public package
   registry. Verified against the SendGrid libraries documentation and the
-  SDK/SourceCode links already recorded in apis.yml. SendGrid does not ship a
+  SDK/SourceCode links recorded in apis.yml. SendGrid does not ship a
   first-party command-line tool, so there is no CLI entry here; the official
-  Model Context Protocol coverage is the Twilio-labs MCP server (see mcp/).
+  Model Context Protocol coverage is Twilio's hosted docs MCP server plus the
+  @twilio-alpha/mcp stdio package (see mcp/sendgrid-mcp.yml).
+  CURRENCY (read from each registry's metadata endpoint on 2026-08-13, all
+  unauthenticated): the SDK fleet is drifting. Node.js and Python were last
+  published 2025-09-19; every other language is older, and Ruby has not been
+  republished since 2023-12-01 — more than two and a half years, against a v3
+  API that shipped Engagement Quality, Segments 2.0 and data-residency changes
+  in that window. The npm sidecar packages (@sendgrid/eventwebhook,
+  @sendgrid/helpers, @sendgrid/inbound-mail-parser) are all still on 8.0.0 from
+  2023-12-05 even though the main @sendgrid/mail line advanced to 8.1.6.
 packages:
   - language: python
     registry: pypi
@@ -16,6 +26,8 @@ packages:
     source: https://github.com/sendgrid/sendgrid-python
     install: pip install sendgrid
     official: true
+    version: 6.12.5
+    published: '2025-09-19'
   - language: javascript
     registry: npm
     name: "@sendgrid/mail"
@@ -23,9 +35,12 @@ packages:
     source: https://github.com/sendgrid/sendgrid-nodejs
     install: npm install @sendgrid/mail
     official: true
+    version: 8.1.6
+    published: '2025-09-19'
     note: >-
       The sendgrid-nodejs monorepo also publishes @sendgrid/client (v3 API
-      client), @sendgrid/eventwebhook, @sendgrid/helpers, and @sendgrid/inbound-mail-parser.
+      client), @sendgrid/eventwebhook, @sendgrid/helpers, and
+      @sendgrid/inbound-mail-parser — each recorded separately below.
   - language: javascript
     registry: npm
     name: "@sendgrid/client"
@@ -33,6 +48,38 @@ packages:
     source: https://github.com/sendgrid/sendgrid-nodejs
     install: npm install @sendgrid/client
     official: true
+    version: 8.1.6
+    published: '2025-09-19'
+  - language: javascript
+    registry: npm
+    name: "@sendgrid/eventwebhook"
+    url: https://www.npmjs.com/package/@sendgrid/eventwebhook
+    source: https://github.com/sendgrid/sendgrid-nodejs
+    install: npm install @sendgrid/eventwebhook
+    official: true
+    version: 8.0.0
+    published: '2023-12-05'
+    note: >-
+      ECDSA signature verification for the Event Webhook. Not republished since
+      2023-12-05 while the main @sendgrid/mail line moved to 8.1.6.
+  - language: javascript
+    registry: npm
+    name: "@sendgrid/inbound-mail-parser"
+    url: https://www.npmjs.com/package/@sendgrid/inbound-mail-parser
+    source: https://github.com/sendgrid/sendgrid-nodejs
+    install: npm install @sendgrid/inbound-mail-parser
+    official: true
+    version: 8.0.0
+    published: '2023-12-05'
+  - language: javascript
+    registry: npm
+    name: "@sendgrid/helpers"
+    url: https://www.npmjs.com/package/@sendgrid/helpers
+    source: https://github.com/sendgrid/sendgrid-nodejs
+    install: npm install @sendgrid/helpers
+    official: true
+    version: 8.0.0
+    published: '2023-12-05'
   - language: java
     registry: maven
     name: com.sendgrid:sendgrid-java
@@ -40,6 +87,8 @@ packages:
     source: https://github.com/sendgrid/sendgrid-java
     install: "implementation 'com.sendgrid:sendgrid-java'"
     official: true
+    version: 4.10.3
+    published: '2024-09-18'
   - language: csharp
     registry: nuget
     name: SendGrid
@@ -47,6 +96,8 @@ packages:
     source: https://github.com/sendgrid/sendgrid-csharp
     install: dotnet add package SendGrid
     official: true
+    version: 9.29.3
+    published: '2024-04-02'
   - language: go
     registry: pkg.go.dev
     name: github.com/sendgrid/sendgrid-go
@@ -54,6 +105,11 @@ packages:
     source: https://github.com/sendgrid/sendgrid-go
     install: go get github.com/sendgrid/sendgrid-go
     official: true
+    version: v3.16.1+incompatible
+    published: '2025-05-29'
+    note: >-
+      Read from proxy.golang.org/@latest. The +incompatible suffix means the
+      module has never adopted a /v3 module path despite a v3 tag.
   - language: ruby
     registry: rubygems
     name: sendgrid-ruby
@@ -61,6 +117,11 @@ packages:
     source: https://github.com/sendgrid/sendgrid-ruby
     install: gem install sendgrid-ruby
     official: true
+    version: 6.7.0
+    published: '2023-12-01'
+    note: >-
+      Oldest first-party SDK in the fleet — no release in over two and a half
+      years as of this check. Strongest abandonment signal in this artifact.
   - language: php
     registry: packagist
     name: sendgrid/sendgrid
@@ -68,3 +129,25 @@ packages:
     source: https://github.com/sendgrid/sendgrid-php
     install: composer require sendgrid/sendgrid
     official: true
+    version: 8.1.11
+    published: '2025-02-22'
+  - language: javascript
+    registry: npm
+    name: "@twilio-alpha/mcp"
+    url: https://www.npmjs.com/package/@twilio-alpha/mcp
+    source: https://github.com/twilio-labs/mcp
+    install: npx -y @twilio-alpha/mcp
+    official: true
+    version: 0.7.0
+    published: '2025-07-07'
+    note: >-
+      Twilio's local-stdio MCP server; covers SendGrid alongside 30+ Twilio
+      products. Alpha, and not republished since 2025-07-07. See
+      mcp/sendgrid-mcp.yml.
+currency_summary:
+  checked: '2026-08-13'
+  newest: {package: '@sendgrid/mail', published: '2025-09-19'}
+  oldest: {package: sendgrid-ruby, published: '2023-12-01'}
+  official_count: 12
+  languages: [python, javascript, java, csharp, go, ruby, php]
+  none_published_in_last_12_months: true

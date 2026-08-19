@@ -1,35 +1,124 @@
-generated: '2026-06-20'
-method: searched
-status: candidate
-source: https://github.com/twilio-labs/mcp
+generated: '2026-08-13'
+method: probed
+source: https://mcp.twilio.com/docs
 description: >-
-  SendGrid does not publish a dedicated first-party hosted MCP server. The
-  official Model Context Protocol coverage for SendGrid comes from the
-  Twilio-labs MCP server (@twilio-alpha/mcp), which generates MCP tools from
-  Twilio's OpenAPI and indexes Twilio SendGrid documentation alongside 30+
-  Twilio products. Several community SendGrid-specific MCP servers also exist
-  (not first-party). Below we record the official Twilio MCP server as the
-  authoritative option and DERIVE a candidate tool list from the SendGrid v3
-  OpenAPI operations already in this repo (one tool per operationId); these are
-  a starting point, not a published SendGrid tool manifest.
+  SendGrid's Model Context Protocol coverage is served by Twilio, its parent
+  company. On 2026-08-13 the API Evangelist pipeline PROBED
+  https://mcp.twilio.com/docs and got a live, UNAUTHENTICATED MCP server —
+  `initialize` returned serverInfo {name: twilio-docs-mcp, version: 0.1.0,
+  protocolVersion: 2025-11-25}, and `tools/list` returned two real tools with
+  full inputSchemas (saved verbatim to mcp/sendgrid-mcp-tools-list.json).
+  Calling twilio__search with product="sendgrid" returns SendGrid operations
+  keyed by the same tsg_* spec identifiers as the OpenAPI in this repo
+  (e.g. op::tsg_mail_v3::SendMail -> POST /v3/mail/send), so this endpoint
+  genuinely serves the SendGrid contract rather than merely mentioning it.
+  DOMAIN JUSTIFICATION: SendGrid is a Twilio company and its entire developer
+  reference is published on www.twilio.com/docs/sendgrid; mcp.twilio.com is the
+  same parent host that serves that documentation, and Twilio announced the
+  server in "Introducing the Twilio MCP Server and Skills" (2026-05-07).
+  NOTE ON SHAPE: this is a DOCUMENTATION/DISCOVERY MCP server, not an execution
+  server. Its two tools search and retrieve API specifications; they do not send
+  mail or mutate a SendGrid account. An agent still calls the REST API directly
+  for execution. The older stdio server @twilio-alpha/mcp (which does generate
+  callable tools from Twilio's OpenAPI) is recorded below as the local-stdio
+  option; it was last published 2025-07-07.
+deployment:
+  mode: both
+  endpoint: https://mcp.twilio.com/docs
+  install: npx -y @twilio-alpha/mcp <ACCOUNT_SID>/<API_KEY>:<API_SECRET>
+  package: https://www.npmjs.com/package/@twilio-alpha/mcp
+  auth: none
+  verified: probed
+  checked: '2026-08-13'
+  note: >-
+    The REMOTE endpoint (mcp.twilio.com/docs) requires no authentication and no
+    Twilio account — an agent can reach it right now. The LOCAL stdio package
+    (@twilio-alpha/mcp) requires a human to install it and supply Twilio account
+    credentials before any agent sees it. Both are recorded because they are
+    different products with different reach.
 official_servers:
+  - name: twilio-docs-mcp
+    vendor: Twilio (Twilio SendGrid)
+    kind: remote
+    endpoint: https://mcp.twilio.com/docs
+    transport: streamable-http (JSON-RPC over HTTPS POST)
+    auth: none
+    protocol_version: '2025-11-25'
+    server_version: 0.1.0
+    official: true
+    config_source: https://github.com/twilio/ai/blob/main/mcp.json
+    config: |
+      {
+        "mcpServers": {
+          "twilio-docs": {
+            "type": "http",
+            "url": "https://mcp.twilio.com/docs"
+          }
+        }
+      }
+    announcement: https://www.twilio.com/en-us/blog/developers/introducing-twilio-mcp-skills
+    tools_list: mcp/sendgrid-mcp-tools-list.json
+    tools:
+      - name: twilio__search
+        description: >-
+          Search Twilio documentation and API operations by natural language
+          query. source="docs" for conceptual guides, source="api" for endpoints
+          and operations, source="all" (default) when unsure.
+        input_schema_properties: [query, source, product, topics, version, limit]
+        read_only: true
+        sendgrid_scoped: 'product: "sendgrid" filters results to the SendGrid API surface'
+      - name: twilio__retrieve
+        description: >-
+          Fetch full parameter schemas and response details for one or more
+          Twilio API operations or documentation articles, by the id values
+          returned from twilio__search (format op::{api}::{operation_id}).
+        input_schema_properties: [ids, fields]
+        read_only: true
+    coverage_evidence:
+      - call: twilio__search {query "sendgrid mail send v3", product "sendgrid", source "api"}
+        returned: >-
+          op::tsg_mail_v3::SendMail (POST /v3/mail/send),
+          op::tsg_mail_settings_v3::ListMailSetting (GET /v3/mail_settings),
+          op::tsg_domain_authentication_v3::EmailDnsRecord (POST /v3/whitelabel/dns/email),
+          op::tsg_mail_v3::GetMailBatch (GET /v3/mail/batch/{batch_id})
+      - call: twilio__retrieve {ids ["op::tsg_mail_v3::SendMail"], fields ["request_body"]}
+        returned: >-
+          the live parameter schema for POST /v3/mail/send including the
+          Content-Encoding: gzip header parameter
   - name: twilio-labs-mcp
     vendor: Twilio (twilio-labs)
-    package: "@twilio-alpha/mcp"
+    kind: local-stdio
+    package: '@twilio-alpha/mcp'
     npm: https://www.npmjs.com/package/@twilio-alpha/mcp
+    version: 0.7.0
+    published: '2025-07-07'
     repo: https://github.com/twilio-labs/mcp
     transport: stdio
-    install: "npx -y @twilio-alpha/mcp <ACCOUNT_SID>/<API_KEY>:<API_SECRET>"
+    auth: api-key (Twilio Account SID + API Key/Secret)
+    install: npx -y @twilio-alpha/mcp <ACCOUNT_SID>/<API_KEY>:<API_SECRET>
+    official: true
     covers: >-
-      Twilio platform APIs plus indexed Twilio SendGrid and Segment
-      documentation; supports --services and --tags filters to scope exposed
-      operations.
+      Generates MCP tools from Twilio's OpenAPI across 30+ Twilio products and
+      indexes Twilio SendGrid and Segment documentation; supports --services and
+      --tags filters to scope the exposed operations.
+    note: >-
+      Unlike the remote docs server this one produces callable API tools, but it
+      is alpha, requires local install plus Twilio credentials, and has not been
+      republished since 2025-07-07.
 community_servers:
   - name: Garoth/sendgrid-mcp
     repo: https://github.com/Garoth/sendgrid-mcp
     official: false
     note: Contact lists, templates, single sends, and stats over the SendGrid v3 API.
 candidate:
+  status: candidate
+  method: derived
+  note: >-
+    DERIVED candidate tool list, retained from the 2026-06-20 pass. This is what
+    an execution-shaped SendGrid MCP server WOULD expose if one existed; Twilio's
+    hosted server above is documentation-shaped and does not offer these. Never a
+    SendGrid claim. The v3 OpenAPI in openapi/ exposes 389 operations across 44
+    specs that could each map to a tool; the list below is representative.
   transport: stdio
   auth: bearer API key (Authorization header)
   base_url: https://api.sendgrid.com
@@ -73,7 +162,24 @@ candidate:
     - name: validate_email
       description: Validate an email address (Pro/Premier only).
       source_operation: openapi/tsg_email_validation_v3.yaml
+oauth_discovery:
   note: >-
-    Candidate list is representative, not exhaustive — the SendGrid v3 OpenAPI
-    in openapi/ exposes 389 operations across 44 specs that could each map to a
-    tool. Generated by the enrichment pipeline; never a SendGrid claim.
+    Probed anonymously on 2026-08-13; the endpoint declares auth: none so no
+    OAuth metadata is expected.
+  probes:
+    - {url: 'https://mcp.twilio.com/.well-known/oauth-protected-resource', status: 404}
+    - {url: 'https://mcp.twilio.com/.well-known/oauth-authorization-server', status: 404}
+x-evidence:
+  fetched: '2026-08-13'
+  url: https://mcp.twilio.com/docs
+  http_status: 200
+  content_type: application/json;charset=utf-8
+  initialize_result:
+    protocolVersion: '2025-11-25'
+    serverName: twilio-docs-mcp
+    serverVersion: 0.1.0
+  tools_returned: 2
+  negative_probes:
+    - {url: 'https://mcp.twilio.com/mcp', status: 404}
+    - {url: 'https://mcp.twilio.com/sse', status: 404}
+    - {url: 'https://mcp.twilio.com/', status: 404}

@@ -1,0 +1,149 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Twilio SendGrid Provisioning Account Unsubscribe Groups API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Unsubscribe Groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve all suppression groups associated with the user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/asm/groups",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the suppression group(s) you want to retrieve."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve a list of all suppression groups created by this user.**\n\nThis endpoint can also return information for multiple group IDs that you include in your request. To add a group ID to your request, simply append `?id=123456&id=123456`, with the appropriate group IDs."
+        },
+        {
+          "info": {
+            "name": "Create a new suppression group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/asm/groups",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to create a new suppression group.**\n\nTo add an email address to the suppression group, [create a Suppression](https://docs.sendgrid.com/api-reference/suppressions-suppressions/add-suppressions-to-a-suppression-group)."
+        },
+        {
+          "info": {
+            "name": "Get information on a single suppression group.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/asm/groups/:group_id",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the suppression group you would like to retrieve."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve a single suppression group.**"
+        },
+        {
+          "info": {
+            "name": "Update a suppression group.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.sendgrid.com/v3/asm/groups/:group_id",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the suppression group you would like to retrieve."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to update or change a suppression group.**"
+        },
+        {
+          "info": {
+            "name": "Delete a Suppression Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendgrid.com/v3/asm/groups/:group_id",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the suppression group you would like to retrieve."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to delete a suppression group.**\n\nIf a recipient uses the \"one-click unsubscribe\" option on an email associated with a deleted group, that recipient will be added to the global suppression list.\n\nDeleting a suppression group will remove the suppression, meaning email will once again be sent to the previously suppressed addresses. This should be avoided unless a recipient indicates they wish to receive email from you again. You can use our [bypass filters](https://sendg"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

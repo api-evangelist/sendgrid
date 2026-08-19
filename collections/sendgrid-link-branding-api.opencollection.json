@@ -1,0 +1,260 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Twilio SendGrid Provisioning Account Link Branding API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Link Branding",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve all branded links",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/whitelabel/links",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limits the number of results returned per page."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve all branded links**.\n\nYou can submit this request as one of your subusers if you include their ID in the `on-behalf-of` header in the request."
+        },
+        {
+          "info": {
+            "name": "Create a branded link",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/whitelabel/links",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to create a new branded link.**\n\nTo create the link branding, supply the root domain and, optionally, the subdomain — these go into separate fields in your request body. The root domain should match your FROM email address. If you provide a  subdomain, it must be different from the subdomain you used for authenticating your domain.\n\nYou can submit this request as one of your subusers if you include their ID in the `on-behalf-of` header in the request."
+        },
+        {
+          "info": {
+            "name": "Retrieve a branded link",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/whitelabel/links/:id",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the branded link you want to retrieve."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve a specific branded link by providing its ID.**\n\nYou can submit this request as one of your subusers if you include their ID in the `on-behalf-of` header in the request."
+        },
+        {
+          "info": {
+            "name": "Update a branded link",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.sendgrid.com/v3/whitelabel/links/:id",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the branded link you want to retrieve."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to update a specific branded link. You can use this endpoint to change a branded link's default status.**\n\nYou can submit this request as one of your subusers if you include their ID in the `on-behalf-of` header in the request."
+        },
+        {
+          "info": {
+            "name": "Delete a branded link",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendgrid.com/v3/whitelabel/links/:id",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the branded link you want to retrieve."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to delete a branded link.**\n\nYour request will receive a response with a 204 status code if the deletion was successful. The call does not return the link's details, so if you wish to record these make sure you call the  \"Retrieve a branded link\" endpoint *before* you request its deletion.\n\nYou can submit this request as one of your subusers if you include their ID in the `on-behalf-of` header in the request."
+        },
+        {
+          "info": {
+            "name": "Validate a branded link",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/whitelabel/links/:id/validate",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the branded link that you want to validate."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to validate a branded link.**\n\nYou can submit this request as one of your subusers if you include their ID in the `on-behalf-of` header in the request."
+        },
+        {
+          "info": {
+            "name": "Associate a branded link with a subuser",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/whitelabel/links/:link_id/subuser",
+            "params": [
+              {
+                "name": "link_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the branded link you want to associate."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to associate a branded link with a subuser account.**\n\nLink branding can be associated with subusers from the parent account. This functionality allows subusers to send mail using their parent's link branding. To associate link branding, the parent account must first create a branded link and validate it. The parent may then associate that branded link with a subuser via the API or the [Subuser Management page of the Twilio SendGrid App](https://app.sendgrid.com/settin"
+        },
+        {
+          "info": {
+            "name": "Retrieve the default branded link",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/whitelabel/links/default",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "domain",
+                "value": "",
+                "type": "query",
+                "description": "The domain to match against when finding the default branded link."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve the default branded link.**\n\nThe default branded link is the actual URL to be used when sending messages. If you have more than one branded link, the default is determined by the following order:\n\n* The validated branded link marked as `default` (set when you call the \"Create a branded link\" endpoint or by calling the \"Update a branded link\" endpoint on an existing link)\n* Legacy branded links (migrated from the whitelabel wizard)\n* Default SendGrid-branded"
+        },
+        {
+          "info": {
+            "name": "Retrieve a subuser's branded link",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/whitelabel/links/subuser",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "query",
+                "description": "The username of the subuser to retrieve associated branded links for."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve the branded link associated with a subuser.**\n\nLink branding can be associated with subusers from the parent account. This functionality allows subusers to send mail using their parent's link branding. To associate link branding, the parent account must first create a branded link and then validate it. The parent may then associate that branded link with a subuser via the API or the [Subuser Management page of the Twilio SendGrid App](https://app.sendgrid.c"
+        },
+        {
+          "info": {
+            "name": "Disassociate a branded link from a subuser",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendgrid.com/v3/whitelabel/links/subuser",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "query",
+                "description": "The username of the subuser account that you want to disassociate a branded link from."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to take a branded link away from a subuser.**\n\nLink branding can be associated with subusers from the parent account. This functionality allows subusers to send mail using their parent's link branding. To associate link branding, the parent account must first create a branded link and validate it. The parent may then associate that branded link with a subuser via the API or the [Subuser Management page of the Twilio SendGrid App](https://app.sendgrid.com/settings/subus"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

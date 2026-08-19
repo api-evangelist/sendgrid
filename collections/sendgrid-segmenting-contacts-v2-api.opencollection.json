@@ -1,0 +1,156 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Twilio SendGrid Provisioning Account Segmenting Contacts V2 API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Segmenting Contacts V2",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get List of Segments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/marketing/segments/2.0",
+            "params": [
+              {
+                "name": "ids",
+                "value": "",
+                "type": "query",
+                "description": "A list of segment IDs to retrieve. When this parameter is included, the `no_parent_list_ids` and `parent_list_ids` parameters are ignored and only segments with given IDs are returned."
+              },
+              {
+                "name": "parent_list_ids",
+                "value": "",
+                "type": "query",
+                "description": "A comma separated list up to 50 in size, to filter segments on.  Only segments that have any of these list ids as the parent list will be retrieved. This is different from the parameter of the same name used when creating a segment."
+              },
+              {
+                "name": "no_parent_list_id",
+                "value": "",
+                "type": "query",
+                "description": "If set to `true`, segments with an empty value of `parent_list_id` will be returned in the filter.  If the value is not present, it defaults to 'false'."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve a list of segments.**\n\nThe query param `parent_list_ids` is treated as a filter.  Any match will be returned.  Zero matches will return a response code of 200 with an empty `results` array.\n\n`parent_list_ids` | `no_parent_list_id` | `ids` | `result`\n-----------------:|:--------------------:|:-------------:|:-------------:\nempty | false | empty | all segments values\nlist_ids | false | empty | segments filtered by list_ids values\nlist_ids |true | empty | segm"
+        },
+        {
+          "info": {
+            "name": "Create Segment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/marketing/segments/2.0",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Segment `name` has to be unique. A user can not create a new segment with an existing segment name."
+        },
+        {
+          "info": {
+            "name": "Get Segment by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/marketing/segments/2.0/:segment_id",
+            "params": [
+              {
+                "name": "segment_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "contacts_sample",
+                "value": "",
+                "type": "query",
+                "description": "Defaults to `true`. Set to `false` to exclude the contacts_sample in the response."
+              }
+            ]
+          },
+          "docs": "Get Marketing Campaigns Segment by ID"
+        },
+        {
+          "info": {
+            "name": "Update Segment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.sendgrid.com/v3/marketing/segments/2.0/:segment_id",
+            "params": [
+              {
+                "name": "segment_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Segment `name` has to be unique. A user can not create a new segment with an existing segment name."
+        },
+        {
+          "info": {
+            "name": "Delete segment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendgrid.com/v3/marketing/segments/2.0/:segment_id",
+            "params": [
+              {
+                "name": "segment_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to delete a segment by ID.**"
+        },
+        {
+          "info": {
+            "name": "Manually refresh a segment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/marketing/segments/2.0/refresh/:segment_id",
+            "params": [
+              {
+                "name": "segment_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Manually refresh a segment by segment ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

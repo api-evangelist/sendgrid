@@ -1,0 +1,165 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Twilio SendGrid Provisioning Account Categories API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Categories",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve all categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/categories",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "`limit` sets the page size, i.e. maximum number of items from the list to be returned for a single API request. If omitted, the default page size is used."
+              },
+              {
+                "name": "category",
+                "value": "",
+                "type": "query",
+                "description": "Allows you to perform a prefix search on this particular category."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of items in the list to skip over before starting to retrieve the items for the requested page. The default `offset` of `0` represents the beginning of the list, i.e. the start of the first page. To request the second page of the list, set the `offset` to the page size as determined by `limit`. Use multiples of the page size as your `offset` to request further consecutive pages. E.g. assume your page size is set to `10`. An `offset` of `10` requests the second page, an `offset` of `20` requests the third page and so on, provided there are sufficiently many items in your list."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve a paginated list of all of your categories.**\n\nYou can use the `limit` query parameter to set the page size. If your list contains more items than the page size permits, you can make multiple requests. Use the `offset` query parameter to control the position in the list from which to start retrieving additional items."
+        },
+        {
+          "info": {
+            "name": "Retrieve Email Statistics for Categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/categories/stats",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "The end date of the statistics to retrieve. Defaults to today. Must follow format YYYY-MM-DD."
+              },
+              {
+                "name": "categories",
+                "value": "",
+                "type": "query",
+                "description": "The individual categories that you want to retrieve statistics for. You may include up to 10 different categories."
+              },
+              {
+                "name": "aggregated_by",
+                "value": "",
+                "type": "query",
+                "description": "How to group the statistics. Must be either \"day\", \"week\", or \"month\"."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve all of your email statistics for each of your categories.**\n\nIf you do not define any query parameters, this endpoint will return a sum for each category in groups of 10."
+        },
+        {
+          "info": {
+            "name": "Retrieve sums of email stats for each category.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/categories/stats/sums",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sort_by_metric",
+                "value": "",
+                "type": "query",
+                "description": "The metric that you want to sort by.  Must be a single metric."
+              },
+              {
+                "name": "sort_by_direction",
+                "value": "",
+                "type": "query",
+                "description": "The direction you want to sort."
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "The end date of the statistics to retrieve. Defaults to today. Must follow format YYYY-MM-DD."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limits the number of results returned."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The point in the list to begin retrieving results."
+              },
+              {
+                "name": "aggregated_by",
+                "value": "",
+                "type": "query",
+                "description": "How to group the statistics. Must be either \"day\", \"week\", or \"month\"."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve the total sum of each email statistic for every category over the given date range.**\n\nIf you do not define any query parameters, this endpoint will return a sum for each category in groups of 10."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

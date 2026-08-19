@@ -1,0 +1,195 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Twilio SendGrid Provisioning Account Custom Fields API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Custom Fields",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve all custom fields",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/contactdb/custom_fields",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve all custom fields.**"
+        },
+        {
+          "info": {
+            "name": "Create a Custom Field",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/contactdb/custom_fields",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to create a custom field.**\n\n**You can create up to 120 custom fields.**"
+        },
+        {
+          "info": {
+            "name": "Retrieve a Custom Field",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/contactdb/custom_fields/:custom_field_id",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "custom_field_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the custom field that you want to retrieve."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve a custom field by ID.**"
+        },
+        {
+          "info": {
+            "name": "Delete a Custom Field",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendgrid.com/v3/contactdb/custom_fields/:custom_field_id",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "custom_field_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the custom field that you want to retrieve."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to delete a custom field by ID.**"
+        },
+        {
+          "info": {
+            "name": "Retrieve reserved fields",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/contactdb/reserved_fields",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to list all fields that are reserved and can't be used for custom field names.**"
+        },
+        {
+          "info": {
+            "name": "Get All Field Definitions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/marketing/field_definitions"
+          },
+          "docs": "**This endpoint retrieves all defined Custom Fields and Reserved Fields.**"
+        },
+        {
+          "info": {
+            "name": "Create Custom Field Definition",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/marketing/field_definitions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint creates a new custom field definition.**\n\nCustom field definitions are created with the given `name` and `field_type`. Although field names are stored in a case-sensitive manner, all field names must be case-insensitively unique. This means you may create a field named `CamelCase` or `camelcase`, but not both. Additionally, a Custom Field name cannot collide with any Reserved Field names. You should save the returned `id` value in order to update or delete the field at a later da"
+        },
+        {
+          "info": {
+            "name": "Update Custom Field Definition",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.sendgrid.com/v3/marketing/field_definitions/:custom_field_id",
+            "params": [
+              {
+                "name": "custom_field_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to update a defined Custom Field.**\n\nOnly your Custom fields can be modified; Reserved Fields cannot be updated."
+        },
+        {
+          "info": {
+            "name": "Delete Custom Field Definition",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendgrid.com/v3/marketing/field_definitions/:custom_field_id",
+            "params": [
+              {
+                "name": "custom_field_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "**This endpoint deletes a defined Custom Field.**\n\nYou can delete only Custom Fields; Reserved Fields cannot be deleted."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

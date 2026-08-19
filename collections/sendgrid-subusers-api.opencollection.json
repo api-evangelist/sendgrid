@@ -1,0 +1,230 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Twilio SendGrid Provisioning Account Subusers API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Subusers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all Subusers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/subusers",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "query",
+                "description": "The username of this subuser."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "`limit` sets the page size, i.e. maximum number of items from the list to be returned for a single API request. If omitted, the default page size is used."
+              },
+              {
+                "name": "region",
+                "value": "",
+                "type": "query",
+                "description": "Filter for Subusers in this region. If not provided, all Subusers will be returned. All users can also be explicitly requested by using the filter `all`. Users who are not pinned to a region will be displayed as `global`."
+              },
+              {
+                "name": "include_region",
+                "value": "",
+                "type": "query",
+                "description": "Optional flag to include the regions of the Subusers in the response. If not provided, the region will be omitted from the response."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of items in the list to skip over before starting to retrieve the items for the requested page. The default `offset` of `0` represents the beginning of the list, i.e. the start of the first page. To request the second page of the list, set the `offset` to the page size as determined by `limit`. Use multiples of the page size as your `offset` to request further consecutive pages. E.g. assume your page size is set to `10`. An `offset` of `10` requests the second page, an `offset` of `20` requests the third page and so on, provided there are sufficiently many items in your list."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve a paginated list of all your subusers.**\n\nYou can use the `username` query parameter to filter the list for specific subusers.\n\nYou can use the `limit` query parameter to set the page size. If your list contains more items than the page size permits, you can make multiple requests. Use the `offset` query parameter to control the position in the list from which to start retrieving additional items."
+        },
+        {
+          "info": {
+            "name": "Create Subuser",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/subusers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to create a new subuser.**"
+        },
+        {
+          "info": {
+            "name": "Enable/disable a subuser",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.sendgrid.com/v3/subusers/:subuser_name",
+            "params": [
+              {
+                "name": "subuser_name",
+                "value": "",
+                "type": "path",
+                "description": "The username of the Subuser."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to enable or disable a subuser.**"
+        },
+        {
+          "info": {
+            "name": "Delete a subuser",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendgrid.com/v3/subusers/:subuser_name",
+            "params": [
+              {
+                "name": "subuser_name",
+                "value": "",
+                "type": "path",
+                "description": "The username of the Subuser."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to delete a subuser.**\n\nThis is a permanent action. Once deleted, a subuser cannot be retrieved."
+        },
+        {
+          "info": {
+            "name": "Get the Credits for a Subuser",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/subusers/:subuser_name/credits",
+            "params": [
+              {
+                "name": "subuser_name",
+                "value": "",
+                "type": "path",
+                "description": "The username of the Subuser."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve a Credits overview for a Subuser.**"
+        },
+        {
+          "info": {
+            "name": "Update the Credits for a Subuser",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.sendgrid.com/v3/subusers/:subuser_name/credits",
+            "params": [
+              {
+                "name": "subuser_name",
+                "value": "",
+                "type": "path",
+                "description": "The username of the Subuser."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to update the Credits for a Subuser.**"
+        },
+        {
+          "info": {
+            "name": "Update the remaining credits for a Subuser",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.sendgrid.com/v3/subusers/:subuser_name/credits/remaining",
+            "params": [
+              {
+                "name": "subuser_name",
+                "value": "",
+                "type": "path",
+                "description": "The username of the Subuser."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to update the remaining credits for a Subuser.**"
+        },
+        {
+          "info": {
+            "name": "Update IPs assigned to a subuser",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.sendgrid.com/v3/subusers/:subuser_name/ips",
+            "params": [
+              {
+                "name": "subuser_name",
+                "value": "",
+                "type": "path",
+                "description": "The username of the Subuser."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you update your subusers' assigned IP.**\n\nEach subuser should be assigned to an IP address from which all of this subuser's mail will be sent. Often, this is the same IP as the parent account, but each subuser can have one or more of their own IP addresses as well. \n\nMore information:\n\n* [How to request more IPs](https://sendgrid.com/docs/ui/account-and-settings/dedicated-ip-addresses/)\n* [Setup Reverse DNS](https://sendgrid.com/docs/ui/account-and-settings/how-to-set-up-r"
+        },
+        {
+          "info": {
+            "name": "Retrieve Subuser Reputations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/subusers/reputations",
+            "params": [
+              {
+                "name": "usernames",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to request the reputations for your subusers.**\n\nSubuser sender reputations give a good idea how well a sender is doing with regards to how recipients and recipient servers react to the mail that is being received. When a bounce, spam report, or other negative action happens on a sent email, it will affect your sender rating."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

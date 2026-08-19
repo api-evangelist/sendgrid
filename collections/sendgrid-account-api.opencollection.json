@@ -1,0 +1,108 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Twilio SendGrid Provisioning Account API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Account",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/partners/accounts",
+            "params": [
+              {
+                "name": "offset",
+                "value": "sg2a2bcd3ef4ab5c67d8efab91c01de2fa",
+                "type": "query",
+                "description": "The last item successfully retrieved"
+              },
+              {
+                "name": "limit",
+                "value": "2",
+                "type": "query",
+                "description": "The number of items to return"
+              }
+            ]
+          },
+          "docs": "Retrieves all accounts under the organization."
+        },
+        {
+          "info": {
+            "name": "Create an account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/partners/accounts",
+            "headers": [
+              {
+                "name": "T-Test-Account",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new account, with specified offering, under the organization."
+        },
+        {
+          "info": {
+            "name": "Delete an account",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendgrid.com/v3/partners/accounts/:accountID",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "sg2a2bcd3ef4ab5c67d8efab91c01de2fa",
+                "type": "path",
+                "description": "Twilio SendGrid account ID"
+              }
+            ]
+          },
+          "docs": "Delete a specific account under your organization by account ID. Note that this is an **irreversible** action that does the following:\n\n - Revokes API Keys and SSO so that the account user cannot log in or access SendGrid data.\n - Removes all offerings and configured SendGrid resources such as dedicated IPs.\n - Cancels billing effective immediately."
+        },
+        {
+          "info": {
+            "name": "Authenticate an account with single sign on",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/partners/accounts/:accountID/sso",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "sg2a2bcd3ef4ab5c67d8efab91c01de2fa",
+                "type": "path",
+                "description": "Twilio SendGrid account ID"
+              }
+            ]
+          },
+          "docs": "Authenticates and logs in a user to Twilio Sendgrid as a specific admin identity configured for SSO by partner. Any additional teammates or subusers will need to log in directly via app.sendgrid.com"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

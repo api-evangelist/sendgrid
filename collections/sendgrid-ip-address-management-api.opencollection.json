@@ -1,0 +1,457 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Twilio SendGrid Provisioning Account IP Address Management API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "IP Address Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a List of all IP Addresses on your Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/send_ips/ips",
+            "params": [
+              {
+                "name": "ip",
+                "value": "",
+                "type": "query",
+                "description": "Specifies an IP address. The `ip` query parameter can be used to filter results by IP address."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the number of results to be returned by the API. This parameter can be used in combination with the `before_key` or `after_key` parameters to iterate through paginated results."
+              },
+              {
+                "name": "after_key",
+                "value": "",
+                "type": "query",
+                "description": "Specifies which items to be returned by the API. When the `after_key` is specified, the API will return items beginning from the first item after the item specified. This parameter can be used in combination with `limit` to iterate through paginated results."
+              },
+              {
+                "name": "before_key",
+                "value": "",
+                "type": "query",
+                "description": "Specifies which items to be returned by the API. When the `before_key` is specified, the API will return items beginning from the first item before the item specified. This parameter can be used in combination with `limit` to iterate through paginated results."
+              },
+              {
+                "name": "is_leased",
+                "value": "",
+                "type": "query",
+                "description": "Indicates whether an IP address is leased from Twilio SendGrid. If `false`, the IP address is not a Twilio SendGrid IP; it is a customer's own IP that has been added to their Twilio SendGrid account."
+              },
+              {
+                "name": "is_enabled",
+                "value": "",
+                "type": "query",
+                "description": "Indicates if the IP address is billed and able to send email. This parameter applies to non-Twilio SendGrid APIs that been added to your Twilio SendGrid account. This parameter's value is `null` for Twilio SendGrid IP addresses."
+              },
+              {
+                "name": "is_parent_assigned",
+                "value": "",
+                "type": "query",
+                "description": "A parent must be assigned to an IP address before the parent can send mail from the IP and before the address can be assigned to an IP pool. Set this parameter value to true to allow the parent to send mail from the IP and make the IP eligible for IP pool assignment using the IP pool endpoints."
+              },
+              {
+                "name": "pool",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the unique ID for an IP Pool. When included, only IP addresses belonging to the specified Pool will be returned."
+              },
+              {
+                "name": "start_added_at",
+                "value": "",
+                "type": "query",
+                "description": "The `start_added_at` and `end_added_at` parameters are used to set a time window. IP addresses that were added to your account in the specified time window will be returned. The `start_added_at` parameter sets the beginning of the time window."
+              },
+              {
+                "name": "end_added_at",
+                "value": "",
+                "type": "query",
+                "description": "The `start_added_at` and `end_added_at` parameters are used to set a time window. IP addresses that were added to your account in the specified time window will be returned. The `end_added_at` parameter sets the end of the time window."
+              },
+              {
+                "name": "region",
+                "value": "",
+                "type": "query",
+                "description": "Allowed values are `all`, `eu`, and `us`. If you provide a specific region, results will include all pools that have at least one IP in the filtered region. If `all`, pools with at least one IP (regardless of region) will be returned. If the `region` filter is not provided, the query returns all pools, including empty ones."
+              },
+              {
+                "name": "include_region",
+                "value": "",
+                "type": "query",
+                "description": "Boolean indicating whether or not to return the IP Pool's region information in the response."
+              }
+            ]
+          },
+          "docs": "This operation returns a list of all IP addresses associated with your account. A sample of IP details is returned with each IP, including which Pools the IP is associated with, whether the IP is set to warm up automatically, and when the IP was last updated.\n\n### Limitations\n\nThe `is_parent_assigned` parameter and `pool` parameter cannot be used at the same time. By definition, an IP cannot be assigned to a Pool if it is not first enabled. You can use either the `before_key` or `after_key` in c"
+        },
+        {
+          "info": {
+            "name": "Add a Twilio SendGrid IP Address",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/send_ips/ips",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This operation adds a Twilio SendGrid IP address to your account. You can also assign up to 100 Subusers to the IP address at creation."
+        },
+        {
+          "info": {
+            "name": "Get Details for an IP Address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/send_ips/ips/:ip",
+            "params": [
+              {
+                "name": "ip",
+                "value": "",
+                "type": "path",
+                "description": "The `ip` path parameter specifies an IP address to make the request against."
+              },
+              {
+                "name": "include_region",
+                "value": "",
+                "type": "query",
+                "description": "Boolean indicating whether or not to return the IP Pool's region information in the response."
+              }
+            ]
+          },
+          "docs": "This operation returns details for a specified IP address. Details include whether the IP is assigned to a parent account, set to warm up automatically, which Pools the IP is associated with, when the IP was added and modified, whether the IP is leased, and whether the IP is enabled. Note that this operation will not return Subuser information associated with the IP. To retrieve Subuser information, use the \"Get a List of Subusers Assigned to an IP\" endpoint."
+        },
+        {
+          "info": {
+            "name": "Update Details for an IP Address",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.sendgrid.com/v3/send_ips/ips/:ip",
+            "params": [
+              {
+                "name": "ip",
+                "value": "",
+                "type": "path",
+                "description": "The `ip` path parameter specifies an IP address to make the request against."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This operation updates an IP address's settings, including whether the IP is set to warm up automatically, if the IP is  assigned by a parent account, and whether the IP is enabled or disabled. The request body must include at least one of the `is_auto_warmup`, `is_parent_assigned`, or `is_enabled` fields."
+        },
+        {
+          "info": {
+            "name": "Get a List of Subusers Assigned to an IP",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/send_ips/ips/:ip/subusers",
+            "params": [
+              {
+                "name": "ip",
+                "value": "",
+                "type": "path",
+                "description": "The `ip` path parameter specifies an IP address to make the request against."
+              },
+              {
+                "name": "after_key",
+                "value": "",
+                "type": "query",
+                "description": "Specifies which items to be returned by the API. When the `after_key` is specified, the API will return items beginning from the first item after the item specified. This parameter can be used in combination with `limit` to iterate through paginated results."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the number of results to be returned by the API. This parameter can be used in combination with the `after_key` parameters to iterate through paginated results. The maximum limit is 100."
+              }
+            ]
+          },
+          "docs": "This operation returns a list of Subuser IDs that have been assigned the specified IP address. To retrieve more information about the returned Subusers, use the [Subusers API](https://docs.sendgrid.com/api-reference/subusers-api/list-all-subusers).\n\nYou can use the `after_key` and `limit` query parameters to iterate through paginated results. The maximum limit is 100, meaning you may retrieve up to 100 Subusers per request. If the `after_key` in the API response is not null, there are more Subus"
+        },
+        {
+          "info": {
+            "name": "Assign a Batch of Subusers to an IP",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/send_ips/ips/:ip/subusers:batchAdd",
+            "params": [
+              {
+                "name": "ip",
+                "value": "",
+                "type": "path",
+                "description": "The `ip` path parameter specifies an IP address to make the request against."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This operation appends a batch of Subusers to a specified IP address. This endpoint requires all Subuser assignments to succeed. If a Subuser assignment fails, this endpoint will return an error."
+        },
+        {
+          "info": {
+            "name": "Delete a Batch of Subusers from an IP",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/send_ips/ips/:ip/subusers:batchDelete",
+            "params": [
+              {
+                "name": "ip",
+                "value": "",
+                "type": "path",
+                "description": "The `ip` path parameter specifies an IP address to make the request against."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This operation removes a batch of Subusers from a specified IP address."
+        },
+        {
+          "info": {
+            "name": "GET all IP Pools that have Associated IPs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/send_ips/pools",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the number of results to be returned by the API. This parameter can be used in combination with the `before_key` or `after_key` parameters to iterate through paginated results."
+              },
+              {
+                "name": "after_key",
+                "value": "",
+                "type": "query",
+                "description": "Specifies which items to be returned by the API. When the `after_key` is specified, the API will return items beginning from the first item after the item specified. This parameter can be used in combination with `limit` to iterate through paginated results."
+              },
+              {
+                "name": "ip",
+                "value": "",
+                "type": "query",
+                "description": "Specifies an IP address. The `ip` query parameter can be used to filter results by IP address."
+              },
+              {
+                "name": "region",
+                "value": "",
+                "type": "query",
+                "description": "Allowed values are `all`, `eu`, and `us`. If you provide a specific region, results will include all pools that have at least one IP in the filtered region. If `all`, pools with at least one IP (regardless of region) will be returned. If the `region` filter is not provided, the query returns all pools, including empty ones."
+              },
+              {
+                "name": "include_region",
+                "value": "",
+                "type": "query",
+                "description": "Boolean indicating whether or not to return the IP Pool's region information in the response."
+              }
+            ]
+          },
+          "docs": "This operation returns a list of your IP Pools and a sample of each Pools' associated IP addresses.\n\nA maximum of 10 IPs will be returned per IP Pool by default. To retrieve additional IP addresses associated with a Pool, use the \"Get IPs Assigned to an IP Pool\" operation. Each user may have a maximum of 100 IP Pools."
+        },
+        {
+          "info": {
+            "name": "Create an IP Pool with a Name and IP Assignments",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/send_ips/pools",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This operation will create a named IP Pool and associate specified IP addresses with the newly created Pool. This operation requires all IP assignments to succeed. If any IP assignments fail, this endpoint will return an error and the Pool will not be created.\n\nEach IP Pool may have a maximum of 100 assigned IP addresses."
+        },
+        {
+          "info": {
+            "name": "Get Details for an IP Pool",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/send_ips/pools/:poolid",
+            "params": [
+              {
+                "name": "poolid",
+                "value": "",
+                "type": "path",
+                "description": "Specifies the unique ID for an IP Pool."
+              },
+              {
+                "name": "include_region",
+                "value": "",
+                "type": "query",
+                "description": "Boolean indicating whether or not to return the IP Pool's region information in the response."
+              }
+            ]
+          },
+          "docs": "This operation will return the details for a specified IP Pool, including the Pool's name, ID, a sample list of the IPs associated with the Pool, and the total number of IPs belonging to the Pool.\n\nA maximum of 10 IPs will be returned per IP Pool by default. To retrieve additional IP addresses associated with a Pool, use the \"Get IPs Assigned to an IP Pool\" operation."
+        },
+        {
+          "info": {
+            "name": "Update an IP Pool Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.sendgrid.com/v3/send_ips/pools/:poolid",
+            "params": [
+              {
+                "name": "poolid",
+                "value": "",
+                "type": "path",
+                "description": "Specifies the unique ID for an IP Pool."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This operation will rename an IP Pool. An IP Pool name cannot start with a dot/period (.) or space."
+        },
+        {
+          "info": {
+            "name": "Delete IP Pool",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendgrid.com/v3/send_ips/pools/:poolid",
+            "params": [
+              {
+                "name": "poolid",
+                "value": "",
+                "type": "path",
+                "description": "Specifies the unique ID for an IP Pool."
+              }
+            ]
+          },
+          "docs": "This operation deletes an IP Pool and unassigns all IP addresses associated with the Pool. IP addresses associated with the deleted Pool will remain in your account."
+        },
+        {
+          "info": {
+            "name": "Get IPs Assigned to an IP Pool",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/send_ips/pools/:poolid/ips",
+            "params": [
+              {
+                "name": "poolid",
+                "value": "",
+                "type": "path",
+                "description": "Specifies the unique ID for an IP Pool."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the number of results to be returned by the API. This parameter can be used in combination with the `before_key` or `after_key` parameters to iterate through paginated results."
+              },
+              {
+                "name": "after_key",
+                "value": "",
+                "type": "query",
+                "description": "Specifies which items to be returned by the API. When the `after_key` is specified, the API will return items beginning from the first item after the item specified. This parameter can be used in combination with `limit` to iterate through paginated results."
+              },
+              {
+                "name": "include_region",
+                "value": "",
+                "type": "query",
+                "description": "Boolean indicating whether or not to return the IP Pool's region information in the response."
+              }
+            ]
+          },
+          "docs": "This operation returns the IP addresses that are assigned to the specified IP pool."
+        },
+        {
+          "info": {
+            "name": "Add a Batch of IPs to an IP Pool",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/send_ips/pools/:poolid/ips:batchAdd",
+            "params": [
+              {
+                "name": "poolid",
+                "value": "",
+                "type": "path",
+                "description": "Specifies the unique ID for an IP Pool."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This operation appends a batch of IPs to an IP Pool. This operation requires all IP assignments to succeed. If any IP assignments fail, this endpoint will return an error."
+        },
+        {
+          "info": {
+            "name": "Delete a Batch of IPs from an IP Pool",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/send_ips/pools/:poolid/ips:batchDelete",
+            "params": [
+              {
+                "name": "poolid",
+                "value": "",
+                "type": "path",
+                "description": "Specifies the unique ID for an IP Pool."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This operation removes a batch of IPs from an IP Pool. All IPs associated with the Pool will be unassigned from the deleted Pool. However, this operation does not remove the IPs from your account."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

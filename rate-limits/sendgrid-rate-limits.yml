@@ -4,50 +4,86 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: SendGrid
 providerId: sendgrid
 created: '2026-05-04'
-modified: '2026-05-04'
+generated: '2026-08-13'
+method: searched
+source: https://www.twilio.com/docs/sendgrid/api-reference/how-to-use-the-sendgrid-v3-api/rate-limits
+modified: '2026-08-13'
 reconciled: true
 tags:
   - Rate Limiting
   - Email
-description: SendGrid v3 API enforces per-account, per-endpoint rate limits.
+description: >-
+  SendGrid v3 rate limiting, read from the published "Rate Limits" page of the
+  v3 API reference on 2026-08-13. THE RUNTIME SIGNAL IS DOCUMENTED; THE NUMBERS
+  ARE NOT. SendGrid returns three rate-limit headers on every response and a 429
+  on exhaustion, and an agent should drive entirely off those headers — because
+  SendGrid publishes no per-endpoint or per-account numeric limit table. The
+  values that appear on the docs page (500, 150) are illustrative examples
+  inside a sample response, not a committed limit. Limits are described as
+  "a fixed number of requests per refresh period" that varies by endpoint and
+  plan.
 sources:
-  - https://sendgrid.com/en-us/pricing
-  - https://www.twilio.com/en-us/products/email-api/pricing
   - https://www.twilio.com/docs/sendgrid/api-reference/how-to-use-the-sendgrid-v3-api/rate-limits
+  - https://www.twilio.com/docs/sendgrid/glossary/rate-limiting
 headers:
   limit: X-RateLimit-Limit
   remaining: X-RateLimit-Remaining
   reset: X-RateLimit-Reset
+header_semantics:
+  X-RateLimit-Limit: The fixed number of requests allowed per refresh period for that endpoint.
+  X-RateLimit-Remaining: Requests still available in the current refresh period.
+  X-RateLimit-Reset: Timestamp at which the limit resets.
+  Retry-After: not documented — use X-RateLimit-Reset instead.
 responseCodes:
   throttled: 429
-limits:
-  - name: Mail Send v3 (Free)
-    scope: account
-    metric: requests_per_minute
-    limit: 100
-    timeFrame: minute
-  - name: Mail Send v3 (Paid)
-    scope: account
-    metric: requests_per_minute
-    limit: 600
-    timeFrame: minute
-  - name: Marketing Single Send
-    scope: account
-    metric: requests_per_hour
-    limit: 60
-    timeFrame: hour
-  - name: Contacts API
-    scope: account
-    metric: requests_per_minute
-    limit: 100
-    timeFrame: minute
-  - name: Stats API
-    scope: account
-    metric: requests_per_minute
-    limit: 600
-    timeFrame: minute
+throttled_behavior: >-
+  On exhaustion the API returns HTTP 429 with X-RateLimit-Remaining: 0, and no
+  further requests against that endpoint succeed for the remainder of the
+  refresh period. SendGrid publishes no backoff or retry guidance beyond the
+  reset timestamp.
+limits: []
+limit_count: 0
+limit_count_note: >-
+  Zero is the finding, not a gap in this pass. SendGrid documents the mechanism
+  (headers + 429) but publishes no numeric limits an integrator can plan
+  against. The only reliable source of a concrete limit is the
+  X-RateLimit-Limit header on a live authenticated response, which this pipeline
+  does not have credentials to observe.
+unverified_legacy_claims:
+  note: >-
+    These per-endpoint numbers were written into this artifact by the
+    2026-05-04 API Evangelist bulk sweep. On the 2026-08-13 re-check NONE of
+    them could be found in SendGrid's published rate-limit documentation. They
+    are retained here, quarantined and clearly labelled, rather than deleted
+    silently or left in `limits` where they would read as published fact.
+  provenance: API Evangelist bulk sweep 2026-05-04 (roadmap#35)
+  status: unverified
+  claims:
+    - {name: Mail Send v3 (Free), scope: account, metric: requests_per_minute, limit: 100, timeFrame: minute}
+    - {name: Mail Send v3 (Paid), scope: account, metric: requests_per_minute, limit: 600, timeFrame: minute}
+    - {name: Marketing Single Send, scope: account, metric: requests_per_hour, limit: 60, timeFrame: hour}
+    - {name: Contacts API, scope: account, metric: requests_per_minute, limit: 100, timeFrame: minute}
+    - {name: Stats API, scope: account, metric: requests_per_minute, limit: 600, timeFrame: minute}
 policies:
   - name: IP warm-up
-    description: Dedicated IPs need gradual ramp.
+    description: >-
+      Dedicated IPs must be ramped gradually; SendGrid provides an IP Warmup API
+      (openapi/sendgrid-ip-warmup-api-openapi.yml) and automated warmup schedules.
+      This is a deliverability throttle, distinct from API rate limiting.
   - name: Reputation throttling
-    description: Bounce/complaint rates can trigger ISP-level throttling.
+    description: >-
+      Bounce and complaint rates can trigger ISP-level throttling of delivery
+      independent of any API rate limit. See skills/sendgrid-deliverability-advisor.md
+      and the Engagement Quality API.
+  - name: Plan-tier sending quotas
+    description: >-
+      Monthly/daily email volume is bounded by the plan (see plans/sendgrid-plans-pricing.yml);
+      exceeding it triggers overage billing, not a 429.
+see_also:
+  conventions: conventions/sendgrid-conventions.yml
+  plans: plans/sendgrid-plans-pricing.yml
+  errors: errors/sendgrid-problem-types.yml
+x-evidence:
+  fetched: '2026-08-13'
+  url: https://www.twilio.com/docs/sendgrid/api-reference/how-to-use-the-sendgrid-v3-api/rate-limits
+  http_status: 200

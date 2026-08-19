@@ -1,0 +1,448 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Twilio SendGrid Provisioning Account Lists API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Lists",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve all lists",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/contactdb/lists",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve all of your recipient lists. If you don't have any lists, an empty array will be returned.**"
+        },
+        {
+          "info": {
+            "name": "Create a List",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/contactdb/lists",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to create a list for your recipients.**"
+        },
+        {
+          "info": {
+            "name": "Delete Multiple lists",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendgrid.com/v3/contactdb/lists",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to delete multiple recipient lists.**"
+        },
+        {
+          "info": {
+            "name": "Retrieve a single list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/contactdb/lists/:list_id",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "list_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve a single recipient list.**"
+        },
+        {
+          "info": {
+            "name": "Update a List",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.sendgrid.com/v3/contactdb/lists/:list_id",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "list_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to update the name of one of your recipient lists.**"
+        },
+        {
+          "info": {
+            "name": "Delete a List",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendgrid.com/v3/contactdb/lists/:list_id",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "list_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "delete_contacts",
+                "value": "",
+                "type": "query",
+                "description": "Adds the ability to delete all contacts on the list in addition to deleting the list."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to delete a specific recipient list with the given ID.**"
+        },
+        {
+          "info": {
+            "name": "Retrieve all recipients on a List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/contactdb/lists/:list_id/recipients",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "list_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the list of recipients you want to retrieve."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page index of first recipient to return (must be a positive integer)"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of recipients to return at a time (must be a positive integer between 1 and 1000)"
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve all recipients on the list with the given ID.**"
+        },
+        {
+          "info": {
+            "name": "Add Multiple Recipients to a List",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/contactdb/lists/:list_id/recipients",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "list_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the list of recipients you want to retrieve."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to add multiple recipients to a list.**\n\nAdds existing recipients to a list, passing in the recipient IDs to add. Recipient IDs (base64-encoded email addresses) should be passed exactly as they are returned from recipient endpoints."
+        },
+        {
+          "info": {
+            "name": "Add a Single Recipient to a List",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/contactdb/lists/:list_id/recipients/:recipient_id",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "list_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the list that you want to add the recipient to."
+              },
+              {
+                "name": "recipient_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the recipient you are adding to the list."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to add a single recipient to a list.**"
+        },
+        {
+          "info": {
+            "name": "Delete a Single Recipient from a Single List",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendgrid.com/v3/contactdb/lists/:list_id/recipients/:recipient_id",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "list_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the list that you want to add the recipient to."
+              },
+              {
+                "name": "recipient_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the recipient you are adding to the list."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to delete a single recipient from a list.**"
+        },
+        {
+          "info": {
+            "name": "Get All Lists",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/marketing/lists",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of elements to return. Defaults to 100, returns 1000 max"
+              },
+              {
+                "name": "page_token",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "**This endpoint returns an array of all of your contact lists.**"
+        },
+        {
+          "info": {
+            "name": "Create List",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/marketing/lists",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint creates a new contacts list.**\n\nOnce you create a list, you can use the UI to [trigger an automation](https://sendgrid.com/docs/ui/sending-email/getting-started-with-automation/#create-an-automation) every time you add a new contact to the list.\n\nA link to the newly created object is in `_metadata`."
+        },
+        {
+          "info": {
+            "name": "Get a List by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/marketing/lists/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the list on which you want to perform the operation."
+              },
+              {
+                "name": "contact_sample",
+                "value": "",
+                "type": "query",
+                "description": "Setting this parameter to the true  will cause the contact_sample to be returned"
+              }
+            ]
+          },
+          "docs": "**This endpoint returns data about a specific list.**\nSetting the optional parameter `contact_sample=true` returns the `contact_sample` in the response body. Up to 50 of the most recent contacts uploaded or attached to a list will be returned.\nThe full contact count is also returned."
+        },
+        {
+          "info": {
+            "name": "Update List",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.sendgrid.com/v3/marketing/lists/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the list on which you want to perform the operation."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint updates the name of a list.**"
+        },
+        {
+          "info": {
+            "name": "Delete a list",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendgrid.com/v3/marketing/lists/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the list on which you want to perform the operation."
+              },
+              {
+                "name": "delete_contacts",
+                "value": "",
+                "type": "query",
+                "description": "Flag indicates that all contacts on the list are also to be deleted."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to deletes a specific list.**\n\nOptionally, you can also delete contacts associated to the list. The query parameter, `delete_contacts=true`, will delete the list and start an asynchronous job to delete associated contacts."
+        },
+        {
+          "info": {
+            "name": "Remove Contacts from a List",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendgrid.com/v3/marketing/lists/:id/contacts",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the list on which you want to perform the operation."
+              },
+              {
+                "name": "contact_ids",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of contact IDs that you want to remove from the specified contacts list."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to remove contacts from a given list.**\n\nThe contacts will not be deleted. Only their list membership will be changed."
+        },
+        {
+          "info": {
+            "name": "Get List Contact Count",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/marketing/lists/:id/contacts/count",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "**This endpoint returns the number of contacts on a specific list.**"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

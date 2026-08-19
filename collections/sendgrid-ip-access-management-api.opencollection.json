@@ -1,0 +1,158 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Twilio SendGrid Provisioning Account IP Access Management API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "IP Access Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve all recent access attempts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/access_settings/activity",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limits the number of IPs to return."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve a list of all of the IP addresses that recently attempted to access your account either through the User Interface or the API.**"
+        },
+        {
+          "info": {
+            "name": "Retrieve a list of currently allowed IPs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/access_settings/whitelist",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve a list of IP addresses that are currently allowed to access your account.**\n\nEach IP address returned to you will have `created_at` and `updated_at` dates. Each IP will also be associated with an `id` that can be used to remove the address from your allow list."
+        },
+        {
+          "info": {
+            "name": "Add one or more IPs to the allow list",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/access_settings/whitelist",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to add one or more allowed IP addresses.**\n\nTo allow one or more IP addresses, pass them to this endpoint in an array. Once an IP address is added to your allow list, it will be assigned an `id` that can be used to remove the address. You can retrieve the ID associated with an IP using the \"Retrieve a list of currently allowed IPs\" endpoint."
+        },
+        {
+          "info": {
+            "name": "Remove one or more IPs from the allow list",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendgrid.com/v3/access_settings/whitelist",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to remove one or more IP addresses from your list of allowed addresses.**\n\nTo remove one or more IP addresses, pass this endpoint an array containing the ID(s) associated with the IP(s) you intend to remove. You can retrieve the IDs associated with your allowed IP addresses using the \"Retrieve a list of currently allowed IPs\" endpoint.\n\nIt is possible to remove your own IP address, which will block access to your account. You will need to submit a [support ticket](http"
+        },
+        {
+          "info": {
+            "name": "Retrieve a specific allowed IP",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/access_settings/whitelist/:rule_id",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "rule_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the allowed IP address that you want to retrieve."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retreive a specific IP address that has been allowed to access your account.**\n\nYou must include the ID for the specific IP address you want to retrieve in your call. You can retrieve the IDs associated with your allowed IP addresses using the \"Retrieve a  list of currently allowed IPs\" endpoint."
+        },
+        {
+          "info": {
+            "name": "Remove a specific IP from the allowed list",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendgrid.com/v3/access_settings/whitelist/:rule_id",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "rule_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the allowed IP address that you want to retrieve."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to remove a specific IP address from your list of allowed addresses.**\n\nWhen removing a specific IP address from your list, you must include the ID in your call.  You can retrieve the IDs associated with your allowed IP addresses using the \"Retrieve a list of currently allowed IPs\" endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

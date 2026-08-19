@@ -1,0 +1,190 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Twilio SendGrid Provisioning Account Parse Webhook API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Parse Webhook",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve all parse settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/user/webhooks/parse/settings",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve all of your current inbound parse settings.**"
+        },
+        {
+          "info": {
+            "name": "Create a parse setting",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/user/webhooks/parse/settings",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to create a new inbound parse setting.**\n\nCreating an Inbound Parse setting requires two pieces of information: a `url` and a `hostname`.\n\nThe `hostname` must correspond to a domain authenticated by Twilio SendGrid on your account. If you need to complete domain authentication, you can use the [Twilio SendGrid App](https://app.sendgrid.com/settings/sender_auth) or the **Authenticate a Domain** endpoint. See [**How to Set Up Domain Authentication**](https://sendgrid.com"
+        },
+        {
+          "info": {
+            "name": "Retrieve a specific parse setting",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/user/webhooks/parse/settings/:hostname",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "hostname",
+                "value": "",
+                "type": "path",
+                "description": "The hostname associated with the inbound parse setting that you would like to retrieve."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve a specific inbound parse setting by hostname.**\n\nYou can retrieve all your Inbound Parse settings and their associated host names with the \"Retrieve all parse settings\" endpoint."
+        },
+        {
+          "info": {
+            "name": "Update a parse setting",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.sendgrid.com/v3/user/webhooks/parse/settings/:hostname",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "hostname",
+                "value": "",
+                "type": "path",
+                "description": "The hostname associated with the inbound parse setting that you would like to retrieve."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to update a specific inbound parse setting by hostname.**\n\nYou can retrieve all your Inbound Parse settings and their associated host names with the \"Retrieve all parse settings\" endpoint."
+        },
+        {
+          "info": {
+            "name": "Delete a parse setting",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendgrid.com/v3/user/webhooks/parse/settings/:hostname",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "hostname",
+                "value": "",
+                "type": "path",
+                "description": "The hostname associated with the inbound parse setting that you would like to retrieve."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to delete a specific inbound parse setting by hostname.**\n\nYou can retrieve all your Inbound Parse settings and their associated host names with the \"Retrieve all parse settings\" endpoint."
+        },
+        {
+          "info": {
+            "name": "Retrieves Inbound Parse Webhook statistics.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/user/webhooks/parse/stats",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of statistics to return on each page."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of statistics to skip."
+              },
+              {
+                "name": "aggregated_by",
+                "value": "",
+                "type": "query",
+                "description": "How you would like the statistics to by grouped. "
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "The starting date of the statistics you want to retrieve. Must be in the format YYYY-MM-DD"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "The end date of the statistics you want to retrieve. Must be in the format YYYY-MM-DD"
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve the statistics for your Parse Webhook usage.**\n\nSendGrid's Inbound Parse Webhook allows you to parse the contents and attachments of incoming emails. The Parse API can then POST the parsed emails to a URL that you specify. The Inbound Parse Webhook cannot parse messages greater than 30MB in size, including all attachments.\n\nThere are a number of pre-made integrations for the SendGrid Parse Webhook which make processing events easy. You can find these integr"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,1064 @@
+{
+  "item": [
+    {
+      "id": "fe26cc9a-493e-4993-bca3-704b75618f2f",
+      "name": "IP Pools",
+      "description": {
+        "content": "Twilio SendGrid IP Address Pool API Operations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7af8dae8-7d0f-44f1-b4b3-5474d1621903",
+          "name": "Create an IP pool",
+          "request": {
+            "name": "Create an IP pool",
+            "description": {
+              "content": "**This endpoint allows you to create an IP pool.**\n\nBefore you can create an IP pool, you need to activate the IP in your SendGrid account: \n\n1. Log into your SendGrid account.  \n1. Navigate to **Settings** and then select **IP Addresses**.  \n1. Find the IP address you want to activate and then click **Edit**.  \n1. Check **Allow my account to send mail using this IP address**.\n1. Click **Save**.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "ips",
+                "pools"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a4a07209-f452-473d-8a01-49c13802fc3b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "ips",
+                    "pools"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"marketing\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"marketing\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3ab50ecd-595b-4a18-9c7a-e52922e1b71a",
+          "name": "Retrieve all IP pools",
+          "request": {
+            "name": "Retrieve all IP pools",
+            "description": {
+              "content": "**This endpoint allows you to get all of your IP pools.**",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "ips",
+                "pools"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0e3b9c5b-d4b2-4e55-97b8-28f527b10e55",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "ips",
+                    "pools"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"marketing\"\n  },\n  {\n    \"name\": \"transactional\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "98201a4e-af9e-4587-9c63-fde266cbb0db",
+          "name": "Retrieve all the IPs in a specified pool",
+          "request": {
+            "name": "Retrieve all the IPs in a specified pool",
+            "description": {
+              "content": "**This endpoint allows you to get all of the IP addresses that are in a specific IP pool.**",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "ips",
+                "pools",
+                ":pool_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "pool_name",
+                  "description": "(Required) The name of the IP pool that you want to retrieve the IP addresses for."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "37e7f31a-bec7-4d21-8eee-dd2544a215bc",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "ips",
+                    "pools",
+                    ":pool_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pool_name",
+                      "description": "(Required) The name of the IP pool that you want to retrieve the IP addresses for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"pool_name\": \"Sample\",\n  \"ips\": [\n    \"192.168.1.1\",\n    \"192.158.1.2\",\n    \"192.138.2.1\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "61e7c113-5902-4295-b928-2620ef14dec7",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "ips",
+                    "pools",
+                    ":pool_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pool_name",
+                      "description": "(Required) The name of the IP pool that you want to retrieve the IP addresses for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"field\": \"error\",\n      \"message\": \"Unable to locate specified IPs Pool\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "49433401-674e-4f41-a369-ed16fba002d2",
+          "name": "Rename an IP pool",
+          "request": {
+            "name": "Rename an IP pool",
+            "description": {
+              "content": "**This endpoint allows you to update the name of an IP pool.**",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "ips",
+                "pools",
+                ":pool_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "pool_name",
+                  "description": "(Required) The name of the IP pool that you want to retrieve the IP addresses for."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d755bc21-ca68-4e4d-b6af-6b5209ec3817",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "ips",
+                    "pools",
+                    ":pool_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pool_name",
+                      "description": "(Required) The name of the IP pool that you want to retrieve the IP addresses for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"new_pool_name\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"new_pool_name\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1e3db0f3-0086-4172-9bdd-b26d3ccc30db",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "ips",
+                    "pools",
+                    ":pool_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pool_name",
+                      "description": "(Required) The name of the IP pool that you want to retrieve the IP addresses for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"new_pool_name\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"field\": null,\n      \"message\": \"ip pool not found\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6a5a5a33-04d6-4b14-b762-774d28f9052b",
+          "name": "Delete an IP pool",
+          "request": {
+            "name": "Delete an IP pool",
+            "description": {
+              "content": "**This endpoint allows you to delete an IP pool.**",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "ips",
+                "pools",
+                ":pool_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "pool_name",
+                  "description": "(Required) The name of the IP pool that you want to retrieve the IP addresses for."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "65529076-e491-45f2-a373-f5943f10c8dc",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "ips",
+                    "pools",
+                    ":pool_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pool_name",
+                      "description": "(Required) The name of the IP pool that you want to retrieve the IP addresses for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b6cd4a21-10e0-4548-9e77-e39cdf0152a6",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "ips",
+                    "pools",
+                    ":pool_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pool_name",
+                      "description": "(Required) The name of the IP pool that you want to retrieve the IP addresses for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Unable to locate specified IPs Pool\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "500eb2ff-f19b-4064-b203-7ab12df09bbe",
+          "name": "Add an IP address to a pool",
+          "request": {
+            "name": "Add an IP address to a pool",
+            "description": {
+              "content": "**This endpoint allows you to add an IP address to an IP pool.**\n\nYou can add the same IP address to multiple pools. It may take up to 60 seconds for your IP address to be added to a pool after your request is made.\n\nBefore you can add an IP to a pool, you need to activate it in your SendGrid account:\n\n1. Log into your SendGrid account.  \n1. Navigate to **Settings** and then select **IP Addresses**.  \n1. Find the IP address you want to activate and then click **Edit**.  \n1. Check **Allow my account to send mail using this IP address**.\n1. Click **Save**.\n\nYou can retrieve all of your available IP addresses from the \"Retrieve all IP addresses\" endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "ips",
+                "pools",
+                ":pool_name",
+                "ips"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "pool_name",
+                  "description": "(Required) The name of the IP pool you want to add the address to. If the name contains spaces, they must be URL encoded (e.g., \"Test Pool\" becomes \"Test%20Pool\")."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ip\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e21f3487-882d-4bec-a9f6-101072015821",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "ips",
+                    "pools",
+                    ":pool_name",
+                    "ips"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pool_name",
+                      "description": "(Required) The name of the IP pool you want to add the address to. If the name contains spaces, they must be URL encoded (e.g., \"Test Pool\" becomes \"Test%20Pool\")."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ip\": \"0.0.0.0\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ip\": \"000.00.00.0\",\n  \"pools\": [\n    \"test1\"\n  ],\n  \"start_date\": 1409616000,\n  \"warmup\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "03947d33-19eb-43c9-ba45-2aa961b585f1",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "ips",
+                    "pools",
+                    ":pool_name",
+                    "ips"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pool_name",
+                      "description": "(Required) The name of the IP pool you want to add the address to. If the name contains spaces, they must be URL encoded (e.g., \"Test Pool\" becomes \"Test%20Pool\")."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ip\": \"0.0.0.0\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"field\": null,\n      \"message\": \"resource not found\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "05473105-c71b-49da-9a96-3917282ad7fd",
+          "name": "Remove an IP address from a pool",
+          "request": {
+            "name": "Remove an IP address from a pool",
+            "description": {
+              "content": "**This endpoint allows you to remove an IP address from an IP pool.**",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "ips",
+                "pools",
+                ":pool_name",
+                "ips",
+                ":ip"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "pool_name",
+                  "description": "(Required) The name of the IP pool that you are removing the IP address from."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ip",
+                  "description": "(Required) The IP address that you wish to remove."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fa708d26-78f9-4204-8c94-56d482e9429c",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "ips",
+                    "pools",
+                    ":pool_name",
+                    "ips",
+                    ":ip"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pool_name",
+                      "description": "(Required) The name of the IP pool that you are removing the IP address from."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ip",
+                      "description": "(Required) The IP address that you wish to remove."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "74a38a45-37c9-4e4d-b94d-5269205c5cba",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "ips",
+                    "pools",
+                    ":pool_name",
+                    "ips",
+                    ":ip"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pool_name",
+                      "description": "(Required) The name of the IP pool that you are removing the IP address from."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ip",
+                      "description": "(Required) The IP address that you wish to remove."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Unable to locate specified IPs Pool\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.sendgrid.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6f95073b-7d4a-4909-a3dd-e74dba69dadd",
+    "name": "Twilio SendGrid Provisioning Account IP Pools API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts. This API is for companies that have a formal reseller partnership with Twilio SendGrid.\n\nYou can access Twilio SendGrid sub-account functionality without becoming a reseller. If you require sub-account functionality, see the Twilio [SendGrid Subusers](https://docs.sendgrid.com/ui/account-and-settings/subusers) feature, which is available with [Pro and Premier plans](https://sendgrid.com/pricing/).\n\nContact Support:\n Name: Twilio SendGrid Support",
+      "type": "text/plain"
+    }
+  }
+}

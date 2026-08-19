@@ -1,0 +1,69 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Twilio SendGrid Provisioning Account Bulk Email Address Validation API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Bulk Email Address Validation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "This request lists all of a user's Bulk Email Validation Jobs.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/validations/email/jobs"
+          },
+          "docs": "**This endpoint returns a list of all of a user's Bulk Email Validation Jobs.**"
+        },
+        {
+          "info": {
+            "name": "Request a presigned URL and headers for Bulk Email Address Validation list upload.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.sendgrid.com/v3/validations/email/jobs",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint returns a presigned URL and request headers. Use this information to upload a list of email addresses for verification.**\n\nNote that in a successful response the `content-type` header value matches the provided `file_type` parameter in the `PUT` request.\n\nOnce you have an `upload_uri` and the `upload_headers`, you're ready to upload your email address list for verification. For the expected format of the email address list and a sample upload request, see the [Bulk Email Address "
+        },
+        {
+          "info": {
+            "name": "This request returns a single Bulk Email Validation Job.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/validations/email/jobs/:job_id",
+            "params": [
+              {
+                "name": "job_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Bulk Email Address Validation Job you wish to retrieve."
+              }
+            ]
+          },
+          "docs": "**This endpoint returns a specific Bulk Email Validation Job. You can use this endpoint to check on the progress of a Job.**\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

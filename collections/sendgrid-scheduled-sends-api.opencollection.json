@@ -1,0 +1,138 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Twilio SendGrid Provisioning Account Scheduled Sends API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Scheduled Sends",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve all scheduled sends",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/user/scheduled_sends",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve all cancelled and paused scheduled send information.**\n\nThis endpoint will return only the scheduled sends that are associated with a `batch_id`. If you have scheduled a send using the `/mail/send` endpoint and the `send_at` field but no `batch_id`, the send will be scheduled for delivery; however, it will not be returned by this endpoint. For this reason, you should assign a `batch_id` to any scheduled send you may need to pause or cancel in the future."
+        },
+        {
+          "info": {
+            "name": "Cancel or pause a scheduled send",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/user/scheduled_sends",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to cancel or pause a scheduled send associated with a `batch_id`.**\n\nPassing this endpoint a `batch_id` and status will cancel or pause the scheduled send.\n\nOnce a scheduled send is set to `pause` or `cancel` you must use the \"Update a scheduled send\" endpoint to change its status or the \"Delete a cancellation or pause from a scheduled send\" endpoint to remove the status. Passing a status change to a scheduled send that has already been paused or cancelled will result "
+        },
+        {
+          "info": {
+            "name": "Retrieve scheduled send",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/user/scheduled_sends/:batch_id",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "batch_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve the cancel/paused scheduled send information for a specific `batch_id`.**"
+        },
+        {
+          "info": {
+            "name": "Update a scheduled send",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.sendgrid.com/v3/user/scheduled_sends/:batch_id",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "batch_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to update the status of a scheduled send for the given `batch_id`.**\n\nIf you have already set a `cancel` or `pause` status on a scheduled send using the \"Cancel or pause a scheduled send\" endpoint, you can update it's status using this endpoint. Attempting to update a status once it has been set with the \"Cancel or pause a scheduled send\" endpoint will result in a `400` error."
+        },
+        {
+          "info": {
+            "name": "Delete a cancellation or pause from a scheduled send",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendgrid.com/v3/user/scheduled_sends/:batch_id",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "batch_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to delete the cancellation/pause of a scheduled send.**\n\nScheduled sends cancelled less than 10 minutes before the scheduled time are not guaranteed to be cancelled."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

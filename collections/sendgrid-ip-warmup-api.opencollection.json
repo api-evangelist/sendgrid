@@ -1,0 +1,88 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Twilio SendGrid Provisioning Account IP Warmup API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "IP Warmup",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve all IPs currently in warmup",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/ips/warmup"
+          },
+          "docs": "**This endpoint allows you to retrieve all of your IP addresses that are currently warming up.**"
+        },
+        {
+          "info": {
+            "name": "Start warming up an IP address",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/ips/warmup",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to put an IP address into warmup mode.**"
+        },
+        {
+          "info": {
+            "name": "Retrieve the warmup status for a specific IP address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/ips/warmup/:ip_address",
+            "params": [
+              {
+                "name": "ip_address",
+                "value": "",
+                "type": "path",
+                "description": "The IP address that you want to retrieve the warmup status for."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve the warmup status for a specific IP address.**\n\nYou can retrieve all of your warming IPs using the \"Retrieve all IPs currently in warmup\" endpoint."
+        },
+        {
+          "info": {
+            "name": "Stop warming up an IP address",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendgrid.com/v3/ips/warmup/:ip_address",
+            "params": [
+              {
+                "name": "ip_address",
+                "value": "",
+                "type": "path",
+                "description": "The IP address that you want to retrieve the warmup status for."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to remove an IP address from warmup mode.**\n\nYour request will return a 204 status code if the specified IP was successfully removed from warmup mode. To retrieve details of the IP’s warmup status *before* removing it from warmup mode, call the  \"Retrieve the warmpup status for a specific IP address\" endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

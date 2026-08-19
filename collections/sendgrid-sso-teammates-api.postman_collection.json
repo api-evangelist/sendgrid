@@ -1,0 +1,828 @@
+{
+  "item": [
+    {
+      "id": "552c82ec-9efe-48a4-b124-e27dd4049be8",
+      "name": "SSO Teammates",
+      "description": {
+        "content": "Twilio SendGrid Single Sign-On Teammates Operations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1f9ea538-a14c-4551-bd2d-d243675a7d2d",
+          "name": "Create an SSO Teammate.",
+          "request": {
+            "name": "Create an SSO Teammate.",
+            "description": {
+              "content": "**This endpoint allows you to create an SSO Teammate.**\n\nThe email address provided for the Teammate will also function as the Teammate's username. Once created, the Teammate's email address cannot be changed.\n\n### Scopes\n\nWhen creating a Teammate, you will assign it permissions or scopes. These scopes determine which actions the Teammate can perform and which features they can access. Scopes are provided with one of three properties passed to this endpoint: `is_admin`, `scopes`, and `persona`.\n\nYou can make a Teammate an administrator by setting `is_admin` to `true`. Administrators will have all scopes assigned to them. Alternatively, you can assign a `persona` to the teammate, which will assign them a block of permissions commonly required for that type of user. See the \"Persona scopes\" section of [**Teammate Permissions**](https://docs.sendgrid.com/ui/account-and-settings/teammate-permissions#persona-scopes) for a list of permsissions granted by persona. Lastly, you can assign individual permissions with the `scopes` property. See [**Teammate Permissions**](https://docs.sendgrid.com/ui/account-and-settings/teammate-permissions) for a full list of scopes that can be assigned to a Teammate.\n\n### Subuser access\n\nSendGrid Teammates may be assigned access to one or more Subusers. Subusers function like SendGrid sub-accounts with their own resources. See [**Subusers**](https://docs.sendgrid.com/ui/account-and-settings/subusers) for more information.\n\nWhen assigning Subuser access to a Teammate, you may set the `has_restricted_subuser_access` property to `true` to constrain the Teammate so that they can operate only on behalf of the Subusers to which they are assigned. You may further set the level of access the Teammate has to each Subuser with the `subuser_access` property.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "sso",
+                "teammates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"<email>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"is_admin\": \"<boolean>\",\n  \"persona\": \"<string>\",\n  \"scopes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"has_restricted_subuser_access\": \"<boolean>\",\n  \"subuser_access\": [\n    {\n      \"id\": \"<integer>\",\n      \"permission_type\": \"<string>\",\n      \"scopes\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<integer>\",\n      \"permission_type\": \"<string>\",\n      \"scopes\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "04c8cf44-6fdf-4ffc-a3b3-c37e886d38dc",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "sso",
+                    "teammates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"first_name\": \"Jane\",\n  \"last_name\": \"Doe\",\n  \"email\": \"jane_doe@example.com\",\n  \"has_restricted_subuser_access\": true,\n  \"subuser_access\": [\n    {\n      \"id\": 12345,\n      \"permission_type\": \"admin\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"first_name\": \"Jane\",\n  \"last_name\": \"Doe\",\n  \"email\": \"jane_doe@example.com\",\n  \"is_admin\": true,\n  \"is_sso\": true,\n  \"scopes\": [\n    \"alerts.create\",\n    \"alerts.read\",\n    \"alerts.update\",\n    \"alerts.delete\",\n    \"asm.groups.create\",\n    \"asm.groups.read\",\n    \"asm.groups.update\",\n    \"asm.groups.delete\",\n    \"asm.groups.suppressions.create\",\n    \"asm.groups.suppressions.read\",\n    \"asm.groups.suppressions.update\",\n    \"asm.groups.suppressions.delete\",\n    \"asm.suppressions.global.create\",\n    \"asm.suppressions.global.read\",\n    \"asm.suppressions.global.update\",\n    \"asm.suppressions.global.delete\",\n    \"billing.create\",\n    \"billing.read\",\n    \"billing.update\",\n    \"billing.delete\",\n    \"ui.confirm_email\",\n    \"signup.trigger_confirmation\",\n    \"ui.provision\",\n    \"ips.warmup.create\",\n    \"ips.warmup.read\",\n    \"ips.warmup.update\",\n    \"ips.warmup.delete\",\n    \"ips.pools.create\",\n    \"ips.pools.read\",\n    \"ips.pools.update\",\n    \"ips.pools.delete\",\n    \"ips.pools.ips.create\",\n    \"ips.pools.ips.read\",\n    \"ips.pools.ips.update\",\n    \"ips.pools.ips.delete\",\n    \"ips.assigned.read\",\n    \"ips.create\",\n    \"ips.read\",\n    \"ips.update\",\n    \"ips.delete\",\n    \"mail.send\",\n    \"mail_settings.read\",\n    \"mail_settings.bcc.create\",\n    \"mail_settings.bcc.read\",\n    \"mail_settings.bcc.update\",\n    \"mail_settings.bcc.delete\",\n    \"mail_settings.address_whitelist.create\",\n    \"mail_settings.address_whitelist.read\",\n    \"mail_settings.address_whitelist.update\",\n    \"mail_settings.address_whitelist.delete\",\n    \"mail_settings.footer.create\",\n    \"mail_settings.footer.read\",\n    \"mail_settings.footer.update\",\n    \"mail_settings.footer.delete\",\n    \"mail_settings.forward_spam.create\",\n    \"mail_settings.forward_spam.read\",\n    \"mail_settings.forward_spam.update\",\n    \"mail_settings.forward_spam.delete\",\n    \"mail_settings.plain_content.create\",\n    \"mail_settings.plain_content.read\",\n    \"mail_settings.plain_content.update\",\n    \"mail_settings.plain_content.delete\",\n    \"mail_settings.spam_check.create\",\n    \"mail_settings.spam_check.read\",\n    \"mail_settings.spam_check.update\",\n    \"mail_settings.spam_check.delete\",\n    \"mail_settings.bounce_purge.create\",\n    \"mail_settings.bounce_purge.read\",\n    \"mail_settings.bounce_purge.update\",\n    \"mail_settings.bounce_purge.delete\",\n    \"mail_settings.forward_bounce.create\",\n    \"mail_settings.forward_bounce.read\",\n    \"mail_settings.forward_bounce.update\",\n    \"mail_settings.forward_bounce.delete\",\n    \"partner_settings.read\",\n    \"partner_settings.new_relic.create\",\n    \"partner_settings.new_relic.read\",\n    \"partner_settings.new_relic.update\",\n    \"partner_settings.new_relic.delete\",\n    \"partner_settings.sendwithus.create\",\n    \"partner_settings.sendwithus.read\",\n    \"partner_settings.sendwithus.update\",\n    \"partner_settings.sendwithus.delete\",\n    \"tracking_settings.read\",\n    \"tracking_settings.click.create\",\n    \"tracking_settings.click.read\",\n    \"tracking_settings.click.update\",\n    \"tracking_settings.click.delete\",\n    \"tracking_settings.subscription.create\",\n    \"tracking_settings.subscription.read\",\n    \"tracking_settings.subscription.update\",\n    \"tracking_settings.subscription.delete\",\n    \"tracking_settings.open.create\",\n    \"tracking_settings.open.read\",\n    \"tracking_settings.open.update\",\n    \"tracking_settings.open.delete\",\n    \"tracking_settings.google_analytics.create\",\n    \"tracking_settings.google_analytics.read\",\n    \"tracking_settings.google_analytics.update\",\n    \"tracking_settings.google_analytics.delete\",\n    \"user.webhooks.event.settings.create\",\n    \"user.webhooks.event.settings.read\",\n    \"user.webhooks.event.settings.update\",\n    \"user.webhooks.event.settings.delete\",\n    \"user.webhooks.event.test.create\",\n    \"user.webhooks.event.test.read\",\n    \"user.webhooks.event.test.update\",\n    \"user.webhooks.event.test.delete\",\n    \"user.webhooks.parse.settings.create\",\n    \"user.webhooks.parse.settings.read\",\n    \"user.webhooks.parse.settings.update\",\n    \"user.webhooks.parse.settings.delete\",\n    \"stats.read\",\n    \"stats.global.read\",\n    \"categories.stats.read\",\n    \"categories.stats.sums.read\",\n    \"devices.stats.read\",\n    \"clients.stats.read\",\n    \"clients.phone.stats.read\",\n    \"clients.tablet.stats.read\",\n    \"clients.webmail.stats.read\",\n    \"clients.desktop.stats.read\",\n    \"geo.stats.read\",\n    \"mailbox_providers.stats.read\",\n    \"browsers.stats.read\",\n    \"subusers.stats.read\",\n    \"subusers.stats.sums.read\",\n    \"subusers.stats.monthly.read\",\n    \"user.webhooks.parse.stats.read\",\n    \"subusers.create\",\n    \"subusers.read\",\n    \"subusers.update\",\n    \"subusers.delete\",\n    \"subusers.monitor.create\",\n    \"subusers.monitor.read\",\n    \"subusers.monitor.update\",\n    \"subusers.monitor.delete\",\n    \"subusers.credits.create\",\n    \"subusers.credits.read\",\n    \"subusers.credits.update\",\n    \"subusers.credits.delete\",\n    \"subusers.credits.remaining.create\",\n    \"subusers.credits.remaining.read\",\n    \"subusers.credits.remaining.update\",\n    \"subusers.credits.remaining.delete\",\n    \"subusers.reputations.read\",\n    \"subusers.summary.read\",\n    \"suppression.bounces.create\",\n    \"suppression.bounces.read\",\n    \"suppression.bounces.update\",\n    \"suppression.bounces.delete\",\n    \"suppression.blocks.create\",\n    \"suppression.blocks.read\",\n    \"suppression.blocks.update\",\n    \"suppression.blocks.delete\",\n    \"suppression.invalid_emails.create\",\n    \"suppression.invalid_emails.read\",\n    \"suppression.invalid_emails.update\",\n    \"suppression.invalid_emails.delete\",\n    \"suppression.spam_reports.create\",\n    \"suppression.spam_reports.read\",\n    \"suppression.spam_reports.update\",\n    \"suppression.spam_reports.delete\",\n    \"suppression.unsubscribes.create\",\n    \"suppression.unsubscribes.read\",\n    \"suppression.unsubscribes.update\",\n    \"suppression.unsubscribes.delete\",\n    \"templates.create\",\n    \"templates.read\",\n    \"templates.update\",\n    \"templates.delete\",\n    \"templates.versions.create\",\n    \"templates.versions.read\",\n    \"templates.versions.update\",\n    \"templates.versions.delete\",\n    \"templates.versions.activate.create\",\n    \"templates.versions.activate.read\",\n    \"templates.versions.activate.update\",\n    \"templates.versions.activate.delete\",\n    \"user.account.read\",\n    \"user.credits.read\",\n    \"user.email.create\",\n    \"user.email.read\",\n    \"user.email.update\",\n    \"user.email.delete\",\n    \"user.profile.create\",\n    \"user.profile.read\",\n    \"user.profile.update\",\n    \"user.profile.delete\",\n    \"user.password.create\",\n    \"user.password.read\",\n    \"user.password.update\",\n    \"user.password.delete\",\n    \"user.timezone.create\",\n    \"user.timezone.read\",\n    \"user.timezone.update\",\n    \"user.timezone.delete\",\n    \"user.username.create\",\n    \"user.username.read\",\n    \"user.username.update\",\n    \"user.username.delete\",\n    \"user.settings.enforced_tls.read\",\n    \"user.settings.enforced_tls.update\",\n    \"api_keys.create\",\n    \"api_keys.read\",\n    \"api_keys.update\",\n    \"api_keys.delete\",\n    \"credentials.create\",\n    \"credentials.read\",\n    \"credentials.update\",\n    \"credentials.delete\",\n    \"categories.create\",\n    \"categories.read\",\n    \"categories.update\",\n    \"categories.delete\",\n    \"mail_settings.template.create\",\n    \"mail_settings.template.read\",\n    \"mail_settings.template.update\",\n    \"mail_settings.template.delete\",\n    \"user.multifactor_authentication.create\",\n    \"user.multifactor_authentication.read\",\n    \"user.multifactor_authentication.update\",\n    \"user.multifactor_authentication.delete\",\n    \"newsletter.create\",\n    \"newsletter.read\",\n    \"newsletter.update\",\n    \"newsletter.delete\",\n    \"marketing_campaigns.create\",\n    \"marketing_campaigns.read\",\n    \"marketing_campaigns.update\",\n    \"marketing_campaigns.delete\",\n    \"ui.signup_complete\",\n    \"mail.batch.create\",\n    \"mail.batch.read\",\n    \"mail.batch.update\",\n    \"mail.batch.delete\",\n    \"user.scheduled_sends.create\",\n    \"user.scheduled_sends.read\",\n    \"user.scheduled_sends.update\",\n    \"user.scheduled_sends.delete\",\n    \"access_settings.whitelist.create\",\n    \"access_settings.whitelist.read\",\n    \"access_settings.whitelist.update\",\n    \"access_settings.whitelist.delete\",\n    \"access_settings.activity.read\",\n    \"whitelabel.create\",\n    \"whitelabel.read\",\n    \"whitelabel.update\",\n    \"whitelabel.delete\",\n    \"suppression.create\",\n    \"suppression.read\",\n    \"suppression.update\",\n    \"suppression.delete\",\n    \"teammates.create\",\n    \"teammates.read\",\n    \"teammates.update\",\n    \"teammates.delete\",\n    \"messages.read\",\n    \"validations.email.read\",\n    \"validations.email.create\",\n    \"marketing.read\",\n    \"marketing.automation.read\",\n    \"design_library.read\",\n    \"design_library.create\",\n    \"design_library.update\",\n    \"design_library.delete\",\n    \"email_testing.read\",\n    \"email_testing.write\",\n    \"sender_verification_eligible\",\n    \"sso.settings.create\",\n    \"sso.settings.read\",\n    \"sso.settings.update\",\n    \"sso.settings.delete\",\n    \"sender_verification_legacy\",\n    \"sso.teammates.create\",\n    \"sso.teammates.update\",\n    \"2fa_required\",\n    \"di.bounce_block_classification.read\"\n  ],\n  \"has_restricted_subuser_access\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6f60073e-4c82-4488-890e-33a3306132ee",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "sso",
+                    "teammates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"first_name\": \"Jane\",\n  \"last_name\": \"Doe\",\n  \"email\": \"jane_doe@example.com\",\n  \"has_restricted_subuser_access\": true,\n  \"subuser_access\": [\n    {\n      \"id\": 12345,\n      \"permission_type\": \"admin\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"message\": \"string\",\n    \"field\": \"string\",\n    \"error_id\": \"string\"\n  },\n  {\n    \"message\": \"string\",\n    \"field\": \"string\",\n    \"error_id\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "34e33196-d69d-46ca-8009-9fdb8fdd85e0",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "sso",
+                    "teammates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"first_name\": \"Jane\",\n  \"last_name\": \"Doe\",\n  \"email\": \"jane_doe@example.com\",\n  \"has_restricted_subuser_access\": true,\n  \"subuser_access\": [\n    {\n      \"id\": 12345,\n      \"permission_type\": \"admin\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"message\": \"string\",\n    \"field\": \"string\",\n    \"error_id\": \"string\"\n  },\n  {\n    \"message\": \"string\",\n    \"field\": \"string\",\n    \"error_id\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0624c20f-d38f-476b-98fe-eb4c8dd1012f",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "sso",
+                    "teammates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"first_name\": \"Jane\",\n  \"last_name\": \"Doe\",\n  \"email\": \"jane_doe@example.com\",\n  \"has_restricted_subuser_access\": true,\n  \"subuser_access\": [\n    {\n      \"id\": 12345,\n      \"permission_type\": \"admin\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"message\": \"string\",\n    \"field\": \"string\",\n    \"error_id\": \"string\"\n  },\n  {\n    \"message\": \"string\",\n    \"field\": \"string\",\n    \"error_id\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "91890ace-a668-4df3-b75f-87306f407265",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "sso",
+                    "teammates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"first_name\": \"Jane\",\n  \"last_name\": \"Doe\",\n  \"email\": \"jane_doe@example.com\",\n  \"has_restricted_subuser_access\": true,\n  \"subuser_access\": [\n    {\n      \"id\": 12345,\n      \"permission_type\": \"admin\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"message\": \"string\",\n    \"field\": \"string\",\n    \"error_id\": \"string\"\n  },\n  {\n    \"message\": \"string\",\n    \"field\": \"string\",\n    \"error_id\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "89a2b4cd-dbf5-4c2d-b24c-10cacc06b4cb",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "sso",
+                    "teammates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"first_name\": \"Jane\",\n  \"last_name\": \"Doe\",\n  \"email\": \"jane_doe@example.com\",\n  \"has_restricted_subuser_access\": true,\n  \"subuser_access\": [\n    {\n      \"id\": 12345,\n      \"permission_type\": \"admin\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"message\": \"string\",\n    \"field\": \"string\",\n    \"error_id\": \"string\"\n  },\n  {\n    \"message\": \"string\",\n    \"field\": \"string\",\n    \"error_id\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b5c759f2-79e9-4561-8dda-77054c8f9468",
+          "name": "Edit an SSO Teammate",
+          "request": {
+            "name": "Edit an SSO Teammate",
+            "description": {
+              "content": "**This endpoint allows you to modify an existing SSO Teammate.**\n\nOnly the parent user and Teammates with admin permissions can update another Teammate's permissions.\n\n### Scopes\n\nWhen updating a Teammate, you will assign it permissions or scopes. These scopes determine which actions the Teammate can perform and which features they can access. Scopes are provided with one of three properties passed to this endpoint: `is_admin`, `scopes`, and `persona`.\n\nYou can make a Teammate an administrator by setting `is_admin` to `true`. Administrators will have all scopes assigned to them. Alternatively, you can assign a `persona` to the teammate, which will assign them a block of permissions commonly required for that type of user. See the \"Persona scopes\" section of [**Teammate Permissions**](https://docs.sendgrid.com/ui/account-and-settings/teammate-permissions#persona-scopes) for a list of permsissions granted by persona. Lastly, you can assign individual permissions with the `scopes` property. See [**Teammate Permissions**](https://docs.sendgrid.com/ui/account-and-settings/teammate-permissions) for a full list of scopes that can be assigned to a Teammate.\n\n### Subuser access\n\nSendGrid Teammates may be assigned access to one or more Subusers. Subusers function like SendGrid sub-accounts with their own resources. See [**Subusers**](https://docs.sendgrid.com/ui/account-and-settings/subusers) for more information.\n\nWhen assigning Subuser access to a Teammate, you may set the `has_restricted_subuser_access` property to `true` to constrain the Teammate so that they can operate only on behalf of the Subusers to which they are assigned. You may further set the level of access the Teammate has to each Subuser with the `subuser_access` property.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "sso",
+                "teammates",
+                ":username"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<email>",
+                  "key": "username",
+                  "description": "(Required) Set this parameter to the Teammate's email address. This address must be the same address assigned to the Teammate in your IdP."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"is_admin\": \"<boolean>\",\n  \"persona\": \"<string>\",\n  \"scopes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"has_restricted_subuser_access\": \"<boolean>\",\n  \"subuser_access\": [\n    {\n      \"id\": \"<integer>\",\n      \"permission_type\": \"<string>\",\n      \"scopes\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<integer>\",\n      \"permission_type\": \"<string>\",\n      \"scopes\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "67bb14b4-7474-42d9-a60b-4c0996d41980",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "sso",
+                    "teammates",
+                    ":username"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<email>",
+                      "key": "username",
+                      "description": "(Required) Set this parameter to the Teammate's email address. This address must be the same address assigned to the Teammate in your IdP."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"first_name\": \"Jane\",\n  \"last_name\": \"Doe\",\n  \"has_restricted_subuser_access\": true,\n  \"subuser_access\": [\n    {\n      \"id\": 12345,\n      \"permission_type\": \"admin\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address\": \"1234 Fake St.\",\n  \"address2\": \"Suite 5\",\n  \"city\": \"San Francisco\",\n  \"company\": \"Example Dot Com, Inc.\",\n  \"country\": \"United States\",\n  \"first_name\": \"Jane\",\n  \"last_name\": \"Doe\",\n  \"email\": \"jane_doe@example.com\",\n  \"username\": \"jane_doe@example.com\",\n  \"is_admin\": true,\n  \"is_sso\": true,\n  \"phone\": \"+15555555555\",\n  \"state\": \"CA\",\n  \"user_type\": \"teammate\",\n  \"website\": \"https://www.example.com\",\n  \"zip\": \"94105\",\n  \"scopes\": [\n    \"alerts.create\",\n    \"alerts.read\",\n    \"alerts.update\",\n    \"alerts.delete\",\n    \"asm.groups.create\",\n    \"asm.groups.read\",\n    \"asm.groups.update\",\n    \"asm.groups.delete\",\n    \"asm.groups.suppressions.create\",\n    \"asm.groups.suppressions.read\",\n    \"asm.groups.suppressions.update\",\n    \"asm.groups.suppressions.delete\",\n    \"asm.suppressions.global.create\",\n    \"asm.suppressions.global.read\",\n    \"asm.suppressions.global.update\",\n    \"asm.suppressions.global.delete\",\n    \"billing.create\",\n    \"billing.read\",\n    \"billing.update\",\n    \"billing.delete\",\n    \"ui.confirm_email\",\n    \"signup.trigger_confirmation\",\n    \"ui.provision\",\n    \"ips.warmup.create\",\n    \"ips.warmup.read\",\n    \"ips.warmup.update\",\n    \"ips.warmup.delete\",\n    \"ips.pools.create\",\n    \"ips.pools.read\",\n    \"ips.pools.update\",\n    \"ips.pools.delete\",\n    \"ips.pools.ips.create\",\n    \"ips.pools.ips.read\",\n    \"ips.pools.ips.update\",\n    \"ips.pools.ips.delete\",\n    \"ips.assigned.read\",\n    \"ips.create\",\n    \"ips.read\",\n    \"ips.update\",\n    \"ips.delete\",\n    \"mail.send\",\n    \"mail_settings.read\",\n    \"mail_settings.bcc.create\",\n    \"mail_settings.bcc.read\",\n    \"mail_settings.bcc.update\",\n    \"mail_settings.bcc.delete\",\n    \"mail_settings.address_whitelist.create\",\n    \"mail_settings.address_whitelist.read\",\n    \"mail_settings.address_whitelist.update\",\n    \"mail_settings.address_whitelist.delete\",\n    \"mail_settings.footer.create\",\n    \"mail_settings.footer.read\",\n    \"mail_settings.footer.update\",\n    \"mail_settings.footer.delete\",\n    \"mail_settings.forward_spam.create\",\n    \"mail_settings.forward_spam.read\",\n    \"mail_settings.forward_spam.update\",\n    \"mail_settings.forward_spam.delete\",\n    \"mail_settings.plain_content.create\",\n    \"mail_settings.plain_content.read\",\n    \"mail_settings.plain_content.update\",\n    \"mail_settings.plain_content.delete\",\n    \"mail_settings.spam_check.create\",\n    \"mail_settings.spam_check.read\",\n    \"mail_settings.spam_check.update\",\n    \"mail_settings.spam_check.delete\",\n    \"mail_settings.bounce_purge.create\",\n    \"mail_settings.bounce_purge.read\",\n    \"mail_settings.bounce_purge.update\",\n    \"mail_settings.bounce_purge.delete\",\n    \"mail_settings.forward_bounce.create\",\n    \"mail_settings.forward_bounce.read\",\n    \"mail_settings.forward_bounce.update\",\n    \"mail_settings.forward_bounce.delete\",\n    \"partner_settings.read\",\n    \"partner_settings.new_relic.create\",\n    \"partner_settings.new_relic.read\",\n    \"partner_settings.new_relic.update\",\n    \"partner_settings.new_relic.delete\",\n    \"partner_settings.sendwithus.create\",\n    \"partner_settings.sendwithus.read\",\n    \"partner_settings.sendwithus.update\",\n    \"partner_settings.sendwithus.delete\",\n    \"tracking_settings.read\",\n    \"tracking_settings.click.create\",\n    \"tracking_settings.click.read\",\n    \"tracking_settings.click.update\",\n    \"tracking_settings.click.delete\",\n    \"tracking_settings.subscription.create\",\n    \"tracking_settings.subscription.read\",\n    \"tracking_settings.subscription.update\",\n    \"tracking_settings.subscription.delete\",\n    \"tracking_settings.open.create\",\n    \"tracking_settings.open.read\",\n    \"tracking_settings.open.update\",\n    \"tracking_settings.open.delete\",\n    \"tracking_settings.google_analytics.create\",\n    \"tracking_settings.google_analytics.read\",\n    \"tracking_settings.google_analytics.update\",\n    \"tracking_settings.google_analytics.delete\",\n    \"user.webhooks.event.settings.create\",\n    \"user.webhooks.event.settings.read\",\n    \"user.webhooks.event.settings.update\",\n    \"user.webhooks.event.settings.delete\",\n    \"user.webhooks.event.test.create\",\n    \"user.webhooks.event.test.read\",\n    \"user.webhooks.event.test.update\",\n    \"user.webhooks.event.test.delete\",\n    \"user.webhooks.parse.settings.create\",\n    \"user.webhooks.parse.settings.read\",\n    \"user.webhooks.parse.settings.update\",\n    \"user.webhooks.parse.settings.delete\",\n    \"stats.read\",\n    \"stats.global.read\",\n    \"categories.stats.read\",\n    \"categories.stats.sums.read\",\n    \"devices.stats.read\",\n    \"clients.stats.read\",\n    \"clients.phone.stats.read\",\n    \"clients.tablet.stats.read\",\n    \"clients.webmail.stats.read\",\n    \"clients.desktop.stats.read\",\n    \"geo.stats.read\",\n    \"mailbox_providers.stats.read\",\n    \"browsers.stats.read\",\n    \"subusers.stats.read\",\n    \"subusers.stats.sums.read\",\n    \"subusers.stats.monthly.read\",\n    \"user.webhooks.parse.stats.read\",\n    \"subusers.create\",\n    \"subusers.read\",\n    \"subusers.update\",\n    \"subusers.delete\",\n    \"subusers.monitor.create\",\n    \"subusers.monitor.read\",\n    \"subusers.monitor.update\",\n    \"subusers.monitor.delete\",\n    \"subusers.credits.create\",\n    \"subusers.credits.read\",\n    \"subusers.credits.update\",\n    \"subusers.credits.delete\",\n    \"subusers.credits.remaining.create\",\n    \"subusers.credits.remaining.read\",\n    \"subusers.credits.remaining.update\",\n    \"subusers.credits.remaining.delete\",\n    \"subusers.reputations.read\",\n    \"subusers.summary.read\",\n    \"suppression.bounces.create\",\n    \"suppression.bounces.read\",\n    \"suppression.bounces.update\",\n    \"suppression.bounces.delete\",\n    \"suppression.blocks.create\",\n    \"suppression.blocks.read\",\n    \"suppression.blocks.update\",\n    \"suppression.blocks.delete\",\n    \"suppression.invalid_emails.create\",\n    \"suppression.invalid_emails.read\",\n    \"suppression.invalid_emails.update\",\n    \"suppression.invalid_emails.delete\",\n    \"suppression.spam_reports.create\",\n    \"suppression.spam_reports.read\",\n    \"suppression.spam_reports.update\",\n    \"suppression.spam_reports.delete\",\n    \"suppression.unsubscribes.create\",\n    \"suppression.unsubscribes.read\",\n    \"suppression.unsubscribes.update\",\n    \"suppression.unsubscribes.delete\",\n    \"templates.create\",\n    \"templates.read\",\n    \"templates.update\",\n    \"templates.delete\",\n    \"templates.versions.create\",\n    \"templates.versions.read\",\n    \"templates.versions.update\",\n    \"templates.versions.delete\",\n    \"templates.versions.activate.create\",\n    \"templates.versions.activate.read\",\n    \"templates.versions.activate.update\",\n    \"templates.versions.activate.delete\",\n    \"user.account.read\",\n    \"user.credits.read\",\n    \"user.email.create\",\n    \"user.email.read\",\n    \"user.email.update\",\n    \"user.email.delete\",\n    \"user.profile.create\",\n    \"user.profile.read\",\n    \"user.profile.update\",\n    \"user.profile.delete\",\n    \"user.password.create\",\n    \"user.password.read\",\n    \"user.password.update\",\n    \"user.password.delete\",\n    \"user.timezone.create\",\n    \"user.timezone.read\",\n    \"user.timezone.update\",\n    \"user.timezone.delete\",\n    \"user.username.create\",\n    \"user.username.read\",\n    \"user.username.update\",\n    \"user.username.delete\",\n    \"user.settings.enforced_tls.read\",\n    \"user.settings.enforced_tls.update\",\n    \"api_keys.create\",\n    \"api_keys.read\",\n    \"api_keys.update\",\n    \"api_keys.delete\",\n    \"credentials.create\",\n    \"credentials.read\",\n    \"credentials.update\",\n    \"credentials.delete\",\n    \"categories.create\",\n    \"categories.read\",\n    \"categories.update\",\n    \"categories.delete\",\n    \"mail_settings.template.create\",\n    \"mail_settings.template.read\",\n    \"mail_settings.template.update\",\n    \"mail_settings.template.delete\",\n    \"user.multifactor_authentication.create\",\n    \"user.multifactor_authentication.read\",\n    \"user.multifactor_authentication.update\",\n    \"user.multifactor_authentication.delete\",\n    \"newsletter.create\",\n    \"newsletter.read\",\n    \"newsletter.update\",\n    \"newsletter.delete\",\n    \"marketing_campaigns.create\",\n    \"marketing_campaigns.read\",\n    \"marketing_campaigns.update\",\n    \"marketing_campaigns.delete\",\n    \"ui.signup_complete\",\n    \"mail.batch.create\",\n    \"mail.batch.read\",\n    \"mail.batch.update\",\n    \"mail.batch.delete\",\n    \"user.scheduled_sends.create\",\n    \"user.scheduled_sends.read\",\n    \"user.scheduled_sends.update\",\n    \"user.scheduled_sends.delete\",\n    \"access_settings.whitelist.create\",\n    \"access_settings.whitelist.read\",\n    \"access_settings.whitelist.update\",\n    \"access_settings.whitelist.delete\",\n    \"access_settings.activity.read\",\n    \"whitelabel.create\",\n    \"whitelabel.read\",\n    \"whitelabel.update\",\n    \"whitelabel.delete\",\n    \"suppression.create\",\n    \"suppression.read\",\n    \"suppression.update\",\n    \"suppression.delete\",\n    \"teammates.create\",\n    \"teammates.read\",\n    \"teammates.update\",\n    \"teammates.delete\",\n    \"messages.read\",\n    \"validations.email.read\",\n    \"validations.email.create\",\n    \"marketing.read\",\n    \"marketing.automation.read\",\n    \"design_library.read\",\n    \"design_library.create\",\n    \"design_library.update\",\n    \"design_library.delete\",\n    \"email_testing.read\",\n    \"email_testing.write\",\n    \"sender_verification_eligible\",\n    \"sso.settings.create\",\n    \"sso.settings.read\",\n    \"sso.settings.update\",\n    \"sso.settings.delete\",\n    \"sender_verification_legacy\",\n    \"sso.teammates.create\",\n    \"sso.teammates.update\",\n    \"2fa_required\",\n    \"di.bounce_block_classification.read\"\n  ],\n  \"has_restricted_subuser_access\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "11284190-0f14-48fb-a2bd-78a073265691",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "sso",
+                    "teammates",
+                    ":username"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<email>",
+                      "key": "username",
+                      "description": "(Required) Set this parameter to the Teammate's email address. This address must be the same address assigned to the Teammate in your IdP."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"first_name\": \"Jane\",\n  \"last_name\": \"Doe\",\n  \"has_restricted_subuser_access\": true,\n  \"subuser_access\": [\n    {\n      \"id\": 12345,\n      \"permission_type\": \"admin\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"message\": \"string\",\n    \"field\": \"string\",\n    \"error_id\": \"string\"\n  },\n  {\n    \"message\": \"string\",\n    \"field\": \"string\",\n    \"error_id\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9c695ede-8661-4ee4-8da0-eea46b86bf68",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "sso",
+                    "teammates",
+                    ":username"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<email>",
+                      "key": "username",
+                      "description": "(Required) Set this parameter to the Teammate's email address. This address must be the same address assigned to the Teammate in your IdP."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"first_name\": \"Jane\",\n  \"last_name\": \"Doe\",\n  \"has_restricted_subuser_access\": true,\n  \"subuser_access\": [\n    {\n      \"id\": 12345,\n      \"permission_type\": \"admin\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"message\": \"string\",\n    \"field\": \"string\",\n    \"error_id\": \"string\"\n  },\n  {\n    \"message\": \"string\",\n    \"field\": \"string\",\n    \"error_id\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9643c8d7-2241-4ce1-b8c2-b1555ea39e02",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "sso",
+                    "teammates",
+                    ":username"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<email>",
+                      "key": "username",
+                      "description": "(Required) Set this parameter to the Teammate's email address. This address must be the same address assigned to the Teammate in your IdP."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"first_name\": \"Jane\",\n  \"last_name\": \"Doe\",\n  \"has_restricted_subuser_access\": true,\n  \"subuser_access\": [\n    {\n      \"id\": 12345,\n      \"permission_type\": \"admin\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"message\": \"string\",\n    \"field\": \"string\",\n    \"error_id\": \"string\"\n  },\n  {\n    \"message\": \"string\",\n    \"field\": \"string\",\n    \"error_id\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1056dbbe-06b9-4dfb-91ef-f5d2e48752b4",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "sso",
+                    "teammates",
+                    ":username"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<email>",
+                      "key": "username",
+                      "description": "(Required) Set this parameter to the Teammate's email address. This address must be the same address assigned to the Teammate in your IdP."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"first_name\": \"Jane\",\n  \"last_name\": \"Doe\",\n  \"has_restricted_subuser_access\": true,\n  \"subuser_access\": [\n    {\n      \"id\": 12345,\n      \"permission_type\": \"admin\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"message\": \"string\",\n    \"field\": \"string\",\n    \"error_id\": \"string\"\n  },\n  {\n    \"message\": \"string\",\n    \"field\": \"string\",\n    \"error_id\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "094b3aad-361d-47b7-9644-3f6d73842d10",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "sso",
+                    "teammates",
+                    ":username"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<email>",
+                      "key": "username",
+                      "description": "(Required) Set this parameter to the Teammate's email address. This address must be the same address assigned to the Teammate in your IdP."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"first_name\": \"Jane\",\n  \"last_name\": \"Doe\",\n  \"has_restricted_subuser_access\": true,\n  \"subuser_access\": [\n    {\n      \"id\": 12345,\n      \"permission_type\": \"admin\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"message\": \"string\",\n    \"field\": \"string\",\n    \"error_id\": \"string\"\n  },\n  {\n    \"message\": \"string\",\n    \"field\": \"string\",\n    \"error_id\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.sendgrid.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5d7af273-c03b-42ee-a0dd-db8298cb21a5",
+    "name": "Twilio SendGrid Provisioning Account SSO Teammates API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts. This API is for companies that have a formal reseller partnership with Twilio SendGrid.\n\nYou can access Twilio SendGrid sub-account functionality without becoming a reseller. If you require sub-account functionality, see the Twilio [SendGrid Subusers](https://docs.sendgrid.com/ui/account-and-settings/subusers) feature, which is available with [Pro and Premier plans](https://sendgrid.com/pricing/).\n\nContact Support:\n Name: Twilio SendGrid Support",
+      "type": "text/plain"
+    }
+  }
+}

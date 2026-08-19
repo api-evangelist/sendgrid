@@ -1,0 +1,180 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Twilio SendGrid Provisioning Account Suppressions API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Suppressions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve all suppressions for a suppression group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/asm/groups/:group_id/suppressions",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the unsubscribe group that you are adding suppressions to."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve all suppressed email addresses belonging to the given group.**"
+        },
+        {
+          "info": {
+            "name": "Add suppressions to a suppression group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/asm/groups/:group_id/suppressions",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the unsubscribe group that you are adding suppressions to."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to add email addresses to an unsubscribe group.**\n\nIf you attempt to add suppressions to a group that has been deleted or does not exist, the suppressions will be added to the global suppressions list."
+        },
+        {
+          "info": {
+            "name": "Delete a suppression from a suppression group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendgrid.com/v3/asm/groups/:group_id/suppressions/:email",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the suppression group that you are removing an email address from."
+              },
+              {
+                "name": "email",
+                "value": "",
+                "type": "path",
+                "description": "The email address that you want to remove from the suppression group."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to remove a suppressed email address from the given suppression group.**\n\nRemoving an address will remove the suppression, meaning email will once again be sent to the previously suppressed addresses. This should be avoided unless a recipient indicates they wish to receive email from you again. You can use our [bypass filters](https://sendgrid.com/docs/ui/sending-email/index-suppressions/#bypass-suppressions) to deliver messages to otherwise suppressed addresses when e"
+        },
+        {
+          "info": {
+            "name": "Search for suppressions within a group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/asm/groups/:group_id/suppressions/search",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the suppression group that you would like to search."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to search a suppression group for multiple suppressions.**\n\nWhen given a list of email addresses and a group ID, this endpoint will only return the email addresses that have been unsubscribed from the given group."
+        },
+        {
+          "info": {
+            "name": "Retrieve all suppressions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/asm/suppressions",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve a list of all suppressions.**"
+        },
+        {
+          "info": {
+            "name": "Retrieve all suppression groups for an email address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/asm/suppressions/:email",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "path",
+                "description": "The email address that you want to search suppression groups for."
+              }
+            ]
+          },
+          "docs": "**This endpoint returns a list of all groups from which the given email address has been unsubscribed.**"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

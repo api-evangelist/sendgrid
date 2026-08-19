@@ -1,0 +1,66 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Twilio SendGrid Provisioning Account Mail Batch API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Mail Batch",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a batch ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/mail/batch",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "**This operation allows you to generate a new mail batch ID.**\n\n\nOnce a batch ID is created, you can associate it with a mail send by passing\nit in the request body of the [Mail Send operation](https://docs.sendgrid.com/api-reference/mail-send/mail-send).\nThis makes it possible to group multiple requests to the Mail Send operation\nby assigning them the same batch ID.\n\n\nA batch ID that's associated with a mail send can be used to access and modify the associated send. For example, you can pause o"
+        },
+        {
+          "info": {
+            "name": "Validate a batch ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/mail/batch/:batch_id",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "batch_id",
+                "value": "",
+                "type": "path",
+                "description": "Set this parameter to the batch ID that's associated with the mail send you want to retrieve."
+              }
+            ]
+          },
+          "docs": "**This operation allows you to validate a mail batch ID.**\n\nIf you provide a valid batch ID, this operation will return a `200` status code and the batch ID itself.\nIf you provide an invalid batch ID, you will receive a `400` level status code and an error message.\nA batch ID does not need to be assigned to a send to be considered valid. A successful response means only that the batch ID has been created, but it does not indicate that the ID has been assigned to a send."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

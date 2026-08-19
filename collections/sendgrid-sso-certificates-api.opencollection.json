@@ -1,0 +1,116 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Twilio SendGrid Provisioning Account SSO Certificates API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "SSO Certificates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create an SSO Certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/sso/certificates",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to create an SSO certificate.**"
+        },
+        {
+          "info": {
+            "name": "Get an SSO Certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/sso/certificates/:cert_id",
+            "params": [
+              {
+                "name": "cert_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve an individual SSO certificate.**"
+        },
+        {
+          "info": {
+            "name": "Update SSO Certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.sendgrid.com/v3/sso/certificates/:cert_id",
+            "params": [
+              {
+                "name": "cert_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to update an existing certificate by ID.**\n\nYou can retrieve a certificate's ID from the response provided by the \"Get All SSO Integrations\" endpoint."
+        },
+        {
+          "info": {
+            "name": "Delete an SSO Certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendgrid.com/v3/sso/certificates/:cert_id",
+            "params": [
+              {
+                "name": "cert_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to delete an SSO certificate.**\n\nYou can retrieve a certificate's ID from the response provided by the \"Get All SSO Integrations\" endpoint."
+        },
+        {
+          "info": {
+            "name": "Get All SSO Certificates by Integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/sso/integrations/:integration_id/certificates",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "An ID that matches a certificate to a specific IdP integration."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve all your IdP configurations by configuration ID.**\n\nThe `integration_id` expected by this endpoint is the `id` returned in the response by the \"Get All SSO Integrations\" endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

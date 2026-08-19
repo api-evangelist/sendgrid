@@ -1,0 +1,106 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Twilio SendGrid Provisioning Account Email Activity API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Email Activity",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Filter all messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/messages",
+            "params": [
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Use the query syntax  to filter your email activity."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of messages returned. This parameter must be greater than 0 and less than or equal to 1000"
+              }
+            ]
+          },
+          "docs": "Filter all messages to search your Email Activity. All queries must be [URL encoded](https://meyerweb.com/eric/tools/dencoder/), and use the following format:\n\n`query={query_type}=\"{query_content}\"`\n\n Once URL encoded, the previous query will look like this:\n\n`query=type%3D%22query_content%22`\n\nFor example, to filter by a specific email, use the following query:\n\n`query=to_email%3D%22example%40example.com%22`\n\nVisit our [Query Reference section](https://docs.sendgrid.com/for-developers/sending-e"
+        },
+        {
+          "info": {
+            "name": "Filter messages by message ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/messages/:msg_id",
+            "params": [
+              {
+                "name": "msg_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the message you are requesting details for."
+              }
+            ]
+          },
+          "docs": "Get all of the details about the specified message."
+        },
+        {
+          "info": {
+            "name": "Request CSV",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/messages/download",
+            "params": [
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Uses a SQL like syntax to indicate which messages to include in the CSV"
+              }
+            ]
+          },
+          "docs": "This request will kick off a backend process to generate a CSV file. Once generated, the worker will then send an email for the user download the file. The link will expire in 3 days.\n\nThe CSV will contain the events from the last 30 days, limited to the last 1 million events maximum. This endpoint will be rate limited to 1 request every 12 hours (rate limit may change).\n\nThis endpoint is similar to the GET Single Message endpoint - the only difference is that /download is added to indicate that"
+        },
+        {
+          "info": {
+            "name": "Download CSV",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/messages/download/:download_uuid",
+            "params": [
+              {
+                "name": "download_uuid",
+                "value": "",
+                "type": "path",
+                "description": "UUID used to locate the download csv request entry in the DB.\n\nThis is the UUID provided in the email sent to the user when their csv file is ready to download"
+              }
+            ]
+          },
+          "docs": "**This endpoint will return a presigned URL that can be used to download the CSV that was requested from the \"Request a CSV\" endpoint.**"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

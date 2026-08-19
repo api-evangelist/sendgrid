@@ -1,0 +1,592 @@
+{
+  "item": [
+    {
+      "id": "551d83b9-f7a8-4d6d-9495-fe32309b9ed3",
+      "name": "IP Addresses",
+      "description": {
+        "content": "Twilio SendGrid IP Address API Operations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "42a5734f-35d1-457f-9439-5e6ecc6ee98b",
+          "name": "Add IPs",
+          "request": {
+            "name": "Add IPs",
+            "description": {
+              "content": "**This endpoint is for adding a(n) IP Address(es) to your account.**",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "ips"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"count\": \"<integer>\",\n  \"subusers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"warmup\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f17a22c1-5c4f-4f9c-ac98-d71e6a5532e9",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "ips"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"count\": 90323478,\n  \"subusers\": [\n    \"subuser1\",\n    \"subuser2\"\n  ],\n  \"warmup\": true,\n  \"user_can_send\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ips\": [\n    {\n      \"ip\": \"1.2.3.4\",\n      \"subusers\": [\n        \"user\",\n        \"subuser1\"\n      ]\n    },\n    {\n      \"ip\": \"1.2.3.5\",\n      \"subusers\": [\n        \"user\",\n        \"subuser1\"\n      ]\n    }\n  ],\n  \"remaining_ips\": 1,\n  \"warmup\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "71c45b56-479e-4a56-a639-b07c46d35dd4",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "ips"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"count\": 90323478,\n  \"subusers\": [\n    \"subuser1\",\n    \"subuser2\"\n  ],\n  \"warmup\": true,\n  \"user_can_send\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"field\": null,\n      \"message\": \"one or more subusers do not belong to this user\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "900d7a0e-e2ca-4c63-8792-ab19d901db83",
+          "name": "Retrieve all IP addresses",
+          "request": {
+            "name": "Retrieve all IP addresses",
+            "description": {
+              "content": "**This endpoint allows you to retrieve a paginated list of all assigned and unassigned IPs.**\n\nResponse includes warm up status, pools, assigned subusers, and reverse DNS info. The start_date field corresponds to when warmup started for that IP.\n\nA single IP address or a range of IP addresses may be dedicated to an account in order to send email for multiple domains. The reputation of this IP is determined by the aggregate performance of all email traffic sent from it.\n\nYou can use the `limit` query parameter to set the page size. If your list contains more items than the page size permits, you can make multiple requests. Use the `offset` query parameter to control the position in the list from which to start retrieving additional items.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "ips"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ip",
+                  "value": "<string>",
+                  "description": "The IP address to get"
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude_whitelabels",
+                  "value": "<boolean>",
+                  "description": "Should we exclude reverse DNS records (whitelabels)?"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "`limit` sets the page size, i.e. maximum number of items from the list to be returned for a single API request. If omitted, the default page size is used."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "The number of items in the list to skip over before starting to retrieve the items for the requested page. The default `offset` of `0` represents the beginning of the list, i.e. the start of the first page. To request the second page of the list, set the `offset` to the page size as determined by `limit`. Use multiples of the page size as your `offset` to request further consecutive pages. E.g. assume your page size is set to `10`. An `offset` of `10` requests the second page, an `offset` of `20` requests the third page and so on, provided there are sufficiently many items in your list."
+                },
+                {
+                  "disabled": false,
+                  "key": "subuser",
+                  "value": "<string>",
+                  "description": "The subuser you are requesting for."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by_direction",
+                  "value": "<string>",
+                  "description": "The direction to sort the results."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "060b544f-a3a9-400d-bee9-54a792235868",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "ips"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ip",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude_whitelabels",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "subuser",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by_direction",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"ip\": \"192.168.1.1\",\n    \"pools\": [\n      \"pool1\",\n      \"pool2\"\n    ],\n    \"whitelabeled\": false,\n    \"start_date\": 1409616000,\n    \"subusers\": [\n      \"tim@sendgrid.net\"\n    ],\n    \"warmup\": false,\n    \"assigned_at\": 1482883200\n  },\n  {\n    \"ip\": \"208.115.214.22\",\n    \"pools\": [],\n    \"whitelabeled\": true,\n    \"rdns\": \"o1.email.example.com\",\n    \"start_date\": 1409616000,\n    \"subusers\": [],\n    \"warmup\": false,\n    \"assigned_at\": 1482883200\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "849c883a-bf26-4041-ba7c-7dec06207ab8",
+          "name": "Retrieve all IP pools an IP address belongs to",
+          "request": {
+            "name": "Retrieve all IP pools an IP address belongs to",
+            "description": {
+              "content": "**This endpoint allows you to see which IP pools a particular IP address has been added to.**\n\nThe same IP address can be added to multiple IP pools.\n\nA single IP address or a range of IP addresses may be dedicated to an account in order to send email for multiple domains. The reputation of this IP is based on the aggregate performance of all the senders who use it.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "ips",
+                ":ip_address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ip_address",
+                  "description": "(Required) The IP address you are retrieving the IP pools for."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2b104480-6b4b-480b-a2f8-fe07a0f18e51",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "ips",
+                    ":ip_address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ip_address",
+                      "description": "(Required) The IP address you are retrieving the IP pools for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ip\": \"000.00.00.0\",\n  \"subusers\": [\n    \"subuser1\",\n    \"subuser2\"\n  ],\n  \"rdns\": \"o1.em.example.com\",\n  \"pools\": [\n    \"test1\"\n  ],\n  \"warmup\": false,\n  \"start_date\": null,\n  \"whitelabeled\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2555fe0e-13fe-4e3b-a62a-5cfb4ce402ef",
+          "name": "Retrieve all assigned IPs",
+          "request": {
+            "name": "Retrieve all assigned IPs",
+            "description": {
+              "content": "**This endpoint allows you to retrieve only assigned IP addresses.**\n\nA single IP address or a range of IP addresses may be dedicated to an account in order to send email for multiple domains. The reputation of this IP is based on the aggregate performance of all the senders who use it.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "ips",
+                "assigned"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2c274d59-ae48-4870-bcda-1a5af089d49a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "ips",
+                    "assigned"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"ip\": \"167.89.21.3\",\n    \"pools\": [\n      \"new_test5\"\n    ],\n    \"warmup\": true,\n    \"start_date\": 1409616000\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9308d59d-5341-4399-a757-0fddb191dff1",
+          "name": "Get remaining IPs count",
+          "request": {
+            "name": "Get remaining IPs count",
+            "description": {
+              "content": "**This endpoint gets amount of IP Addresses that can still be created during a given period and the price of those IPs.**",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "ips",
+                "remaining"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e70c92cb-3eae-40a6-ae81-6220c89eec0f",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "ips",
+                    "remaining"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"remaining\": 2,\n      \"period\": \"month\",\n      \"price_per_ip\": 20\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.sendgrid.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ec1bf007-b711-4930-a25e-f54233c3b97d",
+    "name": "Twilio SendGrid Provisioning Account IP Addresses API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts. This API is for companies that have a formal reseller partnership with Twilio SendGrid.\n\nYou can access Twilio SendGrid sub-account functionality without becoming a reseller. If you require sub-account functionality, see the Twilio [SendGrid Subusers](https://docs.sendgrid.com/ui/account-and-settings/subusers) feature, which is available with [Pro and Premier plans](https://sendgrid.com/pricing/).\n\nContact Support:\n Name: Twilio SendGrid Support",
+      "type": "text/plain"
+    }
+  }
+}

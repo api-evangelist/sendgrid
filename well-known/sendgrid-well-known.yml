@@ -1,26 +1,82 @@
-generated: '2026-06-20'
+generated: '2026-08-13'
 method: probed
-source: live HTTP probes of the SendGrid API and website hosts
+source: live HTTP probes of the SendGrid API, website and documentation hosts
 description: >-
-  Probe of the standard /.well-known/ discovery surface on the SendGrid hosts
-  drawn from apis.yml (baseURL/Website) and the OpenAPI servers[] (api.sendgrid.com,
-  api.eu.sendgrid.com, sendgrid.com). Every probed path returned HTTP 403
-  (nginx "Forbidden") — SendGrid does not publish any machine-readable
-  well-known discovery documents (no security.txt, OIDC, OAuth authorization
-  server, api-catalog, or ai-plugin). Absence is valid, recorded data; no raw
-  documents were saved. SendGrid authenticates with bearer API keys and does
-  not run an OAuth2/OIDC authorization server, consistent with the empty
-  discovery surface.
+  Probe of the standard /.well-known/ discovery surface on every host this
+  provider serves: the two API hosts from the OpenAPI servers[] blocks
+  (api.sendgrid.com, api.eu.sendgrid.com), the marketing host (sendgrid.com),
+  and the documentation host (www.twilio.com, where the entire SendGrid
+  developer reference lives). RESULT: NOTHING IS PUBLISHED. Every path on every
+  SendGrid host returns HTTP 403 from nginx; every path on the Twilio docs host
+  returns HTTP 404. No security.txt, no OIDC or OAuth authorization-server
+  metadata, no api-catalog, no ai-plugin manifest, no agent card.
+  This is a RECORDED ABSENCE, and deliberately carries NO WellKnown pointer in
+  apis.yml — a probe documenting a 403/404 on every path must not be wired as
+  though the provider serves that surface. The 2026-06-20 pass wired one; it has
+  been removed.
+  The absence is internally consistent with the rest of the profile: SendGrid
+  authenticates with bearer API keys and runs no OAuth2/OIDC authorization
+  server (see authentication/ and scopes/), so there is no OIDC/OAuth metadata
+  to publish. The missing security.txt is a genuine gap, not an artifact of the
+  auth model — SendGrid's vulnerability-disclosure program is real and
+  documented (security/sendgrid-vulnerability-disclosure.yml), just not
+  discoverable at RFC 9116's well-known path.
+result: no-documents-served
+documents_found: 0
 hosts:
   - host: https://api.sendgrid.com
+    role: primary API host (OpenAPI servers[])
     documents:
       - {path: /.well-known/security.txt, status: 403}
       - {path: /.well-known/openid-configuration, status: 403}
       - {path: /.well-known/oauth-authorization-server, status: 403}
+      - {path: /.well-known/oauth-protected-resource, status: 403}
       - {path: /.well-known/api-catalog, status: 403}
+      - {path: /.well-known/ai-plugin.json, status: 403}
+  - host: https://api.eu.sendgrid.com
+    role: EU data-residency API host (OpenAPI servers[])
+    documents:
+      - {path: /.well-known/security.txt, status: 403}
+      - {path: /.well-known/openid-configuration, status: 403}
+      - {path: /.well-known/oauth-authorization-server, status: 403}
+      - {path: /.well-known/oauth-protected-resource, status: 403}
+      - {path: /.well-known/api-catalog, status: 403}
+      - {path: /.well-known/ai-plugin.json, status: 403}
   - host: https://sendgrid.com
+    role: marketing / brand host
     documents:
       - {path: /.well-known/security.txt, status: 403}
       - {path: /.well-known/openid-configuration, status: 403}
       - {path: /.well-known/oauth-authorization-server, status: 403}
+      - {path: /.well-known/oauth-protected-resource, status: 403}
       - {path: /.well-known/api-catalog, status: 403}
+      - {path: /.well-known/ai-plugin.json, status: 403}
+      - {path: /.well-known/agent-card.json, status: 403}
+      - {path: /.well-known/agent.json, status: 403}
+  - host: https://www.twilio.com
+    role: documentation host (www.twilio.com/docs/sendgrid) — parent company
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/oauth-protected-resource, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+  - host: https://mcp.twilio.com
+    role: hosted MCP server host (see mcp/sendgrid-mcp.yml)
+    documents:
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/oauth-protected-resource, status: 404}
+    note: >-
+      Expected — the MCP endpoint declares auth: none, so there is no protected
+      resource to advertise.
+false_positive_guard: >-
+  Every non-404 response here is an nginx 403 error PAGE (a 6,019-byte HTML
+  document titled "SendGrid - 403 Forbidden"), identical on all paths. It is not
+  a document and must not be counted as one.
+x-evidence:
+  fetched: '2026-08-13'
+  hosts_probed: 5
+  paths_probed: 26
+  status_2xx: 0

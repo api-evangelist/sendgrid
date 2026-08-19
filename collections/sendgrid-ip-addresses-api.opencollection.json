@@ -1,0 +1,129 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Twilio SendGrid Provisioning Account IP Addresses API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "IP Addresses",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve all IP addresses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/ips",
+            "params": [
+              {
+                "name": "ip",
+                "value": "",
+                "type": "query",
+                "description": "The IP address to get"
+              },
+              {
+                "name": "exclude_whitelabels",
+                "value": "",
+                "type": "query",
+                "description": "Should we exclude reverse DNS records (whitelabels)?"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "`limit` sets the page size, i.e. maximum number of items from the list to be returned for a single API request. If omitted, the default page size is used."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of items in the list to skip over before starting to retrieve the items for the requested page. The default `offset` of `0` represents the beginning of the list, i.e. the start of the first page. To request the second page of the list, set the `offset` to the page size as determined by `limit`. Use multiples of the page size as your `offset` to request further consecutive pages. E.g. assume your page size is set to `10`. An `offset` of `10` requests the second page, an `offset` of `20` requests the third page and so on, provided there are sufficiently many items in your list."
+              },
+              {
+                "name": "subuser",
+                "value": "",
+                "type": "query",
+                "description": "The subuser you are requesting for."
+              },
+              {
+                "name": "sort_by_direction",
+                "value": "",
+                "type": "query",
+                "description": "The direction to sort the results."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve a paginated list of all assigned and unassigned IPs.**\n\nResponse includes warm up status, pools, assigned subusers, and reverse DNS info. The start_date field corresponds to when warmup started for that IP.\n\nA single IP address or a range of IP addresses may be dedicated to an account in order to send email for multiple domains. The reputation of this IP is determined by the aggregate performance of all email traffic sent from it.\n\nYou can use the `limit` q"
+        },
+        {
+          "info": {
+            "name": "Add IPs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/ips",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint is for adding a(n) IP Address(es) to your account.**"
+        },
+        {
+          "info": {
+            "name": "Retrieve all IP pools an IP address belongs to",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/ips/:ip_address",
+            "params": [
+              {
+                "name": "ip_address",
+                "value": "",
+                "type": "path",
+                "description": "The IP address you are retrieving the IP pools for."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to see which IP pools a particular IP address has been added to.**\n\nThe same IP address can be added to multiple IP pools.\n\nA single IP address or a range of IP addresses may be dedicated to an account in order to send email for multiple domains. The reputation of this IP is based on the aggregate performance of all the senders who use it."
+        },
+        {
+          "info": {
+            "name": "Retrieve all assigned IPs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/ips/assigned"
+          },
+          "docs": "**This endpoint allows you to retrieve only assigned IP addresses.**\n\nA single IP address or a range of IP addresses may be dedicated to an account in order to send email for multiple domains. The reputation of this IP is based on the aggregate performance of all the senders who use it."
+        },
+        {
+          "info": {
+            "name": "Get remaining IPs count",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/ips/remaining"
+          },
+          "docs": "**This endpoint gets amount of IP Addresses that can still be created during a given period and the price of those IPs.**"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

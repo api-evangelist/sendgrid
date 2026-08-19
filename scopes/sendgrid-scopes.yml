@@ -1,0 +1,293 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.twilio.com/docs/sendgrid/api-reference/api-key-permissions
+docs: https://www.twilio.com/docs/sendgrid/api-reference/api-key-permissions
+description: >-
+  SendGrid's permission scopes. IMPORTANT QUALIFIER: these are NOT OAuth 2.0
+  scopes. SendGrid runs no OAuth2/OIDC authorization server for API access —
+  the derive-oauth-scopes pass over the 63 OpenAPI documents in this repo found
+  ZERO oauth2 securitySchemes, and /.well-known/oauth-authorization-server on
+  api.sendgrid.com returns 403. What SendGrid publishes instead is a fixed
+  vocabulary of dot-notation PERMISSION scopes attached to an API key at
+  creation time and sent as a bearer token. They occupy the same role as OAuth
+  scopes — they bound what a credential may do — and are recorded here under
+  that type so an agent can reason about least privilege, with the distinction
+  stated rather than papered over.
+  Scopes are read programmatically from the API Key Permissions API
+  (GET /v3/scopes, openapi/sendgrid-scopes-api-openapi.yml), which
+  returns the scopes the authenticated user may grant, and are assigned through
+  the API Keys API (POST /v3/api_keys with a scopes[] array).
+model:
+  type: api-key-permission-scopes
+  oauth2: false
+  openid_connect: false
+  format: dot-notation, resource-first (e.g. mail.send, alerts.create)
+  crud_suffixes: [create, read, update, delete]
+  assignment: >-
+    Scopes are bound to an API key at creation and can be changed with
+    PUT /v3/api_keys/{api_key_id} (UpdateApiKeyNameAndScopes). A key's scopes
+    cannot exceed the scopes of the user or teammate that created it.
+  full_access: >-
+    "Admin Permissions" grants every scope listed below; SendGrid's docs
+    recommend scoping keys to the minimum set instead.
+  teammates: >-
+    Teammate permissions use the same scope vocabulary for console users —
+    https://www.twilio.com/docs/sendgrid/ui/account-and-settings/teammate-permissions
+endpoints:
+  list_grantable_scopes:
+    operation: GET /v3/scopes
+    docs: https://www.twilio.com/docs/sendgrid/api-reference/api-key-permissions/retrieve-a-list-of-scopes-for-which-this-user-has-access
+    note: Returns the scope strings the authenticated credential is allowed to grant.
+  update_key_scopes:
+    operation: PUT /v3/api_keys/{api_key_id}
+    docs: https://www.twilio.com/docs/sendgrid/api-reference/api-keys/update-api-key-name-and-scopes
+groups:
+  - name: Mail
+    scopes:
+      - {scope: mail.send, description: Send email through POST /v3/mail/send.}
+      - {scope: mail.batch.create, description: Create a batch ID for scheduled sends.}
+      - {scope: mail.batch.read, description: Read/validate a batch ID.}
+      - {scope: mail.batch.update, description: Update a mail batch.}
+      - {scope: mail.batch.delete, description: Delete a mail batch.}
+  - name: Alerts
+    scopes:
+      - {scope: alerts.create}
+      - {scope: alerts.read}
+      - {scope: alerts.update}
+      - {scope: alerts.delete}
+  - name: API Keys
+    scopes:
+      - {scope: api_keys.create}
+      - {scope: api_keys.read}
+      - {scope: api_keys.update}
+      - {scope: api_keys.delete}
+  - name: ASM Groups (unsubscribe groups)
+    scopes:
+      - {scope: asm.groups.create}
+      - {scope: asm.groups.read}
+      - {scope: asm.groups.update}
+      - {scope: asm.groups.delete}
+  - name: Billing
+    scopes:
+      - {scope: billing.create}
+      - {scope: billing.read}
+      - {scope: billing.update}
+      - {scope: billing.delete}
+  - name: Categories
+    scopes:
+      - {scope: categories.create}
+      - {scope: categories.read}
+      - {scope: categories.update}
+      - {scope: categories.delete}
+      - {scope: categories.stats.read}
+      - {scope: categories.stats.sums.read}
+  - name: Clients (engagement stats by device)
+    scopes:
+      - {scope: clients.stats.read}
+      - {scope: clients.desktop.stats.read}
+      - {scope: clients.phone.stats.read}
+      - {scope: clients.tablet.stats.read}
+      - {scope: clients.webmail.stats.read}
+  - name: Credentials
+    scopes:
+      - {scope: credentials.create}
+      - {scope: credentials.read}
+      - {scope: credentials.update}
+      - {scope: credentials.delete}
+  - name: Domain Authentication (whitelabel)
+    scopes:
+      - {scope: whitelabel.create}
+      - {scope: whitelabel.read}
+      - {scope: whitelabel.update}
+      - {scope: whitelabel.delete}
+  - name: Email Marketing
+    scopes:
+      - {scope: marketing.read, description: Read access to the Marketing Campaigns surface.}
+  - name: IPs
+    scopes:
+      - {scope: ips.read}
+      - {scope: ips.assigned.read}
+      - {scope: ips.pools.create}
+      - {scope: ips.pools.read}
+      - {scope: ips.pools.update}
+      - {scope: ips.pools.delete}
+      - {scope: ips.warmup.create}
+      - {scope: ips.warmup.read}
+      - {scope: ips.warmup.delete}
+  - name: Mail Settings
+    scopes:
+      - {scope: mail_settings.read}
+      - {scope: mail_settings.address_whitelist.read}
+      - {scope: mail_settings.address_whitelist.update}
+      - {scope: mail_settings.bcc.read}
+      - {scope: mail_settings.bcc.update}
+      - {scope: mail_settings.bounce_purge.read}
+      - {scope: mail_settings.bounce_purge.update}
+      - {scope: mail_settings.footer.read}
+      - {scope: mail_settings.footer.update}
+      - {scope: mail_settings.forward_bounce.read}
+      - {scope: mail_settings.forward_bounce.update}
+      - {scope: mail_settings.forward_spam.read}
+      - {scope: mail_settings.forward_spam.update}
+      - {scope: mail_settings.plain_content.read}
+      - {scope: mail_settings.plain_content.update}
+      - {scope: mail_settings.spam_check.read}
+      - {scope: mail_settings.spam_check.update}
+      - {scope: mail_settings.template.read}
+      - {scope: mail_settings.template.update}
+  - name: Marketing Campaigns (legacy)
+    scopes:
+      - {scope: marketing_campaigns.create}
+      - {scope: marketing_campaigns.read}
+      - {scope: marketing_campaigns.update}
+      - {scope: marketing_campaigns.delete}
+  - name: Newsletter (legacy)
+    scopes:
+      - {scope: newsletter.create}
+      - {scope: newsletter.read}
+      - {scope: newsletter.update}
+      - {scope: newsletter.delete}
+  - name: Partner Settings
+    scopes:
+      - {scope: partner_settings.read}
+      - {scope: partner_settings.new_relic.read}
+      - {scope: partner_settings.new_relic.update}
+      - {scope: partner_settings.sendwithus.read}
+      - {scope: partner_settings.sendwithus.update}
+  - name: Reverse DNS / IP access
+    scopes:
+      - {scope: access_settings.activity.read}
+      - {scope: access_settings.whitelist.create}
+      - {scope: access_settings.whitelist.read}
+      - {scope: access_settings.whitelist.update}
+      - {scope: access_settings.whitelist.delete}
+  - name: Scheduled Sends
+    scopes:
+      - {scope: user.scheduled_sends.create}
+      - {scope: user.scheduled_sends.read}
+      - {scope: user.scheduled_sends.update}
+      - {scope: user.scheduled_sends.delete}
+  - name: Stats
+    scopes:
+      - {scope: stats.read}
+      - {scope: stats.global.read}
+      - {scope: email_activity.read}
+      - {scope: browsers.stats.read}
+      - {scope: devices.stats.read}
+      - {scope: geo.stats.read}
+      - {scope: mailbox_providers.stats.read}
+  - name: Subusers
+    scopes:
+      - {scope: subusers.create}
+      - {scope: subusers.read}
+      - {scope: subusers.update}
+      - {scope: subusers.delete}
+      - {scope: subusers.credits.read}
+      - {scope: subusers.credits.update}
+      - {scope: subusers.monitor.create}
+      - {scope: subusers.monitor.read}
+      - {scope: subusers.monitor.update}
+      - {scope: subusers.monitor.delete}
+      - {scope: subusers.reputations.read}
+      - {scope: subusers.stats.read}
+      - {scope: subusers.stats.monthly.read}
+      - {scope: subusers.stats.sums.read}
+  - name: Suppressions
+    scopes:
+      - {scope: suppression.create}
+      - {scope: suppression.read}
+      - {scope: suppression.update}
+      - {scope: suppression.delete}
+      - {scope: suppression.bounces.create}
+      - {scope: suppression.bounces.read}
+      - {scope: suppression.bounces.update}
+      - {scope: suppression.bounces.delete}
+      - {scope: suppression.blocks.create}
+      - {scope: suppression.blocks.read}
+      - {scope: suppression.blocks.update}
+      - {scope: suppression.blocks.delete}
+      - {scope: suppression.invalid_emails.create}
+      - {scope: suppression.invalid_emails.read}
+      - {scope: suppression.invalid_emails.update}
+      - {scope: suppression.invalid_emails.delete}
+      - {scope: suppression.spam_reports.create}
+      - {scope: suppression.spam_reports.read}
+      - {scope: suppression.spam_reports.update}
+      - {scope: suppression.spam_reports.delete}
+      - {scope: suppression.unsubscribes.read}
+  - name: Teammates
+    scopes:
+      - {scope: teammates.create}
+      - {scope: teammates.read}
+      - {scope: teammates.update}
+      - {scope: teammates.delete}
+  - name: Templates
+    scopes:
+      - {scope: templates.create}
+      - {scope: templates.read}
+      - {scope: templates.update}
+      - {scope: templates.delete}
+      - {scope: templates.versions.create}
+      - {scope: templates.versions.read}
+      - {scope: templates.versions.update}
+      - {scope: templates.versions.delete}
+      - {scope: templates.versions.activate.create}
+  - name: Tracking Settings
+    scopes:
+      - {scope: tracking_settings.read}
+      - {scope: tracking_settings.click.read}
+      - {scope: tracking_settings.click.update}
+      - {scope: tracking_settings.google_analytics.read}
+      - {scope: tracking_settings.google_analytics.update}
+      - {scope: tracking_settings.open.read}
+      - {scope: tracking_settings.open.update}
+      - {scope: tracking_settings.subscription.read}
+      - {scope: tracking_settings.subscription.update}
+  - name: User Settings
+    scopes:
+      - {scope: user.account.read}
+      - {scope: user.credits.read}
+      - {scope: user.email.create}
+      - {scope: user.email.read}
+      - {scope: user.email.update}
+      - {scope: user.multifactor_authentication.create}
+      - {scope: user.multifactor_authentication.read}
+      - {scope: user.multifactor_authentication.update}
+      - {scope: user.multifactor_authentication.delete}
+      - {scope: user.password.read}
+      - {scope: user.password.update}
+      - {scope: user.profile.read}
+      - {scope: user.profile.update}
+      - {scope: user.timezone.read}
+      - {scope: user.timezone.update}
+      - {scope: user.username.read}
+      - {scope: user.username.update}
+      - {scope: user.settings.enforced_tls.read}
+      - {scope: user.settings.enforced_tls.update}
+  - name: Webhooks
+    scopes:
+      - {scope: user.webhooks.event.settings.read}
+      - {scope: user.webhooks.event.settings.create}
+      - {scope: user.webhooks.event.settings.update}
+      - {scope: user.webhooks.event.settings.delete}
+      - {scope: user.webhooks.event.test.create}
+      - {scope: user.webhooks.event.test.read}
+      - {scope: user.webhooks.parse.settings.read}
+      - {scope: user.webhooks.parse.settings.create}
+      - {scope: user.webhooks.parse.settings.update}
+      - {scope: user.webhooks.parse.settings.delete}
+      - {scope: user.webhooks.parse.stats.read}
+notes:
+  - >-
+    The published permission page groups scopes rather than enumerating a flat
+    machine-readable list; the vocabulary above is transcribed from that page and
+    from the CRUD pattern SendGrid applies uniformly. GET /v3/scopes on a live
+    key is the authoritative enumeration for a given account tier — some scopes
+    (email validation, subusers, SSO) only appear on Pro/Premier accounts.
+  - >-
+    SAML 2.0 SSO exists for console login (openapi/sendgrid-sso-settings-api-openapi.yml)
+    but is not an API authorization mechanism and mints no scopes.
+see_also:
+  authentication: authentication/sendgrid-authentication.yml
+  conformance: conformance/sendgrid-conformance.yml
+  openapi: openapi/sendgrid-scopes-api-openapi.yml

@@ -1,0 +1,166 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Twilio SendGrid Provisioning Account Senders API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Senders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a list of all Senders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/marketing/senders",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to get a list of all your Senders.**"
+        },
+        {
+          "info": {
+            "name": "Create a Sender",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/marketing/senders",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to create a new Sender.**\n\n*You may create up to 100 unique Senders.*\n\nSenders are required to be verified before use. If your domain has been authenticated, a new Sender will auto verify on creation. Otherwise an email will be sent to the `from.email`."
+        },
+        {
+          "info": {
+            "name": "Get a specific Sender",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/marketing/senders/:id",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Sender."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to get the details for a specific Sender by `id`.**"
+        },
+        {
+          "info": {
+            "name": "Update a Sender",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.sendgrid.com/v3/marketing/senders/:id",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Sender."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to update an existing Sender.**\n\nUpdates to `from.email` require re-verification. If your domain has been authenticated, a new Sender will auto verify on creation. Otherwise, an email will be sent to the `from.email`.\n\nPartial updates are allowed, but fields that are marked as \"required\" in the `POST` (create) endpoint must not be nil if that field is included in the `PATCH` request."
+        },
+        {
+          "info": {
+            "name": "Delete a Sender",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendgrid.com/v3/marketing/senders/:id",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Sender."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to delete an existing Sender.**"
+        },
+        {
+          "info": {
+            "name": "Resend a Sender verification",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/marketing/senders/:id/resend_verification",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Sender."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to resend the verification request for a specific Sender.**"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

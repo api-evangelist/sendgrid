@@ -1,0 +1,697 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Twilio SendGrid Provisioning Account Stats API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Stats",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get All Automation Stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/marketing/stats/automations",
+            "params": [
+              {
+                "name": "automation_ids",
+                "value": "",
+                "type": "query",
+                "description": "This endpoint returns all automation IDs if no `automation_ids` are specified."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "The number of elements you want returned on each page."
+              },
+              {
+                "name": "page_token",
+                "value": "",
+                "type": "query",
+                "description": "The stats endpoints are paginated. To get the next page, call the passed `_metadata.next` URL. If `_metadata.prev` doesn't exist, you're at the first page. Similarly, if `_metadata.next` is not present, you're at the last page."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve stats for all your Automations.**\n\nBy default, all of your Automations will be returned, but you can specify a selection by passing in a comma-separated list of Automation IDs as the value of the query string parameter `automation_ids`.\n\nResponses are paginated. You can limit the number of responses returned per batch using the `page_size` query string parameter. The default is 25, but you can specify a value between 1 and 50.\n\nYou can retrieve a specific p"
+        },
+        {
+          "info": {
+            "name": "Get Automation Stats by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/marketing/stats/automations/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Automation for which you want to retrieve statistics. "
+              },
+              {
+                "name": "group_by",
+                "value": "",
+                "type": "query",
+                "description": "Automations can have multiple steps. Including `step_id` as a `group_by` metric allows further granularity of stats."
+              },
+              {
+                "name": "step_ids",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of `step_ids` that you want the link stats for."
+              },
+              {
+                "name": "aggregated_by",
+                "value": "",
+                "type": "query",
+                "description": "Dictates how the stats are time-sliced. Currently, `\"total\"` and `\"day\"` are supported."
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Format: `YYYY-MM-DD`. If this parameter is included, the stats' start date is included in the search."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "Format: `YYYY-MM-DD`.If this parameter is included, the stats' end date is included in the search."
+              },
+              {
+                "name": "timezone",
+                "value": "",
+                "type": "query",
+                "description": "[IANA Area/Region](https://en.wikipedia.org/wiki/Tz_database#Names_of_timezones) string representing the timezone in which the stats are to be presented, e.g., \"America/Chicago\"."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "The number of elements you want returned on each page."
+              },
+              {
+                "name": "page_token",
+                "value": "",
+                "type": "query",
+                "description": "The stats endpoints are paginated. To get the next page, call the passed `_metadata.next` URL. If `_metadata.prev` doesn't exist, you're at the first page. Similarly, if `_metadata.next` is not present, you're at the last page."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve stats for a single Automation using its ID.**\n\nMultiple Automation IDs can be retrieved using the \"Get All Automation Stats\" endpoint. Once you have an ID, this endpoint will return detailed stats for the single automation specified.\n\nYou may constrain the stats returned using the `start_date` and `end_date` query string parameters. You can also use the `group_by` and `aggregated_by` query string parameters to further refine the stats returned."
+        },
+        {
+          "info": {
+            "name": "Get Automation Click Tracking Stats by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/marketing/stats/automations/:id/links",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Automation you want to get click tracking stats for. "
+              },
+              {
+                "name": "group_by",
+                "value": "",
+                "type": "query",
+                "description": "Automations can have multiple steps. Including `step_id` as a `group_by` metric allows further granularity of stats."
+              },
+              {
+                "name": "step_ids",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of `step_ids` that you want the link stats for."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "The number of elements you want returned on each page."
+              },
+              {
+                "name": "page_token",
+                "value": "",
+                "type": "query",
+                "description": "The stats endpoints are paginated. To get the next page, call the passed `_metadata.next` URL. If `_metadata.prev` doesn't exist, you're at the first page. Similarly, if `_metadata.next` is not present, you're at the last page."
+              }
+            ]
+          },
+          "docs": "**This endpoint lets you retrieve click-tracking stats for a single Automation**.\n\nThe stats returned list the URLs embedded in your Automation and the number of clicks each one received."
+        },
+        {
+          "info": {
+            "name": "Export Single Send Stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/marketing/stats/automations/export",
+            "params": [
+              {
+                "name": "ids",
+                "value": "",
+                "type": "query",
+                "description": "The IDs of Single Sends for which to export stats."
+              },
+              {
+                "name": "timezone",
+                "value": "",
+                "type": "query",
+                "description": "The [IANA Area/Region](https://en.wikipedia.org/wiki/Tz_database#Names_of_timezones) string representing the timezone in which the stats are to be presented; i.e. `\"America/Chicago\"`. This parameter changes the timezone format only; it does not alter which stats are returned."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to export Single Send stats as .CSV data**.\n\nYou can specify one Single Send or many: include as many Single Send IDs as you need, separating them with commas, as the value of the `ids` query string parameter.\n\nThe data is returned as plain text response but in .CSV format, so your application making the call can present the information in whatever way is most appropriate, or just save the data as a .csv file."
+        },
+        {
+          "info": {
+            "name": "Get All Single Sends Stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/marketing/stats/singlesends",
+            "params": [
+              {
+                "name": "singlesend_ids",
+                "value": "",
+                "type": "query",
+                "description": "This endpoint returns all Single Send IDs if no IDs are included in `singlesend_ids`."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "The number of elements you want returned on each page."
+              },
+              {
+                "name": "page_token",
+                "value": "",
+                "type": "query",
+                "description": "The stats endpoints are paginated. To get the next page, call the passed `_metadata.next` URL. If `_metadata.prev` doesn't exist, you're at the first page. Similarly, if `_metadata.next` is not present, you're at the last page."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve stats for all your Single Sends.**\n\nBy default, all of your Single Sends will be returned, but you can specify a selection by passing in a comma-separated list of Single Send IDs as the value of the query string parameter `singlesend_ids`.\n\nResponses are paginated. You can limit the number of responses returned per batch using the `page_size` query string parameter. The default is 25, but you specify a value between 1 and 50.\n\nYou can retrieve a specific pa"
+        },
+        {
+          "info": {
+            "name": "Get Single Send Stats by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/marketing/stats/singlesends/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of Single Send for which you want to retrieve stats."
+              },
+              {
+                "name": "aggregated_by",
+                "value": "",
+                "type": "query",
+                "description": "Dictates how the stats are time-sliced. Currently, `\"total\"` and `\"day\"` are supported."
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Format: `YYYY-MM-DD`. If this parameter is included, the stats' start date is included in the search."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "Format: `YYYY-MM-DD`.If this parameter is included, the stats' end date is included in the search."
+              },
+              {
+                "name": "timezone",
+                "value": "",
+                "type": "query",
+                "description": "[IANA Area/Region](https://en.wikipedia.org/wiki/Tz_database#Names_of_timezones) string representing the timezone in which the stats are to be presented, e.g., \"America/Chicago\"."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "The number of elements you want returned on each page."
+              },
+              {
+                "name": "page_token",
+                "value": "",
+                "type": "query",
+                "description": "The stats endpoints are paginated. To get the next page, call the passed `_metadata.next` URL. If `_metadata.prev` doesn't exist, you're at the first page. Similarly, if `_metadata.next` is not present, you're at the last page."
+              },
+              {
+                "name": "group_by",
+                "value": "",
+                "type": "query",
+                "description": "A/B Single Sends have multiple variation IDs and phase IDs. Including these additional fields allows further granularity of stats by these fields."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve stats for an individual Single Send using a Single Send ID.**\n\nMultiple Single Send IDs can be retrieved using the \"Get All Single Sends Stats\" endpoint. Once you have an ID, this endpoint will return detailed stats for the Single Send specified.\n\nYou may constrain the stats returned using the `start_date` and `end_date` query string parameters. You can also use the `group_by` and `aggregated_by` query string parameters to further refine the stats returned."
+        },
+        {
+          "info": {
+            "name": "Get Single Send Click Tracking Stats by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/marketing/stats/singlesends/:id/links",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of Single Send for which you want to retrieve link stats."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "The number of elements you want returned on each page."
+              },
+              {
+                "name": "page_token",
+                "value": "",
+                "type": "query",
+                "description": "The stats endpoints are paginated. To get the next page, call the passed `_metadata.next` URL. If `_metadata.prev` doesn't exist, you're at the first page. Similarly, if `_metadata.next` is not present, you're at the last page."
+              },
+              {
+                "name": "group_by",
+                "value": "",
+                "type": "query",
+                "description": "A/B Single Sends have multiple variation IDs and phase IDs. Including these additional fields allows further granularity of stats by these fields."
+              },
+              {
+                "name": "ab_variation_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ab_phase_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "**This endpoint lets you retrieve click-tracking stats for one Single Send**.\n\nThe stats returned list the URLs embedded in the specified Single Send and the number of clicks each one received."
+        },
+        {
+          "info": {
+            "name": "Export Single Send Stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/marketing/stats/singlesends/export",
+            "params": [
+              {
+                "name": "ids",
+                "value": "",
+                "type": "query",
+                "description": "The IDs of Single Sends for which to export stats."
+              },
+              {
+                "name": "timezone",
+                "value": "",
+                "type": "query",
+                "description": "The [IANA Area/Region](https://en.wikipedia.org/wiki/Tz_database#Names_of_timezones) string representing the timezone in which the stats are to be presented; i.e. `\"America/Chicago\"`. This parameter changes the timezone format only; it does not alter which stats are returned."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to export Single Send stats as .CSV data**.\n\nYou can specify one Single Send or many: include as many Single Send IDs as you need, separating them with commas, as the value of the `ids` query string parameter.\n\nThe data is returned as plain text response but in .CSV format, so your application making the call can present the information in whatever way is most appropriate, or just save the data as a .csv file."
+        },
+        {
+          "info": {
+            "name": "Retrieve email statistics by browser.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/browsers/stats",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "browsers",
+                "value": "",
+                "type": "query",
+                "description": "The browsers to get statistics for. You can include up to 10 different browsers by including this parameter multiple times."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of results to return."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The point in the list to begin retrieving results."
+              },
+              {
+                "name": "aggregated_by",
+                "value": "",
+                "type": "query",
+                "description": "How to group the statistics. Must be either \"day\", \"week\", or \"month\"."
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "The end date of the statistics to retrieve. Defaults to today. Must follow format YYYY-MM-DD."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve your email statistics segmented by browser type.**\n\n**We only store up to 7 days of email activity in our database.** By default, 500 items will be returned per request via the Advanced Stats API endpoints.\n\nAdvanced Stats provide a more in-depth view of your email statistics and the actions taken by your recipients. You can segment these statistics by geographic location, device type, client type, browser, and mailbox provider. For more information about s"
+        },
+        {
+          "info": {
+            "name": "Retrieve email statistics by client type.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/clients/stats",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "The end date of the statistics to retrieve. Defaults to today. Must follow format YYYY-MM-DD."
+              },
+              {
+                "name": "aggregated_by",
+                "value": "",
+                "type": "query",
+                "description": "How to group the statistics. Must be either \"day\", \"week\", or \"month\"."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve your email statistics segmented by client type.**\n\n**We only store up to 7 days of email activity in our database.** By default, 500 items will be returned per request via the Advanced Stats API endpoints.\n\nAdvanced Stats provide a more in-depth view of your email statistics and the actions taken by your recipients. You can segment these statistics by geographic location, device type, client type, browser, and mailbox provider. For more information about st"
+        },
+        {
+          "info": {
+            "name": "Retrieve stats by a specific client type.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/clients/:client_type/stats",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "client_type",
+                "value": "",
+                "type": "path",
+                "description": "Specifies the type of client to retrieve stats for. Must be either \"phone\", \"tablet\", \"webmail\", or \"desktop\"."
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "The end date of the statistics to retrieve. Defaults to today. Must follow format YYYY-MM-DD."
+              },
+              {
+                "name": "aggregated_by",
+                "value": "",
+                "type": "query",
+                "description": "How to group the statistics. Must be either \"day\", \"week\", or \"month\"."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve your email statistics segmented by a specific client type.**\n\n**We only store up to 7 days of email activity in our database.** By default, 500 items will be returned per request via the Advanced Stats API endpoints.\n\n### Available Client Types\n- phone\n- tablet\n- webmail\n- desktop\n\nAdvanced Stats provide a more in-depth view of your email statistics and the actions taken by your recipients. You can segment these statistics by geographic location, device typ"
+        },
+        {
+          "info": {
+            "name": "Retrieve email statistics by device type.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/devices/stats",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of results to return."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The point in the list to begin retrieving results."
+              },
+              {
+                "name": "aggregated_by",
+                "value": "",
+                "type": "query",
+                "description": "How to group the statistics. Must be either \"day\", \"week\", or \"month\"."
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "The end date of the statistics to retrieve. Defaults to today. Must follow format YYYY-MM-DD."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve your email statistics segmented by the device type.**\n\n**We only store up to 7 days of email activity in our database.** By default, 500 items will be returned per request via the Advanced Stats API endpoints.\n\n## Available Device Types\n| **Device** | **Description** | **Example** |\n|---|---|---|\n| Desktop | Email software on desktop computer. | I.E., Outlook, Sparrow, or Apple Mail. |\n| Webmail |\tA web-based email client. | I.E., Yahoo, Google, AOL, or Out"
+        },
+        {
+          "info": {
+            "name": "Retrieve email statistics by country and state/province.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/geo/stats",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "country",
+                "value": "",
+                "type": "query",
+                "description": "The country you would like to see statistics for. Currently only supported for US and CA."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of results to return."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The point in the list to begin retrieving results."
+              },
+              {
+                "name": "aggregated_by",
+                "value": "",
+                "type": "query",
+                "description": "How to group the statistics. Must be either \"day\", \"week\", or \"month\"."
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "The end date of the statistics to retrieve. Defaults to today. Must follow format YYYY-MM-DD."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve your email statistics segmented by country and state/province.**\n\n**We only store up to 7 days of email activity in our database.** By default, 500 items will be returned per request via the Advanced Stats API endpoints.\n\nAdvanced Stats provide a more in-depth view of your email statistics and the actions taken by your recipients. You can segment these statistics by geographic location, device type, client type, browser, and mailbox provider. For more infor"
+        },
+        {
+          "info": {
+            "name": "Retrieve email statistics by mailbox provider.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/mailbox_providers/stats",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "mailbox_providers",
+                "value": "",
+                "type": "query",
+                "description": "The mail box providers to get statistics for. You can include up to 10 by including this parameter multiple times."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of results to return."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The point in the list to begin retrieving results."
+              },
+              {
+                "name": "aggregated_by",
+                "value": "",
+                "type": "query",
+                "description": "How to group the statistics. Must be either \"day\", \"week\", or \"month\"."
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "The end date of the statistics to retrieve. Defaults to today. Must follow format YYYY-MM-DD."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve your email statistics segmented by recipient mailbox provider.**\n\n**We only store up to 7 days of email activity in our database.** By default, 500 items will be returned per request via the Advanced Stats API endpoints.\n\nAdvanced Stats provide a more in-depth view of your email statistics and the actions taken by your recipients. You can segment these statistics by geographic location, device type, client type, browser, and mailbox provider. For more infor"
+        },
+        {
+          "info": {
+            "name": "Retrieve global email statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/stats",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of results to return."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The point in the list to begin retrieving results."
+              },
+              {
+                "name": "aggregated_by",
+                "value": "",
+                "type": "query",
+                "description": "How to group the statistics. Must be either \"day\", \"week\", or \"month\"."
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "The end date of the statistics to retrieve. Defaults to today. Must follow format YYYY-MM-DD."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve all of your global email statistics between a given date range.**\n\nParent accounts can see either aggregated stats for the parent account or aggregated stats for a subuser specified in the `on-behalf-of` header. Subuser accounts will see only their own stats."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

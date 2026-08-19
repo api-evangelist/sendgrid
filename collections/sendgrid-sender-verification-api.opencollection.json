@@ -1,0 +1,168 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Twilio SendGrid Provisioning Account Sender Verification API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sender Verification",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get All Verified Senders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/verified_senders",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the number of results to be returned by the API. This parameter can be used to limit the results returned or in combination with the `lastSeenID` parameter to iterate through paginated results."
+              },
+              {
+                "name": "lastSeenID",
+                "value": "",
+                "type": "query",
+                "description": "Returns senders with an ID number occurring after the passed in ID. In other words, the `lastSeenID` provides a starting point from which SendGrid will iterate to find Sender Identities associated with your account."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "Returns information about only the Sender Identity passed in the request."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve all the Sender Identities associated with an account.**\n\nThis endpoint will return both verified and unverified senders.\n\nYou can limit the number of results returned using the `limit`, `lastSeenID`, and `id` query string parameters.\n\n* `limit` allows you to specify an exact number of Sender Identities to return.\n* `lastSeenID` will return senders with an ID number occuring after the passed in ID. In other words, the `lastSeenID` provides a starting point f"
+        },
+        {
+          "info": {
+            "name": "Create Verified Sender Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/verified_senders",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to create a new Sender Identify**.\n\nUpon successful submission of a `POST` request to this endpoint, an identity will be created, and a verification email will be sent to the address assigned to the `from_email` field. You must complete the verification process using the sent email to fully verify the sender.\n\nIf you need to resend the verification email, you can do so with the Resend Verified Sender Request, `/resend/{id}`, endpoint.\n\nIf you need to authenticate a dom"
+        },
+        {
+          "info": {
+            "name": "Edit Verified Sender",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.sendgrid.com/v3/verified_senders/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to update an existing Sender Identity**.\n\nPass the `id` assigned to a Sender Identity to this endpoint as a path parameter. Include any fields you wish to update in the request body in JSON format.\n\nYou can retrieve the IDs associated with Sender Identities by passing a `GET` request to the Get All Verified Senders endpoint, `/verified_senders`.\n\n**Note:** Unlike a `PUT` request, `PATCH` allows you to update only the fields you wish to edit. Fields that are not passed "
+        },
+        {
+          "info": {
+            "name": "Delete Verified Sender",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendgrid.com/v3/verified_senders/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to delete a Sender Identity**.\n\nPass the `id` assigned to a Sender Identity to this endpoint to delete the Sender Identity from your account.\n\nYou can retrieve the IDs associated with Sender Identities using the \"Get All Verified Senders\" endpoint."
+        },
+        {
+          "info": {
+            "name": "Domain Warn List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/verified_senders/domains"
+          },
+          "docs": "**This endpoint returns a list of domains known to implement DMARC and categorizes them by failure type — hard failure or soft failure**.\n\nDomains listed as hard failures will not deliver mail when used as a [Sender Identity](https://sendgrid.com/docs/for-developers/sending-email/sender-identity/) due to the domain's DMARC policy settings.\n\nFor example, using a `yahoo.com` email address as a Sender Identity will likely result in the rejection of your mail. For more information about DMARC, see ["
+        },
+        {
+          "info": {
+            "name": "Resend Verified Sender Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/verified_senders/resend/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to resend a verification email to a specified Sender Identity**.\n\nPassing the `id` assigned to a Sender Identity to this endpoint will resend a verification email to the `from_address` associated with the Sender Identity. This can be useful if someone loses their verification email or needs to have it resent for any other reason.\n\nYou can retrieve the IDs associated with Sender Identities by passing a \"Get All Verified Senders\" endpoint."
+        },
+        {
+          "info": {
+            "name": "Completed Steps",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/verified_senders/steps_completed"
+          },
+          "docs": "**This endpoint allows you to determine which of SendGrid’s verification processes have been completed for an account**.\n\nThis endpoint returns boolean values, `true` and `false`, for [Domain Authentication](https://sendgrid.com/docs/for-developers/sending-email/sender-identity/#domain-authentication), `domain_verified`, and [Single Sender Verification](https://sendgrid.com/docs/for-developers/sending-email/sender-identity/#single-sender-verification), `sender_verified`, for the account.\n\nAn acc"
+        },
+        {
+          "info": {
+            "name": "Verify Sender Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/verified_senders/verify/:token",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to verify a sender requests.**\n\nThe token is generated by SendGrid and included in a verification email delivered to the address that's pending verification."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,637 @@
+{
+  "item": [
+    {
+      "id": "adfa005b-dcac-4fa2-992b-2db39d193d3f",
+      "name": "Subuser Statistics",
+      "description": {
+        "content": "Twilio SendGrid Subusers API: Statistics Operations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9f4acfad-efde-4639-bf15-51be4b725f2f",
+          "name": "Retrieve the monthly email statistics for a single subuser",
+          "request": {
+            "name": "Retrieve the monthly email statistics for a single subuser",
+            "description": {
+              "content": "**This endpoint allows you to retrive the monthly email statistics for a specific subuser.**\n\nWhen using the `sort_by_metric` to sort your stats by a specific metric, you can not sort by the following metrics:\n`bounce_drops`, `deferred`, `invalid_emails`, `processed`, `spam_report_drops`, `spam_reports`, or `unsubscribe_drops`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "subusers",
+                ":subuser_name",
+                "stats",
+                "monthly"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "<string>",
+                  "description": "(Required) The date of the month to retrieve statistics for. Must be formatted YYYY-MM-DD"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by_metric",
+                  "value": "delivered",
+                  "description": "The metric that you want to sort by. Metrics that you can sort by are: `blocks`, `bounces`, `clicks`, `delivered`, `opens`, `requests`, `unique_clicks`, `unique_opens`, and `unsubscribes`.'"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by_direction",
+                  "value": "desc",
+                  "description": "The direction you want to sort."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "5",
+                  "description": "Optional field to limit the number of results returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Optional beginning point in the list to retrieve from."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "subuser_name",
+                  "description": "(Required) The username of the Subuser."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cb8d3def-d835-4a3a-baf1-e37bcefb89ea",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "subusers",
+                    ":subuser_name",
+                    "stats",
+                    "monthly"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by_metric",
+                      "value": "delivered"
+                    },
+                    {
+                      "key": "sort_by_direction",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "5"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subuser_name",
+                      "description": "(Required) The username of the Subuser."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"date\": \"2016-02-01\",\n  \"stats\": [\n    {\n      \"first_name\": \"John\",\n      \"last_name\": \"Doe\",\n      \"metrics\": {\n        \"blocks\": 0,\n        \"bounce_drops\": 0,\n        \"bounces\": 0,\n        \"clicks\": 5,\n        \"deferred\": 0,\n        \"delivered\": 0,\n        \"invalid_emails\": 0,\n        \"opens\": 10,\n        \"processed\": 10,\n        \"requests\": 10,\n        \"spam_report_drops\": 0,\n        \"spam_reports\": 0,\n        \"unique_clicks\": 0,\n        \"unique_opens\": 0,\n        \"unsubscribe_drops\": 0,\n        \"unsubscribes\": 0\n      },\n      \"name\": \"user1\",\n      \"type\": \"subuser\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d1fb2afc-6e96-4aae-b2f8-535e7395a374",
+          "name": "Retrieve email statistics for your subusers.",
+          "request": {
+            "name": "Retrieve email statistics for your subusers.",
+            "description": {
+              "content": "**This endpoint allows you to retrieve the email statistics for the given subusers.**\n\nYou may retrieve statistics for up to 10 different subusers by including an additional _subusers_ parameter for each additional subuser.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "subusers",
+                "stats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Limits the number of results returned per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "The point in the list to begin retrieving results from."
+                },
+                {
+                  "disabled": false,
+                  "key": "aggregated_by",
+                  "value": "<string>",
+                  "description": "How to group the statistics. Must be either \"day\", \"week\", or \"month\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "subusers",
+                  "value": "<string>",
+                  "description": "(Required) The subuser you want to retrieve statistics for. You may include this parameter up to 10 times to retrieve statistics for multiple subusers."
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<string>",
+                  "description": "(Required) The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD."
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<string>",
+                  "description": "The end date of the statistics to retrieve. Defaults to today."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "389865f6-707d-4183-9527-9a713537ee18",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "subusers",
+                    "stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "aggregated_by",
+                      "value": "day"
+                    },
+                    {
+                      "key": "subusers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"date\": \"2015-10-01\",\n    \"stats\": [\n      {\n        \"type\": \"subuser\",\n        \"name\": \"Matt_subuser\",\n        \"metrics\": {\n          \"blocks\": 0,\n          \"bounce_drops\": 0,\n          \"bounces\": 0,\n          \"clicks\": 0,\n          \"deferred\": 0,\n          \"delivered\": 0,\n          \"invalid_emails\": 0,\n          \"opens\": 0,\n          \"processed\": 0,\n          \"requests\": 0,\n          \"spam_report_drops\": 0,\n          \"spam_reports\": 0,\n          \"unique_clicks\": 0,\n          \"unique_opens\": 0,\n          \"unsubscribe_drops\": 0,\n          \"unsubscribes\": 0\n        }\n      }\n    ]\n  },\n  {\n    \"date\": \"2015-10-02\",\n    \"stats\": [\n      {\n        \"type\": \"subuser\",\n        \"name\": \"Matt_subuser\",\n        \"metrics\": {\n          \"blocks\": 0,\n          \"bounce_drops\": 0,\n          \"bounces\": 0,\n          \"clicks\": 0,\n          \"deferred\": 0,\n          \"delivered\": 0,\n          \"invalid_emails\": 0,\n          \"opens\": 0,\n          \"processed\": 0,\n          \"requests\": 0,\n          \"spam_report_drops\": 0,\n          \"spam_reports\": 0,\n          \"unique_clicks\": 0,\n          \"unique_opens\": 0,\n          \"unsubscribe_drops\": 0,\n          \"unsubscribes\": 0\n        }\n      }\n    ]\n  },\n  {\n    \"date\": \"2015-10-03\",\n    \"stats\": [\n      {\n        \"type\": \"subuser\",\n        \"name\": \"Matt_subuser\",\n        \"metrics\": {\n          \"blocks\": 0,\n          \"bounce_drops\": 0,\n          \"bounces\": 0,\n          \"clicks\": 0,\n          \"deferred\": 0,\n          \"delivered\": 0,\n          \"invalid_emails\": 0,\n          \"opens\": 0,\n          \"processed\": 0,\n          \"requests\": 0,\n          \"spam_report_drops\": 0,\n          \"spam_reports\": 0,\n          \"unique_clicks\": 0,\n          \"unique_opens\": 0,\n          \"unsubscribe_drops\": 0,\n          \"unsubscribes\": 0\n        }\n      }\n    ]\n  },\n  {\n    \"date\": \"2015-10-04\",\n    \"stats\": [\n      {\n        \"type\": \"subuser\",\n        \"name\": \"Matt_subuser\",\n        \"metrics\": {\n          \"blocks\": 0,\n          \"bounce_drops\": 0,\n          \"bounces\": 0,\n          \"clicks\": 0,\n          \"deferred\": 0,\n          \"delivered\": 0,\n          \"invalid_emails\": 0,\n          \"opens\": 0,\n          \"processed\": 0,\n          \"requests\": 0,\n          \"spam_report_drops\": 0,\n          \"spam_reports\": 0,\n          \"unique_clicks\": 0,\n          \"unique_opens\": 0,\n          \"unsubscribe_drops\": 0,\n          \"unsubscribes\": 0\n        }\n      }\n    ]\n  },\n  {\n    \"date\": \"2015-10-05\",\n    \"stats\": [\n      {\n        \"type\": \"subuser\",\n        \"name\": \"Matt_subuser\",\n        \"metrics\": {\n          \"blocks\": 0,\n          \"bounce_drops\": 0,\n          \"bounces\": 0,\n          \"clicks\": 0,\n          \"deferred\": 0,\n          \"delivered\": 0,\n          \"invalid_emails\": 0,\n          \"opens\": 0,\n          \"processed\": 0,\n          \"requests\": 0,\n          \"spam_report_drops\": 0,\n          \"spam_reports\": 0,\n          \"unique_clicks\": 0,\n          \"unique_opens\": 0,\n          \"unsubscribe_drops\": 0,\n          \"unsubscribes\": 0\n        }\n      }\n    ]\n  },\n  {\n    \"date\": \"2015-10-06\",\n    \"stats\": [\n      {\n        \"type\": \"subuser\",\n        \"name\": \"Matt_subuser\",\n        \"metrics\": {\n          \"blocks\": 0,\n          \"bounce_drops\": 0,\n          \"bounces\": 0,\n          \"clicks\": 0,\n          \"deferred\": 0,\n          \"delivered\": 0,\n          \"invalid_emails\": 0,\n          \"opens\": 0,\n          \"processed\": 0,\n          \"requests\": 0,\n          \"spam_report_drops\": 0,\n          \"spam_reports\": 0,\n          \"unique_clicks\": 0,\n          \"unique_opens\": 0,\n          \"unsubscribe_drops\": 0,\n          \"unsubscribes\": 0\n        }\n      }\n    ]\n  },\n  {\n    \"date\": \"2015-10-07\",\n    \"stats\": [\n      {\n        \"type\": \"subuser\",\n        \"name\": \"Matt_subuser\",\n        \"metrics\": {\n          \"blocks\": 0,\n          \"bounce_drops\": 0,\n          \"bounces\": 0,\n          \"clicks\": 0,\n          \"deferred\": 0,\n          \"delivered\": 0,\n          \"invalid_emails\": 0,\n          \"opens\": 0,\n          \"processed\": 0,\n          \"requests\": 0,\n          \"spam_report_drops\": 0,\n          \"spam_reports\": 0,\n          \"unique_clicks\": 0,\n          \"unique_opens\": 0,\n          \"unsubscribe_drops\": 0,\n          \"unsubscribes\": 0\n        }\n      }\n    ]\n  },\n  {\n    \"date\": \"2015-10-08\",\n    \"stats\": [\n      {\n        \"type\": \"subuser\",\n        \"name\": \"Matt_subuser\",\n        \"metrics\": {\n          \"blocks\": 0,\n          \"bounce_drops\": 0,\n          \"bounces\": 0,\n          \"clicks\": 0,\n          \"deferred\": 0,\n          \"delivered\": 0,\n          \"invalid_emails\": 0,\n          \"opens\": 0,\n          \"processed\": 0,\n          \"requests\": 0,\n          \"spam_report_drops\": 0,\n          \"spam_reports\": 0,\n          \"unique_clicks\": 0,\n          \"unique_opens\": 0,\n          \"unsubscribe_drops\": 0,\n          \"unsubscribes\": 0\n        }\n      }\n    ]\n  },\n  {\n    \"date\": \"2015-10-09\",\n    \"stats\": [\n      {\n        \"type\": \"subuser\",\n        \"name\": \"Matt_subuser\",\n        \"metrics\": {\n          \"blocks\": 0,\n          \"bounce_drops\": 0,\n          \"bounces\": 0,\n          \"clicks\": 0,\n          \"deferred\": 0,\n          \"delivered\": 0,\n          \"invalid_emails\": 0,\n          \"opens\": 0,\n          \"processed\": 0,\n          \"requests\": 0,\n          \"spam_report_drops\": 0,\n          \"spam_reports\": 0,\n          \"unique_clicks\": 0,\n          \"unique_opens\": 0,\n          \"unsubscribe_drops\": 0,\n          \"unsubscribes\": 0\n        }\n      }\n    ]\n  },\n  {\n    \"date\": \"2015-10-10\",\n    \"stats\": [\n      {\n        \"type\": \"subuser\",\n        \"name\": \"Matt_subuser\",\n        \"metrics\": {\n          \"blocks\": 0,\n          \"bounce_drops\": 0,\n          \"bounces\": 0,\n          \"clicks\": 0,\n          \"deferred\": 0,\n          \"delivered\": 0,\n          \"invalid_emails\": 0,\n          \"opens\": 0,\n          \"processed\": 0,\n          \"requests\": 0,\n          \"spam_report_drops\": 0,\n          \"spam_reports\": 0,\n          \"unique_clicks\": 0,\n          \"unique_opens\": 0,\n          \"unsubscribe_drops\": 0,\n          \"unsubscribes\": 0\n        }\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8381f0b1-54df-4c7b-8447-3e1dc2cf8f97",
+          "name": "Retrieve monthly stats for all subusers",
+          "request": {
+            "name": "Retrieve monthly stats for all subusers",
+            "description": {
+              "content": "**This endpoint allows you to retrieve the monthly email statistics for all subusers over the given date range.**\n\nWhen using the `sort_by_metric` to sort your stats by a specific metric, you can not sort by the following metrics:\n`bounce_drops`, `deferred`, `invalid_emails`, `processed`, `spam_report_drops`, `spam_reports`, or `unsubscribe_drops`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "subusers",
+                "stats",
+                "monthly"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "<string>",
+                  "description": "(Required) The date of the month to retrieve statistics for. Must be formatted YYYY-MM-DD"
+                },
+                {
+                  "disabled": false,
+                  "key": "subuser",
+                  "value": "<string>",
+                  "description": "A substring search of your subusers."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by_metric",
+                  "value": "delivered",
+                  "description": "The metric that you want to sort by. Metrics that you can sort by are: `blocks`, `bounces`, `clicks`, `delivered`, `opens`, `requests`, `unique_clicks`, `unique_opens`, and `unsubscribes`.'"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by_direction",
+                  "value": "desc",
+                  "description": "The direction you want to sort."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "5",
+                  "description": "Optional field to limit the number of results returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Optional beginning point in the list to retrieve from."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d1bd1b9a-ab96-481d-8f64-19f887013239",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "subusers",
+                    "stats",
+                    "monthly"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "subuser",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by_metric",
+                      "value": "delivered"
+                    },
+                    {
+                      "key": "sort_by_direction",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "5"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"date\": \"2016-02-01\",\n  \"stats\": [\n    {\n      \"first_name\": \"John\",\n      \"last_name\": \"Doe\",\n      \"metrics\": {\n        \"blocks\": 0,\n        \"bounce_drops\": 0,\n        \"bounces\": 0,\n        \"clicks\": 0,\n        \"deferred\": 0,\n        \"delivered\": 0,\n        \"invalid_emails\": 0,\n        \"opens\": 1,\n        \"processed\": 0,\n        \"requests\": 100,\n        \"spam_report_drops\": 0,\n        \"spam_reports\": 99,\n        \"unique_clicks\": 0,\n        \"unique_opens\": 0,\n        \"unsubscribe_drops\": 0,\n        \"unsubscribes\": 0\n      },\n      \"name\": \"user1\",\n      \"type\": \"subuser\"\n    },\n    {\n      \"first_name\": \"Jane\",\n      \"last_name\": \"Doe\",\n      \"metrics\": {\n        \"blocks\": 0,\n        \"bounce_drops\": 0,\n        \"bounces\": 0,\n        \"clicks\": 5,\n        \"deferred\": 0,\n        \"delivered\": 0,\n        \"invalid_emails\": 0,\n        \"opens\": 10,\n        \"processed\": 10,\n        \"requests\": 10,\n        \"spam_report_drops\": 0,\n        \"spam_reports\": 0,\n        \"unique_clicks\": 0,\n        \"unique_opens\": 0,\n        \"unsubscribe_drops\": 0,\n        \"unsubscribes\": 0\n      },\n      \"name\": \"user2\",\n      \"type\": \"subuser\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "561347ef-8b75-41d1-b731-5bde0a4b576e",
+          "name": "Retrieve the totals for each email statistic metric for all subusers.",
+          "request": {
+            "name": "Retrieve the totals for each email statistic metric for all subusers.",
+            "description": {
+              "content": "**This endpoint allows you to retrieve the total sums of each email statistic metric for all subusers over the given date range.**",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "subusers",
+                "stats",
+                "sums"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sort_by_direction",
+                  "value": "desc",
+                  "description": "The direction you want to sort. "
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<string>",
+                  "description": "(Required) The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD."
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<string>",
+                  "description": "The end date of the statistics to retrieve. Defaults to today. Must follow format YYYY-MM-DD."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "5",
+                  "description": "Limits the number of results returned per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "The point in the list to begin retrieving results from."
+                },
+                {
+                  "disabled": false,
+                  "key": "aggregated_by",
+                  "value": "<string>",
+                  "description": "How to group the statistics. Defaults to today. Must follow format YYYY-MM-DD."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by_metric",
+                  "value": "delivered",
+                  "description": "The metric that you want to sort by.  Must be a single metric."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "37a02f03-c5ea-4d36-a3de-18deda72e1c1",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "subusers",
+                    "stats",
+                    "sums"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort_by_direction",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "5"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "aggregated_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by_metric",
+                      "value": "delivered"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"date\": \"2015-10-11\",\n  \"stats\": [\n    {\n      \"metrics\": {\n        \"blocks\": 0,\n        \"bounce_drops\": 0,\n        \"bounces\": 0,\n        \"clicks\": 0,\n        \"deferred\": 0,\n        \"delivered\": 0,\n        \"invalid_emails\": 0,\n        \"opens\": 0,\n        \"processed\": 0,\n        \"requests\": 0,\n        \"spam_report_drops\": 0,\n        \"spam_reports\": 0,\n        \"unique_clicks\": 0,\n        \"unique_opens\": 0,\n        \"unsubscribe_drops\": 0,\n        \"unsubscribes\": 0\n      },\n      \"name\": \"cat1\",\n      \"type\": \"category\"\n    },\n    {\n      \"metrics\": {\n        \"blocks\": 0,\n        \"bounce_drops\": 0,\n        \"bounces\": 0,\n        \"clicks\": 0,\n        \"deferred\": 0,\n        \"delivered\": 0,\n        \"invalid_emails\": 0,\n        \"opens\": 0,\n        \"processed\": 0,\n        \"requests\": 0,\n        \"spam_report_drops\": 0,\n        \"spam_reports\": 0,\n        \"unique_clicks\": 0,\n        \"unique_opens\": 0,\n        \"unsubscribe_drops\": 0,\n        \"unsubscribes\": 0\n      },\n      \"name\": \"cat2\",\n      \"type\": \"category\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.sendgrid.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "648668b3-6a09-424f-85e5-55bbe895b433",
+    "name": "Twilio SendGrid Provisioning Account Subuser Statistics API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts. This API is for companies that have a formal reseller partnership with Twilio SendGrid.\n\nYou can access Twilio SendGrid sub-account functionality without becoming a reseller. If you require sub-account functionality, see the Twilio [SendGrid Subusers](https://docs.sendgrid.com/ui/account-and-settings/subusers) feature, which is available with [Pro and Premier plans](https://sendgrid.com/pricing/).\n\nContact Support:\n Name: Twilio SendGrid Support",
+      "type": "text/plain"
+    }
+  }
+}

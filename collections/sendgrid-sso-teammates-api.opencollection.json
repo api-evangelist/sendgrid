@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Twilio SendGrid Provisioning Account SSO Teammates API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "SSO Teammates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create an SSO Teammate.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/sso/teammates",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to create an SSO Teammate.**\n\nThe email address provided for the Teammate will also function as the Teammate's username. Once created, the Teammate's email address cannot be changed.\n\n### Scopes\n\nWhen creating a Teammate, you will assign it permissions or scopes. These scopes determine which actions the Teammate can perform and which features they can access. Scopes are provided with one of three properties passed to this endpoint: `is_admin`, `scopes`, and `persona`.\n"
+        },
+        {
+          "info": {
+            "name": "Edit an SSO Teammate",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.sendgrid.com/v3/sso/teammates/:username",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "Set this parameter to the Teammate's email address. This address must be the same address assigned to the Teammate in your IdP."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to modify an existing SSO Teammate.**\n\nOnly the parent user and Teammates with admin permissions can update another Teammate's permissions.\n\n### Scopes\n\nWhen updating a Teammate, you will assign it permissions or scopes. These scopes determine which actions the Teammate can perform and which features they can access. Scopes are provided with one of three properties passed to this endpoint: `is_admin`, `scopes`, and `persona`.\n\nYou can make a Teammate an administrator b"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

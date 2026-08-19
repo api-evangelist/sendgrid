@@ -1,0 +1,944 @@
+{
+  "item": [
+    {
+      "id": "d2f6a88a-15fa-45bb-bd86-932499c884ef",
+      "name": "Email Activity",
+      "description": {
+        "content": "Twilio SendGrid Email Activity API",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "874e7d15-f859-44c9-8418-b3e97b1fcaac",
+          "name": "Filter all messages",
+          "request": {
+            "name": "Filter all messages",
+            "description": {
+              "content": "Filter all messages to search your Email Activity. All queries must be [URL encoded](https://meyerweb.com/eric/tools/dencoder/), and use the following format:\n\n`query={query_type}=\"{query_content}\"`\n\n Once URL encoded, the previous query will look like this:\n\n`query=type%3D%22query_content%22`\n\nFor example, to filter by a specific email, use the following query:\n\n`query=to_email%3D%22example%40example.com%22`\n\nVisit our [Query Reference section](https://docs.sendgrid.com/for-developers/sending-email/getting-started-email-activity-api#query-reference) to see a full list of basic query types and examples.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "messages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "(Required) Use the query syntax  to filter your email activity."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "The number of messages returned. This parameter must be greater than 0 and less than or equal to 1000"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b45cf9ff-267d-4f21-9d34-b90b39d64b80",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"messages\": [\n    {\n      \"from_email\": \"from@test.com\",\n      \"msg_id\": \"abc123\",\n      \"subject\": \"something profound\",\n      \"to_email\": \"to@test.com\",\n      \"status\": \"processed\",\n      \"opens_count\": 0,\n      \"clicks_count\": 0,\n      \"last_event_time\": \"2017-10-13T18:56:21Z\",\n      \"last_timestamp\": 1495064728\n    },\n    {\n      \"from_email\": \"yeah@test.com\",\n      \"msg_id\": \"321befe\",\n      \"subject\": \"something profound\",\n      \"to_email\": \"nah@test.com\",\n      \"status\": \"delivered\",\n      \"opens_count\": 500,\n      \"clicks_count\": 200,\n      \"last_event_time\": \"2017-10-13T18:56:21Z\",\n      \"last_timestamp\": 1495064793\n    },\n    {\n      \"from_email\": \"sad@test.com\",\n      \"msg_id\": \"434512dfg\",\n      \"subject\": \"something sad\",\n      \"to_email\": \"reject@test.com\",\n      \"status\": \"not_delivered\",\n      \"opens_count\": 0,\n      \"clicks_count\": 0,\n      \"last_event_time\": \"2017-10-13T18:56:21Z\",\n      \"last_timestamp\": 1495064993\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a00ac58a-d2f9-474d-b3af-f4d0f2c5ef87",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"invalid syntax: 'bad_field' is not a known field\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bae4916f-6148-4945-aaae-81f6e6dead85",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"too many requests\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d42f35f5-2347-4f8e-9791-bd8f7aa056e0",
+          "name": "Filter messages by message ID",
+          "request": {
+            "name": "Filter messages by message ID",
+            "description": {
+              "content": "Get all of the details about the specified message.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "messages",
+                ":msg_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "msg_id",
+                  "description": "(Required) The ID of the message you are requesting details for."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6b017bee-c732-4e01-855a-c6fca528363f",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "messages",
+                    ":msg_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "msg_id",
+                      "description": "(Required) The ID of the message you are requesting details for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"from_email\": \"LKb.pOGYIZbfxMgi7Le0K1YWym%e5pz2PiuGbwByM2tR+wRPqfoFg1__35DaWF8CDhzYJg@ZTSFDjbgdxD23oq34Lun1NUnyymoGT4G.5i1IEzQpXWAvNwx.BNckAJiBCnwEVnwBfrbMlouoOPmtTSEbdPp\",\n  \"msg_id\": \"hznSfJ1RfKeIKS1B4mShNnkRMpdt5IXXKf\",\n  \"subject\": \"culpa aute amet magna sint\",\n  \"to_email\": \"+lOnUtHodefMsuBw.kunNalfcxRos5USSRoR@r5uEXYPP6wrQGRQ-vBg33fLY6MVkkMd-DKT8Z1iqt4qnrL23xMOZ8GWd.fyghGEFceTHIUpgwNGlwEtFHJikSaPzsnYfrJPKydPVPAlItJtqykRHZSGW\",\n  \"status\": \"delivered\",\n  \"template_id\": \"d674d9b7-e8e5-4e30-87be-1b3b026235fd\",\n  \"asm_group_id\": 5464443,\n  \"teammate\": \"9a8F0EP88wSSJeuOyXtbfc7BkK\",\n  \"api_key_id\": \"bUshz3LGa3coToxA2sWViYAEJJmYZJRyY9BCQY\",\n  \"events\": [\n    {\n      \"event_name\": \"unsubscribe\",\n      \"processed\": \"2017-10-13T18:56:21Z\",\n      \"bounce_type\": \"soft\",\n      \"http_user_agent\": \"Mozilla/5.0 (Windows NT 5.1; rv:11.0) Gecko Firefox/11.0\",\n      \"mx_server\": \"s\",\n      \"url\": \"G_3c-1HtUkN4`puC&&!u>0OiStFG.ZoRi2=j%fUVa]&re6k{hKqD-8vWE<hw-Bd>12Fb5JC6z>S@@'cWS~w5KtuIwv$8/JDD94CXx1n5yjC_I2lQ66zDj4MXe/4bqlcqqQ7evnQWTYx5roaEYMapyuzb/USpsyalh/HcYc9PmQfF8ND_C7bXnwFQ_fb_BHMXbIV8JN28/NjZdawDJ6kSWxLykSVTHzcISGPBRfs_rt3Uc65Vzj6LDSSMN8WRs70m0tAWs/fkDvjvm_7ZeV08YZeB9j9mS9BcE089Fn5UzDlTJW9vqDF5uipjlIVrNbM7oWE/MIJcjg2vJO20jA24WHrchrEXCvKcxriviSDl3tuyDxqdqRSekpm2aH6yW7_ylXj/nWsex4jm3rKvYw1uLq3Tp7qb9edhj8B_TnwLv1yjHSkgbA5jKI4BTqxugmwVTnFf2OFCFp/ZILLkoKgfwOyIK4reUIkhCjuhkwp/cqGaFAkeCFQXPB6DLYesLZ2M3KPuBsBrs3pr3HRbTtwaOzdKtGc8e0C0VTjrJ3GwljStMPrSuQWh6/vigHRasZ4P9kFv5DPVbHWZzPvtwUw0AMByt44YH678WpbAXXy4I/IVOHmErZTbw1mJ/3vd4uI5rr2zEO_YA9qJZLJT/wmBimbOyaMtmTNYr_FhgfkKMN3_1la7RCK8CIP3p26mbuHbdJV1j/5sTIKibInM5l2BoWdEi49bPqzagsfjKpGVbg0YQ8mjrLhI92/qy0eVYi34kBGVuLzxK2FLC8vwYUrbupjUYE23Mc_6nmHYRK1HF1QmZDZG1hw96I3MPbTZqeJOWGch230qDNxOgnHRNNM52k/3c7FeuRr88RwZGpif/4FaSAbdqkUNvJ9J9qX2tJS9x5vZlgD8k4YHIXDztrnwg2VPquj/uo_2MjbWybIF/NGJM2RFAsKV1S5iOejuTV4p12KlH1p0Dt5EpxCSIl0XoWuvyLYar77f_hzqNdWAyL0FDxGfj4ma4jwqdTTLNyeZEtguYoCHTFfY/HgJkpHx/yO23G7gLhKPvD459ceffHidFh7LipTxNF0GFXhIAPrWfhv7PkPmVofBoFFlo6/rMcHQ82d5VS8i1CCyLtfuT5WH9GqrsOY7xo3lxi7BNL93/PLRdQT3SObRFRERw68V5ZFvIuEQqFOFZQ848rWPLXYDGY658dyjZALf/Ug4EROi_ehNtzPwecer_RGBHxeMnpxrPAFZEL6YXNKzm8hh3HY4Uc4fgkjge5fXsR4CeTSkS66/FOD00deDKmN7XcHEj1LGlAmd4XlV8vFpXg2VazX4OLW8z6vXn5vntNGYO6eBCEKUwupRz9nQSMeZ/Pbmjoopyt6TxQBUfPkHBdgCIhqA1zDV72ARqGlK_ao9KVjvgbB98YeiieIyogkuOa4y0E5iUEdBopzovVgtY88yLijh9ww/tl0R5rI2P2_OxguTbv_wrfEm8jRjISEIqSE9q29RB3n8PeD4hu24rcsaEuTMCqniiLN0a2OtZiKxHnbsNB660Aq3/tEo2SHZBkkIFYXBbDNE7gLfvFz9ZaC_E2oV2quyK1Id5SkNkJBVRRgROWBc_XEOXktc4vRUKxy1MQ526Xilyo8/uI67lHH1Vlr4V3GVmweT4A16KMqzmVzvRDRFLpkBv2iu3Okc1vIqkC/426aOqeUm6SXIx16d8BWVRcmqKqizxDEF3JkLFgX0ab73CZ4GdJ9YaakJO7y4adFGzzIVLcn08UZ/pwDQ9BAuwuMc2yMnKihdvmLKbnAa1ATk9jFXQ9QAEMBHZLbPNvtS3pkpk0s6fyh2ceHa9Myy3fL/oqvPmq_14KzLgPZHaOlyb3tUoQM52fv/I78TqTGyB4WYD_vkm8gYHZcCF0dFIXsiXUbAbwR90Ldk8lsgxSL6rBvjPSlQq7N66NPzUVRYr3zSISupG_66uS4rJszHwmxmmraT3/zfVKxHXFHgxUDRmnwIMfdFKm4sf/qnRRccOLExJYGcZy8u65jo4gHDvO6vnpsdf0YtVWqDBJXa95/Y/qL7EYS73_t6/2xnWra9TTO0OtQNXEQ1XXLSLt6vPw1FTlE2aYCitDgUo7DyxiwuGtvmMKUkYCo/lqXouo2TGXZFF80lrCu1vKdxBgOOerlrsKrOJawGEzL8XzXdxkOMUT8HOzHPNOvDwsxc47mvpVzXEbX5DRaioOlm2U4flTG/6bZfLqJqHNtrKwC5U5NNG6_yNOW5Jg_bLmzUosi86IXxn7i04vRXXn92JmdE70TcdujehT1n15wtiD8ld5A65IV2W1801/wr0XcDIGiUSmxFfCozUCtBTFwln0uJ0cquSDXhj7JQADhYDGyz8WhqcPE7CP9xN93EUBrWczINbA4IsfckY8CZh68/Tak5dEhw8i_3rz/8U39D/iML1G_A8TsnKQ9/_S8o89fFc7Wx/f1nXF8H6OLVbPpp5IZg7UTZ2K0bSe3iBpsmkkJpxY_6zEHTJE3LbIANwF9Ik5Tu0ZJpjck7I07xlHR8mDW9FXclSQC/qJUGL5qByf2SY2Wd24hqKGrahLfqApQuRI8_DtU/Y8kH6DDif5kD6as3sIe6VbKYnU9c1URq/npTlE72m107FXxW9zktdzbBJAxt4udMFzjt2LPcBpqrMKGkrg4BHqKXwhFTspCWyYCjxJ/eFb3fd3BB5kb9D0yl3oOjeWtbJBqsboyzdLisRBn2MCtXO2O8eo4Hkm/2uJDoRjRCyIi2GNRkH0B3EkN6Z3vG40C985bAtM8eqHABzP2QRcKCz4ICOw_Xz249bJk8qM0/m4EeIWnx2ISf9TBU6_0KZ5QJ0VPOCPXxV9jCeK5W5/RV5nd7GUUXG0btDqUAa3DzpaRHX3klMAqL73hK4AGD3ItikmxF8vnSaqtsgOCpEePERt9qcUOJJP2aR0scPAf_1TkGSrgr5VF/XLM2i7YhC_3J9fA2Qwa0dbTedY/xGayjimEkuWSWvh7P5FNOum_l7qJPnA31lQq6ixqR0NKhO328rWfijqKHF6WR/5O0MJ4WNuIXk6xBtTOA9mK7CGUgWjaF5mB72PVnDpN8G6ERO39GqO/fCO96/A1mwIPWedF6HklU8jaQ_M5EUzwCsBE3/7FW2hbcD3GCOFCiLvObjn59o6CKoYlmTop/PZw2CLzvARAr5KaLhjIuZRSKTGlmYjvSoSELuvWi/QHUV7SJ0kF_1O3b_3a88cm/z7qD3Rp6MmoQdGPSyu1lXTpoETypgOMywfsr4ycV2LQr5XaE3UrQP/RzobA4rI_I3ceCUaRASmil2rV1TUiyljhdCFt8zmi1o2NyTzSBRNGP0lXU5Qtm6dKKp7lGRC19P2oSSFrxt85vWRNo1mv8odcL/TF7/MN1Ev7gY20MqlRSBrlwg5LZ4_Az7QnBnpbU3LkTC/oVb743VFtXMW4cK/3lw6wfBJZe_8DobxT_6/gCXp6QOs/LuqmrQHMQvTS6jfbqVFnPfLjrQ01Mb_F4lr3md6m87wpc1CYd9hdzgUL/aqz68HMDCxjGauC00Rajq9wGVYcWJ3j6rIaHIPwclftjARXFDg0yH8v/L6qDgIgGwbB3eZfjOXHAMXRFNMMihseZxYkcFAzLtYr94q9XpQeK4bKi9h_rWAMwcEHnS8/MHHlySbgy8azGEA0u9xsY96MRi45Qe74kZ9xlsI1t4Yutx8/gsjIiu7vNsKEyeTwd88BMExjWNcJHOSHRff57pJBMEAtPdbMETYorvUkRyErsqprxX0W45n0RRQ85w/JCOsYaxZOAFfzO0AdLpMCguFwl01fkFOKYrQeXfNn8w0KF4XS0k/fPx02fU7fFjUoXcPH7_9xo755WL8DNIU2ne4b6DpiROe473yUfD8_zSNUI1tpxzVYNA7GvVSYt8UtqHn3/_QwuOc4VeAI6RiAG5O5bcAxzQl96Q35emNwtTT_CYqHORCmyPj6By2hT_SCLf8m_xFxxe3YzvnxDZGq3qf__pq7Tw181/GosBAJy3MotiIxcYDASbY9sV4T2V/KoGHyJ64spdkQbJOHJ216JMSKj8ii5m8gxqJ2ypL81p5hbjWtjbUgSc8M_KTLuc0Owf1R/3vr/dKbQ2pJ4XEfXhnZTBQY7ZrClnVCnd5cMe9ic/aNF0yyOSQVVOecUFkK9IYFVR8VHdVf4/Nfu3nOEskHki1_r3At1HLOMniS6qNTvhS0hfqIuBiQBsd5aB7OdfVpYy1HdIR72gMToBlpHPsE5GrVO0J9/gcyB2xcyZ3UpTom8G3V48LUkk6kcJ6l1SL5Fgzbst0z3pDA4dzBfswbC8dW57_MkswDANNd8atPrOBSU5m2z66dP/mIYQ8iq/DcmBexkARDI47VzYuw5gwy8Lvym2_B2gxBokU9_T/fHCPjlpqjTsY6SgBOz1nlDh_HcSWYAqnyrZxbEO2erVJ4WPKNzjM3KaPXGH/dZryna1E28wxCrMqLCs9aL9oVBlDMjUcEryAyRh7xwN0uWGopdpkd7Du6O9EPjAj37sHkUiVs7WL6JyexoDF_n67MICvQnJ9FK/FVrp1uMZnmr7ijkMW87moNRBkXbVc2EA_hHOHmpbVGqr6WgNtJ7bBk1LrAPT8sKtE75vbe_L9VYqBHJ/njk.WIIj-V23pwC7ZahcIL0XnDPupL7ltwEc779Ofhrk9dt_wIOFsA8XwnCjrYqH2ty.F0XdS\\\"*;@kDYgfL4dwE/5I@>k|u0D:wGz\\\"_8=}RJM!Ybbwd}eN=ZB*esF&(iQ%FW]_FSA:3Ze4O*6&tG-Fe**/j^a&S8zIa#6gxL2NmnNMSVGF-Bf3z08tt0ug_UfNshhs4HJh0l1o24gjAN-Uck1OvWkGQSXH0glB7CnOm0gI\",\n      \"attempt_num\": 8\n    },\n    {\n      \"event_name\": \"dropped\",\n      \"processed\": \"2017-10-13T18:56:21Z\",\n      \"attempt_num\": 3,\n      \"url\": \"G_3c-1HtUkN4`puC&&!u>0OiStFG.ZoRi2=j%fUVa]&re6k{hKqD-8vWE<hw-Bd>12Fb5JC6z>S@@'cWS~w5KtuIwv$8/JDD94CXx1n5yjC_I2lQ66zDj4MXe/4bqlcqqQ7evnQWTYx5roaEYMapyuzb/USpsyalh/HcYc9PmQfF8ND_C7bXnwFQ_fb_BHMXbIV8JN28/NjZdawDJ6kSWxLykSVTHzcISGPBRfs_rt3Uc65Vzj6LDSSMN8WRs70m0tAWs/fkDvjvm_7ZeV08YZeB9j9mS9BcE089Fn5UzDlTJW9vqDF5uipjlIVrNbM7oWE/MIJcjg2vJO20jA24WHrchrEXCvKcxriviSDl3tuyDxqdqRSekpm2aH6yW7_ylXj/nWsex4jm3rKvYw1uLq3Tp7qb9edhj8B_TnwLv1yjHSkgbA5jKI4BTqxugmwVTnFf2OFCFp/ZILLkoKgfwOyIK4reUIkhCjuhkwp/cqGaFAkeCFQXPB6DLYesLZ2M3KPuBsBrs3pr3HRbTtwaOzdKtGc8e0C0VTjrJ3GwljStMPrSuQWh6/vigHRasZ4P9kFv5DPVbHWZzPvtwUw0AMByt44YH678WpbAXXy4I/IVOHmErZTbw1mJ/3vd4uI5rr2zEO_YA9qJZLJT/wmBimbOyaMtmTNYr_FhgfkKMN3_1la7RCK8CIP3p26mbuHbdJV1j/5sTIKibInM5l2BoWdEi49bPqzagsfjKpGVbg0YQ8mjrLhI92/qy0eVYi34kBGVuLzxK2FLC8vwYUrbupjUYE23Mc_6nmHYRK1HF1QmZDZG1hw96I3MPbTZqeJOWGch230qDNxOgnHRNNM52k/3c7FeuRr88RwZGpif/4FaSAbdqkUNvJ9J9qX2tJS9x5vZlgD8k4YHIXDztrnwg2VPquj/uo_2MjbWybIF/NGJM2RFAsKV1S5iOejuTV4p12KlH1p0Dt5EpxCSIl0XoWuvyLYar77f_hzqNdWAyL0FDxGfj4ma4jwqdTTLNyeZEtguYoCHTFfY/HgJkpHx/yO23G7gLhKPvD459ceffHidFh7LipTxNF0GFXhIAPrWfhv7PkPmVofBoFFlo6/rMcHQ82d5VS8i1CCyLtfuT5WH9GqrsOY7xo3lxi7BNL93/PLRdQT3SObRFRERw68V5ZFvIuEQqFOFZQ848rWPLXYDGY658dyjZALf/Ug4EROi_ehNtzPwecer_RGBHxeMnpxrPAFZEL6YXNKzm8hh3HY4Uc4fgkjge5fXsR4CeTSkS66/FOD00deDKmN7XcHEj1LGlAmd4XlV8vFpXg2VazX4OLW8z6vXn5vntNGYO6eBCEKUwupRz9nQSMeZ/Pbmjoopyt6TxQBUfPkHBdgCIhqA1zDV72ARqGlK_ao9KVjvgbB98YeiieIyogkuOa4y0E5iUEdBopzovVgtY88yLijh9ww/tl0R5rI2P2_OxguTbv_wrfEm8jRjISEIqSE9q29RB3n8PeD4hu24rcsaEuTMCqniiLN0a2OtZiKxHnbsNB660Aq3/tEo2SHZBkkIFYXBbDNE7gLfvFz9ZaC_E2oV2quyK1Id5SkNkJBVRRgROWBc_XEOXktc4vRUKxy1MQ526Xilyo8/uI67lHH1Vlr4V3GVmweT4A16KMqzmVzvRDRFLpkBv2iu3Okc1vIqkC/426aOqeUm6SXIx16d8BWVRcmqKqizxDEF3JkLFgX0ab73CZ4GdJ9YaakJO7y4adFGzzIVLcn08UZ/pwDQ9BAuwuMc2yMnKihdvmLKbnAa1ATk9jFXQ9QAEMBHZLbPNvtS3pkpk0s6fyh2ceHa9Myy3fL/oqvPmq_14KzLgPZHaOlyb3tUoQM52fv/I78TqTGyB4WYD_vkm8gYHZcCF0dFIXsiXUbAbwR90Ldk8lsgxSL6rBvjPSlQq7N66NPzUVRYr3zSISupG_66uS4rJszHwmxmmraT3/zfVKxHXFHgxUDRmnwIMfdFKm4sf/qnRRccOLExJYGcZy8u65jo4gHDvO6vnpsdf0YtVWqDBJXa95/Y/qL7EYS73_t6/2xnWra9TTO0OtQNXEQ1XXLSLt6vPw1FTlE2aYCitDgUo7DyxiwuGtvmMKUkYCo/lqXouo2TGXZFF80lrCu1vKdxBgOOerlrsKrOJawGEzL8XzXdxkOMUT8HOzHPNOvDwsxc47mvpVzXEbX5DRaioOlm2U4flTG/6bZfLqJqHNtrKwC5U5NNG6_yNOW5Jg_bLmzUosi86IXxn7i04vRXXn92JmdE70TcdujehT1n15wtiD8ld5A65IV2W1801/wr0XcDIGiUSmxFfCozUCtBTFwln0uJ0cquSDXhj7JQADhYDGyz8WhqcPE7CP9xN93EUBrWczINbA4IsfckY8CZh68/Tak5dEhw8i_3rz/8U39D/iML1G_A8TsnKQ9/_S8o89fFc7Wx/f1nXF8H6OLVbPpp5IZg7UTZ2K0bSe3iBpsmkkJpxY_6zEHTJE3LbIANwF9Ik5Tu0ZJpjck7I07xlHR8mDW9FXclSQC/qJUGL5qByf2SY2Wd24hqKGrahLfqApQuRI8_DtU/Y8kH6DDif5kD6as3sIe6VbKYnU9c1URq/npTlE72m107FXxW9zktdzbBJAxt4udMFzjt2LPcBpqrMKGkrg4BHqKXwhFTspCWyYCjxJ/eFb3fd3BB5kb9D0yl3oOjeWtbJBqsboyzdLisRBn2MCtXO2O8eo4Hkm/2uJDoRjRCyIi2GNRkH0B3EkN6Z3vG40C985bAtM8eqHABzP2QRcKCz4ICOw_Xz249bJk8qM0/m4EeIWnx2ISf9TBU6_0KZ5QJ0VPOCPXxV9jCeK5W5/RV5nd7GUUXG0btDqUAa3DzpaRHX3klMAqL73hK4AGD3ItikmxF8vnSaqtsgOCpEePERt9qcUOJJP2aR0scPAf_1TkGSrgr5VF/XLM2i7YhC_3J9fA2Qwa0dbTedY/xGayjimEkuWSWvh7P5FNOum_l7qJPnA31lQq6ixqR0NKhO328rWfijqKHF6WR/5O0MJ4WNuIXk6xBtTOA9mK7CGUgWjaF5mB72PVnDpN8G6ERO39GqO/fCO96/A1mwIPWedF6HklU8jaQ_M5EUzwCsBE3/7FW2hbcD3GCOFCiLvObjn59o6CKoYlmTop/PZw2CLzvARAr5KaLhjIuZRSKTGlmYjvSoSELuvWi/QHUV7SJ0kF_1O3b_3a88cm/z7qD3Rp6MmoQdGPSyu1lXTpoETypgOMywfsr4ycV2LQr5XaE3UrQP/RzobA4rI_I3ceCUaRASmil2rV1TUiyljhdCFt8zmi1o2NyTzSBRNGP0lXU5Qtm6dKKp7lGRC19P2oSSFrxt85vWRNo1mv8odcL/TF7/MN1Ev7gY20MqlRSBrlwg5LZ4_Az7QnBnpbU3LkTC/oVb743VFtXMW4cK/3lw6wfBJZe_8DobxT_6/gCXp6QOs/LuqmrQHMQvTS6jfbqVFnPfLjrQ01Mb_F4lr3md6m87wpc1CYd9hdzgUL/aqz68HMDCxjGauC00Rajq9wGVYcWJ3j6rIaHIPwclftjARXFDg0yH8v/L6qDgIgGwbB3eZfjOXHAMXRFNMMihseZxYkcFAzLtYr94q9XpQeK4bKi9h_rWAMwcEHnS8/MHHlySbgy8azGEA0u9xsY96MRi45Qe74kZ9xlsI1t4Yutx8/gsjIiu7vNsKEyeTwd88BMExjWNcJHOSHRff57pJBMEAtPdbMETYorvUkRyErsqprxX0W45n0RRQ85w/JCOsYaxZOAFfzO0AdLpMCguFwl01fkFOKYrQeXfNn8w0KF4XS0k/fPx02fU7fFjUoXcPH7_9xo755WL8DNIU2ne4b6DpiROe473yUfD8_zSNUI1tpxzVYNA7GvVSYt8UtqHn3/_QwuOc4VeAI6RiAG5O5bcAxzQl96Q35emNwtTT_CYqHORCmyPj6By2hT_SCLf8m_xFxxe3YzvnxDZGq3qf__pq7Tw181/GosBAJy3MotiIxcYDASbY9sV4T2V/KoGHyJ64spdkQbJOHJ216JMSKj8ii5m8gxqJ2ypL81p5hbjWtjbUgSc8M_KTLuc0Owf1R/3vr/dKbQ2pJ4XEfXhnZTBQY7ZrClnVCnd5cMe9ic/aNF0yyOSQVVOecUFkK9IYFVR8VHdVf4/Nfu3nOEskHki1_r3At1HLOMniS6qNTvhS0hfqIuBiQBsd5aB7OdfVpYy1HdIR72gMToBlpHPsE5GrVO0J9/gcyB2xcyZ3UpTom8G3V48LUkk6kcJ6l1SL5Fgzbst0z3pDA4dzBfswbC8dW57_MkswDANNd8atPrOBSU5m2z66dP/mIYQ8iq/DcmBexkARDI47VzYuw5gwy8Lvym2_B2gxBokU9_T/fHCPjlpqjTsY6SgBOz1nlDh_HcSWYAqnyrZxbEO2erVJ4WPKNzjM3KaPXGH/dZryna1E28wxCrMqLCs9aL9oVBlDMjUcEryAyRh7xwN0uWGopdpkd7Du6O9EPjAj37sHkUiVs7WL6JyexoDF_n67MICvQnJ9FK/FVrp1uMZnmr7ijkMW87moNRBkXbVc2EA_hHOHmpbVGqr6WgNtJ7bBk1LrAPT8sKtE75vbe_L9VYqBHJ/njk.WIIj-V23pwC7ZahcIL0XnDPupL7ltwEc779Ofhrk9dt_wIOFsA8XwnCjrYqH2ty.F0XdS\\\"*;@kDYgfL4dwE/5I@>k|u0D:wGz\\\"_8=}RJM!Ybbwd}eN=ZB*esF&(iQ%FW]_FSA:3Ze4O*6&tG-Fe**/j^a&S8zIa#6gxL2NmnNMSVGF-Bf3z08tt0ug_UfNshhs4HJh0l1o24gjAN-Uck1OvWkGQSXH0glB7CnOm0gI\",\n      \"bounce_type\": \"hard\",\n      \"mx_server\": \"laborum nisi\",\n      \"http_user_agent\": \"quis re\"\n    }\n  ],\n  \"originating_ip\": \"204.173.18.0\",\n  \"categories\": [\n    \"dolor\",\n    \"pie\"\n  ],\n  \"unique_args\": \"eu\",\n  \"outbound_ip\": \"181.40.184.87\",\n  \"outbound_ip_type\": \"dedicated\",\n  \"id\": \"2mMUdxV2HRfAeDiBTYs2IP\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0ac2b46d-4259-4c9e-a230-7a9c93e8ded3",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "messages",
+                    ":msg_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "msg_id",
+                      "description": "(Required) The ID of the message you are requesting details for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"invalid syntax: 'bad_field' is not a known field\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d59ad781-b96b-43b2-8ff7-c88141130c61",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "messages",
+                    ":msg_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "msg_id",
+                      "description": "(Required) The ID of the message you are requesting details for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"not found\",\n      \"field\": \"message_id\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d4cb9fd5-d6aa-4051-b55f-4b65660b4498",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "messages",
+                    ":msg_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "msg_id",
+                      "description": "(Required) The ID of the message you are requesting details for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"too many requests\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cd786012-5f8c-4a3a-a8f7-5cd4d3617a9c",
+          "name": "Request CSV",
+          "request": {
+            "name": "Request CSV",
+            "description": {
+              "content": "This request will kick off a backend process to generate a CSV file. Once generated, the worker will then send an email for the user download the file. The link will expire in 3 days.\n\nThe CSV will contain the events from the last 30 days, limited to the last 1 million events maximum. This endpoint will be rate limited to 1 request every 12 hours (rate limit may change).\n\nThis endpoint is similar to the GET Single Message endpoint - the only difference is that /download is added to indicate that this is a CSV download requests but the same query is used to determine what the CSV should contain.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "messages",
+                "download"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "Uses a SQL like syntax to indicate which messages to include in the CSV"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "731648ed-8a83-4c7a-a4b9-86c819c38b1d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "messages",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"pending\",\n  \"message\": \"An email will be sent to jane_doe@example.com when the CSV is ready to download.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b96d0da8-954d-4a1f-ad34-4fcc10b137de",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "messages",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"some error\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ae281614-3f1a-41d4-9f16-2d7a4d2b7a71",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "messages",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"too many requests\",\n      \"field\": \"\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3fd930fd-6d42-4ae5-b6be-eb9a6c3be09b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "messages",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"internal server error\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0aa3530f-3258-4a32-97f9-0874e82e6c2d",
+          "name": "Download CSV",
+          "request": {
+            "name": "Download CSV",
+            "description": {
+              "content": "**This endpoint will return a presigned URL that can be used to download the CSV that was requested from the \"Request a CSV\" endpoint.**",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "messages",
+                "download",
+                ":download_uuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "download_uuid",
+                  "description": "(Required) UUID used to locate the download csv request entry in the DB.\n\nThis is the UUID provided in the email sent to the user when their csv file is ready to download"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cdd1a7b1-36fb-4875-ab55-7b053ad85b7c",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "messages",
+                    "download",
+                    ":download_uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "download_uuid",
+                      "description": "(Required) UUID used to locate the download csv request entry in the DB.\n\nThis is the UUID provided in the email sent to the user when their csv file is ready to download"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"presigned_url\": \"https://sendgrid-rts-development-csv-downloads.s3.us-west-2.amazonaws.com/e53668f0-bea0-40b1-92c0-fa5b2c7fae1f.csv?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=redacted&X-Amz-Date=20250718T195335Z&X-Amz-Expires=300&X-Amz-Security-Token=redacted&X-Amz-SignedHeaders=host&X-Amz-Signature=redacted\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8f0aa325-48e8-4422-95dd-d3673e5906a1",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "messages",
+                    "download",
+                    ":download_uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "download_uuid",
+                      "description": "(Required) UUID used to locate the download csv request entry in the DB.\n\nThis is the UUID provided in the email sent to the user when their csv file is ready to download"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"download token is invalid or expired\",\n      \"field\": \"\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dd3bddf5-2dae-4b4a-a650-7622ec43ee49",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "messages",
+                    "download",
+                    ":download_uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "download_uuid",
+                      "description": "(Required) UUID used to locate the download csv request entry in the DB.\n\nThis is the UUID provided in the email sent to the user when their csv file is ready to download"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"internal server error\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.sendgrid.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "df96779f-66d8-4393-b9e5-24eebfbcb324",
+    "name": "Twilio SendGrid Provisioning Account Email Activity API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts. This API is for companies that have a formal reseller partnership with Twilio SendGrid.\n\nYou can access Twilio SendGrid sub-account functionality without becoming a reseller. If you require sub-account functionality, see the Twilio [SendGrid Subusers](https://docs.sendgrid.com/ui/account-and-settings/subusers) feature, which is available with [Pro and Premier plans](https://sendgrid.com/pricing/).\n\nContact Support:\n Name: Twilio SendGrid Support",
+      "type": "text/plain"
+    }
+  }
+}

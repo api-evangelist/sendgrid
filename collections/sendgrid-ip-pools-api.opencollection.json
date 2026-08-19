@@ -1,0 +1,159 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Twilio SendGrid Provisioning Account IP Pools API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "IP Pools",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve all IP pools",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/ips/pools"
+          },
+          "docs": "**This endpoint allows you to get all of your IP pools.**"
+        },
+        {
+          "info": {
+            "name": "Create an IP pool",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/ips/pools",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to create an IP pool.**\n\nBefore you can create an IP pool, you need to activate the IP in your SendGrid account: \n\n1. Log into your SendGrid account.  \n1. Navigate to **Settings** and then select **IP Addresses**.  \n1. Find the IP address you want to activate and then click **Edit**.  \n1. Check **Allow my account to send mail using this IP address**.\n1. Click **Save**."
+        },
+        {
+          "info": {
+            "name": "Retrieve all the IPs in a specified pool",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/ips/pools/:pool_name",
+            "params": [
+              {
+                "name": "pool_name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the IP pool that you want to retrieve the IP addresses for."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to get all of the IP addresses that are in a specific IP pool.**"
+        },
+        {
+          "info": {
+            "name": "Rename an IP pool",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.sendgrid.com/v3/ips/pools/:pool_name",
+            "params": [
+              {
+                "name": "pool_name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the IP pool that you want to retrieve the IP addresses for."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to update the name of an IP pool.**"
+        },
+        {
+          "info": {
+            "name": "Delete an IP pool",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendgrid.com/v3/ips/pools/:pool_name",
+            "params": [
+              {
+                "name": "pool_name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the IP pool that you want to retrieve the IP addresses for."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to delete an IP pool.**"
+        },
+        {
+          "info": {
+            "name": "Add an IP address to a pool",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/ips/pools/:pool_name/ips",
+            "params": [
+              {
+                "name": "pool_name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the IP pool you want to add the address to. If the name contains spaces, they must be URL encoded (e.g., \"Test Pool\" becomes \"Test%20Pool\")."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to add an IP address to an IP pool.**\n\nYou can add the same IP address to multiple pools. It may take up to 60 seconds for your IP address to be added to a pool after your request is made.\n\nBefore you can add an IP to a pool, you need to activate it in your SendGrid account:\n\n1. Log into your SendGrid account.  \n1. Navigate to **Settings** and then select **IP Addresses**.  \n1. Find the IP address you want to activate and then click **Edit**.  \n1. Check **Allow my acco"
+        },
+        {
+          "info": {
+            "name": "Remove an IP address from a pool",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendgrid.com/v3/ips/pools/:pool_name/ips/:ip",
+            "params": [
+              {
+                "name": "pool_name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the IP pool that you are removing the IP address from."
+              },
+              {
+                "name": "ip",
+                "value": "",
+                "type": "path",
+                "description": "The IP address that you wish to remove."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to remove an IP address from an IP pool.**"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

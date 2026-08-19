@@ -1,0 +1,101 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  mcp/sendgrid-mcp-tools-list.json (live tools/list from https://mcp.twilio.com/docs,
+  probed 2026-08-13) bound against the 63 refined OpenAPI documents in openapi/
+  (389 operations, every one carrying an operationId).
+description: >-
+  Crosswalk between the tools Twilio's hosted MCP server actually exposes for
+  SendGrid and the SendGrid v3 REST operations in this repo. THE HEADLINE
+  FINDING IS THE SHAPE OF THE MISMATCH: the hosted server is a DOCUMENTATION
+  server, not an execution server. Its two tools search and retrieve API
+  specifications; NEITHER is backed by a SendGrid REST operation, and NONE of
+  the 389 SendGrid operations has a corresponding MCP tool. An agent can use
+  this server to discover how to call SendGrid, then must call the REST API
+  directly with a bearer API key. Recording that honestly matters more than
+  manufacturing name-matched rows: a crosswalk claiming coverage here would
+  assert an agent can send mail through MCP, which it cannot.
+surfaces:
+  openapi:
+    path: openapi/
+    documents: 63
+    operations: 389
+    base_url: https://api.sendgrid.com
+    eu_base_url: https://api.eu.sendgrid.com
+    auth: bearer API key (Authorization header)
+    gated: false
+  mcp:
+    url: https://mcp.twilio.com/docs
+    transport: streamable-http (JSON-RPC over HTTPS POST)
+    auth: none
+    gated: false
+    note: >-
+      Live and anonymous — tools/list returned full inputSchemas without
+      credentials, so the schemas below are the REAL ones, not inferred.
+    server: {name: twilio-docs-mcp, version: 0.1.0, protocolVersion: '2025-11-25'}
+  graphql:
+    endpoint: null
+    note: >-
+      SendGrid publishes no GraphQL API. graphql/sendgrid-schema.graphql in this
+      repo is a pipeline-generated projection of the REST surface, not a
+      provider-served endpoint, so it is not crosswalked here.
+  skills:
+    path: skills/
+    count: 8
+    note: >-
+      Twilio's published SendGrid Agent Skills are the layer that actually binds
+      an agent to REST operations (see skills/_index.yml). They reference
+      operations directly, not MCP tools.
+crosswalk: []
+crosswalk_note: >-
+  Empty by measurement, not by omission. Every tool the server exposes is
+  documentation-scoped; no tool wraps a SendGrid REST operation, so there is no
+  tool-to-operationId binding to record.
+mcp_only:
+  - tool: twilio__search
+    category: discovery
+    reason: >-
+      Natural-language search over Twilio/SendGrid documentation and API
+      operations. Backed by Twilio's docs index, not by any public SendGrid REST
+      endpoint. Accepts product="sendgrid" to scope results to the SendGrid
+      surface; returns ids of the form op::{spec}::{operationId} that match the
+      tsg_* spec identifiers in openapi/_original/.
+    confidence: high
+  - tool: twilio__retrieve
+    category: discovery
+    reason: >-
+      Returns the full parameter/response schema for an operation id produced by
+      twilio__search. This is spec retrieval — the same content as the OpenAPI in
+      openapi/ — not an API call against a SendGrid account.
+    confidence: high
+rest_only:
+  count: 389
+  note: >-
+    All 389 SendGrid v3 operations are rest_only: there is no MCP tool that
+    invokes any of them. Rather than enumerate every operationId here, the
+    authoritative list is the 63 documents in openapi/ (each operation carries an
+    operationId) and the tool-shaped subset an execution server would expose is
+    kept as the DERIVED candidate list in mcp/sendgrid-mcp.yml.
+  representative:
+    - {operationId: SendMail, method: POST, path: /v3/mail/send, spec: openapi/sendgrid-mail-send-api-openapi.yml}
+    - {operationId: GetMailBatch, method: GET, path: '/v3/mail/batch/{batch_id}', spec: openapi/sendgrid-mail-batch-api-openapi.yml}
+    - {operationId: ListContact, method: GET, path: /v3/marketing/contacts, spec: openapi/sendgrid-contacts-api-openapi.yml}
+    - {operationId: SearchContact, method: POST, path: /v3/marketing/contacts/search, spec: openapi/sendgrid-contacts-api-openapi.yml}
+    - {operationId: CreateSingleSend, method: POST, path: /v3/marketing/singlesends, spec: openapi/sendgrid-single-sends-api-openapi.yml}
+    - {operationId: ListStat, method: GET, path: /v3/subusers/stats, spec: openapi/sendgrid-subuser-statistics-api-openapi.yml}
+coverage:
+  mcp_tools: 2
+  mcp_tools_bound_to_rest: 0
+  rest_operations: 389
+  rest_operations_with_tool: 0
+  rest_coverage_pct: 0.0
+  tool_coverage_pct: 0.0
+  interpretation: >-
+    0% execution coverage, 100% discovery coverage. Twilio ships an agent surface
+    that tells an agent exactly how to call SendGrid and ships nothing that calls
+    it. The gap is closed today by the SendGrid Agent Skills in skills/ plus a
+    direct bearer-key REST call.
+x-evidence:
+  fetched: '2026-08-13'
+  tools_list: mcp/sendgrid-mcp-tools-list.json
+  http_status: 200

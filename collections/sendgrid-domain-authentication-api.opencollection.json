@@ -1,0 +1,423 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Twilio SendGrid Provisioning Account Domain Authentication API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Domain Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Email DNS records to a co-worker",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/whitelabel/dns/email",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint is used to share DNS records with a colleagues**\n\nUse this endpoint to send SendGrid-generated DNS record information to a co-worker so they can enter it into your DNS provider to validate your domain and link branding. \n\nWhat type of records are sent will depend on whether you have chosen Automated Security or not. When using Automated Security, SendGrid provides you with three CNAME records. If you turn Automated Security off, you are instead given TXT and MX records.\n\nIf you p"
+        },
+        {
+          "info": {
+            "name": "List all authenticated domains",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/whitelabel/domains",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "`limit` sets the page size, i.e. maximum number of items from the list to be returned for a single API request. If omitted, the default page size is used."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of items in the list to skip over before starting to retrieve the items for the requested page. The default `offset` of `0` represents the beginning of the list, i.e. the start of the first page. To request the second page of the list, set the `offset` to the page size as determined by `limit`. Use multiples of the page size as your `offset` to request further consecutive pages. E.g. assume your page size is set to `10`. An `offset` of `10` requests the second page, an `offset` of `20` requests the third page and so on, provided there are sufficiently many items in your list."
+              },
+              {
+                "name": "exclude_subusers",
+                "value": "",
+                "type": "query",
+                "description": "Exclude subuser domains from the result."
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "query",
+                "description": "The username associated with an authenticated domain."
+              },
+              {
+                "name": "domain",
+                "value": "",
+                "type": "query",
+                "description": "Search for authenticated domains."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve a paginated list of all domains you have authenticated.**\n\nYou can use the `limit` query parameter to set the page size. If your list contains more items than the page size permits, you can make multiple requests. Use the `offset` query parameter to control the position in the list from which to start retrieving additional items."
+        },
+        {
+          "info": {
+            "name": "Authenticate a domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/whitelabel/domains",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to authenticate a domain.**\n\nIf you are authenticating a domain for a subuser, you have two options:\n1. Use the \"username\" parameter. This allows you to authenticate a domain on behalf of your subuser. This means the subuser is able to see and modify the authenticated domain.\n2. Use the Association workflow (see Associate Domain section). This allows you to authenticate a domain created by the parent to a subuser. This means the subuser will default to the assigned dom"
+        },
+        {
+          "info": {
+            "name": "Retrieve an authenticated domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/whitelabel/domains/:domain_id",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "domain_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve a specific authenticated domain.**"
+        },
+        {
+          "info": {
+            "name": "Update an authenticated domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.sendgrid.com/v3/whitelabel/domains/:domain_id",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "domain_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to update the settings for an authenticated domain.**"
+        },
+        {
+          "info": {
+            "name": "Delete an authenticated domain.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendgrid.com/v3/whitelabel/domains/:domain_id",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "domain_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to delete an authenticated domain.**"
+        },
+        {
+          "info": {
+            "name": "Associate an authenticated domain with a given user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/whitelabel/domains/:domain_id/subuser",
+            "params": [
+              {
+                "name": "domain_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the authenticated domain to associate with the subuser."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to associate a specific authenticated domain with a subuser.**\nAuthenticated domains can be associated with (i.e. assigned to) subusers from a parent account. This functionality allows subusers to send mail using their parent's domain. To associate an authenticated domain with a subuser, the parent account must first authenticate and validate the domain. The parent may then associate the authenticated domain via the subuser management tools.\n\n\n[You can associate more t"
+        },
+        {
+          "info": {
+            "name": "Disassociate an authenticated domain from a given user for users with up to five associated domains.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendgrid.com/v3/whitelabel/domains/:domain_id/subuser",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "query",
+                "description": "Username for the subuser to find associated authenticated domain."
+              },
+              {
+                "name": "domain_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the authenticated domain to be disassociated with the subuser."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to disassociate a specific authenticated domain from a subuser, for users with up to five associated domains.**\n\n\nThis functionality allows subusers to send mail using their parent's domain. Authenticated domains can be associated with (i.e. assigned to) subusers kknt, and a subuser can have up to five associated authenticated domains. \n\nYou can dissociate an authenticated domain from any subuser that has one or more authenticated domains using this endpoint."
+        },
+        {
+          "info": {
+            "name": "Associate an authenticated domain with a given user, for up to five domains.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/whitelabel/domains/:domain_id/subuser:add",
+            "params": [
+              {
+                "name": "domain_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the authenticated domain to associate with the subuser."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to associate a specific authenticated domain with a subuser. It can be used to associate up to five authenticated domains.**\n\n\nThis functionality allows subusers to send mail using their parent's domain. Authenticated domains can be associated with (i.e. assigned to) subusers from a parent account. To associate an authenticated domain with a subuser, the parent account must first authenticate and validate the domain. The parent may then associate the authenticated doma"
+        },
+        {
+          "info": {
+            "name": "Add an IP to an authenticated domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/whitelabel/domains/:id/ips",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the domain to which you are adding an IP"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to add an IP address to an authenticated domain.**"
+        },
+        {
+          "info": {
+            "name": "Remove an IP from an authenticated domain.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendgrid.com/v3/whitelabel/domains/:id/ips/:ip",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the domain to delete the IP from."
+              },
+              {
+                "name": "ip",
+                "value": "",
+                "type": "path",
+                "description": "IP to remove from the domain."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to remove an IP address from that domain's authentication.**"
+        },
+        {
+          "info": {
+            "name": "Validate a domain authentication.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/whitelabel/domains/:id/validate",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the domain to validate."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to validate an authenticated domain. If it fails, it will return an error message describing why the domain could not be validated.**"
+        },
+        {
+          "info": {
+            "name": "Get the default authentication",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/whitelabel/domains/default",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "domain",
+                "value": "",
+                "type": "query",
+                "description": "The domain to find a default authentication."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve the default authentication for a domain.**\n\nWhen creating or updating a domain authentication, you can set the domain as a default. The default domain will be used to send all mail. If you have multiple authenticated domains, the authenticated domain matching the domain of the From address will be used, and the default will be overridden.\n\nThis endpoint will return a default domain and its details only if a default is set. You are not required to set a defa"
+        },
+        {
+          "info": {
+            "name": "List the authenticated domain associated with the given user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/whitelabel/domains/subuser",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "query",
+                "description": "Username for the subuser to find associated authenticated domain."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve all of the authenticated domains that have been assigned to a specific subuser.**\n\nAuthenticated domains can be associated with (i.e. assigned to) subusers from a parent account. This functionality allows subusers to send mail using their parent's domain. To associate an authenticated domain with a subuser, the parent account must first authenticate and validate the domain. The parent may then associate the authenticated domain via the subuser management to"
+        },
+        {
+          "info": {
+            "name": "Disassociate an authenticated domain from a given user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendgrid.com/v3/whitelabel/domains/subuser",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "query",
+                "description": "Username for the subuser to find associated authenticated domain."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to disassociate a specific authenticated domain from a subuser.**\n\nAuthenticated domains can be associated with (i.e. assigned to) subusers from a parent account. This functionality allows subusers to send mail using their parent's domain. To associate an authenticated domain with a subuser, the parent account must first authenticate and validate the domain. The parent may then associate the authenticated domain via the subuser management tools.\n\n\nNote that if you used"
+        },
+        {
+          "info": {
+            "name": "List all the authenticated domains associated with the given user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/whitelabel/domains/subuser/all",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "query",
+                "description": "Username for the subuser to find associated authenticated domains."
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve all of the authenticated domains that have been assigned to a specific subuser.**\n\n\nThis functionality allows subusers to send mail using their parent's domain. Authenticated domains can be associated with (i.e. assigned to) subusers from a parent account, and a subuser can have up to five associated domains. \n\nTo associate an authenticated domain with a subuser, the parent account must first authenticate and validate the domain. The parent may then associa"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

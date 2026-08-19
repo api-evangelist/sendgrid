@@ -1,0 +1,179 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Twilio SendGrid Provisioning Account Segments API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Segments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve all segments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/contactdb/segments",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve all of your segments.**"
+        },
+        {
+          "info": {
+            "name": "Create a Segment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendgrid.com/v3/contactdb/segments",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to create a new segment.**\n\n\n  Valid operators for create and update depend on the type of the field for which you are searching.\n\n**Dates**\n- \"eq\", \"ne\", \"lt\" (before), \"gt\" (after)\n    - You may use MM/DD/YYYY for day granularity or an epoch for second granularity.\n- \"empty\", \"not_empty\"\n- \"is within\"\n    - You may use an [ISO 8601 date format](https://en.wikipedia.org/wiki/ISO_8601) or the # of days.\n\n**Text**\n- \"contains\"\n- \"eq\" (is/equals - matches the full field)"
+        },
+        {
+          "info": {
+            "name": "Retrieve a segment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/contactdb/segments/:segment_id",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "segment_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve a single segment with the given ID.**"
+        },
+        {
+          "info": {
+            "name": "Update a segment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.sendgrid.com/v3/contactdb/segments/:segment_id",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "segment_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**This endpoint allows you to update a segment.**"
+        },
+        {
+          "info": {
+            "name": "Delete a segment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendgrid.com/v3/contactdb/segments/:segment_id",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "segment_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "delete_contacts",
+                "value": "",
+                "type": "query",
+                "description": "True to delete all contacts matching the segment in addition to deleting the segment"
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to delete a segment from your recipients database.**\n\nYou also have the option to delete all the contacts from your Marketing Campaigns recipient database who were in this segment."
+        },
+        {
+          "info": {
+            "name": "Retrieve recipients on a segment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendgrid.com/v3/contactdb/segments/:segment_id/recipients",
+            "headers": [
+              {
+                "name": "on-behalf-of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "segment_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the segment from which you want to retrieve recipients."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "**This endpoint allows you to retrieve all of the recipients in a segment with the given ID.**"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
