@@ -6215,7 +6215,11 @@ accessModel:
   source:
   - plans
   - authentication
-  generated: '2026-07-22'
+  - scopes
+  - rate-limits
+  - security
+  - sandbox
+  generated: '2026-09-03'
   method: derived
 image: https://sendgrid.com/brand/sg-logo-300.png
 access: 3rd-Party
@@ -6232,8 +6236,9 @@ common:
   url: overlays/sendgrid-tsg_account_provisioning_v3-overlay.yaml
 - type: Packages
   url: packages/sendgrid-packages.yml
-- type: MCPServer
+- type: X-MCPServerCandidate
   url: mcp/sendgrid-mcp.yml
+  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type surfaces with a server that does not exist.'
 - type: LLMsTxt
   url: llms/sendgrid-llms.txt
 - type: Conformance
@@ -6453,7 +6458,7 @@ common:
   url: llms/sendgrid-twilio-docs-llms.txt
 created: '2025-08-14'
 modified: '2026-08-13'
-position: Consumer
+position: Consuming
 description: 'SendGrid is a cloud-based email delivery platform, acquired by Twilio in 2019, that provides transactional and marketing email at scale over an HTTP v3 REST API and an SMTP relay. The platform spans Mail Send, dynamic transactional templates, Marketing Campaigns (contacts, lists, Segments 2.0, Single Sends), email address validation, suppression management, domain authentication (SPF/DKIM/DMARC), dedicated IP management and warm-up, subusers, Engagement Quality scoring, and detailed delivery statistics. Event data is delivered asynchronously through the Event Webhook and inbound mail through Inbound Parse. All APIs authenticate with a scoped bearer API key against api.sendgrid.com, with an EU data-residency host at api.eu.sendgrid.com. Developer documentation and the API reference are published on the Twilio documentation site.'
 maintainers:
 - FN: Kin Lane
