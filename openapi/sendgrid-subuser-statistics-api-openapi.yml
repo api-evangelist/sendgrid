@@ -1,11 +1,8 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Twilio SendGrid Provisioning Account Subuser Statistics API
-  summary: The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts.
-  description: 'The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts. This API is for companies that have a formal reseller partnership with Twilio SendGrid.
-
-
-    You can access Twilio SendGrid sub-account functionality without becoming a reseller. If you require sub-account functionality, see the Twilio [SendGrid Subusers](https://docs.sendgrid.com/ui/account-and-settings/subusers) feature, which is available with [Pro and Premier plans](https://sendgrid.com/pricing/).'
+  title: Twilio SendGrid Subusers Subuser Statistics API
+  summary: The Twilio SendGrid Subusers API allows you to create and manage your Subuser accounts.
+  description: The Twilio SendGrid Subusers API allows you to create and manage your Subuser accounts.
   termsOfService: https://www.twilio.com/legal/tos
   contact:
     name: Twilio SendGrid Support
@@ -15,7 +12,7 @@ info:
     url: https://code.hq.twilio.com/twilio/sendgrid-oas/blob/main/LICENSE
   version: 1.0.0
   x-sendgrid:
-    libraryPackage: account_provisioning
+    libraryPackage: subusers
 servers:
 - url: https://api.sendgrid.com
   description: for global users and subusers
@@ -113,7 +110,7 @@ paths:
   /v3/subusers/stats:
     get:
       operationId: ListStat
-      summary: Retrieve email statistics for your subusers.
+      summary: Retrieve email statistics for your subusers
       tags:
       - Subuser Statistics
       description: '**This endpoint allows you to retrieve the email statistics for the given subusers.**
@@ -492,7 +489,7 @@ paths:
   /v3/subusers/stats/sums:
     get:
       operationId: ListStatSum
-      summary: Retrieve the totals for each email statistic metric for all subusers.
+      summary: Retrieve the totals for each email statistic metric for all subusers
       tags:
       - Subuser Statistics
       description: '**This endpoint allows you to retrieve the total sums of each email statistic metric for all subusers over the given date range.**'
@@ -596,6 +593,11 @@ paths:
                       type: category
 components:
   schemas:
+    SortByDirection1:
+      type: string
+      enum:
+      - desc
+      - asc
     SortByMetric:
       type: string
       enum:
@@ -608,11 +610,6 @@ components:
       - unique_clicks
       - unique_opens
       - unsubscribes
-    SortByDirection2:
-      type: string
-      enum:
-      - desc
-      - asc
     SubuserStats:
       title: subuser_stats
       type: object
@@ -713,6 +710,12 @@ components:
             unsubscribes: 0
           name: user1
           type: subuser
+    AggregatedBy:
+      type: string
+      enum:
+      - day
+      - week
+      - month
     CategoryStats:
       title: 'Stats: Category Stats'
       type: object
@@ -844,18 +847,12 @@ components:
             unsubscribes: 0
           name: cat2
           type: category
-    AggregatedBy:
-      type: string
-      enum:
-      - day
-      - week
-      - month
-    SortByDirection1:
+    SortByDirection:
       type: string
       enum:
       - desc
       - asc
-    SortByDirection:
+    SortByDirection2:
       type: string
       enum:
       - desc

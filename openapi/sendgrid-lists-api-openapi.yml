@@ -1,26 +1,20 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Twilio SendGrid Provisioning Account Lists API
-  summary: The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts.
-  description: 'The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts. This API is for companies that have a formal reseller partnership with Twilio SendGrid.
-
-
-    You can access Twilio SendGrid sub-account functionality without becoming a reseller. If you require sub-account functionality, see the Twilio [SendGrid Subusers](https://docs.sendgrid.com/ui/account-and-settings/subusers) feature, which is available with [Pro and Premier plans](https://sendgrid.com/pricing/).'
-  termsOfService: https://www.twilio.com/legal/tos
+  title: Sendgrid Lists API
+  version: 1.0.0
   contact:
     name: Twilio SendGrid Support
     url: https://support.sendgrid.com/hc/en-us
   license:
     name: MIT
     url: https://code.hq.twilio.com/twilio/sendgrid-oas/blob/main/LICENSE
-  version: 1.0.0
-  x-sendgrid:
-    libraryPackage: account_provisioning
+  termsOfService: https://www.twilio.com/legal/tos
+  x-refined-note:
+  - x-sendgrid differs across the merged source definitions and was not carried
+  description: 'Operations tagged Lists across 2 of this provider''s published API definitions: tsg_lmc_contactdb_v3.yaml, tsg_mc_lists_v3.yaml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.sendgrid.com
-  description: for global users and subusers
-- url: https://api.eu.sendgrid.com
-  description: for EU regional subusers
+  description: The Twilio SendGrid v3 API
 security:
 - BearerAuth: []
 tags:
@@ -167,6 +161,9 @@ paths:
                     errors:
                     - field: null
                       message: authorization required
+    servers:
+    - url: https://api.sendgrid.com
+      description: The Twilio SendGrid v3 API
   /v3/contactdb/lists/{list_id}:
     parameters:
     - name: list_id
@@ -355,6 +352,9 @@ paths:
                   value:
                     errors:
                     - message: 'List not found: 5'
+    servers:
+    - url: https://api.sendgrid.com
+      description: The Twilio SendGrid v3 API
   /v3/contactdb/lists/{list_id}/recipients:
     parameters:
     - name: list_id
@@ -533,6 +533,9 @@ paths:
                       message: list_id does not exist
                     - field: recipient_id
                       message: recipient_id does not exist
+    servers:
+    - url: https://api.sendgrid.com
+      description: The Twilio SendGrid v3 API
   /v3/contactdb/lists/{list_id}/recipients/{recipient_id}:
     parameters:
     - name: list_id
@@ -653,6 +656,9 @@ paths:
                       message: Returned if list_id does not exist
                     - field: recipient_id
                       message: Returned if recipient_id does not exist
+    servers:
+    - url: https://api.sendgrid.com
+      description: The Twilio SendGrid v3 API
   /v3/marketing/lists:
     post:
       operationId: CreateMarketingList
@@ -662,7 +668,7 @@ paths:
       description: '**This endpoint creates a new contacts list.**
 
 
-        Once you create a list, you can use the UI to [trigger an automation](https://sendgrid.com/docs/ui/sending-email/getting-started-with-automation/#create-an-automation) every time you add a new contact to the list.
+        Once you create a list, you can use the UI to trigger an automation every time you add a new contact to the list.
 
 
         A link to the newly created object is in `_metadata`.'
@@ -753,6 +759,9 @@ paths:
                         self: https://api.sendgrid.com/v3/marketing/lists/abc12312-x3y4-1234-abcd-123qwe456rty
                     _metadata:
                       self: https://api.sendgrid.com/v3/marketing/lists?page_size=100&page_token=
+    servers:
+    - url: https://api.sendgrid.com
+      description: The Twilio SendGrid v3 API
   /v3/marketing/lists/{id}:
     parameters:
     - name: id
@@ -925,6 +934,9 @@ paths:
                       type: object
                 required:
                 - errors
+    servers:
+    - url: https://api.sendgrid.com
+      description: The Twilio SendGrid v3 API
   /v3/marketing/lists/{id}/contacts:
     parameters:
     - name: id
@@ -974,6 +986,9 @@ paths:
             application/json:
               schema:
                 description: The specified list ID does not exist or one or more contact IDs do not exist.
+    servers:
+    - url: https://api.sendgrid.com
+      description: The Twilio SendGrid v3 API
   /v3/marketing/lists/{id}/contacts/count:
     parameters:
     - name: id
@@ -1010,8 +1025,164 @@ paths:
             application/json:
               schema:
                 type: object
+    servers:
+    - url: https://api.sendgrid.com
+      description: The Twilio SendGrid v3 API
 components:
+  parameters:
+    OnBehalfOf:
+      name: on-behalf-of
+      in: header
+      description: 'The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent''s Subusers or customer accounts. You will use the parent account''s API key when using this header. When making a call on behalf of a customer account, the property value should be "account-id" followed by the customer account''s ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser''s username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.'
+      required: false
+      schema:
+        type: string
   schemas:
+    ContactdbCustomFieldIdValue:
+      title: ContactDB Custom field schema.
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the field
+        type:
+          type: string
+          description: The type of the field.
+          $ref: '#/components/schemas/Type'
+        id:
+          type: number
+          description: The ID of the custom field.
+        value:
+          description: The value of this recipient's custom field
+          nullable: true
+          type: string
+    ContactdbList2xx:
+      title: ContactDB lists
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The reference ID of your list.
+        name:
+          type: string
+          description: The name of your list. Must be unique against all other list and segment names.
+        recipient_count:
+          type: integer
+          description: The count of recipients currently in the list.
+      required:
+      - id
+      - name
+      - recipient_count
+      example:
+        id: 1
+        name: listname
+        recipient_count: 0
+    ErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: An error message.
+              field:
+                description: When applicable, this property value will be the field that generated the error.
+                nullable: true
+                type: string
+              help:
+                type: object
+                description: When applicable, this property value will be helper text or a link to documentation to help you troubleshoot the error.
+        id:
+          type: string
+          description: When applicable, this property value will be an error ID.
+      example:
+        errors:
+        - field: field_name
+          message: error message
+    Type:
+      type: string
+      enum:
+      - date
+      - text
+      - number
+    DeleteContacts:
+      type: boolean
+      enum:
+      - true
+      - false
+    ContactdbRecipient200:
+      title: 'ContactDB: Recipient'
+      type: object
+      properties:
+        recipients:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: The ID of this recipient.
+              created_at:
+                type: number
+                description: The time this record was created in your contactdb, in unixtime.
+              custom_fields:
+                type: array
+                description: The custom fields assigned to this recipient and their values.
+                items:
+                  $ref: '#/components/schemas/ContactdbCustomFieldIdValue'
+              email:
+                type: string
+                description: The email address of this recipient. This is a default custom field that SendGrid provides.
+                format: email
+              first_name:
+                description: The first name of this recipient. This is a default custom field that SendGrid provides.
+                nullable: true
+                type: string
+              last_name:
+                description: The last name of the recipient.
+                nullable: true
+                type: string
+              last_clicked:
+                description: The last time this recipient clicked a link from one of your campaigns, in unixtime.
+                nullable: true
+                type: number
+              last_emailed:
+                description: The last time this user was emailed by one of your campaigns, in unixtime.
+                nullable: true
+                type: number
+              last_opened:
+                description: The last time this recipient opened an email from you, in unixtime.
+                nullable: true
+                type: number
+              updated_at:
+                type: number
+                description: The last update date for this recipient's record.
+            required:
+            - email
+    Error:
+      title: error
+      type: object
+      properties:
+        message:
+          type: string
+        field:
+          type: string
+        error_id:
+          type: string
+        parameter:
+          type: string
+      required:
+      - message
+    SelfMetadata:
+      title: selfMetadata
+      type: object
+      properties:
+        self:
+          type: string
+          description: A link to this object.
     ContactDetails:
       title: contact-details2
       type: object
@@ -1087,98 +1258,6 @@ components:
       - list_ids
       - created_at
       - updated_at
-    List:
-      title: list
-      type: object
-      properties:
-        id:
-          type: string
-          description: The generated ID for your list.
-          minLength: 36
-          maxLength: 36
-        name:
-          type: string
-          description: The name you gave your list.
-        contact_count:
-          type: integer
-          description: The number of contacts currently stored on the list.
-        _metadata:
-          $ref: '#/components/schemas/SelfMetadata'
-    ContactdbCustomFieldIdValue:
-      title: ContactDB Custom field schema.
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the field
-        type:
-          type: string
-          description: The type of the field.
-          $ref: '#/components/schemas/Type'
-        id:
-          type: number
-          description: The ID of the custom field.
-        value:
-          description: The value of this recipient's custom field
-          nullable: true
-          type: string
-    Type:
-      type: string
-      enum:
-      - date
-      - text
-      - number
-    ContactdbList2xx:
-      title: ContactDB lists
-      type: object
-      properties:
-        id:
-          type: integer
-          description: The reference ID of your list.
-        name:
-          type: string
-          description: The name of your list. Must be unique against all other list and segment names.
-        recipient_count:
-          type: integer
-          description: The count of recipients currently in the list.
-      required:
-      - id
-      - name
-      - recipient_count
-      example:
-        id: 1
-        name: listname
-        recipient_count: 0
-    DeleteContacts:
-      type: boolean
-      enum:
-      - true
-      - false
-    ErrorResponse:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-                description: An error message.
-              field:
-                description: When applicable, this property value will be the field that generated the error.
-                nullable: true
-                type: string
-              help:
-                type: object
-                description: When applicable, this property value will be helper text or a link to documentation to help you troubleshoot the error.
-        id:
-          type: string
-          description: When applicable, this property value will be an error ID.
-      example:
-        errors:
-        - field: field_name
-          message: error message
     Metadata:
       title: metadata
       type: object
@@ -1198,84 +1277,23 @@ components:
         count:
           type: number
           description: The number of items in the entire list, i.e., across all pages.
-    ContactdbRecipient200:
-      title: 'ContactDB: Recipient'
+    List:
+      title: list
       type: object
       properties:
-        recipients:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-                description: The ID of this recipient.
-              created_at:
-                type: number
-                description: The time this record was created in your contactdb, in unixtime.
-              custom_fields:
-                type: array
-                description: The custom fields assigned to this recipient and their values.
-                items:
-                  $ref: '#/components/schemas/ContactdbCustomFieldIdValue'
-              email:
-                type: string
-                description: The email address of this recipient. This is a default custom field that SendGrid provides.
-                format: email
-              first_name:
-                description: The first name of this recipient. This is a default custom field that SendGrid provides.
-                nullable: true
-                type: string
-              last_name:
-                description: The last name of the recipient.
-                nullable: true
-                type: string
-              last_clicked:
-                description: The last time this recipient clicked a link from one of your campaigns, in unixtime.
-                nullable: true
-                type: number
-              last_emailed:
-                description: The last time this user was emailed by one of your campaigns, in unixtime.
-                nullable: true
-                type: number
-              last_opened:
-                description: The last time this recipient opened an email from you, in unixtime.
-                nullable: true
-                type: number
-              updated_at:
-                type: number
-                description: The last update date for this recipient's record.
-            required:
-            - email
-    Error:
-      title: error
-      type: object
-      properties:
-        message:
+        id:
           type: string
-        field:
+          description: The generated ID for your list.
+          minLength: 36
+          maxLength: 36
+        name:
           type: string
-        error_id:
-          type: string
-        parameter:
-          type: string
-      required:
-      - message
-    SelfMetadata:
-      title: selfMetadata
-      type: object
-      properties:
-        self:
-          type: string
-          description: A link to this object.
-  parameters:
-    OnBehalfOf:
-      name: on-behalf-of
-      in: header
-      description: 'The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent''s Subusers or customer accounts. You will use the parent account''s API key when using this header. When making a call on behalf of a customer account, the property value should be "account-id" followed by the customer account''s ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser''s username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.'
-      required: false
-      schema:
-        type: string
+          description: The name you gave your list.
+        contact_count:
+          type: integer
+          description: The number of contacts currently stored on the list.
+        _metadata:
+          $ref: '#/components/schemas/SelfMetadata'
   securitySchemes:
     BearerAuth:
       type: http
@@ -1284,3 +1302,6 @@ components:
 externalDocs:
   description: Twilio SendGrid's official developer documentation.
   url: https://www.twilio.com/docs/sendgrid
+x-refined-from:
+- tsg_lmc_contactdb_v3.yaml
+- tsg_mc_lists_v3.yaml

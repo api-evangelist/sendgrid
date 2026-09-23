@@ -1,11 +1,8 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Twilio SendGrid Provisioning Account SSO Teammates API
-  summary: The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts.
-  description: 'The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts. This API is for companies that have a formal reseller partnership with Twilio SendGrid.
-
-
-    You can access Twilio SendGrid sub-account functionality without becoming a reseller. If you require sub-account functionality, see the Twilio [SendGrid Subusers](https://docs.sendgrid.com/ui/account-and-settings/subusers) feature, which is available with [Pro and Premier plans](https://sendgrid.com/pricing/).'
+  title: Twilio SendGrid Single Sign-On SSO Teammates API
+  summary: The Single Sign-On API allows you to manage your SAML 2.0 SSO configurations.
+  description: The Single Sign-On API allows you to manage your SAML 2.0 SSO configurations.
   termsOfService: https://www.twilio.com/legal/tos
   contact:
     name: Twilio SendGrid Support
@@ -15,7 +12,7 @@ info:
     url: https://code.hq.twilio.com/twilio/sendgrid-oas/blob/main/LICENSE
   version: 1.0.0
   x-sendgrid:
-    libraryPackage: account_provisioning
+    libraryPackage: sso
 servers:
 - url: https://api.sendgrid.com
   description: for global users and subusers
@@ -30,7 +27,7 @@ paths:
   /v3/sso/teammates:
     post:
       operationId: CreateSsoTeammate
-      summary: Create an SSO Teammate.
+      summary: Create an SSO Teammate
       tags:
       - SSO Teammates
       description: '**This endpoint allows you to create an SSO Teammate.**
@@ -45,13 +42,13 @@ paths:
         When creating a Teammate, you will assign it permissions or scopes. These scopes determine which actions the Teammate can perform and which features they can access. Scopes are provided with one of three properties passed to this endpoint: `is_admin`, `scopes`, and `persona`.
 
 
-        You can make a Teammate an administrator by setting `is_admin` to `true`. Administrators will have all scopes assigned to them. Alternatively, you can assign a `persona` to the teammate, which will assign them a block of permissions commonly required for that type of user. See the "Persona scopes" section of [**Teammate Permissions**](https://docs.sendgrid.com/ui/account-and-settings/teammate-permissions#persona-scopes) for a list of permsissions granted by persona. Lastly, you can assign individual permissions with the `scopes` property. See [**Teammate Permissions**](https://docs.sendgrid.com/ui/account-and-settings/teammate-permissions) for a full list of scopes that can be assigned to a Teammate.
+        You can make a Teammate an administrator by setting `is_admin` to `true`. Administrators will have all scopes assigned to them. Alternatively, you can assign a `persona` to the teammate, which will assign them a block of permissions commonly required for that type of user. See the "Persona scopes" section of **Teammate Permissions** for a list of permsissions granted by persona. Lastly, you can assign individual permissions with the `scopes` property. See **Teammate Permissions** for a full list of scopes that can be assigned to a Teammate.
 
 
         ### Subuser access
 
 
-        SendGrid Teammates may be assigned access to one or more Subusers. Subusers function like SendGrid sub-accounts with their own resources. See [**Subusers**](https://docs.sendgrid.com/ui/account-and-settings/subusers) for more information.
+        SendGrid Teammates may be assigned access to one or more Subusers. Subusers function like SendGrid sub-accounts with their own resources. See **Subusers** for more information.
 
 
         When assigning Subuser access to a Teammate, you may set the `has_restricted_subuser_access` property to `true` to constrain the Teammate so that they can operate only on behalf of the Subusers to which they are assigned. You may further set the level of access the Teammate has to each Subuser with the `subuser_access` property.'
@@ -408,13 +405,13 @@ paths:
         When updating a Teammate, you will assign it permissions or scopes. These scopes determine which actions the Teammate can perform and which features they can access. Scopes are provided with one of three properties passed to this endpoint: `is_admin`, `scopes`, and `persona`.
 
 
-        You can make a Teammate an administrator by setting `is_admin` to `true`. Administrators will have all scopes assigned to them. Alternatively, you can assign a `persona` to the teammate, which will assign them a block of permissions commonly required for that type of user. See the "Persona scopes" section of [**Teammate Permissions**](https://docs.sendgrid.com/ui/account-and-settings/teammate-permissions#persona-scopes) for a list of permsissions granted by persona. Lastly, you can assign individual permissions with the `scopes` property. See [**Teammate Permissions**](https://docs.sendgrid.com/ui/account-and-settings/teammate-permissions) for a full list of scopes that can be assigned to a Teammate.
+        You can make a Teammate an administrator by setting `is_admin` to `true`. Administrators will have all scopes assigned to them. Alternatively, you can assign a `persona` to the teammate, which will assign them a block of permissions commonly required for that type of user. See the "Persona scopes" section of **Teammate Permissions** for a list of permsissions granted by persona. Lastly, you can assign individual permissions with the `scopes` property. See **Teammate Permissions** for a full list of scopes that can be assigned to a Teammate.
 
 
         ### Subuser access
 
 
-        SendGrid Teammates may be assigned access to one or more Subusers. Subusers function like SendGrid sub-accounts with their own resources. See [**Subusers**](https://docs.sendgrid.com/ui/account-and-settings/subusers) for more information.
+        SendGrid Teammates may be assigned access to one or more Subusers. Subusers function like SendGrid sub-accounts with their own resources. See **Subusers** for more information.
 
 
         When assigning Subuser access to a Teammate, you may set the `has_restricted_subuser_access` property to `true` to constrain the Teammate so that they can operate only on behalf of the Subusers to which they are assigned. You may further set the level of access the Teammate has to each Subuser with the `subuser_access` property.'
@@ -756,45 +753,30 @@ paths:
           $ref: '#/components/responses/Sso500'
 components:
   schemas:
-    PatchSsoTeammates200:
-      title: Single Sign-On Teammates PATCH Response.
-      description: Successful SSO Teammates PATCH response.
+    SsoErrorResponse:
+      title: SSO Error Response
+      type: array
+      items:
+        type: object
+        properties:
+          message:
+            type: string
+          field:
+            nullable: true
+            type: string
+          error_id:
+            type: string
+    UserType:
+      type: string
+      enum:
+      - admin
+      - owner
+      - teammate
+    PostSsoTeammates201:
+      title: Single Sign-On Teammates POST Response.
+      description: Successful SSO Teammates POST Response.
       type: object
       properties:
-        address:
-          type: string
-          description: The Teammate's street address.
-        address2:
-          type: string
-          description: The Teammate's apartment number, suite number, or other secondary address information that is not part of the physical street address.
-        city:
-          type: string
-          description: The Teammate's city.
-        company:
-          type: string
-          description: The Teammate's company name.
-        country:
-          type: string
-          description: The Teammate's country of residence.
-        username:
-          type: string
-          description: The Teammate's username. This property is set to the Teammate's email address.
-        phone:
-          type: string
-          description: The Teammate's phone number.
-        state:
-          type: string
-          description: The Teammate's state or province.
-        user_type:
-          type: string
-          description: A Teammate can be an `admin`, `owner`, or `teammate`. Each role is associated with the scope of the Teammate's permissions.
-          $ref: '#/components/schemas/UserType'
-        website:
-          type: string
-          description: A website associated with the Teammate.
-        zip:
-          type: string
-          description: The Teammate's zip code.
         first_name:
           type: string
           description: The Teammate's first name.
@@ -847,40 +829,6 @@ components:
                 description: The permissions or scopes that the Teammate can access on behalf of the Subuser. See [**Teammate Permissions**](https://docs.sendgrid.com/ui/account-and-settings/teammate-permissions) for a complete list of available scopes.
                 items:
                   type: string
-    PermissionType1:
-      type: string
-      enum:
-      - admin
-      - restricted
-    SsoErrorResponse:
-      title: SSO Error Response
-      type: array
-      items:
-        type: object
-        properties:
-          message:
-            type: string
-          field:
-            nullable: true
-            type: string
-          error_id:
-            type: string
-    Persona:
-      type: string
-      enum:
-      - accountant
-      - developer
-      - marketer
-      - observer
-    PatchSsoTeammatesRequest:
-      title: Single Sign-On Teammate Update Request Body
-      summary: Single Sign-on Teammate Request Body for update, PATCH, Teammate operations.
-      $ref: '#/components/schemas/SsoTeammatesBaseRequestProps'
-    PermissionType:
-      type: string
-      enum:
-      - admin
-      - restricted
     PostSsoTeammatesRequest:
       title: Single Sign-On Teammate Create Request Body
       summary: The request body accepted by the POST endpoint that creates a new webhook.
@@ -1022,11 +970,49 @@ components:
       - email
       - first_name
       - last_name
-    PostSsoTeammates201:
-      title: Single Sign-On Teammates POST Response.
-      description: Successful SSO Teammates POST Response.
+    PatchSsoTeammatesRequest:
+      title: Single Sign-On Teammate Update Request Body
+      summary: Single Sign-on Teammate Request Body for update, PATCH, Teammate operations.
+      $ref: '#/components/schemas/SsoTeammatesBaseRequestProps'
+    PatchSsoTeammates200:
+      title: Single Sign-On Teammates PATCH Response.
+      description: Successful SSO Teammates PATCH response.
       type: object
       properties:
+        address:
+          type: string
+          description: The Teammate's street address.
+        address2:
+          type: string
+          description: The Teammate's apartment number, suite number, or other secondary address information that is not part of the physical street address.
+        city:
+          type: string
+          description: The Teammate's city.
+        company:
+          type: string
+          description: The Teammate's company name.
+        country:
+          type: string
+          description: The Teammate's country of residence.
+        username:
+          type: string
+          description: The Teammate's username. This property is set to the Teammate's email address.
+        phone:
+          type: string
+          description: The Teammate's phone number.
+        state:
+          type: string
+          description: The Teammate's state or province.
+        user_type:
+          type: string
+          description: A Teammate can be an `admin`, `owner`, or `teammate`. Each role is associated with the scope of the Teammate's permissions.
+          $ref: '#/components/schemas/UserType'
+        website:
+          type: string
+          description: A website associated with the Teammate.
+        zip:
+          type: string
+          description: The Teammate's zip code.
         first_name:
           type: string
           description: The Teammate's first name.
@@ -1128,14 +1114,25 @@ components:
       required:
       - first_name
       - last_name
-    UserType:
+    Persona:
+      type: string
+      enum:
+      - accountant
+      - developer
+      - marketer
+      - observer
+    PermissionType:
       type: string
       enum:
       - admin
-      - owner
-      - teammate
+      - restricted
+    PermissionType1:
+      type: string
+      enum:
+      - admin
+      - restricted
   responses:
-    Sso401:
+    Sso429:
       description: ''
       content:
         application/json:
@@ -1153,13 +1150,13 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/SsoErrorResponse'
-    Sso403:
+    Sso401:
       description: ''
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/SsoErrorResponse'
-    Sso429:
+    Sso403:
       description: ''
       content:
         application/json:

@@ -1,24 +1,20 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Twilio SendGrid Provisioning Account Stats API
-  summary: The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts.
-  description: 'The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts. This API is for companies that have a formal reseller partnership with Twilio SendGrid.
-
-
-    You can access Twilio SendGrid sub-account functionality without becoming a reseller. If you require sub-account functionality, see the Twilio [SendGrid Subusers](https://docs.sendgrid.com/ui/account-and-settings/subusers) feature, which is available with [Pro and Premier plans](https://sendgrid.com/pricing/).'
-  termsOfService: https://www.twilio.com/legal/tos
+  title: Sendgrid Stats API
+  version: 1.0.0
   contact:
     name: Twilio SendGrid Support
     url: https://support.sendgrid.com/hc/en-us
   license:
     name: MIT
     url: https://code.hq.twilio.com/twilio/sendgrid-oas/blob/main/LICENSE
-  version: 1.0.0
-  x-sendgrid:
-    libraryPackage: account_provisioning
+  termsOfService: https://www.twilio.com/legal/tos
+  x-refined-note:
+  - x-sendgrid differs across the merged source definitions and was not carried
+  description: 'Operations tagged Stats across 2 of this provider''s published API definitions: tsg_mc_stats_v3.yaml, tsg_stats_v3.yaml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.sendgrid.com
-  description: for global users and subusers
+  description: The Twilio SendGrid v3 API
 - url: https://api.eu.sendgrid.com
   description: for EU regional subusers
 security:
@@ -70,6 +66,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+    servers:
+    - url: https://api.sendgrid.com
+      description: The Twilio SendGrid v3 API
   /v3/marketing/stats/automations/{id}:
     parameters:
     - name: id
@@ -110,6 +109,9 @@ paths:
           $ref: '#/components/responses/Stats400'
         '404':
           description: ''
+    servers:
+    - url: https://api.sendgrid.com
+      description: The Twilio SendGrid v3 API
   /v3/marketing/stats/automations/{id}/links:
     parameters:
     - name: id
@@ -148,6 +150,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+    servers:
+    - url: https://api.sendgrid.com
+      description: The Twilio SendGrid v3 API
   /v3/marketing/stats/automations/export:
     get:
       operationId: ExportAutomationStat
@@ -189,6 +194,9 @@ paths:
                 description: CSV data
         '400':
           description: ''
+    servers:
+    - url: https://api.sendgrid.com
+      description: The Twilio SendGrid v3 API
   /v3/marketing/stats/singlesends:
     get:
       operationId: ListSingleSendStat
@@ -228,6 +236,9 @@ paths:
                 $ref: '#/components/schemas/SinglesendsResponse'
         '400':
           $ref: '#/components/responses/Stats400'
+    servers:
+    - url: https://api.sendgrid.com
+      description: The Twilio SendGrid v3 API
   /v3/marketing/stats/singlesends/{id}:
     parameters:
     - name: id
@@ -267,6 +278,9 @@ paths:
           $ref: '#/components/responses/Stats400'
         '404':
           description: ''
+    servers:
+    - url: https://api.sendgrid.com
+      description: The Twilio SendGrid v3 API
   /v3/marketing/stats/singlesends/{id}/links:
     parameters:
     - name: id
@@ -305,6 +319,9 @@ paths:
             application/json:
               schema:
                 type: object
+    servers:
+    - url: https://api.sendgrid.com
+      description: The Twilio SendGrid v3 API
   /v3/marketing/stats/singlesends/export:
     get:
       operationId: ExportSingleSendStat
@@ -346,10 +363,13 @@ paths:
                 description: CSV data
         '400':
           description: ''
+    servers:
+    - url: https://api.sendgrid.com
+      description: The Twilio SendGrid v3 API
   /v3/browsers/stats:
     get:
       operationId: ListBrowserStat
-      summary: Retrieve email statistics by browser.
+      summary: Retrieve email statistics by browser
       tags:
       - Stats
       description: '**This endpoint allows you to retrieve your email statistics segmented by browser type.**
@@ -358,7 +378,7 @@ paths:
         **We only store up to 7 days of email activity in our database.** By default, 500 items will be returned per request via the Advanced Stats API endpoints.
 
 
-        Advanced Stats provide a more in-depth view of your email statistics and the actions taken by your recipients. You can segment these statistics by geographic location, device type, client type, browser, and mailbox provider. For more information about statistics, please see our [Statistics Overview](https://sendgrid.com/docs/ui/analytics-and-reporting/stats-overview/).'
+        Advanced Stats provide a more in-depth view of your email statistics and the actions taken by your recipients. You can segment these statistics by geographic location, device type, client type, browser, and mailbox provider. For more information about statistics, please see our Statistics Overview.'
       parameters:
       - name: browsers
         in: query
@@ -425,10 +445,15 @@ paths:
                         unique_clicks: 1
                       name: Firefox
                       type: browser
+    servers:
+    - url: https://api.sendgrid.com
+      description: for global users and subusers
+    - url: https://api.eu.sendgrid.com
+      description: for EU regional subusers
   /v3/clients/stats:
     get:
       operationId: ListClientStat
-      summary: Retrieve email statistics by client type.
+      summary: Retrieve email statistics by client type
       tags:
       - Stats
       description: '**This endpoint allows you to retrieve your email statistics segmented by client type.**
@@ -437,7 +462,7 @@ paths:
         **We only store up to 7 days of email activity in our database.** By default, 500 items will be returned per request via the Advanced Stats API endpoints.
 
 
-        Advanced Stats provide a more in-depth view of your email statistics and the actions taken by your recipients. You can segment these statistics by geographic location, device type, client type, browser, and mailbox provider. For more information about statistics, please see our [Statistics Overview](https://sendgrid.com/docs/ui/analytics-and-reporting/stats-overview/).'
+        Advanced Stats provide a more in-depth view of your email statistics and the actions taken by your recipients. You can segment these statistics by geographic location, device type, client type, browser, and mailbox provider. For more information about statistics, please see our Statistics Overview.'
       parameters:
       - $ref: '#/components/parameters/OnBehalfOf'
       - $ref: '#/components/parameters/StatsAdvancedStatsBaseQueryStringsStartDate'
@@ -487,6 +512,11 @@ paths:
                         unique_opens: 0
                       name: Gmail
                       type: client
+    servers:
+    - url: https://api.sendgrid.com
+      description: for global users and subusers
+    - url: https://api.eu.sendgrid.com
+      description: for EU regional subusers
   /v3/clients/{client_type}/stats:
     parameters:
     - name: client_type
@@ -498,7 +528,7 @@ paths:
         $ref: '#/components/schemas/ClientType'
     get:
       operationId: GetClientStat
-      summary: Retrieve stats by a specific client type.
+      summary: Retrieve stats by a specific client type
       tags:
       - Stats
       description: '**This endpoint allows you to retrieve your email statistics segmented by a specific client type.**
@@ -518,7 +548,7 @@ paths:
         - desktop
 
 
-        Advanced Stats provide a more in-depth view of your email statistics and the actions taken by your recipients. You can segment these statistics by geographic location, device type, client type, browser, and mailbox provider. For more information about statistics, please see our [Statistics Overview](https://sendgrid.com/docs/ui/analytics-and-reporting/stats-overview/).'
+        Advanced Stats provide a more in-depth view of your email statistics and the actions taken by your recipients. You can segment these statistics by geographic location, device type, client type, browser, and mailbox provider. For more information about statistics, please see our Statistics Overview.'
       parameters:
       - $ref: '#/components/parameters/OnBehalfOf'
       - $ref: '#/components/parameters/StatsAdvancedStatsBaseQueryStringsStartDate'
@@ -568,13 +598,41 @@ paths:
                         unique_opens: 0
                       name: Gmail
                       type: client
+    servers:
+    - url: https://api.sendgrid.com
+      description: for global users and subusers
+    - url: https://api.eu.sendgrid.com
+      description: for EU regional subusers
   /v3/devices/stats:
     get:
       operationId: ListDeviceStat
-      summary: Retrieve email statistics by device type.
+      summary: Retrieve email statistics by device type
       tags:
       - Stats
-      description: "**This endpoint allows you to retrieve your email statistics segmented by the device type.**\n\n**We only store up to 7 days of email activity in our database.** By default, 500 items will be returned per request via the Advanced Stats API endpoints.\n\n## Available Device Types\n| **Device** | **Description** | **Example** |\n|---|---|---|\n| Desktop | Email software on desktop computer. | I.E., Outlook, Sparrow, or Apple Mail. |\n| Webmail |\tA web-based email client. | I.E., Yahoo, Google, AOL, or Outlook.com. |\n| Phone | A smart phone. | iPhone, Android, Blackberry, etc.\n| Tablet | A tablet computer. | iPad, android based tablet, etc. |\n| Other | An unrecognized device. |\n\nAdvanced Stats provide a more in-depth view of your email statistics and the actions taken by your recipients. You can segment these statistics by geographic location, device type, client type, browser, and mailbox provider. For more information about statistics, please see our [Statistics Overview](https://sendgrid.com/docs/ui/analytics-and-reporting/stats-overview/)."
+      description: '**This endpoint allows you to retrieve your email statistics segmented by the device type.**
+
+
+        **We only store up to 7 days of email activity in our database.** By default, 500 items will be returned per request via the Advanced Stats API endpoints.
+
+
+        ## Available Device Types
+
+        | **Device** | **Description** | **Example** |
+
+        |---|---|---|
+
+        | Desktop | Email software on desktop computer. | I.E., Outlook, Sparrow, or Apple Mail. |
+
+        | Webmail | A web-based email client. | I.E., Yahoo, Google, AOL, or Outlook.com. |
+
+        | Phone | A smart phone. | iPhone, Android, Blackberry, etc.
+
+        | Tablet | A tablet computer. | iPad, android based tablet, etc. |
+
+        | Other | An unrecognized device. |
+
+
+        Advanced Stats provide a more in-depth view of your email statistics and the actions taken by your recipients. You can segment these statistics by geographic location, device type, client type, browser, and mailbox provider. For more information about statistics, please see our Statistics Overview.'
       parameters:
       - $ref: '#/components/parameters/OnBehalfOf'
       - $ref: '#/components/parameters/StatsAdvancedQueryStringsLimitOffsetLimit'
@@ -829,10 +887,15 @@ paths:
                       metrics:
                         opens: 0
                         unique_opens: 0
+    servers:
+    - url: https://api.sendgrid.com
+      description: for global users and subusers
+    - url: https://api.eu.sendgrid.com
+      description: for EU regional subusers
   /v3/geo/stats:
     get:
       operationId: ListGeoStat
-      summary: Retrieve email statistics by country and state/province.
+      summary: Retrieve email statistics by country and state/province
       tags:
       - Stats
       description: '**This endpoint allows you to retrieve your email statistics segmented by country and state/province.**
@@ -841,7 +904,7 @@ paths:
         **We only store up to 7 days of email activity in our database.** By default, 500 items will be returned per request via the Advanced Stats API endpoints.
 
 
-        Advanced Stats provide a more in-depth view of your email statistics and the actions taken by your recipients. You can segment these statistics by geographic location, device type, client type, browser, and mailbox provider. For more information about statistics, please see our [User Guide](https://wwww.twilio.com/docs/sendgrid/ui/analytics-and-reporting/stats-overview).'
+        Advanced Stats provide a more in-depth view of your email statistics and the actions taken by your recipients. You can segment these statistics by geographic location, device type, client type, browser, and mailbox provider. For more information about statistics, please see our User Guide.'
       parameters:
       - name: country
         in: query
@@ -1164,10 +1227,15 @@ paths:
                         opens: 0
                         unique_clicks: 0
                         unique_opens: 0
+    servers:
+    - url: https://api.sendgrid.com
+      description: for global users and subusers
+    - url: https://api.eu.sendgrid.com
+      description: for EU regional subusers
   /v3/mailbox_providers/stats:
     get:
       operationId: ListMailboxProviderStat
-      summary: Retrieve email statistics by mailbox provider.
+      summary: Retrieve email statistics by mailbox provider
       tags:
       - Stats
       description: '**This endpoint allows you to retrieve your email statistics segmented by recipient mailbox provider.**
@@ -1176,7 +1244,7 @@ paths:
         **We only store up to 7 days of email activity in our database.** By default, 500 items will be returned per request via the Advanced Stats API endpoints.
 
 
-        Advanced Stats provide a more in-depth view of your email statistics and the actions taken by your recipients. You can segment these statistics by geographic location, device type, client type, browser, and mailbox provider. For more information about statistics, please see our [Statistics Overview](https://sendgrid.com/docs/ui/analytics-and-reporting/stats-overview/).'
+        Advanced Stats provide a more in-depth view of your email statistics and the actions taken by your recipients. You can segment these statistics by geographic location, device type, client type, browser, and mailbox provider. For more information about statistics, please see our Statistics Overview.'
       parameters:
       - name: mailbox_providers
         in: query
@@ -1744,6 +1812,11 @@ paths:
                         spam_reports: 0
                         unique_clicks: 0
                         unique_opens: 0
+    servers:
+    - url: https://api.sendgrid.com
+      description: for global users and subusers
+    - url: https://api.eu.sendgrid.com
+      description: for EU regional subusers
   /v3/stats:
     get:
       operationId: ListStat
@@ -1921,177 +1994,122 @@ paths:
                         unique_opens: 0
                         unsubscribe_drops: 0
                         unsubscribes: 0
+    servers:
+    - url: https://api.sendgrid.com
+      description: for global users and subusers
+    - url: https://api.eu.sendgrid.com
+      description: for EU regional subusers
 components:
-  parameters:
-    TimezoneBaseProps:
-      name: timezone
-      in: query
-      description: '[IANA Area/Region](https://en.wikipedia.org/wiki/Tz_database#Names_of_timezones) string representing the timezone in which the stats are to be presented, e.g., "America/Chicago".'
-      schema:
-        type: string
-        default: UTC
-    StatsAdvancedStatsBaseQueryStringsEndDate:
-      name: end_date
-      in: query
-      description: The end date of the statistics to retrieve. Defaults to today. Must follow format YYYY-MM-DD.
-      required: false
-      schema:
-        type: string
-    StatsAdvancedStatsBaseQueryStringsAggregatedBy:
-      name: aggregated_by
-      in: query
-      description: How to group the statistics. Must be either "day", "week", or "month".
-      required: false
-      schema:
-        type: string
-        $ref: '#/components/schemas/AggregatedBy2'
-    StatsAdvancedStatsBaseQueryStringsStartDate:
-      name: start_date
-      in: query
-      description: The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD.
-      required: true
-      schema:
-        type: string
-    StatsAdvancedQueryStringsLimitOffsetEndDate:
-      name: end_date
-      in: query
-      description: The end date of the statistics to retrieve. Defaults to today. Must follow format YYYY-MM-DD.
-      required: false
-      schema:
-        type: string
-    StatsAdvancedQueryStringsLimitOffsetLimit:
-      name: limit
-      in: query
-      description: The number of results to return.
-      required: false
-      schema:
-        type: integer
-    EndDateBaseProps:
-      name: end_date
-      in: query
-      description: 'Format: `YYYY-MM-DD`.If this parameter is included, the stats'' end date is included in the search.'
-      schema:
-        type: string
-        format: date
-        default: '2021-12-31'
-    SinglesendQueryParams2VariationId:
-      name: ab_variation_id
-      in: query
-      schema:
-        type: string
-        format: uuid
-    SinglesendQueryParamsGroupBy:
-      name: group_by
-      in: query
-      description: A/B Single Sends have multiple variation IDs and phase IDs. Including these additional fields allows further granularity of stats by these fields.
-      style: form
-      explode: false
-      schema:
-        type: array
-        items:
-          type: string
-          $ref: '#/components/schemas/Items1'
-    AggregatedByBaseProps:
-      name: aggregated_by
-      in: query
-      description: Dictates how the stats are time-sliced. Currently, `"total"` and `"day"` are supported.
-      schema:
-        type: string
-        default: total
-        $ref: '#/components/schemas/AggregatedBy'
-    AutomationQueryParamsGroupBy:
-      name: group_by
-      in: query
-      description: Automations can have multiple steps. Including `step_id` as a `group_by` metric allows further granularity of stats.
-      style: form
-      explode: false
-      schema:
-        type: array
-        items:
-          type: string
-          $ref: '#/components/schemas/Items'
-    SinglesendQueryParams2PhaseId:
-      name: ab_phase_id
-      in: query
-      schema:
-        type: string
-        $ref: '#/components/schemas/AbPhaseId'
-    StatsAdvancedQueryStringsLimitOffsetOffset:
-      name: offset
-      in: query
-      description: The point in the list to begin retrieving results.
-      required: false
-      schema:
-        type: integer
-    SinglesendQueryParams2GroupBy:
-      name: group_by
-      in: query
-      description: A/B Single Sends have multiple variation IDs and phase IDs. Including these additional fields allows further granularity of stats by these fields.
-      style: form
-      explode: false
-      schema:
-        type: array
-        items:
-          type: string
-          $ref: '#/components/schemas/Items2'
-    PaginationPageSize:
-      name: page_size
-      in: query
-      description: The number of elements you want returned on each page.
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 50
-        default: 25
-    PaginationPageToken:
-      name: page_token
-      in: query
-      description: The stats endpoints are paginated. To get the next page, call the passed `_metadata.next` URL. If `_metadata.prev` doesn't exist, you're at the first page. Similarly, if `_metadata.next` is not present, you're at the last page.
-      schema:
-        type: string
-    StatsAdvancedQueryStringsLimitOffsetAggregatedBy:
-      name: aggregated_by
-      in: query
-      description: How to group the statistics. Must be either "day", "week", or "month".
-      required: false
-      schema:
-        type: string
-        $ref: '#/components/schemas/AggregatedBy3'
-    OnBehalfOf:
-      name: on-behalf-of
-      in: header
-      description: 'The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent''s Subusers or customer accounts. You will use the parent account''s API key when using this header. When making a call on behalf of a customer account, the property value should be "account-id" followed by the customer account''s ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser''s username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.'
-      required: false
-      schema:
-        type: string
-    AutomationQueryParamsStepId:
-      name: step_ids
-      in: query
-      description: Comma-separated list of `step_ids` that you want the link stats for.
-      style: form
-      explode: false
-      schema:
-        type: array
-        items:
-          type: string
-          format: uuid
-        uniqueItems: true
-    StatsAdvancedQueryStringsLimitOffsetStartDate:
-      name: start_date
-      in: query
-      description: The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD.
-      required: true
-      schema:
-        type: string
-    StartDateBaseProps:
-      name: start_date
-      in: query
-      description: 'Format: `YYYY-MM-DD`. If this parameter is included, the stats'' start date is included in the search.'
-      schema:
-        type: string
-        format: date
-        default: '2021-01-01'
   schemas:
+    Items1:
+      type: string
+      enum:
+      - ab_variation
+      - ab_phase
+    Metrics:
+      title: metrics
+      type: object
+      properties:
+        bounce_drops:
+          type: integer
+        bounces:
+          type: integer
+        clicks:
+          type: integer
+        delivered:
+          type: integer
+        invalid_emails:
+          type: integer
+        opens:
+          type: integer
+        requests:
+          type: integer
+        spam_report_drops:
+          type: integer
+        spam_reports:
+          type: integer
+        unique_clicks:
+          type: integer
+        unique_opens:
+          type: integer
+        unsubscribes:
+          type: integer
+      required:
+      - bounce_drops
+      - bounces
+      - clicks
+      - delivered
+      - invalid_emails
+      - opens
+      - requests
+      - spam_report_drops
+      - spam_reports
+      - unique_clicks
+      - unique_opens
+      - unsubscribes
+    AbPhaseId:
+      type: string
+      enum:
+      - test
+      - send
+    AggregatedBy:
+      type: string
+      enum:
+      - day
+      - total
+    Items2:
+      type: string
+      enum:
+      - ab_variation
+      - ab_phase
+    AutmoationsLinkStatsResponse:
+      title: AutmoationsLinkStatsResponse
+      type: object
+      properties:
+        results:
+          type: array
+          description: ''
+          items:
+            type: object
+            properties:
+              url:
+                type: string
+                description: This is the URL of the link clicked. If `{{custom_fields}}` are part of the URL, they will be included.
+                format: uri
+              url_location:
+                type: integer
+                description: This is the location of the link clicked in each Automation step. Links are located according to their position within the message; the topmost link has index `0`.
+                minimum: 0
+              step_id:
+                type: string
+                description: This is the ID of the step if the stats were requested to be grouped by `step_id`.
+                format: uuid
+              clicks:
+                type: integer
+                minimum: 1
+                description: The number of clicks on this particular link.
+            required:
+            - url
+            - step_id
+            - clicks
+        total_clicks:
+          type: integer
+        _metadata:
+          $ref: '#/components/schemas/LinkTrackingMetadata'
+      required:
+      - results
+      - total_clicks
+      - _metadata
+    Items:
+      type: string
+      enum:
+      - step_id
+    AbPhase1:
+      type: string
+      enum:
+      - send
+      - test
+      - all
     SinglesendsResponse:
       title: SinglesendsResponse
       type: object
@@ -2130,80 +2148,8 @@ components:
       required:
       - results
       - _metadata
-    ErrorResponse:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-                description: An error message.
-              field:
-                description: When applicable, this property value will be the field that generated the error.
-                nullable: true
-                type: string
-              help:
-                type: object
-                description: When applicable, this property value will be helper text or a link to documentation to help you troubleshoot the error.
-        id:
-          type: string
-          description: When applicable, this property value will be an error ID.
-      example:
-        errors:
-        - field: field_name
-          message: error message
-    AggregatedBy2:
-      type: string
-      enum:
-      - day
-      - week
-      - month
-    AdvancedStatsClicksOpens:
-      title: 'Stats: Advanced Stats with Clicks and Opens'
-      description: The individual events and their stats.
-      type: object
-      properties:
-        clicks:
-          type: integer
-          description: The number of links that were clicked in your emails.
-        unique_clicks:
-          type: integer
-          description: The number of unique recipients who clicked links in your emails.
-        opens:
-          type: integer
-          description: The total number of times your emails were opened by recipients.
-        unique_opens:
-          type: integer
-          description: The number of unique recipients who opened your emails.
-    AbPhase1:
-      type: string
-      enum:
-      - send
-      - test
-      - all
-    AbPhaseId:
-      type: string
-      enum:
-      - test
-      - send
-    ClientType:
-      type: string
-      enum:
-      - phone
-      - tablet
-      - webmail
-      - desktop
-    AbPhase:
-      type: string
-      enum:
-      - send
-      - test
-      - all
-    Metadata:
-      title: metadata
+    LinkTrackingMetadata:
+      title: link tracking metadata
       type: object
       properties:
         prev:
@@ -2221,27 +2167,6 @@ components:
         count:
           type: number
           description: The number of items in the entire list, i.e., across all pages.
-    Items2:
-      type: string
-      enum:
-      - ab_variation
-      - ab_phase
-    AggregatedBy:
-      type: string
-      enum:
-      - day
-      - total
-    AdvancedStatsOpens:
-      title: 'Stats: Advanced Stats with Opens'
-      type: object
-      description: The individual events and their stats.
-      properties:
-        opens:
-          type: integer
-          description: The total number of times your emails were opened by recipients.
-        unique_opens:
-          type: integer
-          description: The number of unique recipients who opened your emails.
     SinglesendsLinkStatsResponse:
       title: SinglesendsLinkStatsResponse
       type: object
@@ -2284,44 +2209,160 @@ components:
       required:
       - results
       - _metadata
-    AutmoationsLinkStatsResponse:
-      title: AutmoationsLinkStatsResponse
+    Metadata:
+      title: metadata
+      type: object
+      properties:
+        prev:
+          type: string
+          format: uri
+          description: The URL of the previous page of results. If this field isn't present, you're at the start of the list.
+        self:
+          type: string
+          format: uri
+          description: The URL of the current page of results.
+        next:
+          type: string
+          format: uri
+          description: The URL of the next page of results. If this field isn't present, you're at the end of the list.
+        count:
+          type: number
+          description: The number of items in the entire list, i.e., across all pages.
+    AutomationsResponse:
+      title: AutomationsResponse
       type: object
       properties:
         results:
           type: array
-          description: ''
           items:
             type: object
             properties:
-              url:
+              id:
                 type: string
-                description: This is the URL of the link clicked. If `{{custom_fields}}` are part of the URL, they will be included.
-                format: uri
-              url_location:
-                type: integer
-                description: This is the location of the link clicked in each Automation step. Links are located according to their position within the message; the topmost link has index `0`.
-                minimum: 0
+                description: This is the ID of the Automation you are requesting stats for.
+                format: uuid
+              aggregation:
+                type: string
+                description: This describes the time unit to which the stat is rolled up. It is based on the `aggregated_by` parameter included in the request. It can be "total" or the date (in YYYY-MM-DD format) the stats are for.
+                default: total
               step_id:
                 type: string
                 description: This is the ID of the step if the stats were requested to be grouped by `step_id`.
-                format: uuid
-              clicks:
-                type: integer
-                minimum: 1
-                description: The number of clicks on this particular link.
+                default: all
+              stats:
+                $ref: '#/components/schemas/Metrics'
             required:
-            - url
+            - id
+            - aggregation
             - step_id
-            - clicks
-        total_clicks:
-          type: integer
         _metadata:
-          $ref: '#/components/schemas/LinkTrackingMetadata'
+          $ref: '#/components/schemas/Metadata'
       required:
       - results
-      - total_clicks
-      - _metadata
+    ErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: An error message.
+              field:
+                description: When applicable, this property value will be the field that generated the error.
+                nullable: true
+                type: string
+              help:
+                type: object
+                description: When applicable, this property value will be helper text or a link to documentation to help you troubleshoot the error.
+        id:
+          type: string
+          description: When applicable, this property value will be an error ID.
+      example:
+        errors:
+        - field: field_name
+          message: error message
+    AbPhase:
+      type: string
+      enum:
+      - send
+      - test
+      - all
+    AdvancedStatsMailboxProvider:
+      title: 'Stats: Advanced Stats for Mailbox Provider'
+      description: The individual events and their stats.
+      type: object
+      properties:
+        blocks:
+          type: integer
+          description: The number of emails that were not allowed to be delivered by ISPs.
+        bounces:
+          type: integer
+          description: The number of emails that bounced instead of being delivered.
+        deferred:
+          type: integer
+          description: The number of emails that temporarily could not be delivered.
+        delivered:
+          type: integer
+          description: The number of emails SendGrid was able to confirm were actually delivered to a recipient.
+        drops:
+          type: integer
+          description: The number of emails that were not delivered due to the recipient email address being on a suppression list.
+        requests:
+          type: integer
+          description: The number of emails that were requested to be delivered.
+        processed:
+          type: integer
+          description: Requests from your website, application, or mail client via SMTP Relay or the Web API that SendGrid processed.
+        spam_reports:
+          type: integer
+          description: The number of recipients who marked your email as spam.
+    Country:
+      type: string
+      enum:
+      - US
+      - CA
+    AdvancedStatsClicksOpens:
+      title: 'Stats: Advanced Stats with Clicks and Opens'
+      description: The individual events and their stats.
+      type: object
+      properties:
+        clicks:
+          type: integer
+          description: The number of links that were clicked in your emails.
+        unique_clicks:
+          type: integer
+          description: The number of unique recipients who clicked links in your emails.
+        opens:
+          type: integer
+          description: The total number of times your emails were opened by recipients.
+        unique_opens:
+          type: integer
+          description: The number of unique recipients who opened your emails.
+    AdvancedStatsClicks:
+      title: 'Stats: Advanced Stats with Clicks'
+      type: object
+      description: The individual events and their stats.
+      properties:
+        clicks:
+          type: integer
+          description: The number of links that were clicked in your emails.
+        unique_clicks:
+          type: integer
+          description: The number of unique recipients who clicked links in your emails.
+    AdvancedStatsOpens:
+      title: 'Stats: Advanced Stats with Opens'
+      type: object
+      description: The individual events and their stats.
+      properties:
+        opens:
+          type: integer
+          description: The total number of times your emails were opened by recipients.
+        unique_opens:
+          type: integer
+          description: The number of unique recipients who opened your emails.
     StatsAdvancedGlobalStats:
       title: 'Stats: Advanced Global Stats'
       type: object
@@ -2374,157 +2415,194 @@ components:
         unsubscribes:
           type: integer
           description: The number of recipients who unsubscribed from your emails.
-    Country:
-      type: string
-      enum:
-      - US
-      - CA
-    Items:
-      type: string
-      enum:
-      - step_id
     AggregatedBy3:
       type: string
       enum:
       - day
       - week
       - month
-    AdvancedStatsClicks:
-      title: 'Stats: Advanced Stats with Clicks'
-      type: object
-      description: The individual events and their stats.
-      properties:
-        clicks:
-          type: integer
-          description: The number of links that were clicked in your emails.
-        unique_clicks:
-          type: integer
-          description: The number of unique recipients who clicked links in your emails.
-    LinkTrackingMetadata:
-      title: link tracking metadata
-      type: object
-      properties:
-        prev:
-          type: string
-          format: uri
-          description: The URL of the previous page of results. If this field isn't present, you're at the start of the list.
-        self:
-          type: string
-          format: uri
-          description: The URL of the current page of results.
-        next:
-          type: string
-          format: uri
-          description: The URL of the next page of results. If this field isn't present, you're at the end of the list.
-        count:
-          type: number
-          description: The number of items in the entire list, i.e., across all pages.
-    AutomationsResponse:
-      title: AutomationsResponse
-      type: object
-      properties:
-        results:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-                description: This is the ID of the Automation you are requesting stats for.
-                format: uuid
-              aggregation:
-                type: string
-                description: This describes the time unit to which the stat is rolled up. It is based on the `aggregated_by` parameter included in the request. It can be "total" or the date (in YYYY-MM-DD format) the stats are for.
-                default: total
-              step_id:
-                type: string
-                description: This is the ID of the step if the stats were requested to be grouped by `step_id`.
-                default: all
-              stats:
-                $ref: '#/components/schemas/Metrics'
-            required:
-            - id
-            - aggregation
-            - step_id
-        _metadata:
-          $ref: '#/components/schemas/Metadata'
-      required:
-      - results
-    Items1:
+    ClientType:
       type: string
       enum:
-      - ab_variation
-      - ab_phase
-    Metrics:
-      title: metrics
-      type: object
-      properties:
-        bounce_drops:
-          type: integer
-        bounces:
-          type: integer
-        clicks:
-          type: integer
-        delivered:
-          type: integer
-        invalid_emails:
-          type: integer
-        opens:
-          type: integer
-        requests:
-          type: integer
-        spam_report_drops:
-          type: integer
-        spam_reports:
-          type: integer
-        unique_clicks:
-          type: integer
-        unique_opens:
-          type: integer
-        unsubscribes:
-          type: integer
-      required:
-      - bounce_drops
-      - bounces
-      - clicks
-      - delivered
-      - invalid_emails
-      - opens
-      - requests
-      - spam_report_drops
-      - spam_reports
-      - unique_clicks
-      - unique_opens
-      - unsubscribes
-    AdvancedStatsMailboxProvider:
-      title: 'Stats: Advanced Stats for Mailbox Provider'
-      description: The individual events and their stats.
-      type: object
-      properties:
-        blocks:
-          type: integer
-          description: The number of emails that were not allowed to be delivered by ISPs.
-        bounces:
-          type: integer
-          description: The number of emails that bounced instead of being delivered.
-        deferred:
-          type: integer
-          description: The number of emails that temporarily could not be delivered.
-        delivered:
-          type: integer
-          description: The number of emails SendGrid was able to confirm were actually delivered to a recipient.
-        drops:
-          type: integer
-          description: The number of emails that were not delivered due to the recipient email address being on a suppression list.
-        requests:
-          type: integer
-          description: The number of emails that were requested to be delivered.
-        processed:
-          type: integer
-          description: Requests from your website, application, or mail client via SMTP Relay or the Web API that SendGrid processed.
-        spam_reports:
-          type: integer
-          description: The number of recipients who marked your email as spam.
+      - phone
+      - tablet
+      - webmail
+      - desktop
+    AggregatedBy2:
+      type: string
+      enum:
+      - day
+      - week
+      - month
+  parameters:
+    PaginationPageToken:
+      name: page_token
+      in: query
+      description: The stats endpoints are paginated. To get the next page, call the passed `_metadata.next` URL. If `_metadata.prev` doesn't exist, you're at the first page. Similarly, if `_metadata.next` is not present, you're at the last page.
+      schema:
+        type: string
+    SinglesendQueryParams2VariationId:
+      name: ab_variation_id
+      in: query
+      schema:
+        type: string
+        format: uuid
+    TimezoneBaseProps:
+      name: timezone
+      in: query
+      description: '[IANA Area/Region](https://en.wikipedia.org/wiki/Tz_database#Names_of_timezones) string representing the timezone in which the stats are to be presented, e.g., "America/Chicago".'
+      schema:
+        type: string
+        default: UTC
+    AutomationQueryParamsGroupBy:
+      name: group_by
+      in: query
+      description: Automations can have multiple steps. Including `step_id` as a `group_by` metric allows further granularity of stats.
+      style: form
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          $ref: '#/components/schemas/Items'
+    EndDateBaseProps:
+      name: end_date
+      in: query
+      description: 'Format: `YYYY-MM-DD`.If this parameter is included, the stats'' end date is included in the search.'
+      schema:
+        type: string
+        format: date
+        default: '2021-12-31'
+    SinglesendQueryParams2GroupBy:
+      name: group_by
+      in: query
+      description: A/B Single Sends have multiple variation IDs and phase IDs. Including these additional fields allows further granularity of stats by these fields.
+      style: form
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          $ref: '#/components/schemas/Items2'
+    PaginationPageSize:
+      name: page_size
+      in: query
+      description: The number of elements you want returned on each page.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 50
+        default: 25
+    StartDateBaseProps:
+      name: start_date
+      in: query
+      description: 'Format: `YYYY-MM-DD`. If this parameter is included, the stats'' start date is included in the search.'
+      schema:
+        type: string
+        format: date
+        default: '2021-01-01'
+    AutomationQueryParamsStepId:
+      name: step_ids
+      in: query
+      description: Comma-separated list of `step_ids` that you want the link stats for.
+      style: form
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          format: uuid
+        uniqueItems: true
+    SinglesendQueryParamsGroupBy:
+      name: group_by
+      in: query
+      description: A/B Single Sends have multiple variation IDs and phase IDs. Including these additional fields allows further granularity of stats by these fields.
+      style: form
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          $ref: '#/components/schemas/Items1'
+    AggregatedByBaseProps:
+      name: aggregated_by
+      in: query
+      description: Dictates how the stats are time-sliced. Currently, `"total"` and `"day"` are supported.
+      schema:
+        type: string
+        default: total
+        $ref: '#/components/schemas/AggregatedBy'
+    SinglesendQueryParams2PhaseId:
+      name: ab_phase_id
+      in: query
+      schema:
+        type: string
+        $ref: '#/components/schemas/AbPhaseId'
+    StatsAdvancedQueryStringsLimitOffsetOffset:
+      name: offset
+      in: query
+      description: The point in the list to begin retrieving results.
+      required: false
+      schema:
+        type: integer
+    StatsAdvancedQueryStringsLimitOffsetEndDate:
+      name: end_date
+      in: query
+      description: The end date of the statistics to retrieve. Defaults to today. Must follow format YYYY-MM-DD.
+      required: false
+      schema:
+        type: string
+    StatsAdvancedQueryStringsLimitOffsetLimit:
+      name: limit
+      in: query
+      description: The number of results to return.
+      required: false
+      schema:
+        type: integer
+    OnBehalfOf:
+      name: on-behalf-of
+      in: header
+      description: 'The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent''s Subusers or customer accounts. You will use the parent account''s API key when using this header. When making a call on behalf of a customer account, the property value should be "account-id" followed by the customer account''s ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser''s username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.'
+      required: false
+      schema:
+        type: string
+    StatsAdvancedStatsBaseQueryStringsStartDate:
+      name: start_date
+      in: query
+      description: The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD.
+      required: true
+      schema:
+        type: string
+    StatsAdvancedQueryStringsLimitOffsetAggregatedBy:
+      name: aggregated_by
+      in: query
+      description: How to group the statistics. Must be either "day", "week", or "month".
+      required: false
+      schema:
+        type: string
+        $ref: '#/components/schemas/AggregatedBy3'
+    StatsAdvancedStatsBaseQueryStringsEndDate:
+      name: end_date
+      in: query
+      description: The end date of the statistics to retrieve. Defaults to today. Must follow format YYYY-MM-DD.
+      required: false
+      schema:
+        type: string
+    StatsAdvancedQueryStringsLimitOffsetStartDate:
+      name: start_date
+      in: query
+      description: The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD.
+      required: true
+      schema:
+        type: string
+    StatsAdvancedStatsBaseQueryStringsAggregatedBy:
+      name: aggregated_by
+      in: query
+      description: How to group the statistics. Must be either "day", "week", or "month".
+      required: false
+      schema:
+        type: string
+        $ref: '#/components/schemas/AggregatedBy2'
   responses:
     Stats400:
       description: ''
@@ -2540,3 +2618,6 @@ components:
 externalDocs:
   description: Twilio SendGrid's official developer documentation.
   url: https://www.twilio.com/docs/sendgrid
+x-refined-from:
+- tsg_mc_stats_v3.yaml
+- tsg_stats_v3.yaml

@@ -1,11 +1,8 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Twilio SendGrid Provisioning Account Mail Batch API
-  summary: The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts.
-  description: 'The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts. This API is for companies that have a formal reseller partnership with Twilio SendGrid.
-
-
-    You can access Twilio SendGrid sub-account functionality without becoming a reseller. If you require sub-account functionality, see the Twilio [SendGrid Subusers](https://docs.sendgrid.com/ui/account-and-settings/subusers) feature, which is available with [Pro and Premier plans](https://sendgrid.com/pricing/).'
+  title: Twilio SendGrid Mail Mail Batch API
+  summary: The Twilio SendGrid v3 Mail API allows you to send email at scale over HTTP. You can also group mail sends into batches.
+  description: The Twilio SendGrid v3 Mail API allows you to send email at scale over HTTP. The Mail Send endpoint supports many levels of functionality, allowing you to send templates, set categories and custom arguments that can be used to analyze your send, and configure which tracking settings to include such as opens and clicks. You can also group mail sends into batches, allowing you to schedule and cancel sends by their batch IDs.
   termsOfService: https://www.twilio.com/legal/tos
   contact:
     name: Twilio SendGrid Support
@@ -15,7 +12,7 @@ info:
     url: https://code.hq.twilio.com/twilio/sendgrid-oas/blob/main/LICENSE
   version: 1.0.0
   x-sendgrid:
-    libraryPackage: account_provisioning
+    libraryPackage: mail
 servers:
 - url: https://api.sendgrid.com
   description: for global users and subusers
@@ -31,24 +28,20 @@ paths:
     post:
       tags:
       - Mail Batch
-      summary: Create a batch ID.
+      summary: Create a batch ID
       description: '**This operation allows you to generate a new mail batch ID.**
-
 
 
         Once a batch ID is created, you can associate it with a mail send by passing
 
-        it in the request body of the [Mail Send operation](https://docs.sendgrid.com/api-reference/mail-send/mail-send).
+        it in the request body of the Mail Send operation.
 
         This makes it possible to group multiple requests to the Mail Send operation
 
         by assigning them the same batch ID.
 
 
-
-        A batch ID that''s associated with a mail send can be used to access and modify the associated send. For example, you can pause or cancel a send using its batch ID. See the [Scheduled Sends API](https://www.twilio.com/docs/sendgrid/api-reference/cancel-scheduled-sends) for more information about pausing and cancelling a mail send.
-
-        '
+        A batch ID that''s associated with a mail send can be used to access and modify the associated send. For example, you can pause or cancel a send using its batch ID. See the Scheduled Sends API for more information about pausing and cancelling a mail send.'
       operationId: CreateMailBatch
       parameters:
       - $ref: '#/components/parameters/OnBehalfOf'
@@ -73,7 +66,7 @@ paths:
     get:
       tags:
       - Mail Batch
-      summary: Validate a batch ID.
+      summary: Validate a batch ID
       description: '**This operation allows you to validate a mail batch ID.**
 
 
@@ -100,6 +93,15 @@ paths:
           $ref: '#/components/responses/MailBatch500'
 components:
   responses:
+    MailBatch2xx:
+      description: Batch ID success response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/MailBatchResponse'
+          examples:
+            Success:
+              $ref: '#/components/examples/MailBatch2xx'
     MailBatch500:
       description: Get batch ID internal server error response.
       content:
@@ -136,18 +138,6 @@ components:
                 errors:
                 - message: batch id not found
                   field: 'null'
-    MailBatch403:
-      description: Batch ID forbidden response.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Unauthorized request:
-              value:
-                errors:
-                - message: access forbidden
-                  field: 'null'
     MailBatch400:
       description: Batch ID bad response.
       content:
@@ -160,15 +150,18 @@ components:
                 errors:
                 - message: invalid batch id
                   field: 'null'
-    MailBatch2xx:
-      description: Batch ID success response.
+    MailBatch403:
+      description: Batch ID forbidden response.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/MailBatchResponse'
+            $ref: '#/components/schemas/ErrorResponse'
           examples:
-            Success:
-              $ref: '#/components/examples/MailBatch2xx'
+            Unauthorized request:
+              value:
+                errors:
+                - message: access forbidden
+                  field: 'null'
     MailBatch401:
       description: Batch ID unauthorized response.
       content:
@@ -196,6 +189,11 @@ components:
       required: true
       schema:
         type: string
+  examples:
+    MailBatch2xx:
+      summary: A mail batch ID.
+      value:
+        batch_id: 123abc456def789hij0
   schemas:
     MailBatchResponse:
       title: Mail Batch and Batch ID Response Schema
@@ -231,11 +229,6 @@ components:
         errors:
         - field: field_name
           message: error message
-  examples:
-    MailBatch2xx:
-      summary: A mail batch ID.
-      value:
-        batch_id: 123abc456def789hij0
   securitySchemes:
     BearerAuth:
       type: http

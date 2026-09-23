@@ -1,11 +1,8 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Twilio SendGrid Provisioning Account Parse Webhook API
-  summary: The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts.
-  description: 'The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts. This API is for companies that have a formal reseller partnership with Twilio SendGrid.
-
-
-    You can access Twilio SendGrid sub-account functionality without becoming a reseller. If you require sub-account functionality, see the Twilio [SendGrid Subusers](https://docs.sendgrid.com/ui/account-and-settings/subusers) feature, which is available with [Pro and Premier plans](https://sendgrid.com/pricing/).'
+  title: Twilio SendGrid Webhook Configuration Parse Webhook API
+  summary: The Twilio SendGrid Webhooks API allows you to configure the Event and Parse Webhooks.
+  description: The Twilio SendGrid Webhooks API allows you to configure the Event and Parse Webhooks.
   termsOfService: https://www.twilio.com/legal/tos
   contact:
     name: Twilio SendGrid Support
@@ -15,7 +12,7 @@ info:
     url: https://code.hq.twilio.com/twilio/sendgrid-oas/blob/main/LICENSE
   version: 1.0.0
   x-sendgrid:
-    libraryPackage: account_provisioning
+    libraryPackage: webhooks
 servers:
 - url: https://api.sendgrid.com
   description: for global users and subusers
@@ -76,10 +73,10 @@ paths:
         Creating an Inbound Parse setting requires two pieces of information: a `url` and a `hostname`.
 
 
-        The `hostname` must correspond to a domain authenticated by Twilio SendGrid on your account. If you need to complete domain authentication, you can use the [Twilio SendGrid App](https://app.sendgrid.com/settings/sender_auth) or the **Authenticate a Domain** endpoint. See [**How to Set Up Domain Authentication**](https://sendgrid.com/docs/ui/account-and-settings/how-to-set-up-domain-authentication/) for instructions.
+        The `hostname` must correspond to a domain authenticated by Twilio SendGrid on your account. If you need to complete domain authentication, you can use the Twilio SendGrid App or the **Authenticate a Domain** endpoint. See **How to Set Up Domain Authentication** for instructions.
 
 
-        Any email received by the `hostname` will be parsed when you complete this setup. You must also add a Twilio SendGrid MX record to this domain''s DNS records. See [**Setting up the Inbound Parse Webhook**](https://sendgrid.com/docs/for-developers/parsing-email/setting-up-the-inbound-parse-webhook/) for full instructions.
+        Any email received by the `hostname` will be parsed when you complete this setup. You must also add a Twilio SendGrid MX record to this domain''s DNS records. See **Setting up the Inbound Parse Webhook** for full instructions.
 
 
         The `url` represents a location where the parsed message data will be delivered. Twilio SendGrid will make an HTTP POST request to this `url` with the message data. The `url` must be publicly reachable, and your application must return a `200` status code to signal that the message data has been received.'
@@ -210,7 +207,7 @@ paths:
   /v3/user/webhooks/parse/stats:
     get:
       operationId: ListParseStatic
-      summary: Retrieves Inbound Parse Webhook statistics.
+      summary: Retrieves Inbound Parse Webhook statistics
       tags:
       - Parse Webhook
       description: '**This endpoint allows you to retrieve the statistics for your Parse Webhook usage.**
@@ -219,7 +216,7 @@ paths:
         SendGrid''s Inbound Parse Webhook allows you to parse the contents and attachments of incoming emails. The Parse API can then POST the parsed emails to a URL that you specify. The Inbound Parse Webhook cannot parse messages greater than 30MB in size, including all attachments.
 
 
-        There are a number of pre-made integrations for the SendGrid Parse Webhook which make processing events easy. You can find these integrations in the [Library Index](https://docs.sendgrid.com/for-developers/sending-email/libraries#webhook-libraries).'
+        There are a number of pre-made integrations for the SendGrid Parse Webhook which make processing events easy. You can find these integrations in the Library Index.'
       parameters:
       - name: limit
         in: query
@@ -412,39 +409,12 @@ paths:
                     - metrics:
                         received: 0
 components:
-  responses:
-    Webhook500:
-      description: ''
+  requestBodies:
+    PostPatchParseSetting:
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    message:
-                      type: string
-    Webhook401:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Webhook403:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Webhook404:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/ParseSetting'
   schemas:
     AggregatedBy:
       type: string
@@ -452,6 +422,27 @@ components:
       - day
       - week
       - month
+    ParseSetting:
+      title: Parse Setting
+      type: object
+      properties:
+        url:
+          type: string
+          description: The public URL where you would like SendGrid to POST the data parsed from your email. Any emails sent with the given hostname provided (whose MX records have been updated to point to SendGrid) will be parsed and POSTed to this URL.
+        hostname:
+          type: string
+          description: A specific and unique domain or subdomain that you have created to use exclusively to parse your incoming email. For example, `parse.yourdomain.com`.
+        spam_check:
+          type: boolean
+          description: Indicates if you would like SendGrid to check the content parsed from your emails for spam before POSTing them to your domain.
+        send_raw:
+          type: boolean
+          description: Indicates if you would like SendGrid to post the original MIME-type content of your parsed email. When this parameter is set to `true`, SendGrid will send a JSON payload of the content of your email.
+      example:
+        url: http://email.myhostname.com
+        hostname: myhostname.com
+        spam_check: false
+        send_raw: true
     ErrorResponse:
       type: object
       properties:
@@ -477,27 +468,6 @@ components:
         errors:
         - field: field_name
           message: error message
-    ParseSetting:
-      title: Parse Setting
-      type: object
-      properties:
-        url:
-          type: string
-          description: The public URL where you would like SendGrid to POST the data parsed from your email. Any emails sent with the given hostname provided (whose MX records have been updated to point to SendGrid) will be parsed and POSTed to this URL.
-        hostname:
-          type: string
-          description: A specific and unique domain or subdomain that you have created to use exclusively to parse your incoming email. For example, `parse.yourdomain.com`.
-        spam_check:
-          type: boolean
-          description: Indicates if you would like SendGrid to check the content parsed from your emails for spam before POSTing them to your domain.
-        send_raw:
-          type: boolean
-          description: Indicates if you would like SendGrid to post the original MIME-type content of your parsed email. When this parameter is set to `true`, SendGrid will send a JSON payload of the content of your email.
-      example:
-        url: http://email.myhostname.com
-        hostname: myhostname.com
-        spam_check: false
-        send_raw: true
   parameters:
     OnBehalfOf:
       name: on-behalf-of
@@ -506,12 +476,39 @@ components:
       required: false
       schema:
         type: string
-  requestBodies:
-    PostPatchParseSetting:
+  responses:
+    Webhook500:
+      description: ''
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ParseSetting'
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+    Webhook401:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Webhook404:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Webhook403:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     BearerAuth:
       type: http

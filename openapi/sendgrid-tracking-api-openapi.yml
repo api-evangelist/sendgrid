@@ -1,11 +1,8 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Twilio SendGrid Provisioning Account Tracking API
-  summary: The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts.
-  description: 'The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts. This API is for companies that have a formal reseller partnership with Twilio SendGrid.
-
-
-    You can access Twilio SendGrid sub-account functionality without becoming a reseller. If you require sub-account functionality, see the Twilio [SendGrid Subusers](https://docs.sendgrid.com/ui/account-and-settings/subusers) feature, which is available with [Pro and Premier plans](https://sendgrid.com/pricing/).'
+  title: Twilio SendGrid Settings Tracking API
+  summary: The Twilio SendGrid Tracking Settings API allows you to configure which tracking settings are enabled for your messages.
+  description: The Twilio SendGrid Tracking Settings API allows you to configure which tracking settings are enabled for your messages. You can track many of your recipients' interactions with your emails, including which emails they open, which links they click, and when they subscribe to or unsubscribe from your emails. See **Tracking Settings** for more information.
   termsOfService: https://www.twilio.com/legal/tos
   contact:
     name: Twilio SendGrid Support
@@ -15,7 +12,7 @@ info:
     url: https://code.hq.twilio.com/twilio/sendgrid-oas/blob/main/LICENSE
   version: 1.0.0
   x-sendgrid:
-    libraryPackage: account_provisioning
+    libraryPackage: tracking_settings
 servers:
 - url: https://api.sendgrid.com
   description: for global users and subusers
@@ -79,7 +76,7 @@ paths:
       description: '**This endpoint allows you to retrieve your current click tracking setting.**
 
 
-        Click Tracking overrides all the links and URLs in your emails and points them to either SendGrid’s servers or the domain with which you branded your link. When a customer clicks a link, SendGrid tracks those [clicks](https://sendgrid.com/docs/glossary/clicks/).
+        Click Tracking overrides all the links and URLs in your emails and points them to either SendGrid’s servers or the domain with which you branded your link. When a customer clicks a link, SendGrid tracks those clicks.
 
 
         Click tracking helps you understand how users are engaging with your communications. SendGrid can track up to 1000 links per email'
@@ -105,7 +102,7 @@ paths:
       description: '**This endpoint allows you to enable or disable your current click tracking setting.**
 
 
-        Click Tracking overrides all the links and URLs in your emails and points them to either SendGrid’s servers or the domain with which you branded your link. When a customer clicks a link, SendGrid tracks those [clicks](https://sendgrid.com/docs/glossary/clicks/).
+        Click Tracking overrides all the links and URLs in your emails and points them to either SendGrid’s servers or the domain with which you branded your link. When a customer clicks a link, SendGrid tracks those clicks.
 
 
         Click tracking helps you understand how users are engaging with your communications. SendGrid can track up to 1000 links per email'
@@ -143,11 +140,10 @@ paths:
       description: '**This endpoint allows you to retrieve your current setting for Google Analytics.**
 
 
+        Google Analytics helps you understand how users got to your site and what they''re doing there. For more information about using Google Analytics, please refer to Google’s URL Builder and their article on "Best Practices for Campaign Building".
 
-        Google Analytics helps you understand how users got to your site and what they''re doing there. For more information about using Google Analytics, please refer to [Google’s URL Builder](https://support.google.com/analytics/answer/1033867?hl=en) and their article on ["Best Practices for Campaign Building"](https://support.google.com/analytics/answer/1037445).
 
-
-        We default the settings to Google’s recommendations. For more information, see [Google Analytics Demystified](https://sendgrid.com/docs/ui/analytics-and-reporting/google-analytics/).'
+        We default the settings to Google’s recommendations. For more information, see Google Analytics Demystified.'
       parameters:
       - $ref: '#/components/parameters/OnBehalfOf'
       responses:
@@ -174,10 +170,10 @@ paths:
       description: '**This endpoint allows you to update your current setting for Google Analytics.**
 
 
-        Google Analytics helps you understand how users got to your site and what they''re doing there. For more information about using Google Analytics, please refer to [Google’s URL Builder](https://support.google.com/analytics/answer/1033867?hl=en) and their article on ["Best Practices for Campaign Building"](https://support.google.com/analytics/answer/1037445).
+        Google Analytics helps you understand how users got to your site and what they''re doing there. For more information about using Google Analytics, please refer to Google’s URL Builder and their article on "Best Practices for Campaign Building".
 
 
-        We default the settings to Google’s recommendations. For more information, see [Google Analytics Demystified](https://sendgrid.com/docs/ui/analytics-and-reporting/google-analytics/).'
+        We default the settings to Google’s recommendations. For more information, see Google Analytics Demystified.'
       parameters:
       - $ref: '#/components/parameters/OnBehalfOf'
       requestBody:
@@ -346,6 +342,14 @@ paths:
                     html_content: html content
                     plain_content: text content
 components:
+  parameters:
+    OnBehalfOf:
+      name: on-behalf-of
+      in: header
+      description: 'The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent''s Subusers or customer accounts. You will use the parent account''s API key when using this header. When making a call on behalf of a customer account, the property value should be "account-id" followed by the customer account''s ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser''s username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.'
+      required: false
+      schema:
+        type: string
   schemas:
     SubscriptionTrackingSettings:
       title: 'Settings: Subscription Tracking'
@@ -415,14 +419,6 @@ components:
         utm_term: ''
         utm_content: ''
         utm_campaign: website
-  parameters:
-    OnBehalfOf:
-      name: on-behalf-of
-      in: header
-      description: 'The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent''s Subusers or customer accounts. You will use the parent account''s API key when using this header. When making a call on behalf of a customer account, the property value should be "account-id" followed by the customer account''s ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser''s username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.'
-      required: false
-      schema:
-        type: string
   securitySchemes:
     BearerAuth:
       type: http

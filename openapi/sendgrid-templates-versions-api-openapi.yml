@@ -1,11 +1,8 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Twilio SendGrid Provisioning Account Templates Versions API
-  summary: The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts.
-  description: 'The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts. This API is for companies that have a formal reseller partnership with Twilio SendGrid.
-
-
-    You can access Twilio SendGrid sub-account functionality without becoming a reseller. If you require sub-account functionality, see the Twilio [SendGrid Subusers](https://docs.sendgrid.com/ui/account-and-settings/subusers) feature, which is available with [Pro and Premier plans](https://sendgrid.com/pricing/).'
+  title: Twilio SendGrid Templates Templates Versions API
+  summary: The Twilio SendGrid Templates API allows you to create and manage email templates to be delivered with SendGrid's sending APIs.
+  description: The Twilio SendGrid Templates API allows you to create and manage email templates to be delivered with SendGrid's sending APIs.
   termsOfService: https://www.twilio.com/legal/tos
   contact:
     name: Twilio SendGrid Support
@@ -15,7 +12,7 @@ info:
     url: https://code.hq.twilio.com/twilio/sendgrid-oas/blob/main/LICENSE
   version: 1.0.0
   x-sendgrid:
-    libraryPackage: account_provisioning
+    libraryPackage: templates
 servers:
 - url: https://api.sendgrid.com
   description: for global users and subusers
@@ -37,7 +34,7 @@ paths:
         format: uuid
     post:
       operationId: CreateTemplateVersion
-      summary: Create a new transactional template version.
+      summary: Create a new transactional template version
       tags:
       - Templates Versions
       description: '**This endpoint allows you to create a new version of a template.**'
@@ -83,7 +80,7 @@ paths:
         format: uuid
     get:
       operationId: GetTemplateVersion
-      summary: Retrieve a specific transactional template version.
+      summary: Retrieve a specific transactional template version
       tags:
       - Templates Versions
       description: '**This endpoint allows you to retrieve a specific version of a template.**'
@@ -111,7 +108,7 @@ paths:
                     editor: code
     patch:
       operationId: UpdateTemplateVersion
-      summary: Edit a transactional template version.
+      summary: Edit a transactional template version
       tags:
       - Templates Versions
       description: '**This endpoint allows you to edit the content of your template version.**'
@@ -141,7 +138,7 @@ paths:
                     editor: code
     delete:
       operationId: DeleteTemplateVersion
-      summary: Delete a transactional template version.
+      summary: Delete a transactional template version
       tags:
       - Templates Versions
       description: '**This endpoint allows you to delete a transactional template version.**'
@@ -168,7 +165,7 @@ paths:
         format: uuid
     post:
       operationId: ActivateTemplateVersion
-      summary: Activate a transactional template version.
+      summary: Activate a transactional template version
       tags:
       - Templates Versions
       description: '**This endpoint allows you to activate a version of one of your templates.**'
@@ -196,6 +193,11 @@ paths:
                     editor: code
 components:
   schemas:
+    Editor:
+      type: string
+      enum:
+      - code
+      - design
     TransactionalTemplateVersionOutput:
       title: 'Transactional Templates: Version Output'
       type: object
@@ -249,20 +251,16 @@ components:
       required:
       - name
       - subject
-    TransactionalTemplateWarning:
-      title: Warning
-      type: object
-      properties:
-        message:
-          type: string
-          description: Warning message for the user
-      example:
-        message: A sample warning message.
     Editor1:
       type: string
       enum:
       - code
       - design
+    Active1:
+      type: integer
+      enum:
+      - 0
+      - 1
     TransactionalTemplateVersionCreate:
       title: 'Transactional Templates: Version Create'
       type: object
@@ -311,16 +309,15 @@ components:
         subject: aliquip nulla Ut
         editor: design
         plain_content: labore dolore
-    Active1:
-      type: integer
-      enum:
-      - 0
-      - 1
-    Editor:
-      type: string
-      enum:
-      - code
-      - design
+    TransactionalTemplateWarning:
+      title: Warning
+      type: object
+      properties:
+        message:
+          type: string
+          description: Warning message for the user
+      example:
+        message: A sample warning message.
     Active:
       type: integer
       enum:

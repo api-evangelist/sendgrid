@@ -1,26 +1,20 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Twilio SendGrid Provisioning Account Custom Fields API
-  summary: The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts.
-  description: 'The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts. This API is for companies that have a formal reseller partnership with Twilio SendGrid.
-
-
-    You can access Twilio SendGrid sub-account functionality without becoming a reseller. If you require sub-account functionality, see the Twilio [SendGrid Subusers](https://docs.sendgrid.com/ui/account-and-settings/subusers) feature, which is available with [Pro and Premier plans](https://sendgrid.com/pricing/).'
-  termsOfService: https://www.twilio.com/legal/tos
+  title: Sendgrid Custom Fields API
+  version: 1.0.0
   contact:
     name: Twilio SendGrid Support
     url: https://support.sendgrid.com/hc/en-us
   license:
     name: MIT
     url: https://code.hq.twilio.com/twilio/sendgrid-oas/blob/main/LICENSE
-  version: 1.0.0
-  x-sendgrid:
-    libraryPackage: account_provisioning
+  termsOfService: https://www.twilio.com/legal/tos
+  x-refined-note:
+  - x-sendgrid differs across the merged source definitions and was not carried
+  description: 'Operations tagged Custom Fields across 2 of this provider''s published API definitions: tsg_lmc_contactdb_v3.yaml, tsg_mc_custom_fields_v3.yaml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.sendgrid.com
-  description: for global users and subusers
-- url: https://api.eu.sendgrid.com
-  description: for EU regional subusers
+  description: The Twilio SendGrid v3 API
 security:
 - BearerAuth: []
 tags:
@@ -138,6 +132,9 @@ paths:
                     errors:
                     - field: null
                       message: authorization required
+    servers:
+    - url: https://api.sendgrid.com
+      description: The Twilio SendGrid v3 API
   /v3/contactdb/custom_fields/{custom_field_id}:
     parameters:
     - name: custom_field_id
@@ -255,6 +252,9 @@ paths:
                   value:
                     errors:
                     - message: Custom field ID does not exist
+    servers:
+    - url: https://api.sendgrid.com
+      description: The Twilio SendGrid v3 API
   /v3/contactdb/reserved_fields:
     get:
       operationId: ListReservedField
@@ -319,6 +319,9 @@ paths:
                     errors:
                     - field: null
                       message: authorization required
+    servers:
+    - url: https://api.sendgrid.com
+      description: The Twilio SendGrid v3 API
   /v3/marketing/field_definitions:
     post:
       operationId: CreateFieldDefinition
@@ -331,7 +334,7 @@ paths:
         Custom field definitions are created with the given `name` and `field_type`. Although field names are stored in a case-sensitive manner, all field names must be case-insensitively unique. This means you may create a field named `CamelCase` or `camelcase`, but not both. Additionally, a Custom Field name cannot collide with any Reserved Field names. You should save the returned `id` value in order to update or delete the field at a later date. You can have up to 500 custom fields.
 
 
-        The custom field name should be created using only alphanumeric characters (A-Z and 0-9) and underscores (\_). Custom fields can only begin with letters  A-Z or underscores (_). The field type can be date, text, or number fields. The field type is important for creating segments from your contact database.
+        The custom field name should be created using only alphanumeric characters (A-Z and 0-9) and underscores (\_). Custom fields can only begin with letters A-Z or underscores (_). The field type can be date, text, or number fields. The field type is important for creating segments from your contact database.
 
 
         **Note: Creating a custom field that begins with a number will cause issues with sending in Marketing Campaigns.**'
@@ -520,6 +523,9 @@ paths:
                       read_only: true
                     _metadata:
                       self: https://example.com/marketing/field_definitions
+    servers:
+    - url: https://api.sendgrid.com
+      description: The Twilio SendGrid v3 API
   /v3/marketing/field_definitions/{custom_field_id}:
     parameters:
     - name: custom_field_id
@@ -635,14 +641,83 @@ paths:
                     uniqueItems: true
                     items:
                       $ref: '#/components/schemas/CustomFieldsError'
+    servers:
+    - url: https://api.sendgrid.com
+      description: The Twilio SendGrid v3 API
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: An error message.
+              field:
+                description: When applicable, this property value will be the field that generated the error.
+                nullable: true
+                type: string
+              help:
+                type: object
+                description: When applicable, this property value will be helper text or a link to documentation to help you troubleshoot the error.
+        id:
+          type: string
+          description: When applicable, this property value will be an error ID.
+      example:
+        errors:
+        - field: field_name
+          message: error message
     Type:
       type: string
       enum:
       - date
       - text
       - number
+    ContactdbCustomFieldId2xx:
+      title: ContactDB Custom field schema with ID.
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the field
+        type:
+          type: string
+          description: The type of the field.
+          $ref: '#/components/schemas/Type'
+        id:
+          type: number
+          description: The ID of the custom field.
+    CustomFieldDefinitionsResponse:
+      title: custom_field_definitions_response
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        field_type:
+          type: string
+          $ref: '#/components/schemas/FieldType2'
+      required:
+      - id
+      - name
+      - field_type
+      example:
+        id: a1_D
+        name: custom_field_name
+        field_type: Date
+    FieldType:
+      type: string
+      enum:
+      - Text
+      - Number
+      - Date
     CustomFieldsError:
       title: error
       type: object
@@ -679,20 +754,12 @@ components:
         count:
           type: integer
           minimum: 0
-    ContactdbCustomFieldId2xx:
-      title: ContactDB Custom field schema with ID.
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the field
-        type:
-          type: string
-          description: The type of the field.
-          $ref: '#/components/schemas/Type'
-        id:
-          type: number
-          description: The ID of the custom field.
+    FieldType2:
+      type: string
+      enum:
+      - Text
+      - Number
+      - Date
     ReservedFieldDefinitionsResponse:
       title: reserved_field_definitions_response
       type: array
@@ -718,64 +785,6 @@ components:
         name: automation_id
         field_type: Text
         read_only: true
-    CustomFieldDefinitionsResponse:
-      title: custom_field_definitions_response
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-          minLength: 1
-          maxLength: 100
-        field_type:
-          type: string
-          $ref: '#/components/schemas/FieldType2'
-      required:
-      - id
-      - name
-      - field_type
-      example:
-        id: a1_D
-        name: custom_field_name
-        field_type: Date
-    FieldType:
-      type: string
-      enum:
-      - Text
-      - Number
-      - Date
-    ErrorResponse:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-                description: An error message.
-              field:
-                description: When applicable, this property value will be the field that generated the error.
-                nullable: true
-                type: string
-              help:
-                type: object
-                description: When applicable, this property value will be helper text or a link to documentation to help you troubleshoot the error.
-        id:
-          type: string
-          description: When applicable, this property value will be an error ID.
-      example:
-        errors:
-        - field: field_name
-          message: error message
-    FieldType2:
-      type: string
-      enum:
-      - Text
-      - Number
-      - Date
   parameters:
     OnBehalfOf:
       name: on-behalf-of
@@ -792,3 +801,6 @@ components:
 externalDocs:
   description: Twilio SendGrid's official developer documentation.
   url: https://www.twilio.com/docs/sendgrid
+x-refined-from:
+- tsg_lmc_contactdb_v3.yaml
+- tsg_mc_custom_fields_v3.yaml

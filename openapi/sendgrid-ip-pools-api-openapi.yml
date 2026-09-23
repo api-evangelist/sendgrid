@@ -1,11 +1,8 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Twilio SendGrid Provisioning Account IP Pools API
-  summary: The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts.
-  description: 'The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts. This API is for companies that have a formal reseller partnership with Twilio SendGrid.
-
-
-    You can access Twilio SendGrid sub-account functionality without becoming a reseller. If you require sub-account functionality, see the Twilio [SendGrid Subusers](https://docs.sendgrid.com/ui/account-and-settings/subusers) feature, which is available with [Pro and Premier plans](https://sendgrid.com/pricing/).'
+  title: Twilio SendGrid IP Address IP Pools API
+  summary: The Twilio SendGrid IP Address API allows you to add and manage dedicated IP addresses and IP Pools for your SendGrid account and Subusers.
+  description: The Twilio SendGrid IP Address API allows you to add and manage dedicated IP addresses and IP Pools for your SendGrid account and Subusers.
   termsOfService: https://www.twilio.com/legal/tos
   contact:
     name: Twilio SendGrid Support
@@ -15,7 +12,7 @@ info:
     url: https://code.hq.twilio.com/twilio/sendgrid-oas/blob/main/LICENSE
   version: 1.0.0
   x-sendgrid:
-    libraryPackage: account_provisioning
+    libraryPackage: ips
 servers:
 - url: https://api.sendgrid.com
   description: for global users and subusers
@@ -33,7 +30,21 @@ paths:
       summary: Create an IP pool
       tags:
       - IP Pools
-      description: "**This endpoint allows you to create an IP pool.**\n\nBefore you can create an IP pool, you need to activate the IP in your SendGrid account: \n\n1. Log into your SendGrid account.  \n1. Navigate to **Settings** and then select **IP Addresses**.  \n1. Find the IP address you want to activate and then click **Edit**.  \n1. Check **Allow my account to send mail using this IP address**.\n1. Click **Save**."
+      description: '**This endpoint allows you to create an IP pool.**
+
+
+        Before you can create an IP pool, you need to activate the IP in your SendGrid account:
+
+
+        1. Log into your SendGrid account.
+
+        1. Navigate to **Settings** and then select **IP Addresses**.
+
+        1. Find the IP address you want to activate and then click **Edit**.
+
+        1. Check **Allow my account to send mail using this IP address**.
+
+        1. Click **Save**.'
       requestBody:
         content:
           application/json:
@@ -231,7 +242,27 @@ paths:
       summary: Add an IP address to a pool
       tags:
       - IP Pools
-      description: "**This endpoint allows you to add an IP address to an IP pool.**\n\nYou can add the same IP address to multiple pools. It may take up to 60 seconds for your IP address to be added to a pool after your request is made.\n\nBefore you can add an IP to a pool, you need to activate it in your SendGrid account:\n\n1. Log into your SendGrid account.  \n1. Navigate to **Settings** and then select **IP Addresses**.  \n1. Find the IP address you want to activate and then click **Edit**.  \n1. Check **Allow my account to send mail using this IP address**.\n1. Click **Save**.\n\nYou can retrieve all of your available IP addresses from the \"Retrieve all IP addresses\" endpoint."
+      description: '**This endpoint allows you to add an IP address to an IP pool.**
+
+
+        You can add the same IP address to multiple pools. It may take up to 60 seconds for your IP address to be added to a pool after your request is made.
+
+
+        Before you can add an IP to a pool, you need to activate it in your SendGrid account:
+
+
+        1. Log into your SendGrid account.
+
+        1. Navigate to **Settings** and then select **IP Addresses**.
+
+        1. Find the IP address you want to activate and then click **Edit**.
+
+        1. Check **Allow my account to send mail using this IP address**.
+
+        1. Click **Save**.
+
+
+        You can retrieve all of your available IP addresses from the "Retrieve all IP addresses" endpoint.'
       requestBody:
         content:
           application/json:

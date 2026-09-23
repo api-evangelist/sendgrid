@@ -1,11 +1,8 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Twilio SendGrid Provisioning Account SSO Certificates API
-  summary: The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts.
-  description: 'The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts. This API is for companies that have a formal reseller partnership with Twilio SendGrid.
-
-
-    You can access Twilio SendGrid sub-account functionality without becoming a reseller. If you require sub-account functionality, see the Twilio [SendGrid Subusers](https://docs.sendgrid.com/ui/account-and-settings/subusers) feature, which is available with [Pro and Premier plans](https://sendgrid.com/pricing/).'
+  title: Twilio SendGrid Single Sign-On SSO Certificates API
+  summary: The Single Sign-On API allows you to manage your SAML 2.0 SSO configurations.
+  description: The Single Sign-On API allows you to manage your SAML 2.0 SSO configurations.
   termsOfService: https://www.twilio.com/legal/tos
   contact:
     name: Twilio SendGrid Support
@@ -15,7 +12,7 @@ info:
     url: https://code.hq.twilio.com/twilio/sendgrid-oas/blob/main/LICENSE
   version: 1.0.0
   x-sendgrid:
-    libraryPackage: account_provisioning
+    libraryPackage: sso
 servers:
 - url: https://api.sendgrid.com
   description: for global users and subusers
@@ -252,37 +249,6 @@ paths:
         '500':
           $ref: '#/components/responses/Sso500'
 components:
-  responses:
-    Sso401:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SsoErrorResponse'
-    Sso500:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SsoErrorResponse'
-    Sso403:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SsoErrorResponse'
-    Sso400:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SsoErrorResponse'
-    Sso429:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SsoErrorResponse'
   schemas:
     SsoErrorResponse:
       title: SSO Error Response
@@ -322,6 +288,37 @@ components:
         not_before: 1621289880
         not_after: 1621289880
         intergration_id: b0b98502-9408-4b24-9e3d-31ed7cb15312
+  responses:
+    Sso401:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SsoErrorResponse'
+    Sso429:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SsoErrorResponse'
+    Sso500:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SsoErrorResponse'
+    Sso400:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SsoErrorResponse'
+    Sso403:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SsoErrorResponse'
   securitySchemes:
     BearerAuth:
       type: http

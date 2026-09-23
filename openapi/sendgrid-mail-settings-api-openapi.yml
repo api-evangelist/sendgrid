@@ -1,11 +1,8 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Twilio SendGrid Provisioning Account Mail Settings API
-  summary: The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts.
-  description: 'The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts. This API is for companies that have a formal reseller partnership with Twilio SendGrid.
-
-
-    You can access Twilio SendGrid sub-account functionality without becoming a reseller. If you require sub-account functionality, see the Twilio [SendGrid Subusers](https://docs.sendgrid.com/ui/account-and-settings/subusers) feature, which is available with [Pro and Premier plans](https://sendgrid.com/pricing/).'
+  title: Twilio SendGrid Mail Settings API
+  summary: The Twilio SendGrid Mail Settings API allows you to retrieve and configure the various Mail Settings available.
+  description: The Twilio SendGrid Mail Settings API allows you to retrieve and configure the various Mail Settings available.
   termsOfService: https://www.twilio.com/legal/tos
   contact:
     name: Twilio SendGrid Support
@@ -15,7 +12,7 @@ info:
     url: https://code.hq.twilio.com/twilio/sendgrid-oas/blob/main/LICENSE
   version: 1.0.0
   x-sendgrid:
-    libraryPackage: account_provisioning
+    libraryPackage: mail_settings
 servers:
 - url: https://api.sendgrid.com
   description: for global users and subusers
@@ -146,7 +143,7 @@ paths:
         Passing only the `enabled` field to this endpoint will not alter your current `list` of whitelist entries. However, any modifications to your `list` of entries will overwrite the entire list. For this reason, you must included all existing entries you wish to retain in your `list` in addition to any new entries you intend to add. To remove one or more `list` entries, pass a `list` with only the entries you wish to retain.
 
 
-        You should not add generic domains such as `gmail.com` or `yahoo.com`  in your `list` because your emails will not honor recipients'' unsubscribes. This may cause a legal violation of [CAN-SPAM](https://sendgrid.com/docs/glossary/can-spam/) and could damage your sending reputation.
+        You should not add generic domains such as `gmail.com` or `yahoo.com` in your `list` because your emails will not honor recipients'' unsubscribes. This may cause a legal violation of CAN-SPAM and could damage your sending reputation.
 
 
         The Address Whitelist setting allows you to specify email addresses or domains for which mail should never be suppressed.
@@ -253,7 +250,7 @@ paths:
         A soft bounce occurs when an email message reaches the recipient''s mail server but is bounced back undelivered before it actually reaches the recipient. A soft bounce might occur because the recipient''s inbox is full.
 
 
-        You can also manage this setting in the [Mail Settings section of the Twilio SendGrid App](https://app.sendgrid.com/settings/mail_settings). You can manage your bounces manually using the [Bounces API](https://docs.sendgrid.com/api-reference/bounces-api) or the [Bounces menu in the Twilio SendGrid App](https://app.sendgrid.com/suppressions/bounces).'
+        You can also manage this setting in the Mail Settings section of the Twilio SendGrid App. You can manage your bounces manually using the Bounces API or the Bounces menu in the Twilio SendGrid App.'
       parameters:
       - $ref: '#/components/parameters/OnBehalfOf'
       requestBody:
@@ -301,7 +298,7 @@ paths:
         A soft bounce occurs when an email message reaches the recipient''s mail server but is bounced back undelivered before it actually reaches the recipient. A soft bounce might occur because the recipient''s inbox is full.
 
 
-        You can also manage this setting in the [Mail Settings section of the Twilio SendGrid App](https://app.sendgrid.com/settings/mail_settings). You can manage your bounces manually using the [Bounces API](https://docs.sendgrid.com/api-reference/bounces-api) or the [Bounces menu in the Twilio SendGrid App](https://app.sendgrid.com/suppressions/bounces).'
+        You can also manage this setting in the Mail Settings section of the Twilio SendGrid App. You can manage your bounces manually using the Bounces API or the Bounces menu in the Twilio SendGrid App.'
       parameters:
       - $ref: '#/components/parameters/OnBehalfOf'
       responses:
@@ -339,7 +336,7 @@ paths:
         The Footer setting will insert a custom footer at the bottom of your text and HTML email message bodies.
 
 
-        You can insert your HTML or plain text directly using this endpoint, or you can create the footer using the [Mail Settings menu in the Twilio SendGrid App](https://app.sendgrid.com/settings/mail_settings).'
+        You can insert your HTML or plain text directly using this endpoint, or you can create the footer using the Mail Settings menu in the Twilio SendGrid App.'
       parameters:
       - $ref: '#/components/parameters/OnBehalfOf'
       requestBody:
@@ -383,7 +380,7 @@ paths:
         The Footer setting will insert a custom footer at the bottom of your text and HTML email message bodies.
 
 
-        You can insert your HTML or plain text directly using the "Update footer mail settings" endpoint, or you can create the footer using the [Mail Settings menu in the Twilio SendGrid App](https://app.sendgrid.com/settings/mail_settings).'
+        You can insert your HTML or plain text directly using the "Update footer mail settings" endpoint, or you can create the footer using the Mail Settings menu in the Twilio SendGrid App.'
       parameters:
       - $ref: '#/components/parameters/OnBehalfOf'
       responses:
@@ -423,7 +420,7 @@ paths:
         Enabling the Forward Bounce setting allows you to specify an `email` address to which bounce reports will be forwarded.
 
 
-        You can also configure the Forward Spam mail settings in the [Mail Settings section of the Twilio SendGrid App](https://app.sendgrid.com/settings/mail_settings).'
+        You can also configure the Forward Spam mail settings in the Mail Settings section of the Twilio SendGrid App.'
       parameters:
       - $ref: '#/components/parameters/OnBehalfOf'
       requestBody:
@@ -492,7 +489,32 @@ paths:
       summary: Update forward spam mail settings
       tags:
       - Mail Settings
-      description: "**This endpoint allows you to update your current Forward Spam mail settings.**\n\nEnabling the Forward Spam setting allows you to specify `email` addresses to which spam reports will be forwarded. You can set multiple addresses by passing this endpoint a comma separated list of emails in a single string.\n\n```\n{\n  \"email\": \"address1@example.com, address2@exapmle.com\",\n  \"enabled\": true\n}\n```\n\nThe Forward Spam setting may also be used to receive emails sent to `abuse@` and `postmaster@` role addresses if you have authenticated your domain.\n\nFor example, if you authenticated `example.com` as your root domain and set a custom return path of `sub` for that domain, you could turn on Forward Spam, and any emails sent to `abuse@sub.example.com` or `postmaster@sub.example.com` would be forwarded to the email address you entered in the `email` field.\n\nYou can authenticate your domain using the \"Authenticate a domain\" endpoint or in the [Sender Authentication section of the Twilio SendGrid App](https://app.sendgrid.com/settings/sender_auth). You can also configure the Forward Spam mail settings in the [Mail Settings section of the Twilio SendGrid App](https://app.sendgrid.com/settings/mail_settings)."
+      description: '**This endpoint allows you to update your current Forward Spam mail settings.**
+
+
+        Enabling the Forward Spam setting allows you to specify `email` addresses to which spam reports will be forwarded. You can set multiple addresses by passing this endpoint a comma separated list of emails in a single string.
+
+
+        ```
+
+        {
+
+        "email": "address1@example.com, address2@exapmle.com",
+
+        "enabled": true
+
+        }
+
+        ```
+
+
+        The Forward Spam setting may also be used to receive emails sent to `abuse@` and `postmaster@` role addresses if you have authenticated your domain.
+
+
+        For example, if you authenticated `example.com` as your root domain and set a custom return path of `sub` for that domain, you could turn on Forward Spam, and any emails sent to `abuse@sub.example.com` or `postmaster@sub.example.com` would be forwarded to the email address you entered in the `email` field.
+
+
+        You can authenticate your domain using the "Authenticate a domain" endpoint or in the Sender Authentication section of the Twilio SendGrid App. You can also configure the Forward Spam mail settings in the Mail Settings section of the Twilio SendGrid App.'
       parameters:
       - $ref: '#/components/parameters/OnBehalfOf'
       requestBody:
@@ -564,10 +586,10 @@ paths:
       description: '**This endpoint allows you to update your current legacy email template settings.**
 
 
-        This setting refers to our original email templates. We currently support more fully featured [Dynamic Transactional Templates](https://sendgrid.com/docs/ui/sending-email/how-to-send-an-email-with-dynamic-transactional-templates/).
+        This setting refers to our original email templates. We currently support more fully featured Dynamic Transactional Templates.
 
 
-        The legacy email template setting wraps an HTML template around your email content. This can be useful for sending out marketing email and/or other HTML formatted messages. For instructions on using legacy templates, see how to ["Create and Edit Legacy Transactional Templates](https://sendgrid.com/docs/ui/sending-email/create-and-edit-legacy-transactional-templates/). For help migrating to our current template system, see ["Migrating from Legacy Templates"](https://sendgrid.com/docs/ui/sending-email/migrating-from-legacy-templates/).'
+        The legacy email template setting wraps an HTML template around your email content. This can be useful for sending out marketing email and/or other HTML formatted messages. For instructions on using legacy templates, see how to "Create and Edit Legacy Transactional Templates. For help migrating to our current template system, see "Migrating from Legacy Templates".'
       parameters:
       - $ref: '#/components/parameters/OnBehalfOf'
       requestBody:
@@ -627,10 +649,10 @@ paths:
       description: '**This endpoint allows you to retrieve your current legacy email template settings.**
 
 
-        This setting refers to our original email templates. We currently support more fully featured [Dynamic Transactional Templates](https://sendgrid.com/docs/ui/sending-email/how-to-send-an-email-with-dynamic-transactional-templates/).
+        This setting refers to our original email templates. We currently support more fully featured Dynamic Transactional Templates.
 
 
-        The legacy email template setting wraps an HTML template around your email content. This can be useful for sending out marketing email and/or other HTML formatted messages. For instructions on using legacy templates, see how to ["Create and Edit Legacy Transactional Templates](https://sendgrid.com/docs/ui/sending-email/create-and-edit-legacy-transactional-templates/). For help migrating to our current template system, see ["Migrating from Legacy Templates"](https://sendgrid.com/docs/ui/sending-email/migrating-from-legacy-templates/).'
+        The legacy email template setting wraps an HTML template around your email content. This can be useful for sending out marketing email and/or other HTML formatted messages. For instructions on using legacy templates, see how to "Create and Edit Legacy Transactional Templates. For help migrating to our current template system, see "Migrating from Legacy Templates".'
       parameters:
       - $ref: '#/components/parameters/OnBehalfOf'
       responses:
@@ -659,6 +681,19 @@ paths:
           $ref: '#/components/responses/MailSettingsError500'
 components:
   schemas:
+    MailSettingsForwardSpam:
+      title: 'Mail Settings: Forward Spam'
+      type: object
+      properties:
+        email:
+          type: string
+          description: The email address where you would like the spam reports to be forwarded.
+        enabled:
+          type: boolean
+          description: Indicates if the Forward Spam setting is enabled.
+      example:
+        email: ''
+        enabled: true
     MailSettingsFooter:
       title: 'Mail Settings: Footer'
       type: object
@@ -676,21 +711,6 @@ components:
         enabled: true
         html_content: Example HTML content
         plain_content: Example plain content
-    MailSettingsTemplate200:
-      title: 'Mail Settings: Template'
-      type: object
-      properties:
-        enabled:
-          type: boolean
-          description: Indicates if the legacy email template setting is enabled.
-        html_content:
-          type: string
-          description: The HTML content that you want to use for your legacy email template.
-      example:
-        enabled: false
-        html_content: '<p><% body %>Example</p>
-
-          '
     MailSettingsAddressWhitelabel200:
       title: 'Mail Settings: Address Whitelabel'
       type: object
@@ -708,6 +728,20 @@ components:
         list:
         - email1@example.com
         - example.com
+    MailSettingsForwardBounce:
+      title: 'Mail Settings: Forward Bounce'
+      type: object
+      properties:
+        email:
+          description: The email address that you would like your bounce reports forwarded to.
+          nullable: true
+          type: string
+        enabled:
+          type: boolean
+          description: Indicates if the bounce forwarding mail setting is enabled.
+      example:
+        enabled: false
+        email: email@example.com
     MailSettingsBouncePurge:
       title: 'Mail Settings: Bounce Purge'
       type: object
@@ -727,113 +761,23 @@ components:
         enabled: false
         soft_bounces: 1234
         hard_bounces: 1234
-    MailSettingsForwardSpam:
-      title: 'Mail Settings: Forward Spam'
+    MailSettingsTemplate200:
+      title: 'Mail Settings: Template'
       type: object
       properties:
-        email:
-          type: string
-          description: The email address where you would like the spam reports to be forwarded.
         enabled:
           type: boolean
-          description: Indicates if the Forward Spam setting is enabled.
-      example:
-        email: ''
-        enabled: true
-    MailSettingsForwardBounce:
-      title: 'Mail Settings: Forward Bounce'
-      type: object
-      properties:
-        email:
-          description: The email address that you would like your bounce reports forwarded to.
-          nullable: true
+          description: Indicates if the legacy email template setting is enabled.
+        html_content:
           type: string
-        enabled:
-          type: boolean
-          description: Indicates if the bounce forwarding mail setting is enabled.
+          description: The HTML content that you want to use for your legacy email template.
       example:
         enabled: false
-        email: email@example.com
+        html_content: '<p><% body %>Example</p>
+
+          '
   responses:
-    MailSettingsError401:
-      description: ''
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    error_id:
-                      type: string
-                      description: The ID associated with the error.
-                    field:
-                      description: The field that generated the error.
-                      nullable: true
-                      type: string
-                    message:
-                      type: string
-                      description: The error message.
-                    parameter:
-                      type: string
-                  required:
-                  - message
     MailSettingsError403:
-      description: ''
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    error_id:
-                      type: string
-                      description: The ID associated with the error.
-                    field:
-                      description: The field that generated the error.
-                      nullable: true
-                      type: string
-                    message:
-                      type: string
-                      description: The error message.
-                    parameter:
-                      type: string
-                  required:
-                  - message
-    MailSettingsError404:
-      description: ''
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    error_id:
-                      type: string
-                      description: The ID associated with the error.
-                    field:
-                      description: The field that generated the error.
-                      nullable: true
-                      type: string
-                    message:
-                      type: string
-                      description: The error message.
-                    parameter:
-                      type: string
-                  required:
-                  - message
-    MailSettingsError500:
       description: ''
       content:
         application/json:
@@ -885,7 +829,92 @@ components:
                       type: string
                   required:
                   - message
+    MailSettingsError500:
+      description: ''
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    error_id:
+                      type: string
+                      description: The ID associated with the error.
+                    field:
+                      description: The field that generated the error.
+                      nullable: true
+                      type: string
+                    message:
+                      type: string
+                      description: The error message.
+                    parameter:
+                      type: string
+                  required:
+                  - message
+    MailSettingsError401:
+      description: ''
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    error_id:
+                      type: string
+                      description: The ID associated with the error.
+                    field:
+                      description: The field that generated the error.
+                      nullable: true
+                      type: string
+                    message:
+                      type: string
+                      description: The error message.
+                    parameter:
+                      type: string
+                  required:
+                  - message
+    MailSettingsError404:
+      description: ''
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    error_id:
+                      type: string
+                      description: The ID associated with the error.
+                    field:
+                      description: The field that generated the error.
+                      nullable: true
+                      type: string
+                    message:
+                      type: string
+                      description: The error message.
+                    parameter:
+                      type: string
+                  required:
+                  - message
   parameters:
+    OnBehalfOf:
+      name: on-behalf-of
+      in: header
+      description: 'The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent''s Subusers or customer accounts. You will use the parent account''s API key when using this header. When making a call on behalf of a customer account, the property value should be "account-id" followed by the customer account''s ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser''s username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.'
+      required: false
+      schema:
+        type: string
     PaginationCommonOffset:
       name: offset
       in: query
@@ -895,13 +924,6 @@ components:
         type: integer
         minimum: 0
         default: 0
-    OnBehalfOf:
-      name: on-behalf-of
-      in: header
-      description: 'The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent''s Subusers or customer accounts. You will use the parent account''s API key when using this header. When making a call on behalf of a customer account, the property value should be "account-id" followed by the customer account''s ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser''s username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.'
-      required: false
-      schema:
-        type: string
   securitySchemes:
     BearerAuth:
       type: http

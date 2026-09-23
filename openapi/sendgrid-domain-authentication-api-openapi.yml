@@ -1,11 +1,8 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Twilio SendGrid Provisioning Account Domain Authentication API
-  summary: The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts.
-  description: 'The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts. This API is for companies that have a formal reseller partnership with Twilio SendGrid.
-
-
-    You can access Twilio SendGrid sub-account functionality without becoming a reseller. If you require sub-account functionality, see the Twilio [SendGrid Subusers](https://docs.sendgrid.com/ui/account-and-settings/subusers) feature, which is available with [Pro and Premier plans](https://sendgrid.com/pricing/).'
+  title: Twilio SendGrid Domain Authentication API
+  summary: The Twilio SendGrid Domain Authentication API allows you to manage your authenticated domains and their settings.
+  description: The Twilio SendGrid Domain Authentication API allows you to manage your authenticated domains and their settings.
   termsOfService: https://www.twilio.com/legal/tos
   contact:
     name: Twilio SendGrid Support
@@ -15,7 +12,7 @@ info:
     url: https://code.hq.twilio.com/twilio/sendgrid-oas/blob/main/LICENSE
   version: 1.0.0
   x-sendgrid:
-    libraryPackage: account_provisioning
+    libraryPackage: domain_authentication
 servers:
 - url: https://api.sendgrid.com
   description: for global users and subusers
@@ -33,7 +30,19 @@ paths:
       summary: Email DNS records to a co-worker
       tags:
       - Domain Authentication
-      description: "**This endpoint is used to share DNS records with a colleagues**\n\nUse this endpoint to send SendGrid-generated DNS record information to a co-worker so they can enter it into your DNS provider to validate your domain and link branding. \n\nWhat type of records are sent will depend on whether you have chosen Automated Security or not. When using Automated Security, SendGrid provides you with three CNAME records. If you turn Automated Security off, you are instead given TXT and MX records.\n\nIf you pass a `link_id` to this endpoint, the generated email will supply the DNS records necessary to complete [Link Branding](https://sendgrid.com/docs/ui/account-and-settings/how-to-set-up-link-branding/) setup. If you pass a `domain_id` to this endpoint, the generated email will supply the DNS records needed to complete [Domain Authentication](https://sendgrid.com/docs/ui/account-and-settings/how-to-set-up-domain-authentication/). Passing both IDs will generate an email with the records needed to complete both setup steps.\n\nYou can retrieve all your domain IDs from the returned `id` fields for each domain using the \"List all authenticated domains\" endpoint. You can retrieve all of your link IDs using the \"Retrieve all branded links\" endpoint."
+      description: '**This endpoint is used to share DNS records with a colleagues**
+
+
+        Use this endpoint to send SendGrid-generated DNS record information to a co-worker so they can enter it into your DNS provider to validate your domain and link branding.
+
+
+        What type of records are sent will depend on whether you have chosen Automated Security or not. When using Automated Security, SendGrid provides you with three CNAME records. If you turn Automated Security off, you are instead given TXT and MX records.
+
+
+        If you pass a `link_id` to this endpoint, the generated email will supply the DNS records necessary to complete Link Branding setup. If you pass a `domain_id` to this endpoint, the generated email will supply the DNS records needed to complete Domain Authentication. Passing both IDs will generate an email with the records needed to complete both setup steps.
+
+
+        You can retrieve all your domain IDs from the returned `id` fields for each domain using the "List all authenticated domains" endpoint. You can retrieve all of your link IDs using the "Retrieve all branded links" endpoint.'
       requestBody:
         content:
           application/json:
@@ -302,7 +311,7 @@ paths:
           $ref: '#/components/responses/DomainAuthentication200'
     delete:
       operationId: DeleteAuthenticatedDomain
-      summary: Delete an authenticated domain.
+      summary: Delete an authenticated domain
       tags:
       - Domain Authentication
       description: '**This endpoint allows you to delete an authenticated domain.**'
@@ -314,7 +323,7 @@ paths:
   /v3/whitelabel/domains/{domain_id}/subuser:
     post:
       operationId: AssociateSubuserWithDomain
-      summary: Associate an authenticated domain with a given user.
+      summary: Associate an authenticated domain with a given user
       tags:
       - Domain Authentication
       description: '**This endpoint allows you to associate a specific authenticated domain with a subuser.**
@@ -322,8 +331,7 @@ paths:
         Authenticated domains can be associated with (i.e. assigned to) subusers from a parent account. This functionality allows subusers to send mail using their parent''s domain. To associate an authenticated domain with a subuser, the parent account must first authenticate and validate the domain. The parent may then associate the authenticated domain via the subuser management tools.
 
 
-
-        [You can associate more than one domain with a subuser using the `v3/whitelabel/domains/{domain_id}/subuser:add` endpoint](https://www.twilio.com/docs/sendgrid/api-reference/domain-authentication/associate-an-authenticated-domain-with-a-subuser-multiple).'
+        You can associate more than one domain with a subuser using the `v3/whitelabel/domains/{domain_id}/subuser:add` endpoint.'
       parameters:
       - name: domain_id
         in: path
@@ -388,10 +396,16 @@ paths:
                         valid: false
     delete:
       operationId: DisassociateSubuserFromDomain
-      summary: Disassociate an authenticated domain from a given user for users with up to five associated domains.
+      summary: Disassociate an authenticated domain from a given user for users with up to…
       tags:
       - Domain Authentication
-      description: "**This endpoint allows you to disassociate a specific authenticated domain from a subuser, for users with up to five associated domains.**\n\n\nThis functionality allows subusers to send mail using their parent's domain. Authenticated domains can be associated with (i.e. assigned to) subusers kknt, and a subuser can have up to five associated authenticated domains. \n\nYou can dissociate an authenticated domain from any subuser that has one or more authenticated domains using this endpoint."
+      description: '**This endpoint allows you to disassociate a specific authenticated domain from a subuser, for users with up to five associated domains.**
+
+
+        This functionality allows subusers to send mail using their parent''s domain. Authenticated domains can be associated with (i.e. assigned to) subusers kknt, and a subuser can have up to five associated authenticated domains.
+
+
+        You can dissociate an authenticated domain from any subuser that has one or more authenticated domains using this endpoint.'
       parameters:
       - name: username
         in: query
@@ -417,10 +431,29 @@ paths:
         type: integer
     post:
       operationId: AssociateSubuserWithDomainMultiple
-      summary: Associate an authenticated domain with a given user, for up to five domains.
+      summary: Associate an authenticated domain with a given user, for up to five domains
       tags:
       - Domain Authentication
-      description: "**This endpoint allows you to associate a specific authenticated domain with a subuser. It can be used to associate up to five authenticated domains.**\n\n\nThis functionality allows subusers to send mail using their parent's domain. Authenticated domains can be associated with (i.e. assigned to) subusers from a parent account. To associate an authenticated domain with a subuser, the parent account must first authenticate and validate the domain. The parent may then associate the authenticated domain via the subuser management tools.\n\n\nA subuser can have up to five associated authenticated domains. To see the domains that have already been associated with this user, you can [use the API to list the domains currently associated with the subuser](https://www.twilio.com/docs/sendgrid/api-reference/domain-authentication/list-the-authenticated-domain-associated-with-a-subuser-multiple).\n\n\nWhen selecting a domain to send email from, SendGrid checks for domains in the following order and chooses the first one that appears in the hierarchy: \n1. Domain assigned by the subuser that matches the email's `From` address domain. \n2. The subuser's default domain. \n3. Domain assigned by the parent user that matches the `From` address domain. \n4. Parent user's default domain. \n5. sendgrid.net"
+      description: '**This endpoint allows you to associate a specific authenticated domain with a subuser. It can be used to associate up to five authenticated domains.**
+
+
+        This functionality allows subusers to send mail using their parent''s domain. Authenticated domains can be associated with (i.e. assigned to) subusers from a parent account. To associate an authenticated domain with a subuser, the parent account must first authenticate and validate the domain. The parent may then associate the authenticated domain via the subuser management tools.
+
+
+        A subuser can have up to five associated authenticated domains. To see the domains that have already been associated with this user, you can use the API to list the domains currently associated with the subuser.
+
+
+        When selecting a domain to send email from, SendGrid checks for domains in the following order and chooses the first one that appears in the hierarchy:
+
+        1. Domain assigned by the subuser that matches the email''s `From` address domain.
+
+        2. The subuser''s default domain.
+
+        3. Domain assigned by the parent user that matches the `From` address domain.
+
+        4. Parent user''s default domain.
+
+        5. sendgrid.net'
       requestBody:
         content:
           application/json:
@@ -563,7 +596,7 @@ paths:
         type: string
     delete:
       operationId: DeleteIpFromAuthenticatedDomain
-      summary: Remove an IP from an authenticated domain.
+      summary: Remove an IP from an authenticated domain
       tags:
       - Domain Authentication
       description: '**This endpoint allows you to remove an IP address from that domain''s authentication.**'
@@ -621,7 +654,7 @@ paths:
         type: integer
     post:
       operationId: ValidateAuthenticatedDomain
-      summary: Validate a domain authentication.
+      summary: Validate a domain authentication
       tags:
       - Domain Authentication
       description: '**This endpoint allows you to validate an authenticated domain. If it fails, it will return an error message describing why the domain could not be validated.**'
@@ -752,7 +785,7 @@ paths:
   /v3/whitelabel/domains/subuser:
     get:
       operationId: ListAuthenticatedDomainWithUser
-      summary: List the authenticated domain associated with the given user.
+      summary: List the authenticated domain associated with the given user
       tags:
       - Domain Authentication
       description: '**This endpoint allows you to retrieve all of the authenticated domains that have been assigned to a specific subuser.**
@@ -761,8 +794,7 @@ paths:
         Authenticated domains can be associated with (i.e. assigned to) subusers from a parent account. This functionality allows subusers to send mail using their parent''s domain. To associate an authenticated domain with a subuser, the parent account must first authenticate and validate the domain. The parent may then associate the authenticated domain via the subuser management tools.
 
 
-
-        Note that if you used the [`/v3/whitelabel/domains/{domain_id}/subuser:add` endpoint]( https://www.twilio.com/docs/sendgrid/api-reference/domain-authentication/associate-an-authenticated-domain-with-a-subuser-multiple) to add multiple domains to the subuser, you can use the [`/v3/whitelabel/domains/subuser/all` endpoint](https://www.twilio.com/docs/sendgrid/api-reference/domain-authentication/list-the-authenticated-domain-associated-with-a-subuser-multiple) to list those associated domains.'
+        Note that if you used the `/v3/whitelabel/domains/{domain_id}/subuser:add` endpoint to add multiple domains to the subuser, you can use the `/v3/whitelabel/domains/subuser/all` endpoint to list those associated domains.'
       parameters:
       - name: username
         in: query
@@ -814,7 +846,7 @@ paths:
                         valid: false
     delete:
       operationId: DisassociateAuthenticatedDomainFromUser
-      summary: Disassociate an authenticated domain from a given user.
+      summary: Disassociate an authenticated domain from a given user
       tags:
       - Domain Authentication
       description: '**This endpoint allows you to disassociate a specific authenticated domain from a subuser.**
@@ -823,8 +855,7 @@ paths:
         Authenticated domains can be associated with (i.e. assigned to) subusers from a parent account. This functionality allows subusers to send mail using their parent''s domain. To associate an authenticated domain with a subuser, the parent account must first authenticate and validate the domain. The parent may then associate the authenticated domain via the subuser management tools.
 
 
-
-        Note that if you used the [`/v3/whitelabel/domains/{domain_id}/subuser:add` endpoint](https://www.twilio.com/docs/sendgrid/api-reference/domain-authentication/associate-an-authenticated-domain-with-a-subuser-multiple) to add multiple domains to the subuser, you should use the [`/v3/whitelabel/domains/{domain_id}/subuser` endpoint](https://www.twilio.com/docs/sendgrid/api-reference/domain-authentication/disassociate-an-authenticated-domain-from-a-subuser-multiple) to disassociate those domains.'
+        Note that if you used the `/v3/whitelabel/domains/{domain_id}/subuser:add` endpoint to add multiple domains to the subuser, you should use the `/v3/whitelabel/domains/{domain_id}/subuser` endpoint to disassociate those domains.'
       parameters:
       - name: username
         in: query
@@ -837,10 +868,29 @@ paths:
   /v3/whitelabel/domains/subuser/all:
     get:
       operationId: ListAllAuthenticatedDomainWithUser
-      summary: List all the authenticated domains associated with the given user.
+      summary: List all the authenticated domains associated with the given user
       tags:
       - Domain Authentication
-      description: "**This endpoint allows you to retrieve all of the authenticated domains that have been assigned to a specific subuser.**\n\n\nThis functionality allows subusers to send mail using their parent's domain. Authenticated domains can be associated with (i.e. assigned to) subusers from a parent account, and a subuser can have up to five associated domains. \n\nTo associate an authenticated domain with a subuser, the parent account must first authenticate and validate the domain. The parent may then associate the authenticated domain via the subuser management tools.\n\n\nWhen selecting a domain to send email from, SendGrid checks for domains in the following order and chooses the first one that appears in the hierarchy: \n1. Domain assigned by the subuser that matches the email's `From` address domain. \n2. The subuser's default domain. \n3. Domain assigned by the parent user that matches the `From` address domain. \n4. Parent user's default domain. \n5. sendgrid.net"
+      description: '**This endpoint allows you to retrieve all of the authenticated domains that have been assigned to a specific subuser.**
+
+
+        This functionality allows subusers to send mail using their parent''s domain. Authenticated domains can be associated with (i.e. assigned to) subusers from a parent account, and a subuser can have up to five associated domains.
+
+
+        To associate an authenticated domain with a subuser, the parent account must first authenticate and validate the domain. The parent may then associate the authenticated domain via the subuser management tools.
+
+
+        When selecting a domain to send email from, SendGrid checks for domains in the following order and chooses the first one that appears in the hierarchy:
+
+        1. Domain assigned by the subuser that matches the email''s `From` address domain.
+
+        2. The subuser''s default domain.
+
+        3. Domain assigned by the parent user that matches the `From` address domain.
+
+        4. Parent user''s default domain.
+
+        5. sendgrid.net'
       parameters:
       - name: username
         in: query
@@ -1037,6 +1087,149 @@ paths:
                         data: s2._domainkey.u7.w1.sgsandbox.net
 components:
   schemas:
+    AuthenticatedDomainSpf:
+      title: Domain Authentication
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The ID of the authenticated domain.
+        domain:
+          type: string
+          description: The domain authenticated.
+        subdomain:
+          type: string
+          description: The subdomain that was used to create this authenticated domain.
+        username:
+          type: string
+          description: The username of the account that this authenticated domain is associated with.
+        user_id:
+          type: integer
+          description: The user_id of the account that this authenticated domain is associated with.
+        ips:
+          type: array
+          description: The IP addresses that are included in the SPF record for this authenticated domain.
+          items: {}
+        custom_spf:
+          type: boolean
+          description: Indicates if this authenticated domain uses custom SPF.
+        default:
+          type: boolean
+          description: Indicates if this is the default domain.
+        legacy:
+          type: boolean
+          description: Indicates if this authenticated domain was created using the legacy whitelabel tool. If it is a legacy whitelabel, it will still function, but you'll need to create a new authenticated domain if you need to update it.
+        automatic_security:
+          type: boolean
+          description: Indicates if this authenticated domain uses automated security.
+        valid:
+          type: boolean
+          description: Indicates if this is a valid authenticated domain .
+        dns:
+          type: object
+          description: The DNS records for this authenticated domain.
+          required:
+          - mail_server
+          - subdomain_spf
+          - domain_spf
+          - dkim
+          properties:
+            mail_server:
+              type: object
+              description: Designates which mail server is responsible for accepting messages from a domain.
+              required:
+              - host
+              - type
+              - data
+              - valid
+              properties:
+                host:
+                  type: string
+                  description: The domain sending the messages.
+                type:
+                  type: string
+                  description: They type of DNS record.
+                data:
+                  type: string
+                  description: The mail server responsible for accepting messages from the sending domain.
+                valid:
+                  type: boolean
+                  description: Indicates if this is a valid DNS record.
+            subdomain_spf:
+              type: object
+              description: The SPF record for the subdomain used to create this authenticated domain.
+              required:
+              - host
+              - type
+              - data
+              - valid
+              properties:
+                host:
+                  type: string
+                  description: The domain that this SPF record will be used to authenticate.
+                type:
+                  type: string
+                  description: The type of data in the SPF record.
+                data:
+                  type: string
+                  description: The SPF record.
+                valid:
+                  type: boolean
+                  description: Indicates if this is a valid SPF record.
+            domain_spf:
+              type: object
+              description: The SPF record for the root domain.
+              required:
+              - host
+              - type
+              - data
+              - valid
+              properties:
+                host:
+                  type: string
+                  description: The root domain that this SPF record will be used to authenticate.
+                type:
+                  type: string
+                  description: The type of data in the SPF record.
+                data:
+                  type: string
+                  description: The SPF record.
+                valid:
+                  type: boolean
+                  description: Indicates if the SPF record is valid.
+            dkim:
+              type: object
+              description: The DKIM record for messages sent using this authenticated domain.
+              required:
+              - host
+              - type
+              - data
+              - valid
+              properties:
+                host:
+                  type: string
+                  description: The DNS labels for the DKIM signature.
+                type:
+                  type: string
+                  description: The type of data in the DKIM record.
+                data:
+                  type: string
+                  description: The DKIM record.
+                valid:
+                  type: boolean
+                  description: Indicates if the DKIM record is valid.
+      required:
+      - id
+      - domain
+      - username
+      - user_id
+      - ips
+      - custom_spf
+      - default
+      - legacy
+      - automatic_security
+      - valid
+      - dns
     AuthenticatedDomain:
       title: Domain Authentication - Mandatory Subdomain
       type: object
@@ -1190,150 +1383,14 @@ components:
             type: cname
             host: s2._domainkey.example.com
             data: s2._domainkey.u7.wl.sendgrid.net
-    AuthenticatedDomainSpf:
-      title: Domain Authentication
-      type: object
-      properties:
-        id:
-          type: integer
-          description: The ID of the authenticated domain.
-        domain:
-          type: string
-          description: The domain authenticated.
-        subdomain:
-          type: string
-          description: The subdomain that was used to create this authenticated domain.
-        username:
-          type: string
-          description: The username of the account that this authenticated domain is associated with.
-        user_id:
-          type: integer
-          description: The user_id of the account that this authenticated domain is associated with.
-        ips:
-          type: array
-          description: The IP addresses that are included in the SPF record for this authenticated domain.
-          items: {}
-        custom_spf:
-          type: boolean
-          description: Indicates if this authenticated domain uses custom SPF.
-        default:
-          type: boolean
-          description: Indicates if this is the default domain.
-        legacy:
-          type: boolean
-          description: Indicates if this authenticated domain was created using the legacy whitelabel tool. If it is a legacy whitelabel, it will still function, but you'll need to create a new authenticated domain if you need to update it.
-        automatic_security:
-          type: boolean
-          description: Indicates if this authenticated domain uses automated security.
-        valid:
-          type: boolean
-          description: Indicates if this is a valid authenticated domain .
-        dns:
-          type: object
-          description: The DNS records for this authenticated domain.
-          required:
-          - mail_server
-          - subdomain_spf
-          - domain_spf
-          - dkim
-          properties:
-            mail_server:
-              type: object
-              description: Designates which mail server is responsible for accepting messages from a domain.
-              required:
-              - host
-              - type
-              - data
-              - valid
-              properties:
-                host:
-                  type: string
-                  description: The domain sending the messages.
-                type:
-                  type: string
-                  description: They type of DNS record.
-                data:
-                  type: string
-                  description: The mail server responsible for accepting messages from the sending domain.
-                valid:
-                  type: boolean
-                  description: Indicates if this is a valid DNS record.
-            subdomain_spf:
-              type: object
-              description: The SPF record for the subdomain used to create this authenticated domain.
-              required:
-              - host
-              - type
-              - data
-              - valid
-              properties:
-                host:
-                  type: string
-                  description: The domain that this SPF record will be used to authenticate.
-                type:
-                  type: string
-                  description: The type of data in the SPF record.
-                data:
-                  type: string
-                  description: The SPF record.
-                valid:
-                  type: boolean
-                  description: Indicates if this is a valid SPF record.
-            domain_spf:
-              type: object
-              description: The SPF record for the root domain.
-              required:
-              - host
-              - type
-              - data
-              - valid
-              properties:
-                host:
-                  type: string
-                  description: The root domain that this SPF record will be used to authenticate.
-                type:
-                  type: string
-                  description: The type of data in the SPF record.
-                data:
-                  type: string
-                  description: The SPF record.
-                valid:
-                  type: boolean
-                  description: Indicates if the SPF record is valid.
-            dkim:
-              type: object
-              description: The DKIM record for messages sent using this authenticated domain.
-              required:
-              - host
-              - type
-              - data
-              - valid
-              properties:
-                host:
-                  type: string
-                  description: The DNS labels for the DKIM signature.
-                type:
-                  type: string
-                  description: The type of data in the DKIM record.
-                data:
-                  type: string
-                  description: The DKIM record.
-                valid:
-                  type: boolean
-                  description: Indicates if the DKIM record is valid.
-      required:
-      - id
-      - domain
-      - username
-      - user_id
-      - ips
-      - custom_spf
-      - default
-      - legacy
-      - automatic_security
-      - valid
-      - dns
   parameters:
+    OnBehalfOf:
+      name: on-behalf-of
+      in: header
+      description: 'The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent''s Subusers or customer accounts. You will use the parent account''s API key when using this header. When making a call on behalf of a customer account, the property value should be "account-id" followed by the customer account''s ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser''s username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.'
+      required: false
+      schema:
+        type: string
     PaginationCommonOffset:
       name: offset
       in: query
@@ -1343,13 +1400,6 @@ components:
         type: integer
         minimum: 0
         default: 0
-    OnBehalfOf:
-      name: on-behalf-of
-      in: header
-      description: 'The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent''s Subusers or customer accounts. You will use the parent account''s API key when using this header. When making a call on behalf of a customer account, the property value should be "account-id" followed by the customer account''s ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser''s username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.'
-      required: false
-      schema:
-        type: string
   responses:
     DomainAuthentication200:
       description: Success response

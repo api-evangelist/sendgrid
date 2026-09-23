@@ -1,11 +1,8 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Twilio SendGrid Provisioning Account Send Test Email API
-  summary: The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts.
-  description: 'The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts. This API is for companies that have a formal reseller partnership with Twilio SendGrid.
-
-
-    You can access Twilio SendGrid sub-account functionality without becoming a reseller. If you require sub-account functionality, see the Twilio [SendGrid Subusers](https://docs.sendgrid.com/ui/account-and-settings/subusers) feature, which is available with [Pro and Premier plans](https://sendgrid.com/pricing/).'
+  title: Twilio SendGrid Marketing Campaigns Send Test Email API
+  summary: The Twilio SendGrid Test Email API allows you to test a marketing email by first sending it to a list of up to 10 email addresses before pushing to a contact list or segment.
+  description: The Twilio SendGrid Test Email API allows you to test a marketing email by first sending it to a list of up to 10 email addresses before pushing to a contact list or segment. With this feature, you can test the layout and content of your message in multiple email clients and with multiple recipients to see how it will function in a real-world scenario.
   termsOfService: https://www.twilio.com/legal/tos
   contact:
     name: Twilio SendGrid Support
@@ -15,12 +12,10 @@ info:
     url: https://code.hq.twilio.com/twilio/sendgrid-oas/blob/main/LICENSE
   version: 1.0.0
   x-sendgrid:
-    libraryPackage: account_provisioning
+    libraryPackage: mc_test
 servers:
 - url: https://api.sendgrid.com
-  description: for global users and subusers
-- url: https://api.eu.sendgrid.com
-  description: for EU regional subusers
+  description: The Twilio SendGrid v3 API
 security:
 - BearerAuth: []
 tags:
@@ -36,16 +31,16 @@ paths:
       description: '**This endpoint allows you to send a test marketing email to a list of email addresses**.
 
 
-        Before sending a marketing message, you can test it using this endpoint. You may specify up to **10 contacts** in the `emails` request body field. You must also specify a `template_id` and include either a `from_address` or `sender_id`. You can manage your templates with the [Twilio SendGrid App](https://mc.sendgrid.com/dynamic-templates) or the [Transactional Templates API](https://docs.sendgrid.com/api-reference/transactional-templates).
+        Before sending a marketing message, you can test it using this endpoint. You may specify up to **10 contacts** in the `emails` request body field. You must also specify a `template_id` and include either a `from_address` or `sender_id`. You can manage your templates with the Twilio SendGrid App or the Transactional Templates API.
 
 
         > Please note that this endpoint works with Dynamic Transactional Templates only. Legacy Transactional Templates will not be delivered.
 
 
-        For more information about managing Dynamic Transactional Templates, see [How to Send Email with Dynamic Transactional Templates](https://sendgrid.com/docs/ui/sending-email/how-to-send-an-email-with-dynamic-transactional-templates/).
+        For more information about managing Dynamic Transactional Templates, see How to Send Email with Dynamic Transactional Templates.
 
 
-        You can also test your Single Sends in the [Twilio SendGrid Marketing Campaigns UI](https://mc.sendgrid.com/single-sends).'
+        You can also test your Single Sends in the Twilio SendGrid Marketing Campaigns UI.'
       requestBody:
         content:
           application/json:
@@ -104,6 +99,13 @@ paths:
         '400':
           $ref: '#/components/responses/TestSend400'
 components:
+  responses:
+    TestSend400:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
     ErrorResponse:
       type: object
@@ -130,13 +132,6 @@ components:
         errors:
         - field: field_name
           message: error message
-  responses:
-    TestSend400:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     BearerAuth:
       type: http

@@ -1,11 +1,8 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Twilio SendGrid Provisioning Account Subusers API
-  summary: The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts.
-  description: 'The Twilio SendGrid Account Provisioning API provides a platform for Twilio SendGrid resellers to manage their customer accounts. This API is for companies that have a formal reseller partnership with Twilio SendGrid.
-
-
-    You can access Twilio SendGrid sub-account functionality without becoming a reseller. If you require sub-account functionality, see the Twilio [SendGrid Subusers](https://docs.sendgrid.com/ui/account-and-settings/subusers) feature, which is available with [Pro and Premier plans](https://sendgrid.com/pricing/).'
+  title: Twilio SendGrid Subusers API
+  summary: The Twilio SendGrid Subusers API allows you to create and manage your Subuser accounts.
+  description: The Twilio SendGrid Subusers API allows you to create and manage your Subuser accounts.
   termsOfService: https://www.twilio.com/legal/tos
   contact:
     name: Twilio SendGrid Support
@@ -15,7 +12,7 @@ info:
     url: https://code.hq.twilio.com/twilio/sendgrid-oas/blob/main/LICENSE
   version: 1.0.0
   x-sendgrid:
-    libraryPackage: account_provisioning
+    libraryPackage: subusers
 servers:
 - url: https://api.sendgrid.com
   description: for global users and subusers
@@ -424,7 +421,18 @@ paths:
       summary: Update IPs assigned to a subuser
       tags:
       - Subusers
-      description: "**This endpoint allows you update your subusers' assigned IP.**\n\nEach subuser should be assigned to an IP address from which all of this subuser's mail will be sent. Often, this is the same IP as the parent account, but each subuser can have one or more of their own IP addresses as well. \n\nMore information:\n\n* [How to request more IPs](https://sendgrid.com/docs/ui/account-and-settings/dedicated-ip-addresses/)\n* [Setup Reverse DNS](https://sendgrid.com/docs/ui/account-and-settings/how-to-set-up-reverse-dns/)"
+      description: '**This endpoint allows you update your subusers'' assigned IP.**
+
+
+        Each subuser should be assigned to an IP address from which all of this subuser''s mail will be sent. Often, this is the same IP as the parent account, but each subuser can have one or more of their own IP addresses as well.
+
+
+        More information:
+
+
+        * How to request more IPs
+
+        * Setup Reverse DNS'
       requestBody:
         content:
           application/json:
@@ -510,87 +518,6 @@ paths:
                     reputation: 95.2
 components:
   schemas:
-    SubuserPost:
-      title: Subuser::POST
-      type: object
-      properties:
-        username:
-          type: string
-          description: The username of the subuser.
-        user_id:
-          type: number
-          description: The user ID for this subuser.
-        email:
-          type: string
-          description: The email address for this subuser.
-          format: email
-        credit_allocation:
-          type: object
-          properties:
-            type:
-              type: string
-        region:
-          type: string
-          description: The region this Subuser is assigned to. The property is returned only if the `include_region` parameter is included and set to `true` in the API request.
-          default: global
-          $ref: '#/components/schemas/Region3'
-      required:
-      - username
-      - user_id
-      - email
-      example:
-        username: example_subuser
-        user_id: 1234
-        email: example@example.com
-        credit_allocation:
-          type: unlimited
-        region: global
-    Type:
-      type: string
-      enum:
-      - unlimited
-      - recurring
-      - nonrecurring
-    Region1:
-      type: string
-      enum:
-      - global
-      - eu
-    SubuserCreditsRequest:
-      title: Subuser Credits reset request body
-      type: object
-      properties:
-        type:
-          type: string
-          description: Type determines how credits are reset for a Subuser. `unlimited` indicates that there is no limit to the Subuser's credits. `recurring` indicates that the credits for the Subuser are reset according to the frequency determined by `reset_frequency`. `nonrecurring` indicates that there is no recurring schedule to reset credits and resets must be done on an ad hoc basis.
-          $ref: '#/components/schemas/Type1'
-        reset_frequency:
-          type: string
-          description: The frequency with which a Subuser's credits are reset if `type` is set to `recurring`. Do _not_ include `reset_frequency` if you choose a reset `type` value of `unlimited` or `nonrecurring`.
-          $ref: '#/components/schemas/ResetFrequency1'
-        total:
-          type: integer
-          description: Total number of credits to which the Subuser is to be reset. If `type` is `nonrecurring` then the Subuser's credits will be reset to `total` on a one-time basis. If `type` is `recurring` then the Subuser's credits will be reset to `total` every time a reset is scheduled in accordance with the `reset_frequency`. Do _not_ include `total` if you choose a reset `type` value of `unlimited`.
-          minimum: 1
-      required:
-      - type
-    Type1:
-      type: string
-      enum:
-      - unlimited
-      - recurring
-      - nonrecurring
-    Region3:
-      type: string
-      enum:
-      - global
-      - eu
-    ResetFrequency:
-      type: string
-      enum:
-      - monthly
-      - weekly
-      - daily
     Subuser:
       title: List all Subusers for a parent response
       type: object
@@ -622,42 +549,6 @@ components:
         email: example@example.com
         id: 1234
         username: example_subuser
-    ErrorResponse:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-                description: An error message.
-              field:
-                description: When applicable, this property value will be the field that generated the error.
-                nullable: true
-                type: string
-              help:
-                type: object
-                description: When applicable, this property value will be helper text or a link to documentation to help you troubleshoot the error.
-        id:
-          type: string
-          description: When applicable, this property value will be an error ID.
-      example:
-        errors:
-        - field: field_name
-          message: error message
-    Region2:
-      type: string
-      enum:
-      - global
-      - eu
-    Region:
-      type: string
-      enum:
-      - all
-      - global
-      - eu
     ResetFrequency1:
       type: string
       enum:
@@ -704,6 +595,123 @@ components:
         remain: 99
         total: 100
         used: 1
+    Region:
+      type: string
+      enum:
+      - all
+      - global
+      - eu
+    Region1:
+      type: string
+      enum:
+      - global
+      - eu
+    Region2:
+      type: string
+      enum:
+      - global
+      - eu
+    Region3:
+      type: string
+      enum:
+      - global
+      - eu
+    SubuserCreditsRequest:
+      title: Subuser Credits reset request body
+      type: object
+      properties:
+        type:
+          type: string
+          description: Type determines how credits are reset for a Subuser. `unlimited` indicates that there is no limit to the Subuser's credits. `recurring` indicates that the credits for the Subuser are reset according to the frequency determined by `reset_frequency`. `nonrecurring` indicates that there is no recurring schedule to reset credits and resets must be done on an ad hoc basis.
+          $ref: '#/components/schemas/Type1'
+        reset_frequency:
+          type: string
+          description: The frequency with which a Subuser's credits are reset if `type` is set to `recurring`. Do _not_ include `reset_frequency` if you choose a reset `type` value of `unlimited` or `nonrecurring`.
+          $ref: '#/components/schemas/ResetFrequency1'
+        total:
+          type: integer
+          description: Total number of credits to which the Subuser is to be reset. If `type` is `nonrecurring` then the Subuser's credits will be reset to `total` on a one-time basis. If `type` is `recurring` then the Subuser's credits will be reset to `total` every time a reset is scheduled in accordance with the `reset_frequency`. Do _not_ include `total` if you choose a reset `type` value of `unlimited`.
+          minimum: 1
+      required:
+      - type
+    SubuserPost:
+      title: Subuser::POST
+      type: object
+      properties:
+        username:
+          type: string
+          description: The username of the subuser.
+        user_id:
+          type: number
+          description: The user ID for this subuser.
+        email:
+          type: string
+          description: The email address for this subuser.
+          format: email
+        credit_allocation:
+          type: object
+          properties:
+            type:
+              type: string
+        region:
+          type: string
+          description: The region this Subuser is assigned to. The property is returned only if the `include_region` parameter is included and set to `true` in the API request.
+          default: global
+          $ref: '#/components/schemas/Region3'
+      required:
+      - username
+      - user_id
+      - email
+      example:
+        username: example_subuser
+        user_id: 1234
+        email: example@example.com
+        credit_allocation:
+          type: unlimited
+        region: global
+    ResetFrequency:
+      type: string
+      enum:
+      - monthly
+      - weekly
+      - daily
+    ErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: An error message.
+              field:
+                description: When applicable, this property value will be the field that generated the error.
+                nullable: true
+                type: string
+              help:
+                type: object
+                description: When applicable, this property value will be helper text or a link to documentation to help you troubleshoot the error.
+        id:
+          type: string
+          description: When applicable, this property value will be an error ID.
+      example:
+        errors:
+        - field: field_name
+          message: error message
+    Type:
+      type: string
+      enum:
+      - unlimited
+      - recurring
+      - nonrecurring
+    Type1:
+      type: string
+      enum:
+      - unlimited
+      - recurring
+      - nonrecurring
   parameters:
     PaginationCommonOffset:
       name: offset
