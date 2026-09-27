@@ -1087,149 +1087,6 @@ paths:
                         data: s2._domainkey.u7.w1.sgsandbox.net
 components:
   schemas:
-    AuthenticatedDomainSpf:
-      title: Domain Authentication
-      type: object
-      properties:
-        id:
-          type: integer
-          description: The ID of the authenticated domain.
-        domain:
-          type: string
-          description: The domain authenticated.
-        subdomain:
-          type: string
-          description: The subdomain that was used to create this authenticated domain.
-        username:
-          type: string
-          description: The username of the account that this authenticated domain is associated with.
-        user_id:
-          type: integer
-          description: The user_id of the account that this authenticated domain is associated with.
-        ips:
-          type: array
-          description: The IP addresses that are included in the SPF record for this authenticated domain.
-          items: {}
-        custom_spf:
-          type: boolean
-          description: Indicates if this authenticated domain uses custom SPF.
-        default:
-          type: boolean
-          description: Indicates if this is the default domain.
-        legacy:
-          type: boolean
-          description: Indicates if this authenticated domain was created using the legacy whitelabel tool. If it is a legacy whitelabel, it will still function, but you'll need to create a new authenticated domain if you need to update it.
-        automatic_security:
-          type: boolean
-          description: Indicates if this authenticated domain uses automated security.
-        valid:
-          type: boolean
-          description: Indicates if this is a valid authenticated domain .
-        dns:
-          type: object
-          description: The DNS records for this authenticated domain.
-          required:
-          - mail_server
-          - subdomain_spf
-          - domain_spf
-          - dkim
-          properties:
-            mail_server:
-              type: object
-              description: Designates which mail server is responsible for accepting messages from a domain.
-              required:
-              - host
-              - type
-              - data
-              - valid
-              properties:
-                host:
-                  type: string
-                  description: The domain sending the messages.
-                type:
-                  type: string
-                  description: They type of DNS record.
-                data:
-                  type: string
-                  description: The mail server responsible for accepting messages from the sending domain.
-                valid:
-                  type: boolean
-                  description: Indicates if this is a valid DNS record.
-            subdomain_spf:
-              type: object
-              description: The SPF record for the subdomain used to create this authenticated domain.
-              required:
-              - host
-              - type
-              - data
-              - valid
-              properties:
-                host:
-                  type: string
-                  description: The domain that this SPF record will be used to authenticate.
-                type:
-                  type: string
-                  description: The type of data in the SPF record.
-                data:
-                  type: string
-                  description: The SPF record.
-                valid:
-                  type: boolean
-                  description: Indicates if this is a valid SPF record.
-            domain_spf:
-              type: object
-              description: The SPF record for the root domain.
-              required:
-              - host
-              - type
-              - data
-              - valid
-              properties:
-                host:
-                  type: string
-                  description: The root domain that this SPF record will be used to authenticate.
-                type:
-                  type: string
-                  description: The type of data in the SPF record.
-                data:
-                  type: string
-                  description: The SPF record.
-                valid:
-                  type: boolean
-                  description: Indicates if the SPF record is valid.
-            dkim:
-              type: object
-              description: The DKIM record for messages sent using this authenticated domain.
-              required:
-              - host
-              - type
-              - data
-              - valid
-              properties:
-                host:
-                  type: string
-                  description: The DNS labels for the DKIM signature.
-                type:
-                  type: string
-                  description: The type of data in the DKIM record.
-                data:
-                  type: string
-                  description: The DKIM record.
-                valid:
-                  type: boolean
-                  description: Indicates if the DKIM record is valid.
-      required:
-      - id
-      - domain
-      - username
-      - user_id
-      - ips
-      - custom_spf
-      - default
-      - legacy
-      - automatic_security
-      - valid
-      - dns
     AuthenticatedDomain:
       title: Domain Authentication - Mandatory Subdomain
       type: object
@@ -1383,14 +1240,150 @@ components:
             type: cname
             host: s2._domainkey.example.com
             data: s2._domainkey.u7.wl.sendgrid.net
+    AuthenticatedDomainSpf:
+      title: Domain Authentication
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The ID of the authenticated domain.
+        domain:
+          type: string
+          description: The domain authenticated.
+        subdomain:
+          type: string
+          description: The subdomain that was used to create this authenticated domain.
+        username:
+          type: string
+          description: The username of the account that this authenticated domain is associated with.
+        user_id:
+          type: integer
+          description: The user_id of the account that this authenticated domain is associated with.
+        ips:
+          type: array
+          description: The IP addresses that are included in the SPF record for this authenticated domain.
+          items: {}
+        custom_spf:
+          type: boolean
+          description: Indicates if this authenticated domain uses custom SPF.
+        default:
+          type: boolean
+          description: Indicates if this is the default domain.
+        legacy:
+          type: boolean
+          description: Indicates if this authenticated domain was created using the legacy whitelabel tool. If it is a legacy whitelabel, it will still function, but you'll need to create a new authenticated domain if you need to update it.
+        automatic_security:
+          type: boolean
+          description: Indicates if this authenticated domain uses automated security.
+        valid:
+          type: boolean
+          description: Indicates if this is a valid authenticated domain .
+        dns:
+          type: object
+          description: The DNS records for this authenticated domain.
+          required:
+          - mail_server
+          - subdomain_spf
+          - domain_spf
+          - dkim
+          properties:
+            mail_server:
+              type: object
+              description: Designates which mail server is responsible for accepting messages from a domain.
+              required:
+              - host
+              - type
+              - data
+              - valid
+              properties:
+                host:
+                  type: string
+                  description: The domain sending the messages.
+                type:
+                  type: string
+                  description: They type of DNS record.
+                data:
+                  type: string
+                  description: The mail server responsible for accepting messages from the sending domain.
+                valid:
+                  type: boolean
+                  description: Indicates if this is a valid DNS record.
+            subdomain_spf:
+              type: object
+              description: The SPF record for the subdomain used to create this authenticated domain.
+              required:
+              - host
+              - type
+              - data
+              - valid
+              properties:
+                host:
+                  type: string
+                  description: The domain that this SPF record will be used to authenticate.
+                type:
+                  type: string
+                  description: The type of data in the SPF record.
+                data:
+                  type: string
+                  description: The SPF record.
+                valid:
+                  type: boolean
+                  description: Indicates if this is a valid SPF record.
+            domain_spf:
+              type: object
+              description: The SPF record for the root domain.
+              required:
+              - host
+              - type
+              - data
+              - valid
+              properties:
+                host:
+                  type: string
+                  description: The root domain that this SPF record will be used to authenticate.
+                type:
+                  type: string
+                  description: The type of data in the SPF record.
+                data:
+                  type: string
+                  description: The SPF record.
+                valid:
+                  type: boolean
+                  description: Indicates if the SPF record is valid.
+            dkim:
+              type: object
+              description: The DKIM record for messages sent using this authenticated domain.
+              required:
+              - host
+              - type
+              - data
+              - valid
+              properties:
+                host:
+                  type: string
+                  description: The DNS labels for the DKIM signature.
+                type:
+                  type: string
+                  description: The type of data in the DKIM record.
+                data:
+                  type: string
+                  description: The DKIM record.
+                valid:
+                  type: boolean
+                  description: Indicates if the DKIM record is valid.
+      required:
+      - id
+      - domain
+      - username
+      - user_id
+      - ips
+      - custom_spf
+      - default
+      - legacy
+      - automatic_security
+      - valid
+      - dns
   parameters:
-    OnBehalfOf:
-      name: on-behalf-of
-      in: header
-      description: 'The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent''s Subusers or customer accounts. You will use the parent account''s API key when using this header. When making a call on behalf of a customer account, the property value should be "account-id" followed by the customer account''s ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser''s username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.'
-      required: false
-      schema:
-        type: string
     PaginationCommonOffset:
       name: offset
       in: query
@@ -1400,6 +1393,13 @@ components:
         type: integer
         minimum: 0
         default: 0
+    OnBehalfOf:
+      name: on-behalf-of
+      in: header
+      description: 'The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent''s Subusers or customer accounts. You will use the parent account''s API key when using this header. When making a call on behalf of a customer account, the property value should be "account-id" followed by the customer account''s ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser''s username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.'
+      required: false
+      schema:
+        type: string
   responses:
     DomainAuthentication200:
       description: Success response

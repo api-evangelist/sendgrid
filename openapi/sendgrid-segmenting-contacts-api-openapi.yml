@@ -433,31 +433,50 @@ components:
         custom_fields:
           custom_field_name1: custom_field_value1
           custom_field_name2: custom_field_value2
-    ErrorResponse:
+    SegmentSummary:
+      title: segment_summary
       type: object
       properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-                description: An error message.
-              field:
-                description: When applicable, this property value will be the field that generated the error.
-                nullable: true
-                type: string
-              help:
-                type: object
-                description: When applicable, this property value will be helper text or a link to documentation to help you troubleshoot the error.
         id:
           type: string
-          description: When applicable, this property value will be an error ID.
-      example:
-        errors:
-        - field: field_name
-          message: error message
+          minLength: 36
+          maxLength: 36
+          format: uuid
+        contacts_count:
+          type: integer
+        created_at:
+          type: string
+          description: 'ISO8601 of created timestamp
+
+            '
+          format: date-time
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        parent_list_id:
+          type: string
+          minLength: 36
+          maxLength: 36
+          format: uuid
+          description: The id of the list if this segment is a child of a list.  This implies the query `AND CONTAINS(list_ids, ${parent_list_id})`
+        sample_updated_at:
+          type: string
+          description: ISO8601 timestamp the sample was last updated
+          format: date-time
+        updated_at:
+          type: string
+          description: ISO8601 timestamp the object was last updated
+          format: date-time
+        next_sample_update:
+          type: string
+          description: ISO8601 string that is equal to `sample_updated_at` plus an internally calculated offset that depends on how often contacts enter or exit segments as the scheduled pipeline updates the samples.
+      required:
+      - id
+      - contacts_count
+      - created_at
+      - sample_updated_at
+      - updated_at
     FullSegment:
       title: full_segment
       example:
@@ -552,57 +571,32 @@ components:
       - query_dsl
       - sample_updated_at
       - updated_at
-    SegmentSummary:
-      title: segment_summary
+    ErrorResponse:
       type: object
       properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: An error message.
+              field:
+                description: When applicable, this property value will be the field that generated the error.
+                nullable: true
+                type: string
+              help:
+                type: object
+                description: When applicable, this property value will be helper text or a link to documentation to help you troubleshoot the error.
         id:
           type: string
-          minLength: 36
-          maxLength: 36
-          format: uuid
-        contacts_count:
-          type: integer
-        created_at:
-          type: string
-          description: 'ISO8601 of created timestamp
-
-            '
-          format: date-time
-        name:
-          type: string
-          minLength: 1
-          maxLength: 100
-        parent_list_id:
-          type: string
-          minLength: 36
-          maxLength: 36
-          format: uuid
-          description: The id of the list if this segment is a child of a list.  This implies the query `AND CONTAINS(list_ids, ${parent_list_id})`
-        sample_updated_at:
-          type: string
-          description: ISO8601 timestamp the sample was last updated
-          format: date-time
-        updated_at:
-          type: string
-          description: ISO8601 timestamp the object was last updated
-          format: date-time
-        next_sample_update:
-          type: string
-          description: ISO8601 string that is equal to `sample_updated_at` plus an internally calculated offset that depends on how often contacts enter or exit segments as the scheduled pipeline updates the samples.
-      required:
-      - id
-      - contacts_count
-      - created_at
-      - sample_updated_at
-      - updated_at
+          description: When applicable, this property value will be an error ID.
+      example:
+        errors:
+        - field: field_name
+          message: error message
   responses:
-    Segments404:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     Segments401:
       description: ''
       content:
@@ -610,6 +604,12 @@ components:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
     Segments403:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Segments404:
       description: ''
       content:
         application/json:

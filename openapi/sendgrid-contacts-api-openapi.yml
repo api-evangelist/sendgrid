@@ -1305,147 +1305,40 @@ paths:
                         message:
                           type: string
 components:
+  responses:
+    MarketingContacts404:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    MarketingContacts403:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    MarketingContacts401:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    MarketingContacts500:
+      description: ''
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
   schemas:
-    IdentifierType:
-      type: string
-      enum:
-      - EMAIL
-      - PHONENUMBERID
-      - EXTERNALID
-      - ANONYMOUSID
-    ContactExport:
-      title: contact-export
-      type: object
-      properties:
-        id:
-          type: string
-        status:
-          type: string
-          description: 'The export job''s status. Allowed values: `pending`, `ready`, or `failure`.'
-          $ref: '#/components/schemas/Status'
-        created_at:
-          type: string
-          description: The ISO8601 timestamp when the export was begun.
-        updated_at:
-          type: string
-          description: The ISO8601 timestamp when the export was updated.
-        completed_at:
-          type: string
-          description: The ISO8601 timestamp when the export was completed.
-        expires_at:
-          type: string
-          description: The ISO8601 timestamp when the exported file on S3 will expire.
-        urls:
-          type: array
-          description: One or more download URLs for the contact file if the status is `ready`.
-          items:
-            type: string
-        message:
-          type: string
-          description: A human readable message if the status is `failure`.
-        _metadata:
-          $ref: '#/components/schemas/Metadata'
-        contact_count:
-          type: integer
-          description: The total number of exported contacts.
-      required:
-      - id
-      - status
-      - created_at
-      - updated_at
-      - expires_at
-    SelfMetadata:
-      title: selfMetadata
-      type: object
-      properties:
-        self:
-          type: string
-          description: A link to this object.
-    Metadata:
-      title: metadata
-      type: object
-      properties:
-        prev:
-          type: string
-          format: uri
-          description: The URL of the previous page of results. If this field isn't present, you're at the start of the list.
-        self:
-          type: string
-          format: uri
-          description: The URL of the current page of results.
-        next:
-          type: string
-          format: uri
-          description: The URL of the next page of results. If this field isn't present, you're at the end of the list.
-        count:
-          type: number
-          description: The number of items in the entire list, i.e., across all pages.
-    ContactDetails3:
-      title: contact-details3
-      type: object
-      properties:
-        id:
-          type: string
-        first_name:
-          type: string
-        last_name:
-          type: string
-        unique_name:
-          type: string
-        email:
-          type: string
-        phone_number_id:
-          type: string
-        external_id:
-          type: string
-        anonymous_id:
-          type: string
-        alternate_emails:
-          type: array
-          items:
-            type: string
-        address_line_1:
-          type: string
-        address_line_2:
-          type: string
-        city:
-          type: string
-        state_province_region:
-          type: string
-        country:
-          type: string
-        postal_code:
-          type: string
-        phone_number:
-          type: string
-        whatsapp:
-          type: string
-        line:
-          type: string
-        facebook:
-          type: string
-        list_ids:
-          type: array
-          items:
-            type: string
-        segment_ids:
-          type: array
-          items:
-            type: string
-        custom_fields:
-          type: object
-        created_at:
-          type: string
-        updated_at:
-          type: string
-        _metadata:
-          $ref: '#/components/schemas/SelfMetadata'
-      required:
-      - id
-      - list_ids
-      - segment_ids
-      - created_at
-      - updated_at
     Status:
       type: string
       enum:
@@ -1468,89 +1361,25 @@ components:
       enum:
       - csv
       - json
-    ErrorResponse:
+    Metadata:
+      title: metadata
       type: object
       properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-                description: An error message.
-              field:
-                description: When applicable, this property value will be the field that generated the error.
-                nullable: true
-                type: string
-              help:
-                type: object
-                description: When applicable, this property value will be helper text or a link to documentation to help you troubleshoot the error.
-        id:
+        prev:
           type: string
-          description: When applicable, this property value will be an error ID.
-      example:
-        errors:
-        - field: field_name
-          message: error message
-    ContactImport:
-      title: contact-import
-      type: object
-      properties:
-        id:
+          format: uri
+          description: The URL of the previous page of results. If this field isn't present, you're at the start of the list.
+        self:
           type: string
-          description: The job ID.
-        status:
+          format: uri
+          description: The URL of the current page of results.
+        next:
           type: string
-          description: 'The job state. Allowed values: `pending`, `completed`, `errored`, or `failed`.'
-        job_type:
-          type: string
-          description: 'The job type. Allowed values: `upsert`, or `delete`.'
-        results:
-          type: object
-          description: Result map of the import job.
-          properties:
-            requested_count:
-              description: Requested contact count from the import.
-              type: number
-            created_count:
-              description: Created contact count from the import.
-              type: number
-            updated_count:
-              description: Updated contact count from the import.
-              type: number
-            deleted_count:
-              description: Count of deleted contacts that resulted in error.
-              type: number
-            errored_count:
-              description: Count of imported contacts that resulted in error.
-              type: number
-            errors_url:
-              type: string
-              description: The download URL of the file which provides information about any errors.
-        started_at:
-          description: The ISO8601 timestamp when the job was created.
-          type: string
-        finished_at:
-          description: The ISO8601 timestamp when the job was finished.
-          type: string
-    ContactsError:
-      title: error
-      type: object
-      properties:
-        message:
-          type: string
-        field:
-          type: string
-        error_id:
-          type: string
-        parameter:
-          type: string
-      example:
-        field: field_name
-        message: error message
-      required:
-      - message
+          format: uri
+          description: The URL of the next page of results. If this field isn't present, you're at the end of the list.
+        count:
+          type: number
+          description: The number of items in the entire list, i.e., across all pages.
     ContactRequest:
       title: contact-request
       type: object
@@ -1620,39 +1449,210 @@ components:
             w1: coffee
             w33: '42'
             e2: blue
-  responses:
-    MarketingContacts403:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    MarketingContacts404:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    MarketingContacts500:
-      description: ''
-      content:
-        application/json:
-          schema:
+    ErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
             type: object
             properties:
-              errors:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    message:
-                      type: string
-    MarketingContacts401:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+              message:
+                type: string
+                description: An error message.
+              field:
+                description: When applicable, this property value will be the field that generated the error.
+                nullable: true
+                type: string
+              help:
+                type: object
+                description: When applicable, this property value will be helper text or a link to documentation to help you troubleshoot the error.
+        id:
+          type: string
+          description: When applicable, this property value will be an error ID.
+      example:
+        errors:
+        - field: field_name
+          message: error message
+    ContactImport:
+      title: contact-import
+      type: object
+      properties:
+        id:
+          type: string
+          description: The job ID.
+        status:
+          type: string
+          description: 'The job state. Allowed values: `pending`, `completed`, `errored`, or `failed`.'
+        job_type:
+          type: string
+          description: 'The job type. Allowed values: `upsert`, or `delete`.'
+        results:
+          type: object
+          description: Result map of the import job.
+          properties:
+            requested_count:
+              description: Requested contact count from the import.
+              type: number
+            created_count:
+              description: Created contact count from the import.
+              type: number
+            updated_count:
+              description: Updated contact count from the import.
+              type: number
+            deleted_count:
+              description: Count of deleted contacts that resulted in error.
+              type: number
+            errored_count:
+              description: Count of imported contacts that resulted in error.
+              type: number
+            errors_url:
+              type: string
+              description: The download URL of the file which provides information about any errors.
+        started_at:
+          description: The ISO8601 timestamp when the job was created.
+          type: string
+        finished_at:
+          description: The ISO8601 timestamp when the job was finished.
+          type: string
+    SelfMetadata:
+      title: selfMetadata
+      type: object
+      properties:
+        self:
+          type: string
+          description: A link to this object.
+    ContactDetails3:
+      title: contact-details3
+      type: object
+      properties:
+        id:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        unique_name:
+          type: string
+        email:
+          type: string
+        phone_number_id:
+          type: string
+        external_id:
+          type: string
+        anonymous_id:
+          type: string
+        alternate_emails:
+          type: array
+          items:
+            type: string
+        address_line_1:
+          type: string
+        address_line_2:
+          type: string
+        city:
+          type: string
+        state_province_region:
+          type: string
+        country:
+          type: string
+        postal_code:
+          type: string
+        phone_number:
+          type: string
+        whatsapp:
+          type: string
+        line:
+          type: string
+        facebook:
+          type: string
+        list_ids:
+          type: array
+          items:
+            type: string
+        segment_ids:
+          type: array
+          items:
+            type: string
+        custom_fields:
+          type: object
+        created_at:
+          type: string
+        updated_at:
+          type: string
+        _metadata:
+          $ref: '#/components/schemas/SelfMetadata'
+      required:
+      - id
+      - list_ids
+      - segment_ids
+      - created_at
+      - updated_at
+    ContactsError:
+      title: error
+      type: object
+      properties:
+        message:
+          type: string
+        field:
+          type: string
+        error_id:
+          type: string
+        parameter:
+          type: string
+      example:
+        field: field_name
+        message: error message
+      required:
+      - message
+    IdentifierType:
+      type: string
+      enum:
+      - EMAIL
+      - PHONENUMBERID
+      - EXTERNALID
+      - ANONYMOUSID
+    ContactExport:
+      title: contact-export
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+          description: 'The export job''s status. Allowed values: `pending`, `ready`, or `failure`.'
+          $ref: '#/components/schemas/Status'
+        created_at:
+          type: string
+          description: The ISO8601 timestamp when the export was begun.
+        updated_at:
+          type: string
+          description: The ISO8601 timestamp when the export was updated.
+        completed_at:
+          type: string
+          description: The ISO8601 timestamp when the export was completed.
+        expires_at:
+          type: string
+          description: The ISO8601 timestamp when the exported file on S3 will expire.
+        urls:
+          type: array
+          description: One or more download URLs for the contact file if the status is `ready`.
+          items:
+            type: string
+        message:
+          type: string
+          description: A human readable message if the status is `failure`.
+        _metadata:
+          $ref: '#/components/schemas/Metadata'
+        contact_count:
+          type: integer
+          description: The total number of exported contacts.
+      required:
+      - id
+      - status
+      - created_at
+      - updated_at
+      - expires_at
   securitySchemes:
     BearerAuth:
       type: http

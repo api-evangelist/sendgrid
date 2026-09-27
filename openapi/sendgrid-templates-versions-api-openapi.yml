@@ -193,11 +193,6 @@ paths:
                     editor: code
 components:
   schemas:
-    Editor:
-      type: string
-      enum:
-      - code
-      - design
     TransactionalTemplateVersionOutput:
       title: 'Transactional Templates: Version Output'
       type: object
@@ -256,11 +251,25 @@ components:
       enum:
       - code
       - design
+    Active:
+      type: integer
+      enum:
+      - 0
+      - 1
     Active1:
       type: integer
       enum:
       - 0
       - 1
+    TransactionalTemplateWarning:
+      title: Warning
+      type: object
+      properties:
+        message:
+          type: string
+          description: Warning message for the user
+      example:
+        message: A sample warning message.
     TransactionalTemplateVersionCreate:
       title: 'Transactional Templates: Version Create'
       type: object
@@ -309,20 +318,11 @@ components:
         subject: aliquip nulla Ut
         editor: design
         plain_content: labore dolore
-    TransactionalTemplateWarning:
-      title: Warning
-      type: object
-      properties:
-        message:
-          type: string
-          description: Warning message for the user
-      example:
-        message: A sample warning message.
-    Active:
-      type: integer
+    Editor:
+      type: string
       enum:
-      - 0
-      - 1
+      - code
+      - design
   parameters:
     OnBehalfOf:
       name: on-behalf-of

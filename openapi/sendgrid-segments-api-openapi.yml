@@ -529,31 +529,6 @@ paths:
                 type: object
 components:
   schemas:
-    ContactdbSegmentsId200:
-      title: 'ContactDB:: Segments with ID'
-      type: object
-      properties:
-        id:
-          type: number
-          description: The ID of the segment.
-        name:
-          type: string
-          description: The name of this segment.
-        list_id:
-          type: integer
-          description: The list id from which to make this segment. Not including this ID will mean your segment is created from the main contactdb rather than a list.
-        conditions:
-          type: array
-          description: The conditions for a recipient to be included in this segment.
-          items:
-            $ref: '#/components/schemas/ContactdbSegmentsConditions'
-        recipient_count:
-          type: number
-          description: The count of recipients in this list. This is not included on creation of segments.
-      required:
-      - conditions
-      - id
-      - name
     Operator:
       type: string
       enum:
@@ -562,55 +537,6 @@ components:
       - lt
       - gt
       - contains
-    ContactdbCustomFieldIdValue:
-      title: ContactDB Custom field schema.
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the field
-        type:
-          type: string
-          description: The type of the field.
-          $ref: '#/components/schemas/Type'
-        id:
-          type: number
-          description: The ID of the custom field.
-        value:
-          description: The value of this recipient's custom field
-          nullable: true
-          type: string
-    ErrorResponse:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-                description: An error message.
-              field:
-                description: When applicable, this property value will be the field that generated the error.
-                nullable: true
-                type: string
-              help:
-                type: object
-                description: When applicable, this property value will be helper text or a link to documentation to help you troubleshoot the error.
-        id:
-          type: string
-          description: When applicable, this property value will be an error ID.
-      example:
-        errors:
-        - field: field_name
-          message: error message
-    Type:
-      type: string
-      enum:
-      - date
-      - text
-      - number
     ContactdbSegmentsConditions:
       title: 'ContactDB: Segments: Conditions'
       type: object
@@ -629,44 +555,6 @@ components:
       - field
       - value
       - operator
-    ContactdbSegments:
-      title: Create a Segment request
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of this segment.
-        list_id:
-          type: integer
-          description: The list id from which to make this segment. Not including this ID will mean your segment is created from the main contactdb rather than a list.
-        conditions:
-          type: array
-          description: The conditions for a recipient to be included in this segment.
-          items:
-            $ref: '#/components/schemas/ContactdbSegmentsConditions'
-        recipient_count:
-          type: number
-          description: The count of recipients in this list. This is not included on creation of segments.
-      required:
-      - name
-      - conditions
-      example:
-        name: Last Name Miller
-        list_id: 4
-        conditions:
-        - field: last_name
-          value: Miller
-          operator: eq
-          and_or: ''
-        - field: last_clicked
-          value: 01/02/2015
-          operator: gt
-          and_or: and
-        - field: clicks.campaign_identifier
-          value: '513'
-          operator: eq
-          and_or: or
-        recipient_count: 1234
     ContactdbRecipient200:
       title: 'ContactDB: Recipient'
       type: object
@@ -716,6 +604,118 @@ components:
                 description: The last update date for this recipient's record.
             required:
             - email
+    ContactdbSegmentsId200:
+      title: 'ContactDB:: Segments with ID'
+      type: object
+      properties:
+        id:
+          type: number
+          description: The ID of the segment.
+        name:
+          type: string
+          description: The name of this segment.
+        list_id:
+          type: integer
+          description: The list id from which to make this segment. Not including this ID will mean your segment is created from the main contactdb rather than a list.
+        conditions:
+          type: array
+          description: The conditions for a recipient to be included in this segment.
+          items:
+            $ref: '#/components/schemas/ContactdbSegmentsConditions'
+        recipient_count:
+          type: number
+          description: The count of recipients in this list. This is not included on creation of segments.
+      required:
+      - conditions
+      - id
+      - name
+    Type:
+      type: string
+      enum:
+      - date
+      - text
+      - number
+    ErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: An error message.
+              field:
+                description: When applicable, this property value will be the field that generated the error.
+                nullable: true
+                type: string
+              help:
+                type: object
+                description: When applicable, this property value will be helper text or a link to documentation to help you troubleshoot the error.
+        id:
+          type: string
+          description: When applicable, this property value will be an error ID.
+      example:
+        errors:
+        - field: field_name
+          message: error message
+    ContactdbCustomFieldIdValue:
+      title: ContactDB Custom field schema.
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the field
+        type:
+          type: string
+          description: The type of the field.
+          $ref: '#/components/schemas/Type'
+        id:
+          type: number
+          description: The ID of the custom field.
+        value:
+          description: The value of this recipient's custom field
+          nullable: true
+          type: string
+    ContactdbSegments:
+      title: Create a Segment request
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of this segment.
+        list_id:
+          type: integer
+          description: The list id from which to make this segment. Not including this ID will mean your segment is created from the main contactdb rather than a list.
+        conditions:
+          type: array
+          description: The conditions for a recipient to be included in this segment.
+          items:
+            $ref: '#/components/schemas/ContactdbSegmentsConditions'
+        recipient_count:
+          type: number
+          description: The count of recipients in this list. This is not included on creation of segments.
+      required:
+      - name
+      - conditions
+      example:
+        name: Last Name Miller
+        list_id: 4
+        conditions:
+        - field: last_name
+          value: Miller
+          operator: eq
+          and_or: ''
+        - field: last_clicked
+          value: 01/02/2015
+          operator: gt
+          and_or: and
+        - field: clicks.campaign_identifier
+          value: '513'
+          operator: eq
+          and_or: or
+        recipient_count: 1234
     AndOr:
       type: string
       enum:

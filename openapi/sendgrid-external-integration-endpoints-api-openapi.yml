@@ -364,6 +364,10 @@ paths:
                       $ref: '#/components/schemas/InternalError'
 components:
   schemas:
+    Destination2:
+      type: string
+      enum:
+      - Segment
     Items1:
       type: string
       enum:
@@ -379,19 +383,24 @@ components:
       - group_resubscribe
       - spamreport
       - machine_opened
-    Destination3:
-      type: string
-      enum:
-      - Segment
-    Destination1:
-      type: string
-      enum:
-      - Segment
-    DestinationRegion2:
-      type: string
-      enum:
-      - EU
-      - US
+    InvalidDeleteRequest:
+      type: object
+      properties:
+        message:
+          type: string
+          description: The error message tells you the cause of failure.
+          example: IDs cannot be an empty string
+        parameter:
+          type: string
+          example: ids[1]
+          description: The parameter shows more information about where the error is. The number in the brackets is the invalid ID indexed.
+    InternalError:
+      type: object
+      properties:
+        message:
+          type: string
+          description: The error message tells you the cause of failure.
+          example: internal error
     Items2:
       type: string
       enum:
@@ -412,21 +421,50 @@ components:
       enum:
       - EU
       - US
-    Destination2:
+    Destination3:
       type: string
       enum:
       - Segment
-    InvalidDeleteRequest:
+    InvalidRequest:
+      type: object
+      properties:
+        message:
+          type: string
+          description: The error message tells you the cause of validation failure(s), separated by commas if there are multiple failures.
+          example: destination_region must be EU or US, write_key must be at least 7 characters
+        field:
+          type: string
+          example: request
+          description: The field shows more information on where the error is when available.
+    Forbidden:
       type: object
       properties:
         message:
           type: string
           description: The error message tells you the cause of failure.
-          example: IDs cannot be an empty string
-        parameter:
+          example: access forbidden. please ensure you have the correct scopes defined. see https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/authorization#api-key-permissions-list
+    Id:
+      type: string
+      description: The unique ID of an Integration.
+      properties:
+        integration_id:
           type: string
-          example: ids[1]
-          description: The parameter shows more information about where the error is. The number in the brackets is the invalid ID indexed.
+          example: '12345'
+    Items:
+      type: string
+      enum:
+      - drop
+      - processed
+      - deferred
+      - group_unsubscribe
+      - bounce
+      - delivered
+      - click
+      - unsubscribe
+      - open
+      - group_resubscribe
+      - spamreport
+      - machine_opened
     IntegrationNotFound:
       type: object
       properties:
@@ -434,6 +472,11 @@ components:
           type: string
           description: The error message tells you the cause of failure.
           example: integration does not exist (abc)
+    DestinationRegion2:
+      type: string
+      enum:
+      - EU
+      - US
     IntegrationPatch:
       type: object
       properties:
@@ -468,20 +511,6 @@ components:
           default: Untitled Integration
           example: My New Segment Integration!
           description: The nickname for the Integration.
-    Id:
-      type: string
-      description: The unique ID of an Integration.
-      properties:
-        integration_id:
-          type: string
-          example: '12345'
-    InternalError:
-      type: object
-      properties:
-        message:
-          type: string
-          description: The error message tells you the cause of failure.
-          example: internal error
     IntegrationInput:
       type: object
       required:
@@ -525,13 +554,11 @@ components:
           default: Untitled Integration
           example: My New Segment Integration!
           description: The nickname for the Integration.
-    Forbidden:
-      type: object
-      properties:
-        message:
-          type: string
-          description: The error message tells you the cause of failure.
-          example: access forbidden. please ensure you have the correct scopes defined. see https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/authorization#api-key-permissions-list
+    DestinationRegion1:
+      type: string
+      enum:
+      - EU
+      - US
     Integration:
       type: object
       properties:
@@ -574,37 +601,10 @@ components:
           type: string
           description: The third-party application you would like to forward your events to.
           $ref: '#/components/schemas/Destination3'
-    InvalidRequest:
-      type: object
-      properties:
-        message:
-          type: string
-          description: The error message tells you the cause of validation failure(s), separated by commas if there are multiple failures.
-          example: destination_region must be EU or US, write_key must be at least 7 characters
-        field:
-          type: string
-          example: request
-          description: The field shows more information on where the error is when available.
-    DestinationRegion1:
+    Destination1:
       type: string
       enum:
-      - EU
-      - US
-    Items:
-      type: string
-      enum:
-      - drop
-      - processed
-      - deferred
-      - group_unsubscribe
-      - bounce
-      - delivered
-      - click
-      - unsubscribe
-      - open
-      - group_resubscribe
-      - spamreport
-      - machine_opened
+      - Segment
   securitySchemes:
     BearerAuth:
       type: http

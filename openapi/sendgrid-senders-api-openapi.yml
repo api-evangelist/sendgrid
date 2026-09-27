@@ -210,6 +210,60 @@ paths:
         '404':
           $ref: '#/components/responses/Senders404'
 components:
+  parameters:
+    SenderId:
+      name: id
+      in: path
+      description: The unique identifier of the Sender.
+      required: true
+      schema:
+        type: integer
+    OnBehalfOf:
+      name: on-behalf-of
+      in: header
+      description: 'The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent''s Subusers or customer accounts. You will use the parent account''s API key when using this header. When making a call on behalf of a customer account, the property value should be "account-id" followed by the customer account''s ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser''s username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.'
+      required: false
+      schema:
+        type: string
+  responses:
+    Senders400:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Senders404:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Senders500:
+      description: ''
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+    Senders401:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Senders403:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
     Sender:
       title: Sender
@@ -305,6 +359,31 @@ components:
       - reply_to
       - updated_at
       - verified
+    ErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: An error message.
+              field:
+                description: When applicable, this property value will be the field that generated the error.
+                nullable: true
+                type: string
+              help:
+                type: object
+                description: When applicable, this property value will be helper text or a link to documentation to help you troubleshoot the error.
+        id:
+          type: string
+          description: When applicable, this property value will be an error ID.
+      example:
+        errors:
+        - field: field_name
+          message: error message
     SenderRequest:
       title: Sender Request
       type: object
@@ -362,85 +441,6 @@ components:
         state: CA
         zip: '94105'
         country: United States
-    ErrorResponse:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-                description: An error message.
-              field:
-                description: When applicable, this property value will be the field that generated the error.
-                nullable: true
-                type: string
-              help:
-                type: object
-                description: When applicable, this property value will be helper text or a link to documentation to help you troubleshoot the error.
-        id:
-          type: string
-          description: When applicable, this property value will be an error ID.
-      example:
-        errors:
-        - field: field_name
-          message: error message
-  responses:
-    Senders500:
-      description: ''
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    message:
-                      type: string
-    Senders401:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Senders404:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Senders400:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Senders403:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    OnBehalfOf:
-      name: on-behalf-of
-      in: header
-      description: 'The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent''s Subusers or customer accounts. You will use the parent account''s API key when using this header. When making a call on behalf of a customer account, the property value should be "account-id" followed by the customer account''s ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser''s username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.'
-      required: false
-      schema:
-        type: string
-    SenderId:
-      name: id
-      in: path
-      description: The unique identifier of the Sender.
-      required: true
-      schema:
-        type: integer
   securitySchemes:
     BearerAuth:
       type: http

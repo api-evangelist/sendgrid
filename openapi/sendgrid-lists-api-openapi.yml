@@ -1038,81 +1038,6 @@ components:
       schema:
         type: string
   schemas:
-    ContactdbCustomFieldIdValue:
-      title: ContactDB Custom field schema.
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the field
-        type:
-          type: string
-          description: The type of the field.
-          $ref: '#/components/schemas/Type'
-        id:
-          type: number
-          description: The ID of the custom field.
-        value:
-          description: The value of this recipient's custom field
-          nullable: true
-          type: string
-    ContactdbList2xx:
-      title: ContactDB lists
-      type: object
-      properties:
-        id:
-          type: integer
-          description: The reference ID of your list.
-        name:
-          type: string
-          description: The name of your list. Must be unique against all other list and segment names.
-        recipient_count:
-          type: integer
-          description: The count of recipients currently in the list.
-      required:
-      - id
-      - name
-      - recipient_count
-      example:
-        id: 1
-        name: listname
-        recipient_count: 0
-    ErrorResponse:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-                description: An error message.
-              field:
-                description: When applicable, this property value will be the field that generated the error.
-                nullable: true
-                type: string
-              help:
-                type: object
-                description: When applicable, this property value will be helper text or a link to documentation to help you troubleshoot the error.
-        id:
-          type: string
-          description: When applicable, this property value will be an error ID.
-      example:
-        errors:
-        - field: field_name
-          message: error message
-    Type:
-      type: string
-      enum:
-      - date
-      - text
-      - number
-    DeleteContacts:
-      type: boolean
-      enum:
-      - true
-      - false
     ContactdbRecipient200:
       title: 'ContactDB: Recipient'
       type: object
@@ -1162,6 +1087,81 @@ components:
                 description: The last update date for this recipient's record.
             required:
             - email
+    Type:
+      type: string
+      enum:
+      - date
+      - text
+      - number
+    DeleteContacts:
+      type: boolean
+      enum:
+      - true
+      - false
+    ContactdbList2xx:
+      title: ContactDB lists
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The reference ID of your list.
+        name:
+          type: string
+          description: The name of your list. Must be unique against all other list and segment names.
+        recipient_count:
+          type: integer
+          description: The count of recipients currently in the list.
+      required:
+      - id
+      - name
+      - recipient_count
+      example:
+        id: 1
+        name: listname
+        recipient_count: 0
+    ErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: An error message.
+              field:
+                description: When applicable, this property value will be the field that generated the error.
+                nullable: true
+                type: string
+              help:
+                type: object
+                description: When applicable, this property value will be helper text or a link to documentation to help you troubleshoot the error.
+        id:
+          type: string
+          description: When applicable, this property value will be an error ID.
+      example:
+        errors:
+        - field: field_name
+          message: error message
+    ContactdbCustomFieldIdValue:
+      title: ContactDB Custom field schema.
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the field
+        type:
+          type: string
+          description: The type of the field.
+          $ref: '#/components/schemas/Type'
+        id:
+          type: number
+          description: The ID of the custom field.
+        value:
+          description: The value of this recipient's custom field
+          nullable: true
+          type: string
     Error:
       title: error
       type: object
@@ -1176,6 +1176,42 @@ components:
           type: string
       required:
       - message
+    List:
+      title: list
+      type: object
+      properties:
+        id:
+          type: string
+          description: The generated ID for your list.
+          minLength: 36
+          maxLength: 36
+        name:
+          type: string
+          description: The name you gave your list.
+        contact_count:
+          type: integer
+          description: The number of contacts currently stored on the list.
+        _metadata:
+          $ref: '#/components/schemas/SelfMetadata'
+    Metadata:
+      title: metadata
+      type: object
+      properties:
+        prev:
+          type: string
+          format: uri
+          description: The URL of the previous page of results. If this field isn't present, you're at the start of the list.
+        self:
+          type: string
+          format: uri
+          description: The URL of the current page of results.
+        next:
+          type: string
+          format: uri
+          description: The URL of the next page of results. If this field isn't present, you're at the end of the list.
+        count:
+          type: number
+          description: The number of items in the entire list, i.e., across all pages.
     SelfMetadata:
       title: selfMetadata
       type: object
@@ -1258,42 +1294,6 @@ components:
       - list_ids
       - created_at
       - updated_at
-    Metadata:
-      title: metadata
-      type: object
-      properties:
-        prev:
-          type: string
-          format: uri
-          description: The URL of the previous page of results. If this field isn't present, you're at the start of the list.
-        self:
-          type: string
-          format: uri
-          description: The URL of the current page of results.
-        next:
-          type: string
-          format: uri
-          description: The URL of the next page of results. If this field isn't present, you're at the end of the list.
-        count:
-          type: number
-          description: The number of items in the entire list, i.e., across all pages.
-    List:
-      title: list
-      type: object
-      properties:
-        id:
-          type: string
-          description: The generated ID for your list.
-          minLength: 36
-          maxLength: 36
-        name:
-          type: string
-          description: The name you gave your list.
-        contact_count:
-          type: integer
-          description: The number of contacts currently stored on the list.
-        _metadata:
-          $ref: '#/components/schemas/SelfMetadata'
   securitySchemes:
     BearerAuth:
       type: http

@@ -572,112 +572,13 @@ paths:
         '500':
           $ref: '#/components/responses/VerifiedSenders500'
 components:
-  responses:
-    VerifiedSenders403:
-      description: ''
+  requestBodies:
+    PostPatchVerifiedSender:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    VerifiedSenders401:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    VerifiedSenders404:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    VerifiedSenders500:
-      description: ''
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    message:
-                      type: string
+            $ref: '#/components/schemas/VerifiedSenderRequest'
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-                description: An error message.
-              field:
-                description: When applicable, this property value will be the field that generated the error.
-                nullable: true
-                type: string
-              help:
-                type: object
-                description: When applicable, this property value will be helper text or a link to documentation to help you troubleshoot the error.
-        id:
-          type: string
-          description: When applicable, this property value will be an error ID.
-      example:
-        errors:
-        - field: field_name
-          message: error message
-    VerifiedSenderResponse:
-      title: Verified Sender Response Schema
-      type: object
-      properties:
-        id:
-          type: integer
-        nickname:
-          type: string
-        from_email:
-          type: string
-        from_name:
-          type: string
-        reply_to:
-          type: string
-        reply_to_name:
-          type: string
-        address:
-          type: string
-        address2:
-          type: string
-        state:
-          type: string
-        city:
-          type: string
-        zip:
-          type: string
-        country:
-          type: string
-        verified:
-          type: boolean
-        locked:
-          type: boolean
-      example:
-        id: 1234
-        nickname: Example Orders
-        from_email: orders@example.com
-        from_name: Example Orders
-        reply_to: orders@example.com
-        reply_to_name: Example Orders
-        address: 1234 Fake St.
-        address2: PO Box 1234
-        state: CA
-        city: San Francisco
-        country: USA
-        zip: '94105'
-        verified: true
-        locked: false
     VerifiedSenderRequest:
       title: Verified Sender Request Schema
       type: object
@@ -733,12 +634,111 @@ components:
         city: San Francisco
         country: USA
         zip: '94105'
-  requestBodies:
-    PostPatchVerifiedSender:
+    VerifiedSenderResponse:
+      title: Verified Sender Response Schema
+      type: object
+      properties:
+        id:
+          type: integer
+        nickname:
+          type: string
+        from_email:
+          type: string
+        from_name:
+          type: string
+        reply_to:
+          type: string
+        reply_to_name:
+          type: string
+        address:
+          type: string
+        address2:
+          type: string
+        state:
+          type: string
+        city:
+          type: string
+        zip:
+          type: string
+        country:
+          type: string
+        verified:
+          type: boolean
+        locked:
+          type: boolean
+      example:
+        id: 1234
+        nickname: Example Orders
+        from_email: orders@example.com
+        from_name: Example Orders
+        reply_to: orders@example.com
+        reply_to_name: Example Orders
+        address: 1234 Fake St.
+        address2: PO Box 1234
+        state: CA
+        city: San Francisco
+        country: USA
+        zip: '94105'
+        verified: true
+        locked: false
+    ErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: An error message.
+              field:
+                description: When applicable, this property value will be the field that generated the error.
+                nullable: true
+                type: string
+              help:
+                type: object
+                description: When applicable, this property value will be helper text or a link to documentation to help you troubleshoot the error.
+        id:
+          type: string
+          description: When applicable, this property value will be an error ID.
+      example:
+        errors:
+        - field: field_name
+          message: error message
+  responses:
+    VerifiedSenders500:
+      description: ''
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/VerifiedSenderRequest'
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+    VerifiedSenders401:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    VerifiedSenders404:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    VerifiedSenders403:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     BearerAuth:
       type: http

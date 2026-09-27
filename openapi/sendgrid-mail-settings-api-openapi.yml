@@ -680,6 +680,23 @@ paths:
         '500':
           $ref: '#/components/responses/MailSettingsError500'
 components:
+  parameters:
+    PaginationCommonOffset:
+      name: offset
+      in: query
+      required: false
+      description: The number of items in the list to skip over before starting to retrieve the items for the requested page. The default `offset` of `0` represents the beginning of the list, i.e. the start of the first page. To request the second page of the list, set the `offset` to the page size as determined by `limit`. Use multiples of the page size as your `offset` to request further consecutive pages. E.g. assume your page size is set to `10`. An `offset` of `10` requests the second page, an `offset` of `20` requests the third page and so on, provided there are sufficiently many items in your list.
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    OnBehalfOf:
+      name: on-behalf-of
+      in: header
+      description: 'The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent''s Subusers or customer accounts. You will use the parent account''s API key when using this header. When making a call on behalf of a customer account, the property value should be "account-id" followed by the customer account''s ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser''s username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.'
+      required: false
+      schema:
+        type: string
   schemas:
     MailSettingsForwardSpam:
       title: 'Mail Settings: Forward Spam'
@@ -694,6 +711,54 @@ components:
       example:
         email: ''
         enabled: true
+    MailSettingsTemplate200:
+      title: 'Mail Settings: Template'
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: Indicates if the legacy email template setting is enabled.
+        html_content:
+          type: string
+          description: The HTML content that you want to use for your legacy email template.
+      example:
+        enabled: false
+        html_content: '<p><% body %>Example</p>
+
+          '
+    MailSettingsForwardBounce:
+      title: 'Mail Settings: Forward Bounce'
+      type: object
+      properties:
+        email:
+          description: The email address that you would like your bounce reports forwarded to.
+          nullable: true
+          type: string
+        enabled:
+          type: boolean
+          description: Indicates if the bounce forwarding mail setting is enabled.
+      example:
+        enabled: false
+        email: email@example.com
+    MailSettingsBouncePurge:
+      title: 'Mail Settings: Bounce Purge'
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: Indicates if the Bounce Purge mail setting is enabled.
+        soft_bounces:
+          description: The number of days after which SendGrid will purge all contacts from your soft bounces suppression lists.
+          nullable: true
+          type: integer
+        hard_bounces:
+          description: The number of days after which SendGrid will purge all contacts from your hard bounces suppression lists.
+          nullable: true
+          type: integer
+      example:
+        enabled: false
+        soft_bounces: 1234
+        hard_bounces: 1234
     MailSettingsFooter:
       title: 'Mail Settings: Footer'
       type: object
@@ -728,56 +793,8 @@ components:
         list:
         - email1@example.com
         - example.com
-    MailSettingsForwardBounce:
-      title: 'Mail Settings: Forward Bounce'
-      type: object
-      properties:
-        email:
-          description: The email address that you would like your bounce reports forwarded to.
-          nullable: true
-          type: string
-        enabled:
-          type: boolean
-          description: Indicates if the bounce forwarding mail setting is enabled.
-      example:
-        enabled: false
-        email: email@example.com
-    MailSettingsBouncePurge:
-      title: 'Mail Settings: Bounce Purge'
-      type: object
-      properties:
-        enabled:
-          type: boolean
-          description: Indicates if the Bounce Purge mail setting is enabled.
-        soft_bounces:
-          description: The number of days after which SendGrid will purge all contacts from your soft bounces suppression lists.
-          nullable: true
-          type: integer
-        hard_bounces:
-          description: The number of days after which SendGrid will purge all contacts from your hard bounces suppression lists.
-          nullable: true
-          type: integer
-      example:
-        enabled: false
-        soft_bounces: 1234
-        hard_bounces: 1234
-    MailSettingsTemplate200:
-      title: 'Mail Settings: Template'
-      type: object
-      properties:
-        enabled:
-          type: boolean
-          description: Indicates if the legacy email template setting is enabled.
-        html_content:
-          type: string
-          description: The HTML content that you want to use for your legacy email template.
-      example:
-        enabled: false
-        html_content: '<p><% body %>Example</p>
-
-          '
   responses:
-    MailSettingsError403:
+    MailSettingsError500:
       description: ''
       content:
         application/json:
@@ -829,7 +846,7 @@ components:
                       type: string
                   required:
                   - message
-    MailSettingsError500:
+    MailSettingsError403:
       description: ''
       content:
         application/json:
@@ -907,23 +924,6 @@ components:
                       type: string
                   required:
                   - message
-  parameters:
-    OnBehalfOf:
-      name: on-behalf-of
-      in: header
-      description: 'The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent''s Subusers or customer accounts. You will use the parent account''s API key when using this header. When making a call on behalf of a customer account, the property value should be "account-id" followed by the customer account''s ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser''s username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.'
-      required: false
-      schema:
-        type: string
-    PaginationCommonOffset:
-      name: offset
-      in: query
-      required: false
-      description: The number of items in the list to skip over before starting to retrieve the items for the requested page. The default `offset` of `0` represents the beginning of the list, i.e. the start of the first page. To request the second page of the list, set the `offset` to the page size as determined by `limit`. Use multiples of the page size as your `offset` to request further consecutive pages. E.g. assume your page size is set to `10`. An `offset` of `10` requests the second page, an `offset` of `20` requests the third page and so on, provided there are sufficiently many items in your list.
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
   securitySchemes:
     BearerAuth:
       type: http

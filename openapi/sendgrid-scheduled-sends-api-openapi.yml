@@ -224,18 +224,6 @@ paths:
           $ref: '#/components/responses/ScheduledSends500'
 components:
   responses:
-    ScheduledSends404:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    ScheduledSends403:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     ScheduledSends500:
       description: ''
       content:
@@ -250,7 +238,7 @@ components:
                   properties:
                     message:
                       type: string
-    ScheduledSends400:
+    ScheduledSends403:
       description: ''
       content:
         application/json:
@@ -262,7 +250,24 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+    ScheduledSends404:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    ScheduledSends400:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
+    Status:
+      type: string
+      enum:
+      - pause
+      - cancel
     ScheduledSendStatus:
       title: User Scheduled Send status
       example:
@@ -280,16 +285,11 @@ components:
       required:
       - batch_id
       - status
-    Status2:
+    Status1:
       type: string
       enum:
       - cancel
       - pause
-    Status:
-      type: string
-      enum:
-      - pause
-      - cancel
     ErrorResponse:
       type: object
       properties:
@@ -315,7 +315,7 @@ components:
         errors:
         - field: field_name
           message: error message
-    Status1:
+    Status2:
       type: string
       enum:
       - cancel

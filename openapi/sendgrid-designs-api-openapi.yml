@@ -647,29 +647,22 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiErrors'
 components:
-  parameters:
-    DesignsQueryStringsSummary:
-      name: summary
-      in: query
-      description: set to false to return all fields
-      schema:
-        type: boolean
-        default: true
-    DesignsQueryStringsPageSize:
-      name: page_size
-      in: query
-      description: number of results to return
-      schema:
-        type: integer
-        minimum: 0
-        default: 100
-    DesignsQueryStringsPageToken:
-      name: page_token
-      in: query
-      description: token corresponding to a specific page of results, as provided by metadata
-      schema:
-        type: string
   schemas:
+    DesignDuplicateInput:
+      title: Design Duplicate Design Input
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the new design.
+          default: 'Duplicate: <original design name>'
+        editor:
+          type: string
+          description: The editor used in the UI.
+          $ref: '#/components/schemas/Editor'
+      example:
+        name: Ahoy, Cake or Pie Cafe!
+        editor: design
     DesignOutputSummary:
       title: Design Output - Summary
       example:
@@ -733,20 +726,6 @@ components:
           type: string
           description: The editor used in the UI.
           $ref: '#/components/schemas/Editor'
-    ApiError:
-      title: error
-      type: object
-      properties:
-        message:
-          type: string
-        field:
-          type: string
-        error_id:
-          type: string
-      required:
-      - message
-      - field
-      - error_id
     Metadata:
       title: _metadata
       type: object
@@ -771,21 +750,11 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ApiError'
-    DesignDuplicateInput:
-      title: Design Duplicate Design Input
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the new design.
-          default: 'Duplicate: <original design name>'
-        editor:
-          type: string
-          description: The editor used in the UI.
-          $ref: '#/components/schemas/Editor'
-      example:
-        name: Ahoy, Cake or Pie Cafe!
-        editor: design
+    Editor:
+      type: string
+      enum:
+      - code
+      - design
     DesignInput:
       title: Design Input
       example:
@@ -824,11 +793,6 @@ components:
           default: <generated from html_content if left empty>
       required:
       - html_content
-    Editor:
-      type: string
-      enum:
-      - code
-      - design
     DesignOutput:
       title: Design Output
       type: object
@@ -852,6 +816,42 @@ components:
           default: <generated from html_content if left empty>
       required:
       - html_content
+    ApiError:
+      title: error
+      type: object
+      properties:
+        message:
+          type: string
+        field:
+          type: string
+        error_id:
+          type: string
+      required:
+      - message
+      - field
+      - error_id
+  parameters:
+    DesignsQueryStringsPageToken:
+      name: page_token
+      in: query
+      description: token corresponding to a specific page of results, as provided by metadata
+      schema:
+        type: string
+    DesignsQueryStringsPageSize:
+      name: page_size
+      in: query
+      description: number of results to return
+      schema:
+        type: integer
+        minimum: 0
+        default: 100
+    DesignsQueryStringsSummary:
+      name: summary
+      in: query
+      description: set to false to return all fields
+      schema:
+        type: boolean
+        default: true
   requestBodies:
     DesignDuplicateInput:
       content:

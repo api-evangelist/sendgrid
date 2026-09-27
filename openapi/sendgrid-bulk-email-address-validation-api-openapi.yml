@@ -178,6 +178,95 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    Status:
+      type: string
+      enum:
+      - Initiated
+      - Queued
+      - Ready
+      - Processing
+      - Done
+      - Error
+    GetValidationsEmailJobsJobId200Response:
+      title: GET Validations Email Jobs job_id 200 Response
+      type: object
+      properties:
+        result:
+          type: object
+          description: ''
+          properties:
+            id:
+              type: string
+              description: The unique ID of the Bulk Email Address Validation Job.
+            status:
+              type: string
+              description: The status of the Bulk Email Address Validation Job.
+              $ref: '#/components/schemas/Status1'
+            segments:
+              type: number
+              description: The total number of segments in the Bulk Email Address Validation Job. There are 1,500 email addresses per segment. The value is `0` until the Job `status` is `Processing`.
+            segments_processed:
+              type: number
+              description: The number of segments processed at the time of the request. 100 segments process in parallel at a time.
+            is_download_available:
+              type: boolean
+              description: Boolean indicating whether the results CSV file is available for download.
+            started_at:
+              description: The ISO8601 timestamp when the Job was created. This is the time at which the upload request was sent to the `upload_uri`.
+              type: number
+            finished_at:
+              description: The ISO8601 timestamp when the Job was finished.
+              type: number
+            errors:
+              type: array
+              description: Array containing error messages related to the Bulk Email Address Validation Job. Array is empty if no errors ocurred.
+              items:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Description of the error encountered during execution of the Bulk Email Address Validation Job.
+    FileType:
+      type: string
+      enum:
+      - csv
+      - zip
+    Status1:
+      type: string
+      enum:
+      - Initiated
+      - Queued
+      - Ready
+      - Processing
+      - Done
+      - Error
+    ErrorResponse:
+      title: Error
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: The message representing the error from the API.
+              field:
+                type: string
+                description: The field associated with the error.
+              help:
+                type: object
+                description: Helper text or docs for troubleshooting.
+            required:
+            - message
+        id:
+          type: string
+          description: ID representing the error.
+      example:
+        errors:
+        - field: field_name
+          message: error message
     GetValidationsEmailJobs200Response:
       title: GET Validations Email Jobs 200 Response
       type: object
@@ -223,95 +312,6 @@ components:
               value:
                 type: string
                 description: The value of the header that must be included in the upload request.
-    GetValidationsEmailJobsJobId200Response:
-      title: GET Validations Email Jobs job_id 200 Response
-      type: object
-      properties:
-        result:
-          type: object
-          description: ''
-          properties:
-            id:
-              type: string
-              description: The unique ID of the Bulk Email Address Validation Job.
-            status:
-              type: string
-              description: The status of the Bulk Email Address Validation Job.
-              $ref: '#/components/schemas/Status1'
-            segments:
-              type: number
-              description: The total number of segments in the Bulk Email Address Validation Job. There are 1,500 email addresses per segment. The value is `0` until the Job `status` is `Processing`.
-            segments_processed:
-              type: number
-              description: The number of segments processed at the time of the request. 100 segments process in parallel at a time.
-            is_download_available:
-              type: boolean
-              description: Boolean indicating whether the results CSV file is available for download.
-            started_at:
-              description: The ISO8601 timestamp when the Job was created. This is the time at which the upload request was sent to the `upload_uri`.
-              type: number
-            finished_at:
-              description: The ISO8601 timestamp when the Job was finished.
-              type: number
-            errors:
-              type: array
-              description: Array containing error messages related to the Bulk Email Address Validation Job. Array is empty if no errors ocurred.
-              items:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    description: Description of the error encountered during execution of the Bulk Email Address Validation Job.
-    Status:
-      type: string
-      enum:
-      - Initiated
-      - Queued
-      - Ready
-      - Processing
-      - Done
-      - Error
-    FileType:
-      type: string
-      enum:
-      - csv
-      - zip
-    ErrorResponse:
-      title: Error
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-                description: The message representing the error from the API.
-              field:
-                type: string
-                description: The field associated with the error.
-              help:
-                type: object
-                description: Helper text or docs for troubleshooting.
-            required:
-            - message
-        id:
-          type: string
-          description: ID representing the error.
-      example:
-        errors:
-        - field: field_name
-          message: error message
-    Status1:
-      type: string
-      enum:
-      - Initiated
-      - Queued
-      - Ready
-      - Processing
-      - Done
-      - Error
   securitySchemes:
     BearerAuth:
       type: http

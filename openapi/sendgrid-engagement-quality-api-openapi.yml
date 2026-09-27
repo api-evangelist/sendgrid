@@ -117,30 +117,6 @@ paths:
           $ref: '#/components/responses/SeqV1Scores500'
 components:
   schemas:
-    SeqError:
-      title: Error
-      type: object
-      properties:
-        field:
-          type: string
-          description: When applicable, this property value will be the field that generated the error.
-        message:
-          type: string
-          description: An error message.
-      required:
-      - message
-      description: This object contains error details
-    SeqMetadata:
-      title: Metadata
-      type: object
-      description: This object contains response metadata. The presence of the `after_key` property in the metadata indicates that some items are still outstanding and have not been retrieved. You can use the `after_key` value to retrieve additional items with another request.
-      properties:
-        next_params:
-          type: object
-          properties:
-            after_key:
-              type: string
-              description: The `after_key` property represents the last processed key. If the `after_key` property is `null`, there are no more entries available.
     SeqMetrics:
       description: A collection of metrics representing your engagement score across multiple indicators such as your open rate, spam rate, and bounce rate. Each metric is assigned a score from `1` to `5` with a higher score representing better engagement quality for that particular metric. The `metrics` property will be omitted when a score is unknown. A score may be unknown if you have not turned on [open tracking](https://docs.sendgrid.com/ui/account-and-settings/tracking) and/or your account or Subuser has not sent at least 1,000 messages during the previous 30 days.
       type: object
@@ -183,6 +159,17 @@ components:
         bounce_rate: 4
         spam_rate: 4
       title: ''
+    SeqMetadata:
+      title: Metadata
+      type: object
+      description: This object contains response metadata. The presence of the `after_key` property in the metadata indicates that some items are still outstanding and have not been retrieved. You can use the `after_key` value to retrieve additional items with another request.
+      properties:
+        next_params:
+          type: object
+          properties:
+            after_key:
+              type: string
+              description: The `after_key` property represents the last processed key. If the `after_key` property is `null`, there are no more entries available.
     SeqScore:
       title: Score
       type: object
@@ -218,6 +205,52 @@ components:
           bounce_classification: 2
           bounce_rate: 4
           spam_rate: 4
+    SeqError:
+      title: Error
+      type: object
+      properties:
+        field:
+          type: string
+          description: When applicable, this property value will be the field that generated the error.
+        message:
+          type: string
+          description: An error message.
+      required:
+      - message
+      description: This object contains error details
+  parameters:
+    SeqDate:
+      name: date
+      in: query
+      required: true
+      schema:
+        type: string
+        format: date
+      description: The date in YYYY-MM-DD format (UTC) for which you want to retrieve a SendGrid Engagement Quality score.
+    OnBehalfOf:
+      name: on-behalf-of
+      in: header
+      description: 'The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent''s Subusers or customer accounts. You will use the parent account''s API key when using this header. When making a call on behalf of a customer account, the property value should be "account-id" followed by the customer account''s ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser''s username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.'
+      required: false
+      schema:
+        type: string
+    SeqLimit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 1000
+        example: 750
+        default: 1000
+      description: Specifies the number of results to be returned by the API. This parameter can be used to limit the results returned or in combination with the `after_key` parameter to iterate through paginated results.
+    SeqAfterKey:
+      name: after_key
+      in: query
+      required: false
+      schema:
+        type: integer
+      description: Specifies which items to be returned by the API. When the `after_key` is specified, the API will return items beginning from the first item after the item specified. This parameter can be used in combination with `limit` to iterate through paginated results.
   responses:
     SeqPaginatedScores:
       description: Example response
@@ -254,6 +287,10 @@ components:
                 _metadata:
                   next_params:
                     after_key: '180'
+    SeqV1Scores401:
+      description: 401 Unauthorized
+      content:
+        application/json: {}
     SeqV1SubusersScores400:
       description: Bad Request 400
       content:
@@ -301,26 +338,47 @@ components:
                 errors:
                 - field: date
                   message: 'failed to parse request: "date" cannot be in the future'
-    SeqV1Scores401:
-      description: 401 Unauthorized
-      content:
-        application/json: {}
-    SeqV1Scores500:
-      description: Example response
+    SeqV1Scores200:
+      description: 200 OK
       content:
         application/json:
           schema:
             type: object
             properties:
-              errors:
+              result:
                 type: array
+                description: An array of objects containing SendGrid Engagement Quality scores and their associated data.
                 items:
-                  $ref: '#/components/schemas/SeqError'
+                  $ref: '#/components/schemas/SeqScore'
           examples:
-            Example 1:
+            '200':
               value:
-                errors:
-                - message: internal server error
+                result:
+                - score: 2
+                  username: jdoe123
+                  date: '2006-01-02'
+                  user_id: '180'
+                  metrics:
+                    engagement_recency: 4
+                    open_rate: 1
+                    bounce_classification: 2
+                    bounce_rate: 4
+                    spam_rate: 4
+            200 partial results:
+              value:
+                result:
+                - score: 2
+                  username: jdoe123
+                  date: '2006-01-02'
+                  user_id: '180'
+                  metrics:
+                    engagement_recency: 4
+                    open_rate: 1
+                    bounce_classification: 2
+                    bounce_rate: 4
+                    spam_rate: 4
+                - date: '2006-01-03'
+                  user_id: '180'
     SeqV1Scores202:
       description: 202 Accepted
       content:
@@ -377,80 +435,22 @@ components:
                 errors:
                 - field: to
                   message: 'failed to parse request: "to" cannot be in the future'
-    SeqV1Scores200:
-      description: 200 OK
+    SeqV1Scores500:
+      description: Example response
       content:
         application/json:
           schema:
             type: object
             properties:
-              result:
+              errors:
                 type: array
-                description: An array of objects containing SendGrid Engagement Quality scores and their associated data.
                 items:
-                  $ref: '#/components/schemas/SeqScore'
+                  $ref: '#/components/schemas/SeqError'
           examples:
-            '200':
+            Example 1:
               value:
-                result:
-                - score: 2
-                  username: jdoe123
-                  date: '2006-01-02'
-                  user_id: '180'
-                  metrics:
-                    engagement_recency: 4
-                    open_rate: 1
-                    bounce_classification: 2
-                    bounce_rate: 4
-                    spam_rate: 4
-            200 partial results:
-              value:
-                result:
-                - score: 2
-                  username: jdoe123
-                  date: '2006-01-02'
-                  user_id: '180'
-                  metrics:
-                    engagement_recency: 4
-                    open_rate: 1
-                    bounce_classification: 2
-                    bounce_rate: 4
-                    spam_rate: 4
-                - date: '2006-01-03'
-                  user_id: '180'
-  parameters:
-    SeqDate:
-      name: date
-      in: query
-      required: true
-      schema:
-        type: string
-        format: date
-      description: The date in YYYY-MM-DD format (UTC) for which you want to retrieve a SendGrid Engagement Quality score.
-    OnBehalfOf:
-      name: on-behalf-of
-      in: header
-      description: 'The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent''s Subusers or customer accounts. You will use the parent account''s API key when using this header. When making a call on behalf of a customer account, the property value should be "account-id" followed by the customer account''s ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser''s username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.'
-      required: false
-      schema:
-        type: string
-    SeqAfterKey:
-      name: after_key
-      in: query
-      required: false
-      schema:
-        type: integer
-      description: Specifies which items to be returned by the API. When the `after_key` is specified, the API will return items beginning from the first item after the item specified. This parameter can be used in combination with `limit` to iterate through paginated results.
-    SeqLimit:
-      name: limit
-      in: query
-      schema:
-        type: integer
-        minimum: 0
-        maximum: 1000
-        example: 750
-        default: 1000
-      description: Specifies the number of results to be returned by the API. This parameter can be used to limit the results returned or in combination with the `after_key` parameter to iterate through paginated results.
+                errors:
+                - message: internal server error
   securitySchemes:
     BearerAuth:
       type: http

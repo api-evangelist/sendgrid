@@ -263,6 +263,27 @@ paths:
                 error: Please check [our status page](https://status.sendgrid.com/) for updates or [contact support](https://support.sendgrid.com/) if the issue is not listed.
 components:
   schemas:
+    ErrorsSegmentV2:
+      title: errors-seg
+      type: object
+      description: If the request is incorrect, an array of errors will be returned.
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: the field in the request body that is incorrect
+              message:
+                type: string
+                description: a description of what is specifically wrong with the field passed in the request
+            required:
+            - field
+            - message
+      required:
+      - errors
     ContactResponse:
       title: contact_response
       type: object
@@ -395,51 +416,6 @@ components:
         error:
           type: string
           description: A description of the error.
-    SegmentStatusResponse:
-      title: segment_status_response
-      type: object
-      description: Segment status indicates whether the segment's contacts will be updated periodically
-      properties:
-        query_validation:
-          type: string
-          description: Status of query validation. PENDING, VALID, or INVALID
-        error_message:
-          type: string
-          description: Describes any errors that were encountered during query validation
-      required:
-      - query_validation
-    SegmentWriteV2:
-      title: segment_write
-      type: object
-      properties:
-        name:
-          type: string
-          minLength: 1
-          maxLength: 100
-          description: Name of the segment.
-        parent_list_ids:
-          type: array
-          description: The array of list ids to filter contacts on when building this segment. It allows only one such list id for now. We will support more in future
-          uniqueItems: true
-          items:
-            type: string
-        query_dsl:
-          type: string
-          description: SQL query which will filter contacts based on the conditions provided
-      required:
-      - name
-      - query_dsl
-    SegmentRefreshRequest:
-      title: segment_refresh_request
-      required:
-      - user_time_zone
-      type: object
-      properties:
-        user_time_zone:
-          type: string
-          description: The user's timezone. The timezone is used to reset the refresh count at midnight in the user's local time. Only [IANA time zone format](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) is accepted.
-      example:
-        user_time_zone: America/Chicago
     Segment2xx:
       title: segment_response
       type: object
@@ -527,6 +503,47 @@ components:
         count:
           type: integer
           minimum: 0
+    SegmentRefreshRequest:
+      title: segment_refresh_request
+      required:
+      - user_time_zone
+      type: object
+      properties:
+        user_time_zone:
+          type: string
+          description: The user's timezone. The timezone is used to reset the refresh count at midnight in the user's local time. Only [IANA time zone format](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) is accepted.
+      example:
+        user_time_zone: America/Chicago
+    SegmentRefresh202:
+      title: segment_refresh_response
+      type: object
+      properties:
+        job_id:
+          type: string
+          description: The ID of the manual refresh job. Used only for internal purposes.
+      example:
+        job_id: 1588e03b-50aa-454a-97d1-e1530345a5ec
+    SegmentWriteV2:
+      title: segment_write
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+          description: Name of the segment.
+        parent_list_ids:
+          type: array
+          description: The array of list ids to filter contacts on when building this segment. It allows only one such list id for now. We will support more in future
+          uniqueItems: true
+          items:
+            type: string
+        query_dsl:
+          type: string
+          description: SQL query which will filter contacts based on the conditions provided
+      required:
+      - name
+      - query_dsl
     SegmentUpdate:
       title: segment_update
       type: object
@@ -539,27 +556,19 @@ components:
         query_dsl:
           type: string
           description: SQL query which will filter contacts based on the conditions provided
-    ErrorsSegmentV2:
-      title: errors-seg
+    SegmentStatusResponse:
+      title: segment_status_response
       type: object
-      description: If the request is incorrect, an array of errors will be returned.
+      description: Segment status indicates whether the segment's contacts will be updated periodically
       properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-                description: the field in the request body that is incorrect
-              message:
-                type: string
-                description: a description of what is specifically wrong with the field passed in the request
-            required:
-            - field
-            - message
+        query_validation:
+          type: string
+          description: Status of query validation. PENDING, VALID, or INVALID
+        error_message:
+          type: string
+          description: Describes any errors that were encountered during query validation
       required:
-      - errors
+      - query_validation
     AllSegments200:
       title: all_segments_response
       type: object
@@ -614,27 +623,18 @@ components:
       - parent_list_ids
       - query_version
       - status
-    SegmentRefresh202:
-      title: segment_refresh_response
-      type: object
-      properties:
-        job_id:
-          type: string
-          description: The ID of the manual refresh job. Used only for internal purposes.
-      example:
-        job_id: 1588e03b-50aa-454a-97d1-e1530345a5ec
   requestBodies:
+    SegmentWriteV2:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SegmentWriteV2'
     SegmentRefresh:
       required: true
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/SegmentRefreshRequest'
-    SegmentWriteV2:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SegmentWriteV2'
   securitySchemes:
     BearerAuth:
       type: http

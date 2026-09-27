@@ -1276,36 +1276,201 @@ paths:
                   - 127.0.0.4
 components:
   examples:
-    IpAddressManagement400IsAutoWarmupMissingError:
-      value:
-        errors:
-        - field: is_auto_warmup
-          message: not found in the request body
-    IpAddressManagement400IpsIpNotInPoolError:
-      value:
-        errors:
-        - field: ips
-          message: 'not found in pool ‘marketing_pool’: 127.0.0.1, 127.0.0.2'
-    IpAddressManagement400IsAutoWarmupSubusersError:
-      value:
-        errors:
-        - field: subusers
-          message: 'these users must have at least one IP that is not in warmup: 123, 456'
-    IpAddressManagement400PoolIdValueError:
+    IpAddressManagement400PoolIdMissingError:
       value:
         errors:
         - field: poolid
           message: not found
+    IpAddressManagement400AfterKeyInvalidIpError:
+      value:
+        errors:
+        - field: after_key
+          message: invalid IP address
+    IpAddressManagement400NameLengthError:
+      value:
+        errors:
+        - field: name
+          message: needs to be between 2 to 64 characters long
+    IpAddressManagement400SubusersLimitError:
+      value:
+        errors:
+        - field: subusers
+          message: cannot assign more than 1000 subusers per call
+    IpAddressManagement400PoolMissingError:
+      value:
+        errors:
+        - field: pool
+          message: not found
+    IpAddressManagement400IpOwnershipError:
+      value:
+        errors:
+        - field: ip
+          message: unable to verify IP ownership
+    IpAddressManagement400IpInvalidError:
+      value:
+        errors:
+        - field: ip
+          message: invalid IP address
+    IpAddressManagement400IpsLimitError:
+      value:
+        errors:
+        - field: ips
+          message: the total number of IPs per pool cannot exceed 100. current IP count in ‘pool’ is ‘98’
+    IpAddressManagement400SubusersEmptyError:
+      value:
+        errors:
+        - field: subusers
+          message: must not be empty
     IpAddressManagement400IpsAssignmentError:
       value:
         errors:
         - field: ips
           message: 'unable to verify IPs assignability: 127.0.0.1, 127.0.0.2'
+    IpAddressManagement400NameDotSpaceError:
+      value:
+        errors:
+        - field: name
+          message: cannot start with a dot or a space
+    IpAddressManagement400IpMissingError:
+      value:
+        errors:
+        - field: ip
+          message: not found
+    IpAddressManagement400AfterKeyTypeError:
+      value:
+        errors:
+        - field: after_key
+          message: must be a numeric value
+    IpAddressManagement400PoolIdTypeError:
+      value:
+        errors:
+        - field: poolid
+          message: must be a numeric value
+    IpAddressManagement400MissingRequiredFieldError:
+      value:
+        errors:
+        - field: ''
+          message: 'at least one of the following is required: is_enabled, is_auto_warmup, is_parent_assigned'
+    IpAddressManagement400SubusersCallerIdError:
+      value:
+        errors:
+        - field: subusers
+          message: cannot contain caller’s userID
+    IpAddressManagement400SubusersUnverifiedError:
+      value:
+        errors:
+        - field: subusers
+          message: 'unverified subusers: 123, 456, 789'
+    IpAddressManagement400NameMissingError:
+      value:
+        errors:
+        - field: name
+          message: not found in the request body
+    IpAddressManagement400IsParentAssignedMissingError:
+      value:
+        errors:
+        - field: is_parent_assigned
+          message: not found in the request body
+    IpAddressManagement400IsParentAssignedValueError:
+      value:
+        errors:
+        - field: is_parent_assigned
+          message: 'must be one of the following: true, false'
+    IpAddressManagement400IpsMissingError:
+      value:
+        errors:
+        - field: ips
+          message: not found in the request body
+    IpAddressManagement400PoolTypeError:
+      value:
+        errors:
+        - field: pool
+          message: must be numeric
+    IpAddressManagement400LimitValueError:
+      value:
+        errors:
+        - field: limit
+          message: should be > 0 and <= 100
     IpAddressManagement400StartAddedAtTypeError:
       value:
         errors:
         - field: start_added_at
           message: must be numeric
+    IpAddressManagement400PoolIdValueError:
+      value:
+        errors:
+        - field: poolid
+          message: not found
+    IpAddressManagement400AfterKeyBeforeKeyError:
+      value:
+        errors:
+        - field: after_key
+          message: cannot be used with ‘before_key’
+    IpAddressManagement400PoolIsParentAssignedError:
+      value:
+        errors:
+        - field: pool
+          message: cannot be used with ‘is_parent_assigned’
+    IpAddressManagement400PoolLimitError:
+      value:
+        errors:
+        - field: ''
+          message: 100 pools limit has been reached
+    IpAddressManagement400IsEnabledValueError:
+      value:
+        errors:
+        - field: is_enabled
+          message: 'must be one of the following: true, false'
+    IpAddressManagement400NameExistsError:
+      value:
+        errors:
+        - field: name
+          message: already exists
+    IpAddressManagement400EndAddedAtTypeError:
+      value:
+        errors:
+        - field: end_added_at
+          message: must be numeric
+    IpAddressManagement400InvalidIpError:
+      value:
+        errors:
+        - field: ''
+          message: invalid IP address
+    IpAddressManagement400IsAutoWarmupSubusersError:
+      value:
+        errors:
+        - field: subusers
+          message: 'these users must have at least one IP that is not in warmup: 123, 456'
+    IpAddressManagement400IsAutoWarmupMissingError:
+      value:
+        errors:
+        - field: is_auto_warmup
+          message: not found in the request body
+    IpAddressManagement400AfterKeyValueError:
+      value:
+        errors:
+        - field: after_key
+          message: must be >= 0
+    IpAddressManagement400JsonParseError:
+      value:
+        errors:
+        - field: ''
+          message: failed to parse the request body as a JSON payload
+    IpAddressManagement400IpsIpNotInPoolError:
+      value:
+        errors:
+        - field: ips
+          message: 'not found in pool ‘marketing_pool’: 127.0.0.1, 127.0.0.2'
+    IpAddressManagement400IpsLengthError:
+      value:
+        errors:
+        - field: ips
+          message: the number of IPs must be between 1 and 100
+    IpAddressManagement400IpNoRemainingError:
+      value:
+        errors:
+        - field: ''
+          message: No IPs remaining
     IpAddressManagement400IsParentAssignedSubuserError:
       value:
         errors:
@@ -1316,184 +1481,12 @@ components:
         errors:
         - field: before_key
           message: invalid IP address
-    IpAddressManagement400AfterKeyTypeError:
-      value:
-        errors:
-        - field: after_key
-          message: must be a numeric value
-    IpAddressManagement400NameMissingError:
-      value:
-        errors:
-        - field: name
-          message: not found in the request body
-    IpAddressManagement400JsonParseError:
-      value:
-        errors:
-        - field: ''
-          message: failed to parse the request body as a JSON payload
-    IpAddressManagement400EndAddedAtTypeError:
-      value:
-        errors:
-        - field: end_added_at
-          message: must be numeric
-    IpAddressManagement400IpMissingError:
-      value:
-        errors:
-        - field: ip
-          message: not found
-    IpAddressManagement400NameExistsError:
-      value:
-        errors:
-        - field: name
-          message: already exists
-    IpAddressManagement400IpInvalidError:
-      value:
-        errors:
-        - field: ip
-          message: invalid IP address
-    IpAddressManagement400SubusersEmptyError:
-      value:
-        errors:
-        - field: subusers
-          message: must not be empty
-    IpAddressManagement400LimitValueError:
-      value:
-        errors:
-        - field: limit
-          message: should be > 0 and <= 100
-    IpAddressManagement400NameLengthError:
-      value:
-        errors:
-        - field: name
-          message: needs to be between 2 to 64 characters long
-    IpAddressManagement400AfterKeyBeforeKeyError:
-      value:
-        errors:
-        - field: after_key
-          message: cannot be used with ‘before_key’
-    IpAddressManagement400PoolMissingError:
-      value:
-        errors:
-        - field: pool
-          message: not found
-    IpAddressManagement400AfterKeyInvalidIpError:
-      value:
-        errors:
-        - field: after_key
-          message: invalid IP address
-    IpAddressManagement400IpsLengthError:
-      value:
-        errors:
-        - field: ips
-          message: the number of IPs must be between 1 and 100
-    IpAddressManagement400SubusersUnverifiedError:
-      value:
-        errors:
-        - field: subusers
-          message: 'unverified subusers: 123, 456, 789'
-    IpAddressManagement400IpsMissingError:
-      value:
-        errors:
-        - field: ips
-          message: not found in the request body
-    IpAddressManagement400IpNoRemainingError:
-      value:
-        errors:
-        - field: ''
-          message: No IPs remaining
-    IpAddressManagement400IpOwnershipError:
-      value:
-        errors:
-        - field: ip
-          message: unable to verify IP ownership
-    IpAddressManagement400IsParentAssignedMissingError:
-      value:
-        errors:
-        - field: is_parent_assigned
-          message: not found in the request body
-    IpAddressManagement400MissingRequiredFieldError:
-      value:
-        errors:
-        - field: ''
-          message: 'at least one of the following is required: is_enabled, is_auto_warmup, is_parent_assigned'
-    IpAddressManagement400PoolIdMissingError:
-      value:
-        errors:
-        - field: poolid
-          message: not found
-    IpAddressManagement400AfterKeyValueError:
-      value:
-        errors:
-        - field: after_key
-          message: must be >= 0
-    IpAddressManagement400PoolTypeError:
-      value:
-        errors:
-        - field: pool
-          message: must be numeric
-    IpAddressManagement400IsEnabledValueError:
-      value:
-        errors:
-        - field: is_enabled
-          message: 'must be one of the following: true, false'
-    IpAddressManagement400PoolLimitError:
-      value:
-        errors:
-        - field: ''
-          message: 100 pools limit has been reached
-    IpAddressManagement400IsParentAssignedValueError:
-      value:
-        errors:
-        - field: is_parent_assigned
-          message: 'must be one of the following: true, false'
-    IpAddressManagement400PoolIdTypeError:
-      value:
-        errors:
-        - field: poolid
-          message: must be a numeric value
     IpAddressManagement400IsLeasedValueError:
       value:
         errors:
         - field: is_leased
           message: 'must be one of the following: true, false'
-    IpAddressManagement400SubusersLimitError:
-      value:
-        errors:
-        - field: subusers
-          message: cannot assign more than 1000 subusers per call
-    IpAddressManagement400NameDotSpaceError:
-      value:
-        errors:
-        - field: name
-          message: cannot start with a dot or a space
-    IpAddressManagement400InvalidIpError:
-      value:
-        errors:
-        - field: ''
-          message: invalid IP address
-    IpAddressManagement400IpsLimitError:
-      value:
-        errors:
-        - field: ips
-          message: the total number of IPs per pool cannot exceed 100. current IP count in ‘pool’ is ‘98’
-    IpAddressManagement400PoolIsParentAssignedError:
-      value:
-        errors:
-        - field: pool
-          message: cannot be used with ‘is_parent_assigned’
-    IpAddressManagement400SubusersCallerIdError:
-      value:
-        errors:
-        - field: subusers
-          message: cannot contain caller’s userID
   parameters:
-    IpAddressManagementPool:
-      name: pool
-      in: query
-      required: false
-      schema:
-        type: string
-      description: Specifies the unique ID for an IP Pool. When included, only IP addresses belonging to the specified Pool will be returned.
     IpAddressManagementLimit:
       name: limit
       in: query
@@ -1501,13 +1494,20 @@ components:
       schema:
         type: integer
       description: Specifies the number of results to be returned by the API. This parameter can be used in combination with the `before_key` or `after_key` parameters to iterate through paginated results.
-    IpAddressManagementIsLeased:
-      name: is_leased
+    IpAddressManagementIsParentAssigned:
+      name: is_parent_assigned
       in: query
       required: false
       schema:
         type: boolean
-      description: Indicates whether an IP address is leased from Twilio SendGrid. If `false`, the IP address is not a Twilio SendGrid IP; it is a customer's own IP that has been added to their Twilio SendGrid account.
+      description: A parent must be assigned to an IP address before the parent can send mail from the IP and before the address can be assigned to an IP pool. Set this parameter value to true to allow the parent to send mail from the IP and make the IP eligible for IP pool assignment using the IP pool endpoints.
+    IpAddressManagementPathIp:
+      name: ip
+      in: path
+      schema:
+        type: string
+      description: The `ip` path parameter specifies an IP address to make the request against.
+      required: true
     IpAddressManagementRegion:
       name: region
       in: query
@@ -1516,6 +1516,13 @@ components:
       schema:
         type: string
         $ref: '#/components/schemas/Region7'
+    IpAddressManagementIsEnabled:
+      name: is_enabled
+      in: query
+      required: false
+      schema:
+        type: boolean
+      description: Indicates if the IP address is billed and able to send email. This parameter applies to non-Twilio SendGrid APIs that been added to your Twilio SendGrid account. This parameter's value is `null` for Twilio SendGrid IP addresses.
     IpAddressManagementBeforeKey:
       name: before_key
       in: query
@@ -1523,6 +1530,28 @@ components:
       schema:
         type: string
       description: Specifies which items to be returned by the API. When the `before_key` is specified, the API will return items beginning from the first item before the item specified. This parameter can be used in combination with `limit` to iterate through paginated results.
+    IpAddressManagementAfterKey:
+      name: after_key
+      in: query
+      required: false
+      schema:
+        type: integer
+      description: Specifies which items to be returned by the API. When the `after_key` is specified, the API will return items beginning from the first item after the item specified. This parameter can be used in combination with `limit` to iterate through paginated results.
+    IpAddressManagementIsLeased:
+      name: is_leased
+      in: query
+      required: false
+      schema:
+        type: boolean
+      description: Indicates whether an IP address is leased from Twilio SendGrid. If `false`, the IP address is not a Twilio SendGrid IP; it is a customer's own IP that has been added to their Twilio SendGrid account.
+    IpAddressManagementIncludeRegion:
+      name: include_region
+      in: query
+      required: false
+      description: Boolean indicating whether or not to return the IP Pool's region information in the response.
+      schema:
+        type: boolean
+        default: false
     IpAddressManagementPoolId:
       name: poolid
       in: path
@@ -1537,42 +1566,6 @@ components:
       schema:
         type: integer
       description: The `start_added_at` and `end_added_at` parameters are used to set a time window. IP addresses that were added to your account in the specified time window will be returned. The `end_added_at` parameter sets the end of the time window.
-    IpAddressManagementIsEnabled:
-      name: is_enabled
-      in: query
-      required: false
-      schema:
-        type: boolean
-      description: Indicates if the IP address is billed and able to send email. This parameter applies to non-Twilio SendGrid APIs that been added to your Twilio SendGrid account. This parameter's value is `null` for Twilio SendGrid IP addresses.
-    IpAddressManagementAfterKey:
-      name: after_key
-      in: query
-      required: false
-      schema:
-        type: integer
-      description: Specifies which items to be returned by the API. When the `after_key` is specified, the API will return items beginning from the first item after the item specified. This parameter can be used in combination with `limit` to iterate through paginated results.
-    IpAddressManagementStartAddedAt:
-      name: start_added_at
-      in: query
-      required: false
-      schema:
-        type: integer
-      description: The `start_added_at` and `end_added_at` parameters are used to set a time window. IP addresses that were added to your account in the specified time window will be returned. The `start_added_at` parameter sets the beginning of the time window.
-    IpAddressManagementIncludeRegion:
-      name: include_region
-      in: query
-      required: false
-      description: Boolean indicating whether or not to return the IP Pool's region information in the response.
-      schema:
-        type: boolean
-        default: false
-    IpAddressManagementPathIp:
-      name: ip
-      in: path
-      schema:
-        type: string
-      description: The `ip` path parameter specifies an IP address to make the request against.
-      required: true
     IpAddressManagementQueryIp:
       name: ip
       in: query
@@ -1580,34 +1573,51 @@ components:
       schema:
         type: string
       description: Specifies an IP address. The `ip` query parameter can be used to filter results by IP address.
-    IpAddressManagementIsParentAssigned:
-      name: is_parent_assigned
+    IpAddressManagementStartAddedAt:
+      name: start_added_at
       in: query
       required: false
       schema:
-        type: boolean
-      description: A parent must be assigned to an IP address before the parent can send mail from the IP and before the address can be assigned to an IP pool. Set this parameter value to true to allow the parent to send mail from the IP and make the IP eligible for IP pool assignment using the IP pool endpoints.
+        type: integer
+      description: The `start_added_at` and `end_added_at` parameters are used to set a time window. IP addresses that were added to your account in the specified time window will be returned. The `start_added_at` parameter sets the beginning of the time window.
+    IpAddressManagementPool:
+      name: pool
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Specifies the unique ID for an IP Pool. When included, only IP addresses belonging to the specified Pool will be returned.
   schemas:
+    Region:
+      type: string
+      enum:
+      - eu
+      - us
     Region1:
       type: string
       enum:
       - all
       - us
       - eu
-    Region2:
+    Region5:
       type: string
       enum:
-      - eu
       - us
-    Region:
-      type: string
-      enum:
       - eu
-      - us
     Region7:
       type: string
       enum:
       - all
+      - eu
+      - us
+    Region6:
+      type: string
+      enum:
+      - eu
+      - us
+    Region2:
+      type: string
+      enum:
       - eu
       - us
     Region4:
@@ -1616,22 +1626,12 @@ components:
       - all
       - us
       - eu
-    Region6:
+    Items:
       type: string
       enum:
       - eu
       - us
     Region3:
-      type: string
-      enum:
-      - eu
-      - us
-    Region5:
-      type: string
-      enum:
-      - us
-      - eu
-    Items:
       type: string
       enum:
       - eu

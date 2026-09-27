@@ -691,70 +691,7 @@ components:
         id:
           type: number
           description: The ID of the custom field.
-    CustomFieldDefinitionsResponse:
-      title: custom_field_definitions_response
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-          minLength: 1
-          maxLength: 100
-        field_type:
-          type: string
-          $ref: '#/components/schemas/FieldType2'
-      required:
-      - id
-      - name
-      - field_type
-      example:
-        id: a1_D
-        name: custom_field_name
-        field_type: Date
     FieldType:
-      type: string
-      enum:
-      - Text
-      - Number
-      - Date
-    CustomFieldsError:
-      title: error
-      type: object
-      properties:
-        message:
-          type: string
-        field:
-          type: string
-        error_id:
-          type: string
-        parameter:
-          type: string
-      required:
-      - message
-    FieldType1:
-      type: string
-      enum:
-      - Text
-      - Number
-      - Date
-    Metadata:
-      title: _metadata
-      type: object
-      properties:
-        prev:
-          type: string
-          format: uri
-        self:
-          type: string
-          format: uri
-        next:
-          type: string
-          format: uri
-        count:
-          type: integer
-          minimum: 0
-    FieldType2:
       type: string
       enum:
       - Text
@@ -785,6 +722,69 @@ components:
         name: automation_id
         field_type: Text
         read_only: true
+    CustomFieldDefinitionsResponse:
+      title: custom_field_definitions_response
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        field_type:
+          type: string
+          $ref: '#/components/schemas/FieldType2'
+      required:
+      - id
+      - name
+      - field_type
+      example:
+        id: a1_D
+        name: custom_field_name
+        field_type: Date
+    Metadata:
+      title: _metadata
+      type: object
+      properties:
+        prev:
+          type: string
+          format: uri
+        self:
+          type: string
+          format: uri
+        next:
+          type: string
+          format: uri
+        count:
+          type: integer
+          minimum: 0
+    FieldType2:
+      type: string
+      enum:
+      - Text
+      - Number
+      - Date
+    CustomFieldsError:
+      title: error
+      type: object
+      properties:
+        message:
+          type: string
+        field:
+          type: string
+        error_id:
+          type: string
+        parameter:
+          type: string
+      required:
+      - message
+    FieldType1:
+      type: string
+      enum:
+      - Text
+      - Number
+      - Date
   parameters:
     OnBehalfOf:
       name: on-behalf-of

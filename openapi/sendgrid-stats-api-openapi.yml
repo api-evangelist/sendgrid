@@ -2000,12 +2000,264 @@ paths:
     - url: https://api.eu.sendgrid.com
       description: for EU regional subusers
 components:
+  parameters:
+    AutomationQueryParamsGroupBy:
+      name: group_by
+      in: query
+      description: Automations can have multiple steps. Including `step_id` as a `group_by` metric allows further granularity of stats.
+      style: form
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          $ref: '#/components/schemas/Items'
+    SinglesendQueryParamsGroupBy:
+      name: group_by
+      in: query
+      description: A/B Single Sends have multiple variation IDs and phase IDs. Including these additional fields allows further granularity of stats by these fields.
+      style: form
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          $ref: '#/components/schemas/Items1'
+    AutomationQueryParamsStepId:
+      name: step_ids
+      in: query
+      description: Comma-separated list of `step_ids` that you want the link stats for.
+      style: form
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          format: uuid
+        uniqueItems: true
+    TimezoneBaseProps:
+      name: timezone
+      in: query
+      description: '[IANA Area/Region](https://en.wikipedia.org/wiki/Tz_database#Names_of_timezones) string representing the timezone in which the stats are to be presented, e.g., "America/Chicago".'
+      schema:
+        type: string
+        default: UTC
+    SinglesendQueryParams2PhaseId:
+      name: ab_phase_id
+      in: query
+      schema:
+        type: string
+        $ref: '#/components/schemas/AbPhaseId'
+    StartDateBaseProps:
+      name: start_date
+      in: query
+      description: 'Format: `YYYY-MM-DD`. If this parameter is included, the stats'' start date is included in the search.'
+      schema:
+        type: string
+        format: date
+        default: '2021-01-01'
+    PaginationPageSize:
+      name: page_size
+      in: query
+      description: The number of elements you want returned on each page.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 50
+        default: 25
+    EndDateBaseProps:
+      name: end_date
+      in: query
+      description: 'Format: `YYYY-MM-DD`.If this parameter is included, the stats'' end date is included in the search.'
+      schema:
+        type: string
+        format: date
+        default: '2021-12-31'
+    PaginationPageToken:
+      name: page_token
+      in: query
+      description: The stats endpoints are paginated. To get the next page, call the passed `_metadata.next` URL. If `_metadata.prev` doesn't exist, you're at the first page. Similarly, if `_metadata.next` is not present, you're at the last page.
+      schema:
+        type: string
+    SinglesendQueryParams2GroupBy:
+      name: group_by
+      in: query
+      description: A/B Single Sends have multiple variation IDs and phase IDs. Including these additional fields allows further granularity of stats by these fields.
+      style: form
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          $ref: '#/components/schemas/Items2'
+    SinglesendQueryParams2VariationId:
+      name: ab_variation_id
+      in: query
+      schema:
+        type: string
+        format: uuid
+    AggregatedByBaseProps:
+      name: aggregated_by
+      in: query
+      description: Dictates how the stats are time-sliced. Currently, `"total"` and `"day"` are supported.
+      schema:
+        type: string
+        default: total
+        $ref: '#/components/schemas/AggregatedBy'
+    StatsAdvancedStatsBaseQueryStringsEndDate:
+      name: end_date
+      in: query
+      description: The end date of the statistics to retrieve. Defaults to today. Must follow format YYYY-MM-DD.
+      required: false
+      schema:
+        type: string
+    StatsAdvancedQueryStringsLimitOffsetAggregatedBy:
+      name: aggregated_by
+      in: query
+      description: How to group the statistics. Must be either "day", "week", or "month".
+      required: false
+      schema:
+        type: string
+        $ref: '#/components/schemas/AggregatedBy3'
+    StatsAdvancedStatsBaseQueryStringsStartDate:
+      name: start_date
+      in: query
+      description: The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD.
+      required: true
+      schema:
+        type: string
+    OnBehalfOf:
+      name: on-behalf-of
+      in: header
+      description: 'The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent''s Subusers or customer accounts. You will use the parent account''s API key when using this header. When making a call on behalf of a customer account, the property value should be "account-id" followed by the customer account''s ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser''s username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.'
+      required: false
+      schema:
+        type: string
+    StatsAdvancedQueryStringsLimitOffsetLimit:
+      name: limit
+      in: query
+      description: The number of results to return.
+      required: false
+      schema:
+        type: integer
+    StatsAdvancedQueryStringsLimitOffsetStartDate:
+      name: start_date
+      in: query
+      description: The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD.
+      required: true
+      schema:
+        type: string
+    StatsAdvancedQueryStringsLimitOffsetEndDate:
+      name: end_date
+      in: query
+      description: The end date of the statistics to retrieve. Defaults to today. Must follow format YYYY-MM-DD.
+      required: false
+      schema:
+        type: string
+    StatsAdvancedStatsBaseQueryStringsAggregatedBy:
+      name: aggregated_by
+      in: query
+      description: How to group the statistics. Must be either "day", "week", or "month".
+      required: false
+      schema:
+        type: string
+        $ref: '#/components/schemas/AggregatedBy2'
+    StatsAdvancedQueryStringsLimitOffsetOffset:
+      name: offset
+      in: query
+      description: The point in the list to begin retrieving results.
+      required: false
+      schema:
+        type: integer
   schemas:
-    Items1:
-      type: string
-      enum:
-      - ab_variation
-      - ab_phase
+    AutomationsResponse:
+      title: AutomationsResponse
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: This is the ID of the Automation you are requesting stats for.
+                format: uuid
+              aggregation:
+                type: string
+                description: This describes the time unit to which the stat is rolled up. It is based on the `aggregated_by` parameter included in the request. It can be "total" or the date (in YYYY-MM-DD format) the stats are for.
+                default: total
+              step_id:
+                type: string
+                description: This is the ID of the step if the stats were requested to be grouped by `step_id`.
+                default: all
+              stats:
+                $ref: '#/components/schemas/Metrics'
+            required:
+            - id
+            - aggregation
+            - step_id
+        _metadata:
+          $ref: '#/components/schemas/Metadata'
+      required:
+      - results
+    Metadata:
+      title: metadata
+      type: object
+      properties:
+        prev:
+          type: string
+          format: uri
+          description: The URL of the previous page of results. If this field isn't present, you're at the start of the list.
+        self:
+          type: string
+          format: uri
+          description: The URL of the current page of results.
+        next:
+          type: string
+          format: uri
+          description: The URL of the next page of results. If this field isn't present, you're at the end of the list.
+        count:
+          type: number
+          description: The number of items in the entire list, i.e., across all pages.
+    AutmoationsLinkStatsResponse:
+      title: AutmoationsLinkStatsResponse
+      type: object
+      properties:
+        results:
+          type: array
+          description: ''
+          items:
+            type: object
+            properties:
+              url:
+                type: string
+                description: This is the URL of the link clicked. If `{{custom_fields}}` are part of the URL, they will be included.
+                format: uri
+              url_location:
+                type: integer
+                description: This is the location of the link clicked in each Automation step. Links are located according to their position within the message; the topmost link has index `0`.
+                minimum: 0
+              step_id:
+                type: string
+                description: This is the ID of the step if the stats were requested to be grouped by `step_id`.
+                format: uuid
+              clicks:
+                type: integer
+                minimum: 1
+                description: The number of clicks on this particular link.
+            required:
+            - url
+            - step_id
+            - clicks
+        total_clicks:
+          type: integer
+        _metadata:
+          $ref: '#/components/schemas/LinkTrackingMetadata'
+      required:
+      - results
+      - total_clicks
+      - _metadata
     Metrics:
       title: metrics
       type: object
@@ -2047,69 +2299,28 @@ components:
       - unique_clicks
       - unique_opens
       - unsubscribes
-    AbPhaseId:
-      type: string
-      enum:
-      - test
-      - send
     AggregatedBy:
       type: string
       enum:
       - day
       - total
-    Items2:
+    AbPhase:
       type: string
       enum:
-      - ab_variation
-      - ab_phase
-    AutmoationsLinkStatsResponse:
-      title: AutmoationsLinkStatsResponse
-      type: object
-      properties:
-        results:
-          type: array
-          description: ''
-          items:
-            type: object
-            properties:
-              url:
-                type: string
-                description: This is the URL of the link clicked. If `{{custom_fields}}` are part of the URL, they will be included.
-                format: uri
-              url_location:
-                type: integer
-                description: This is the location of the link clicked in each Automation step. Links are located according to their position within the message; the topmost link has index `0`.
-                minimum: 0
-              step_id:
-                type: string
-                description: This is the ID of the step if the stats were requested to be grouped by `step_id`.
-                format: uuid
-              clicks:
-                type: integer
-                minimum: 1
-                description: The number of clicks on this particular link.
-            required:
-            - url
-            - step_id
-            - clicks
-        total_clicks:
-          type: integer
-        _metadata:
-          $ref: '#/components/schemas/LinkTrackingMetadata'
-      required:
-      - results
-      - total_clicks
-      - _metadata
-    Items:
-      type: string
-      enum:
-      - step_id
+      - send
+      - test
+      - all
     AbPhase1:
       type: string
       enum:
       - send
       - test
       - all
+    Items2:
+      type: string
+      enum:
+      - ab_variation
+      - ab_phase
     SinglesendsResponse:
       title: SinglesendsResponse
       type: object
@@ -2148,6 +2359,20 @@ components:
       required:
       - results
       - _metadata
+    AbPhaseId:
+      type: string
+      enum:
+      - test
+      - send
+    Items1:
+      type: string
+      enum:
+      - ab_variation
+      - ab_phase
+    Items:
+      type: string
+      enum:
+      - step_id
     LinkTrackingMetadata:
       title: link tracking metadata
       type: object
@@ -2167,6 +2392,31 @@ components:
         count:
           type: number
           description: The number of items in the entire list, i.e., across all pages.
+    ErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: An error message.
+              field:
+                description: When applicable, this property value will be the field that generated the error.
+                nullable: true
+                type: string
+              help:
+                type: object
+                description: When applicable, this property value will be helper text or a link to documentation to help you troubleshoot the error.
+        id:
+          type: string
+          description: When applicable, this property value will be an error ID.
+      example:
+        errors:
+        - field: field_name
+          message: error message
     SinglesendsLinkStatsResponse:
       title: SinglesendsLinkStatsResponse
       type: object
@@ -2209,87 +2459,23 @@ components:
       required:
       - results
       - _metadata
-    Metadata:
-      title: metadata
+    AdvancedStatsClicks:
+      title: 'Stats: Advanced Stats with Clicks'
       type: object
+      description: The individual events and their stats.
       properties:
-        prev:
-          type: string
-          format: uri
-          description: The URL of the previous page of results. If this field isn't present, you're at the start of the list.
-        self:
-          type: string
-          format: uri
-          description: The URL of the current page of results.
-        next:
-          type: string
-          format: uri
-          description: The URL of the next page of results. If this field isn't present, you're at the end of the list.
-        count:
-          type: number
-          description: The number of items in the entire list, i.e., across all pages.
-    AutomationsResponse:
-      title: AutomationsResponse
-      type: object
-      properties:
-        results:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-                description: This is the ID of the Automation you are requesting stats for.
-                format: uuid
-              aggregation:
-                type: string
-                description: This describes the time unit to which the stat is rolled up. It is based on the `aggregated_by` parameter included in the request. It can be "total" or the date (in YYYY-MM-DD format) the stats are for.
-                default: total
-              step_id:
-                type: string
-                description: This is the ID of the step if the stats were requested to be grouped by `step_id`.
-                default: all
-              stats:
-                $ref: '#/components/schemas/Metrics'
-            required:
-            - id
-            - aggregation
-            - step_id
-        _metadata:
-          $ref: '#/components/schemas/Metadata'
-      required:
-      - results
-    ErrorResponse:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-                description: An error message.
-              field:
-                description: When applicable, this property value will be the field that generated the error.
-                nullable: true
-                type: string
-              help:
-                type: object
-                description: When applicable, this property value will be helper text or a link to documentation to help you troubleshoot the error.
-        id:
-          type: string
-          description: When applicable, this property value will be an error ID.
-      example:
-        errors:
-        - field: field_name
-          message: error message
-    AbPhase:
+        clicks:
+          type: integer
+          description: The number of links that were clicked in your emails.
+        unique_clicks:
+          type: integer
+          description: The number of unique recipients who clicked links in your emails.
+    AggregatedBy3:
       type: string
       enum:
-      - send
-      - test
-      - all
+      - day
+      - week
+      - month
     AdvancedStatsMailboxProvider:
       title: 'Stats: Advanced Stats for Mailbox Provider'
       description: The individual events and their stats.
@@ -2319,11 +2505,6 @@ components:
         spam_reports:
           type: integer
           description: The number of recipients who marked your email as spam.
-    Country:
-      type: string
-      enum:
-      - US
-      - CA
     AdvancedStatsClicksOpens:
       title: 'Stats: Advanced Stats with Clicks and Opens'
       description: The individual events and their stats.
@@ -2341,28 +2522,19 @@ components:
         unique_opens:
           type: integer
           description: The number of unique recipients who opened your emails.
-    AdvancedStatsClicks:
-      title: 'Stats: Advanced Stats with Clicks'
-      type: object
-      description: The individual events and their stats.
-      properties:
-        clicks:
-          type: integer
-          description: The number of links that were clicked in your emails.
-        unique_clicks:
-          type: integer
-          description: The number of unique recipients who clicked links in your emails.
-    AdvancedStatsOpens:
-      title: 'Stats: Advanced Stats with Opens'
-      type: object
-      description: The individual events and their stats.
-      properties:
-        opens:
-          type: integer
-          description: The total number of times your emails were opened by recipients.
-        unique_opens:
-          type: integer
-          description: The number of unique recipients who opened your emails.
+    ClientType:
+      type: string
+      enum:
+      - phone
+      - tablet
+      - webmail
+      - desktop
+    AggregatedBy2:
+      type: string
+      enum:
+      - day
+      - week
+      - month
     StatsAdvancedGlobalStats:
       title: 'Stats: Advanced Global Stats'
       type: object
@@ -2415,194 +2587,22 @@ components:
         unsubscribes:
           type: integer
           description: The number of recipients who unsubscribed from your emails.
-    AggregatedBy3:
+    Country:
       type: string
       enum:
-      - day
-      - week
-      - month
-    ClientType:
-      type: string
-      enum:
-      - phone
-      - tablet
-      - webmail
-      - desktop
-    AggregatedBy2:
-      type: string
-      enum:
-      - day
-      - week
-      - month
-  parameters:
-    PaginationPageToken:
-      name: page_token
-      in: query
-      description: The stats endpoints are paginated. To get the next page, call the passed `_metadata.next` URL. If `_metadata.prev` doesn't exist, you're at the first page. Similarly, if `_metadata.next` is not present, you're at the last page.
-      schema:
-        type: string
-    SinglesendQueryParams2VariationId:
-      name: ab_variation_id
-      in: query
-      schema:
-        type: string
-        format: uuid
-    TimezoneBaseProps:
-      name: timezone
-      in: query
-      description: '[IANA Area/Region](https://en.wikipedia.org/wiki/Tz_database#Names_of_timezones) string representing the timezone in which the stats are to be presented, e.g., "America/Chicago".'
-      schema:
-        type: string
-        default: UTC
-    AutomationQueryParamsGroupBy:
-      name: group_by
-      in: query
-      description: Automations can have multiple steps. Including `step_id` as a `group_by` metric allows further granularity of stats.
-      style: form
-      explode: false
-      schema:
-        type: array
-        items:
-          type: string
-          $ref: '#/components/schemas/Items'
-    EndDateBaseProps:
-      name: end_date
-      in: query
-      description: 'Format: `YYYY-MM-DD`.If this parameter is included, the stats'' end date is included in the search.'
-      schema:
-        type: string
-        format: date
-        default: '2021-12-31'
-    SinglesendQueryParams2GroupBy:
-      name: group_by
-      in: query
-      description: A/B Single Sends have multiple variation IDs and phase IDs. Including these additional fields allows further granularity of stats by these fields.
-      style: form
-      explode: false
-      schema:
-        type: array
-        items:
-          type: string
-          $ref: '#/components/schemas/Items2'
-    PaginationPageSize:
-      name: page_size
-      in: query
-      description: The number of elements you want returned on each page.
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 50
-        default: 25
-    StartDateBaseProps:
-      name: start_date
-      in: query
-      description: 'Format: `YYYY-MM-DD`. If this parameter is included, the stats'' start date is included in the search.'
-      schema:
-        type: string
-        format: date
-        default: '2021-01-01'
-    AutomationQueryParamsStepId:
-      name: step_ids
-      in: query
-      description: Comma-separated list of `step_ids` that you want the link stats for.
-      style: form
-      explode: false
-      schema:
-        type: array
-        items:
-          type: string
-          format: uuid
-        uniqueItems: true
-    SinglesendQueryParamsGroupBy:
-      name: group_by
-      in: query
-      description: A/B Single Sends have multiple variation IDs and phase IDs. Including these additional fields allows further granularity of stats by these fields.
-      style: form
-      explode: false
-      schema:
-        type: array
-        items:
-          type: string
-          $ref: '#/components/schemas/Items1'
-    AggregatedByBaseProps:
-      name: aggregated_by
-      in: query
-      description: Dictates how the stats are time-sliced. Currently, `"total"` and `"day"` are supported.
-      schema:
-        type: string
-        default: total
-        $ref: '#/components/schemas/AggregatedBy'
-    SinglesendQueryParams2PhaseId:
-      name: ab_phase_id
-      in: query
-      schema:
-        type: string
-        $ref: '#/components/schemas/AbPhaseId'
-    StatsAdvancedQueryStringsLimitOffsetOffset:
-      name: offset
-      in: query
-      description: The point in the list to begin retrieving results.
-      required: false
-      schema:
-        type: integer
-    StatsAdvancedQueryStringsLimitOffsetEndDate:
-      name: end_date
-      in: query
-      description: The end date of the statistics to retrieve. Defaults to today. Must follow format YYYY-MM-DD.
-      required: false
-      schema:
-        type: string
-    StatsAdvancedQueryStringsLimitOffsetLimit:
-      name: limit
-      in: query
-      description: The number of results to return.
-      required: false
-      schema:
-        type: integer
-    OnBehalfOf:
-      name: on-behalf-of
-      in: header
-      description: 'The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent''s Subusers or customer accounts. You will use the parent account''s API key when using this header. When making a call on behalf of a customer account, the property value should be "account-id" followed by the customer account''s ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser''s username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.'
-      required: false
-      schema:
-        type: string
-    StatsAdvancedStatsBaseQueryStringsStartDate:
-      name: start_date
-      in: query
-      description: The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD.
-      required: true
-      schema:
-        type: string
-    StatsAdvancedQueryStringsLimitOffsetAggregatedBy:
-      name: aggregated_by
-      in: query
-      description: How to group the statistics. Must be either "day", "week", or "month".
-      required: false
-      schema:
-        type: string
-        $ref: '#/components/schemas/AggregatedBy3'
-    StatsAdvancedStatsBaseQueryStringsEndDate:
-      name: end_date
-      in: query
-      description: The end date of the statistics to retrieve. Defaults to today. Must follow format YYYY-MM-DD.
-      required: false
-      schema:
-        type: string
-    StatsAdvancedQueryStringsLimitOffsetStartDate:
-      name: start_date
-      in: query
-      description: The starting date of the statistics to retrieve. Must follow format YYYY-MM-DD.
-      required: true
-      schema:
-        type: string
-    StatsAdvancedStatsBaseQueryStringsAggregatedBy:
-      name: aggregated_by
-      in: query
-      description: How to group the statistics. Must be either "day", "week", or "month".
-      required: false
-      schema:
-        type: string
-        $ref: '#/components/schemas/AggregatedBy2'
+      - US
+      - CA
+    AdvancedStatsOpens:
+      title: 'Stats: Advanced Stats with Opens'
+      type: object
+      description: The individual events and their stats.
+      properties:
+        opens:
+          type: integer
+          description: The total number of times your emails were opened by recipients.
+        unique_opens:
+          type: integer
+          description: The number of unique recipients who opened your emails.
   responses:
     Stats400:
       description: ''

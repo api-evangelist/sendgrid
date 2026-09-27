@@ -342,54 +342,7 @@ paths:
                     html_content: html content
                     plain_content: text content
 components:
-  parameters:
-    OnBehalfOf:
-      name: on-behalf-of
-      in: header
-      description: 'The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent''s Subusers or customer accounts. You will use the parent account''s API key when using this header. When making a call on behalf of a customer account, the property value should be "account-id" followed by the customer account''s ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser''s username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.'
-      required: false
-      schema:
-        type: string
   schemas:
-    SubscriptionTrackingSettings:
-      title: 'Settings: Subscription Tracking'
-      type: object
-      properties:
-        enabled:
-          type: boolean
-          description: Indicates if subscription tracking is enabled.
-        html_content:
-          type: string
-          description: 'The information and HTML for your unsubscribe link. '
-        landing:
-          type: string
-          description: The HTML that will be displayed on the page that your customers will see after clicking unsubscribe, hosted on SendGrid’s server.
-        plain_content:
-          type: string
-          description: The information in plain text for your unsubscribe link. You should have the “<% %>” tag in your content, otherwise the user will have no URL for unsubscribing.
-        replace:
-          type: string
-          description: Your custom defined replacement tag for your templates. Use this tag to place your unsubscribe content anywhere in your emailtemplate.
-        url:
-          type: string
-          description: The URL where you would like your users sent to unsubscribe.
-          format: uri
-    ClickTracking:
-      title: 'Settings: Click Tracking'
-      type: object
-      properties:
-        enable_text:
-          type: boolean
-          description: Indicates if click tracking is enabled for plain text emails.
-        enabled:
-          type: boolean
-          description: Indicates if click tracking is enabled or disabled.
-      required:
-      - enable_text
-      - enabled
-      example:
-        enable_text: false
-        enabled: false
     GoogleAnalyticsSettings:
       title: 'Settings: Google Analytics'
       type: object
@@ -419,6 +372,53 @@ components:
         utm_term: ''
         utm_content: ''
         utm_campaign: website
+    ClickTracking:
+      title: 'Settings: Click Tracking'
+      type: object
+      properties:
+        enable_text:
+          type: boolean
+          description: Indicates if click tracking is enabled for plain text emails.
+        enabled:
+          type: boolean
+          description: Indicates if click tracking is enabled or disabled.
+      required:
+      - enable_text
+      - enabled
+      example:
+        enable_text: false
+        enabled: false
+    SubscriptionTrackingSettings:
+      title: 'Settings: Subscription Tracking'
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: Indicates if subscription tracking is enabled.
+        html_content:
+          type: string
+          description: 'The information and HTML for your unsubscribe link. '
+        landing:
+          type: string
+          description: The HTML that will be displayed on the page that your customers will see after clicking unsubscribe, hosted on SendGrid’s server.
+        plain_content:
+          type: string
+          description: The information in plain text for your unsubscribe link. You should have the “<% %>” tag in your content, otherwise the user will have no URL for unsubscribing.
+        replace:
+          type: string
+          description: Your custom defined replacement tag for your templates. Use this tag to place your unsubscribe content anywhere in your emailtemplate.
+        url:
+          type: string
+          description: The URL where you would like your users sent to unsubscribe.
+          format: uri
+  parameters:
+    OnBehalfOf:
+      name: on-behalf-of
+      in: header
+      description: 'The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent''s Subusers or customer accounts. You will use the parent account''s API key when using this header. When making a call on behalf of a customer account, the property value should be "account-id" followed by the customer account''s ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser''s username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.'
+      required: false
+      schema:
+        type: string
   securitySchemes:
     BearerAuth:
       type: http
