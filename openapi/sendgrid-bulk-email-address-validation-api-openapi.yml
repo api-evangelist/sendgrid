@@ -178,15 +178,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    Status:
-      type: string
-      enum:
-      - Initiated
-      - Queued
-      - Ready
-      - Processing
-      - Done
-      - Error
     GetValidationsEmailJobsJobId200Response:
       title: GET Validations Email Jobs job_id 200 Response
       type: object
@@ -231,7 +222,39 @@ components:
       enum:
       - csv
       - zip
+    GetValidationsEmailJobs200Response:
+      title: GET Validations Email Jobs 200 Response
+      type: object
+      properties:
+        result:
+          type: array
+          description: ''
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: The unique ID of the Bulk Email Address Validation Job.
+              status:
+                type: string
+                description: The status of the Bulk Email Address Validation Job.
+                $ref: '#/components/schemas/Status'
+              started_at:
+                description: The ISO8601 timestamp when the Job was created. This is the time at which the upload request was sent to the `upload_uri`.
+                type: number
+              finished_at:
+                description: The ISO8601 timestamp when the Job was finished.
+                type: number
     Status1:
+      type: string
+      enum:
+      - Initiated
+      - Queued
+      - Ready
+      - Processing
+      - Done
+      - Error
+    Status:
       type: string
       enum:
       - Initiated
@@ -267,29 +290,6 @@ components:
         errors:
         - field: field_name
           message: error message
-    GetValidationsEmailJobs200Response:
-      title: GET Validations Email Jobs 200 Response
-      type: object
-      properties:
-        result:
-          type: array
-          description: ''
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-                description: The unique ID of the Bulk Email Address Validation Job.
-              status:
-                type: string
-                description: The status of the Bulk Email Address Validation Job.
-                $ref: '#/components/schemas/Status'
-              started_at:
-                description: The ISO8601 timestamp when the Job was created. This is the time at which the upload request was sent to the `upload_uri`.
-                type: number
-              finished_at:
-                description: The ISO8601 timestamp when the Job was finished.
-                type: number
     PutValidationsEmailJobs200Response:
       title: Update Email Validations Jobs 200 Response
       type: object

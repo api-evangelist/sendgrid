@@ -1029,75 +1029,7 @@ paths:
     - url: https://api.sendgrid.com
       description: The Twilio SendGrid v3 API
 components:
-  parameters:
-    OnBehalfOf:
-      name: on-behalf-of
-      in: header
-      description: 'The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent''s Subusers or customer accounts. You will use the parent account''s API key when using this header. When making a call on behalf of a customer account, the property value should be "account-id" followed by the customer account''s ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser''s username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.'
-      required: false
-      schema:
-        type: string
   schemas:
-    ContactdbRecipient200:
-      title: 'ContactDB: Recipient'
-      type: object
-      properties:
-        recipients:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-                description: The ID of this recipient.
-              created_at:
-                type: number
-                description: The time this record was created in your contactdb, in unixtime.
-              custom_fields:
-                type: array
-                description: The custom fields assigned to this recipient and their values.
-                items:
-                  $ref: '#/components/schemas/ContactdbCustomFieldIdValue'
-              email:
-                type: string
-                description: The email address of this recipient. This is a default custom field that SendGrid provides.
-                format: email
-              first_name:
-                description: The first name of this recipient. This is a default custom field that SendGrid provides.
-                nullable: true
-                type: string
-              last_name:
-                description: The last name of the recipient.
-                nullable: true
-                type: string
-              last_clicked:
-                description: The last time this recipient clicked a link from one of your campaigns, in unixtime.
-                nullable: true
-                type: number
-              last_emailed:
-                description: The last time this user was emailed by one of your campaigns, in unixtime.
-                nullable: true
-                type: number
-              last_opened:
-                description: The last time this recipient opened an email from you, in unixtime.
-                nullable: true
-                type: number
-              updated_at:
-                type: number
-                description: The last update date for this recipient's record.
-            required:
-            - email
-    Type:
-      type: string
-      enum:
-      - date
-      - text
-      - number
-    DeleteContacts:
-      type: boolean
-      enum:
-      - true
-      - false
     ContactdbList2xx:
       title: ContactDB lists
       type: object
@@ -1162,6 +1094,85 @@ components:
           description: The value of this recipient's custom field
           nullable: true
           type: string
+    ContactdbRecipient200:
+      title: 'ContactDB: Recipient'
+      type: object
+      properties:
+        recipients:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: The ID of this recipient.
+              created_at:
+                type: number
+                description: The time this record was created in your contactdb, in unixtime.
+              custom_fields:
+                type: array
+                description: The custom fields assigned to this recipient and their values.
+                items:
+                  $ref: '#/components/schemas/ContactdbCustomFieldIdValue'
+              email:
+                type: string
+                description: The email address of this recipient. This is a default custom field that SendGrid provides.
+                format: email
+              first_name:
+                description: The first name of this recipient. This is a default custom field that SendGrid provides.
+                nullable: true
+                type: string
+              last_name:
+                description: The last name of the recipient.
+                nullable: true
+                type: string
+              last_clicked:
+                description: The last time this recipient clicked a link from one of your campaigns, in unixtime.
+                nullable: true
+                type: number
+              last_emailed:
+                description: The last time this user was emailed by one of your campaigns, in unixtime.
+                nullable: true
+                type: number
+              last_opened:
+                description: The last time this recipient opened an email from you, in unixtime.
+                nullable: true
+                type: number
+              updated_at:
+                type: number
+                description: The last update date for this recipient's record.
+            required:
+            - email
+    DeleteContacts:
+      type: boolean
+      enum:
+      - true
+      - false
+    Type:
+      type: string
+      enum:
+      - date
+      - text
+      - number
+    Metadata:
+      title: metadata
+      type: object
+      properties:
+        prev:
+          type: string
+          format: uri
+          description: The URL of the previous page of results. If this field isn't present, you're at the start of the list.
+        self:
+          type: string
+          format: uri
+          description: The URL of the current page of results.
+        next:
+          type: string
+          format: uri
+          description: The URL of the next page of results. If this field isn't present, you're at the end of the list.
+        count:
+          type: number
+          description: The number of items in the entire list, i.e., across all pages.
     Error:
       title: error
       type: object
@@ -1193,25 +1204,6 @@ components:
           description: The number of contacts currently stored on the list.
         _metadata:
           $ref: '#/components/schemas/SelfMetadata'
-    Metadata:
-      title: metadata
-      type: object
-      properties:
-        prev:
-          type: string
-          format: uri
-          description: The URL of the previous page of results. If this field isn't present, you're at the start of the list.
-        self:
-          type: string
-          format: uri
-          description: The URL of the current page of results.
-        next:
-          type: string
-          format: uri
-          description: The URL of the next page of results. If this field isn't present, you're at the end of the list.
-        count:
-          type: number
-          description: The number of items in the entire list, i.e., across all pages.
     SelfMetadata:
       title: selfMetadata
       type: object
@@ -1294,6 +1286,14 @@ components:
       - list_ids
       - created_at
       - updated_at
+  parameters:
+    OnBehalfOf:
+      name: on-behalf-of
+      in: header
+      description: 'The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent''s Subusers or customer accounts. You will use the parent account''s API key when using this header. When making a call on behalf of a customer account, the property value should be "account-id" followed by the customer account''s ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser''s username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.'
+      required: false
+      schema:
+        type: string
   securitySchemes:
     BearerAuth:
       type: http

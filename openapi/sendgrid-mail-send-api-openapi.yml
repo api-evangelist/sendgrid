@@ -59,11 +59,91 @@ paths:
         '500':
           $ref: '#/components/responses/PostMailSend500'
 components:
+  responses:
+    PostMailSend404:
+      description: Mail Send not found response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Unauthorized request:
+              value:
+                errors:
+                - message: not found
+                  field: 'null'
+    PostMailSend405:
+      description: Mail Send method not allowed response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Unauthorized request:
+              value:
+                errors:
+                - message: method not allowed
+                  field: 'null'
+    PostMailSend500:
+      description: Mail send internal server error response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Unauthorized request:
+              value:
+                errors:
+                - message: internal server error
+    PostMailSend401:
+      description: Mail Send unauthorized response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Unauthorized request:
+              value:
+                errors:
+                - message: authorization required
+                  field: 'null'
+    PostMailSend400:
+      description: Mail Send bad response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Unauthorized request:
+              value:
+                errors:
+                - message: invalid request
+                  field: 'null'
+    PostMailSend413:
+      description: Mail Send content too large response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Unauthorized request:
+              value:
+                errors:
+                - message: content too large
+                  field: 'null'
+    PostMailSend403:
+      description: Mail Send forbidden response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Unauthorized request:
+              value:
+                errors:
+                - message: access forbidden
+                  field: 'null'
   schemas:
-    ContentEncoding:
-      type: string
-      enum:
-      - gzip
     MailFrom:
       title: From Email Object
       type: object
@@ -77,24 +157,15 @@ components:
           description: A name or title associated with the email address such as "Support" or "Alex".
       required:
       - email
-    MailTo:
-      title: To Email Object
-      type: object
-      properties:
-        email:
-          type: string
-          format: email
-          description: An email address to which a message is sent. Email addresses specified in `personalizations` will override addresses set at the message level outside of the `personalizations` object.
-        name:
-          type: string
-          description: A name or title associated with the email address such as "Alex".
-      required:
-      - email
     Disposition:
       type: string
       enum:
       - inline
       - attachment
+    ContentEncoding:
+      type: string
+      enum:
+      - gzip
     ErrorResponse:
       type: object
       properties:
@@ -120,90 +191,19 @@ components:
         errors:
         - field: field_name
           message: error message
-  responses:
-    PostMailSend404:
-      description: Mail Send not found response.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Unauthorized request:
-              value:
-                errors:
-                - message: not found
-                  field: 'null'
-    PostMailSend403:
-      description: Mail Send forbidden response.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Unauthorized request:
-              value:
-                errors:
-                - message: access forbidden
-                  field: 'null'
-    PostMailSend413:
-      description: Mail Send content too large response.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Unauthorized request:
-              value:
-                errors:
-                - message: content too large
-                  field: 'null'
-    PostMailSend405:
-      description: Mail Send method not allowed response.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Unauthorized request:
-              value:
-                errors:
-                - message: method not allowed
-                  field: 'null'
-    PostMailSend400:
-      description: Mail Send bad response.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Unauthorized request:
-              value:
-                errors:
-                - message: invalid request
-                  field: 'null'
-    PostMailSend401:
-      description: Mail Send unauthorized response.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Unauthorized request:
-              value:
-                errors:
-                - message: authorization required
-                  field: 'null'
-    PostMailSend500:
-      description: Mail send internal server error response.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Unauthorized request:
-              value:
-                errors:
-                - message: internal server error
+    MailTo:
+      title: To Email Object
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          description: An email address to which a message is sent. Email addresses specified in `personalizations` will override addresses set at the message level outside of the `personalizations` object.
+        name:
+          type: string
+          description: A name or title associated with the email address such as "Alex".
+      required:
+      - email
   requestBodies:
     PostMailSend:
       content:

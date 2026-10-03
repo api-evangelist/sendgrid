@@ -646,6 +646,26 @@ paths:
       description: The Twilio SendGrid v3 API
 components:
   schemas:
+    ContactdbCustomFieldId2xx:
+      title: ContactDB Custom field schema with ID.
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the field
+        type:
+          type: string
+          description: The type of the field.
+          $ref: '#/components/schemas/Type'
+        id:
+          type: number
+          description: The ID of the custom field.
+    Type:
+      type: string
+      enum:
+      - date
+      - text
+      - number
     ErrorResponse:
       type: object
       properties:
@@ -671,26 +691,28 @@ components:
         errors:
         - field: field_name
           message: error message
-    Type:
-      type: string
-      enum:
-      - date
-      - text
-      - number
-    ContactdbCustomFieldId2xx:
-      title: ContactDB Custom field schema with ID.
+    Metadata:
+      title: _metadata
       type: object
       properties:
-        name:
+        prev:
           type: string
-          description: The name of the field
-        type:
+          format: uri
+        self:
           type: string
-          description: The type of the field.
-          $ref: '#/components/schemas/Type'
-        id:
-          type: number
-          description: The ID of the custom field.
+          format: uri
+        next:
+          type: string
+          format: uri
+        count:
+          type: integer
+          minimum: 0
+    FieldType2:
+      type: string
+      enum:
+      - Text
+      - Number
+      - Date
     FieldType:
       type: string
       enum:
@@ -722,6 +744,20 @@ components:
         name: automation_id
         field_type: Text
         read_only: true
+    CustomFieldsError:
+      title: error
+      type: object
+      properties:
+        message:
+          type: string
+        field:
+          type: string
+        error_id:
+          type: string
+        parameter:
+          type: string
+      required:
+      - message
     CustomFieldDefinitionsResponse:
       title: custom_field_definitions_response
       type: object
@@ -743,42 +779,6 @@ components:
         id: a1_D
         name: custom_field_name
         field_type: Date
-    Metadata:
-      title: _metadata
-      type: object
-      properties:
-        prev:
-          type: string
-          format: uri
-        self:
-          type: string
-          format: uri
-        next:
-          type: string
-          format: uri
-        count:
-          type: integer
-          minimum: 0
-    FieldType2:
-      type: string
-      enum:
-      - Text
-      - Number
-      - Date
-    CustomFieldsError:
-      title: error
-      type: object
-      properties:
-        message:
-          type: string
-        field:
-          type: string
-        error_id:
-          type: string
-        parameter:
-          type: string
-      required:
-      - message
     FieldType1:
       type: string
       enum:

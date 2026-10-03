@@ -709,99 +709,6 @@ paths:
                     - message: Invalid id provided.
 components:
   schemas:
-    EventWebhookNoDatesResponse:
-      type: object
-      properties:
-        enabled:
-          type: boolean
-          description: Indicates if the Event Webhook is enabled.
-        url:
-          type: string
-          description: The URL where SendGrid will send event data.
-        account_status_change:
-          type: boolean
-          description: Indicates if the webhook is configured to send account status change events related to compliance action taken by SendGrid.
-        group_resubscribe:
-          type: boolean
-          description: Indicates if the webhook is configured to send group resubscribe events. Group resubscribes occur when recipients resubscribe to a specific [unsubscribe group](https://docs.sendgrid.com/ui/sending-email/create-and-manage-unsubscribe-groups) by updating their subscription preferences. You must [enable Subscription Tracking](https://docs.sendgrid.com/ui/account-and-settings/tracking#subscription-tracking) to receive this type of event.
-        delivered:
-          type: boolean
-          description: Indicates if the webhook is configured to send delivered events. Delivered events occur when a message has been successfully delivered to the receiving server.
-        group_unsubscribe:
-          type: boolean
-          description: Indicates if the webhook is configured to send group unsubscribe events. Group unsubscribes occur when recipients unsubscribe from a specific [unsubscribe group](https://docs.sendgrid.com/ui/sending-email/create-and-manage-unsubscribe-groups) either by direct link or by updating their subscription preferences. You must [enable Subscription Tracking](https://docs.sendgrid.com/ui/account-and-settings/tracking#subscription-tracking) to receive this type of event.
-        spam_report:
-          type: boolean
-          description: Indicates if the webhook is configured to send spam report events. Spam reports occur when recipients mark a message as spam.
-        bounce:
-          type: boolean
-          description: Indicates if the webhook is configured to send bounce events. A bounce occurs when a receiving server could not or would not accept a message.
-        deferred:
-          type: boolean
-          description: Indicates if the webhook is configured to send deferred events. Deferred events occur when a recipient's email server temporarily rejects a message.
-        unsubscribe:
-          type: boolean
-          description: Indicates if the webhook is configured to send unsubscribe events. Unsubscribes occur when recipients click on a message's subscription management link. You must [enable Subscription Tracking](https://docs.sendgrid.com/ui/account-and-settings/tracking#subscription-tracking) to receive this type of event.
-        processed:
-          type: boolean
-          description: Indicates if the webhook is configured to send processed events. Processed events occur when a message has been received by Twilio SendGrid and is ready to be delivered.
-        open:
-          type: boolean
-          description: Indicates if the webhook is configured to send open events. Open events occur when a recipient has opened the HTML message. You must [enable Open Tracking](https://docs.sendgrid.com/ui/account-and-settings/tracking#open-tracking) to receive this type of event.
-        click:
-          type: boolean
-          description: Indicates if the webhook is configured to send click events. Click events occur when a recipient clicks on a link within the message. You must [enable Click Tracking](https://docs.sendgrid.com/ui/account-and-settings/tracking#click-tracking) to receive this type of event.
-        dropped:
-          type: boolean
-          description: 'Indicates if the webhook is configured to send dropped events. Dropped events occur when your message is not delivered by Twilio SendGrid. Dropped events are accomponied by a `reason` property, which indicates why the message was dropped. Reasons for a dropped message include: Invalid SMTPAPI header, Spam Content (if spam checker app enabled), Unsubscribed Address, Bounced Address, Spam Reporting Address, Invalid, Recipient List over Package Quota.'
-        friendly_name:
-          type: string
-          description: An optional friendly name assigned to the Event Webhook to help you differentiate it. The friendly name is for convenience only. You should use the webhook `id` property for any programmatic tasks.
-          nullable: true
-        id:
-          type: string
-          description: A unique string used to identify the webhook. A webhook's ID is generated programmatically and cannot be changed after creation. You can assign a natural language identifier to your webhook using the `friendly_name` property.
-        oauth_client_id:
-          type: string
-          description: The OAuth client ID SendGrid sends to your OAuth server or service provider to generate an OAuth access token.
-          nullable: true
-        oauth_token_url:
-          type: string
-          description: The URL where SendGrid sends the OAuth client ID and client secret to generate an access token. This should be your OAuth server or service provider.
-          nullable: true
-        public_key:
-          type: string
-          description: The public key you can use to verify the SendGrid signature.
-    EventWebhookTestRequest:
-      title: Send Event Webhook Test Request
-      type: object
-      properties:
-        id:
-          type: string
-          description: The ID of the Event Webhook you want to retrieve.
-        url:
-          type: string
-          description: The URL where you would like the test notification to be sent.
-        oauth_client_id:
-          type: string
-          description: The client ID Twilio SendGrid sends to your OAuth server or service provider to generate an OAuth access token. When passing data in this property, you must also include the `oauth_token_url` property.
-          nullable: true
-        oauth_client_secret:
-          type: string
-          description: The `oauth_client_secret` is needed only once to create an access token. SendGrid will store this secret, allowing you to update your Client ID and Token URL without passing the secret to SendGrid again. When passing data in this field, you must also include the `oauth_client_id` and `oauth_token_url` properties.
-          nullable: true
-        oauth_token_url:
-          type: string
-          description: The URL where Twilio SendGrid sends the Client ID and Client Secret to generate an access token. This should be your OAuth server or service provider. When passing data in this field, you must also include the `oauth_client_id` property.
-          nullable: true
-      required:
-      - url
-      example:
-        id: 77d4a5da-7015-11ed-a1eb-0242ac120002
-        url: https://emailengagment.example.com
-        oauth_client_id: a835e7210bbb47edbfa71bdfc909b2d7
-        oauth_client_secret: 335a9b0c65324fd2a62e2953d4b158
-        oauth_token_url: https://oauthservice.example.com
     EventWebhookSignedResponse:
       type: object
       properties:
@@ -874,18 +781,6 @@ components:
         public_key:
           type: string
           description: The public key you can use to verify the SendGrid signature.
-    EventWebhookAllResponse:
-      title: 'Event Webhook Response Body: All Webhooks'
-      type: object
-      properties:
-        max_allowed:
-          type: number
-          description: The maximum number of Event Webhooks you can have enabled under your current Twilio SendGrid plan. See the [Twilio SendGrid pricing page](https://sendgrid.com/pricing) for more information about the features available with each plan.
-        webhooks:
-          type: array
-          description: An array of Event Webhook objects. Each object represents one of your webhooks and contains its configuration settings, including which events it is set to send in the POST request, the URL where it will send those events, and the webhook's ID.
-          items:
-            $ref: '#/components/schemas/EventWebhookSignedResponse'
     EventWebhookRequest:
       title: Create and Update Event Webhook Request Body
       type: object
@@ -947,6 +842,48 @@ components:
           nullable: true
       required:
       - url
+    EventWebhookTestRequest:
+      title: Send Event Webhook Test Request
+      type: object
+      properties:
+        id:
+          type: string
+          description: The ID of the Event Webhook you want to retrieve.
+        url:
+          type: string
+          description: The URL where you would like the test notification to be sent.
+        oauth_client_id:
+          type: string
+          description: The client ID Twilio SendGrid sends to your OAuth server or service provider to generate an OAuth access token. When passing data in this property, you must also include the `oauth_token_url` property.
+          nullable: true
+        oauth_client_secret:
+          type: string
+          description: The `oauth_client_secret` is needed only once to create an access token. SendGrid will store this secret, allowing you to update your Client ID and Token URL without passing the secret to SendGrid again. When passing data in this field, you must also include the `oauth_client_id` and `oauth_token_url` properties.
+          nullable: true
+        oauth_token_url:
+          type: string
+          description: The URL where Twilio SendGrid sends the Client ID and Client Secret to generate an access token. This should be your OAuth server or service provider. When passing data in this field, you must also include the `oauth_client_id` property.
+          nullable: true
+      required:
+      - url
+      example:
+        id: 77d4a5da-7015-11ed-a1eb-0242ac120002
+        url: https://emailengagment.example.com
+        oauth_client_id: a835e7210bbb47edbfa71bdfc909b2d7
+        oauth_client_secret: 335a9b0c65324fd2a62e2953d4b158
+        oauth_token_url: https://oauthservice.example.com
+    EventWebhookAllResponse:
+      title: 'Event Webhook Response Body: All Webhooks'
+      type: object
+      properties:
+        max_allowed:
+          type: number
+          description: The maximum number of Event Webhooks you can have enabled under your current Twilio SendGrid plan. See the [Twilio SendGrid pricing page](https://sendgrid.com/pricing) for more information about the features available with each plan.
+        webhooks:
+          type: array
+          description: An array of Event Webhook objects. Each object represents one of your webhooks and contains its configuration settings, including which events it is set to send in the POST request, the URL where it will send those events, and the webhook's ID.
+          items:
+            $ref: '#/components/schemas/EventWebhookSignedResponse'
     EventWebhookUnsignedResponse:
       type: object
       properties:
@@ -1016,21 +953,70 @@ components:
           type: string
           description: The URL where SendGrid sends the OAuth client ID and client secret to generate an access token. This should be your OAuth server or service provider.
           nullable: true
+    EventWebhookNoDatesResponse:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: Indicates if the Event Webhook is enabled.
+        url:
+          type: string
+          description: The URL where SendGrid will send event data.
+        account_status_change:
+          type: boolean
+          description: Indicates if the webhook is configured to send account status change events related to compliance action taken by SendGrid.
+        group_resubscribe:
+          type: boolean
+          description: Indicates if the webhook is configured to send group resubscribe events. Group resubscribes occur when recipients resubscribe to a specific [unsubscribe group](https://docs.sendgrid.com/ui/sending-email/create-and-manage-unsubscribe-groups) by updating their subscription preferences. You must [enable Subscription Tracking](https://docs.sendgrid.com/ui/account-and-settings/tracking#subscription-tracking) to receive this type of event.
+        delivered:
+          type: boolean
+          description: Indicates if the webhook is configured to send delivered events. Delivered events occur when a message has been successfully delivered to the receiving server.
+        group_unsubscribe:
+          type: boolean
+          description: Indicates if the webhook is configured to send group unsubscribe events. Group unsubscribes occur when recipients unsubscribe from a specific [unsubscribe group](https://docs.sendgrid.com/ui/sending-email/create-and-manage-unsubscribe-groups) either by direct link or by updating their subscription preferences. You must [enable Subscription Tracking](https://docs.sendgrid.com/ui/account-and-settings/tracking#subscription-tracking) to receive this type of event.
+        spam_report:
+          type: boolean
+          description: Indicates if the webhook is configured to send spam report events. Spam reports occur when recipients mark a message as spam.
+        bounce:
+          type: boolean
+          description: Indicates if the webhook is configured to send bounce events. A bounce occurs when a receiving server could not or would not accept a message.
+        deferred:
+          type: boolean
+          description: Indicates if the webhook is configured to send deferred events. Deferred events occur when a recipient's email server temporarily rejects a message.
+        unsubscribe:
+          type: boolean
+          description: Indicates if the webhook is configured to send unsubscribe events. Unsubscribes occur when recipients click on a message's subscription management link. You must [enable Subscription Tracking](https://docs.sendgrid.com/ui/account-and-settings/tracking#subscription-tracking) to receive this type of event.
+        processed:
+          type: boolean
+          description: Indicates if the webhook is configured to send processed events. Processed events occur when a message has been received by Twilio SendGrid and is ready to be delivered.
+        open:
+          type: boolean
+          description: Indicates if the webhook is configured to send open events. Open events occur when a recipient has opened the HTML message. You must [enable Open Tracking](https://docs.sendgrid.com/ui/account-and-settings/tracking#open-tracking) to receive this type of event.
+        click:
+          type: boolean
+          description: Indicates if the webhook is configured to send click events. Click events occur when a recipient clicks on a link within the message. You must [enable Click Tracking](https://docs.sendgrid.com/ui/account-and-settings/tracking#click-tracking) to receive this type of event.
+        dropped:
+          type: boolean
+          description: 'Indicates if the webhook is configured to send dropped events. Dropped events occur when your message is not delivered by Twilio SendGrid. Dropped events are accomponied by a `reason` property, which indicates why the message was dropped. Reasons for a dropped message include: Invalid SMTPAPI header, Spam Content (if spam checker app enabled), Unsubscribed Address, Bounced Address, Spam Reporting Address, Invalid, Recipient List over Package Quota.'
+        friendly_name:
+          type: string
+          description: An optional friendly name assigned to the Event Webhook to help you differentiate it. The friendly name is for convenience only. You should use the webhook `id` property for any programmatic tasks.
+          nullable: true
+        id:
+          type: string
+          description: A unique string used to identify the webhook. A webhook's ID is generated programmatically and cannot be changed after creation. You can assign a natural language identifier to your webhook using the `friendly_name` property.
+        oauth_client_id:
+          type: string
+          description: The OAuth client ID SendGrid sends to your OAuth server or service provider to generate an OAuth access token.
+          nullable: true
+        oauth_token_url:
+          type: string
+          description: The URL where SendGrid sends the OAuth client ID and client secret to generate an access token. This should be your OAuth server or service provider.
+          nullable: true
+        public_key:
+          type: string
+          description: The public key you can use to verify the SendGrid signature.
   parameters:
-    OnBehalfOf:
-      name: on-behalf-of
-      in: header
-      description: 'The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent''s Subusers or customer accounts. You will use the parent account''s API key when using this header. When making a call on behalf of a customer account, the property value should be "account-id" followed by the customer account''s ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser''s username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.'
-      required: false
-      schema:
-        type: string
-    Include:
-      name: include
-      in: query
-      description: Use this to include optional fields in the response payload. When this is set to `include=account_status_change`, the `account_status_change` field will be part of the response payload and set to `false` by default. See [Update an event webhook](https://docs.sendgrid.com/api-reference/webhooks/update-an-event-webhook) for enabling this webhook notification which lets you subscribe to account status change events related to compliance action taken by SendGrid.
-      required: false
-      schema:
-        type: string
     RequestId:
       name: id
       in: path
@@ -1041,6 +1027,20 @@ components:
       examples:
         ID Example:
           value: 77d4a5da-7015-11ed-a1eb-0242ac120002
+    Include:
+      name: include
+      in: query
+      description: Use this to include optional fields in the response payload. When this is set to `include=account_status_change`, the `account_status_change` field will be part of the response payload and set to `false` by default. See [Update an event webhook](https://docs.sendgrid.com/api-reference/webhooks/update-an-event-webhook) for enabling this webhook notification which lets you subscribe to account status change events related to compliance action taken by SendGrid.
+      required: false
+      schema:
+        type: string
+    OnBehalfOf:
+      name: on-behalf-of
+      in: header
+      description: 'The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent''s Subusers or customer accounts. You will use the parent account''s API key when using this header. When making a call on behalf of a customer account, the property value should be "account-id" followed by the customer account''s ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser''s username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.'
+      required: false
+      schema:
+        type: string
   securitySchemes:
     BearerAuth:
       type: http

@@ -410,18 +410,6 @@ paths:
                         received: 0
 components:
   responses:
-    Webhook401:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Webhook404:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     Webhook500:
       description: ''
       content:
@@ -436,26 +424,24 @@ components:
                   properties:
                     message:
                       type: string
+    Webhook401:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
     Webhook403:
       description: ''
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    OnBehalfOf:
-      name: on-behalf-of
-      in: header
-      description: 'The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent''s Subusers or customer accounts. You will use the parent account''s API key when using this header. When making a call on behalf of a customer account, the property value should be "account-id" followed by the customer account''s ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser''s username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.'
-      required: false
-      schema:
-        type: string
-  requestBodies:
-    PostPatchParseSetting:
+    Webhook404:
+      description: ''
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ParseSetting'
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
     AggregatedBy:
       type: string
@@ -463,27 +449,6 @@ components:
       - day
       - week
       - month
-    ParseSetting:
-      title: Parse Setting
-      type: object
-      properties:
-        url:
-          type: string
-          description: The public URL where you would like SendGrid to POST the data parsed from your email. Any emails sent with the given hostname provided (whose MX records have been updated to point to SendGrid) will be parsed and POSTed to this URL.
-        hostname:
-          type: string
-          description: A specific and unique domain or subdomain that you have created to use exclusively to parse your incoming email. For example, `parse.yourdomain.com`.
-        spam_check:
-          type: boolean
-          description: Indicates if you would like SendGrid to check the content parsed from your emails for spam before POSTing them to your domain.
-        send_raw:
-          type: boolean
-          description: Indicates if you would like SendGrid to post the original MIME-type content of your parsed email. When this parameter is set to `true`, SendGrid will send a JSON payload of the content of your email.
-      example:
-        url: http://email.myhostname.com
-        hostname: myhostname.com
-        spam_check: false
-        send_raw: true
     ErrorResponse:
       type: object
       properties:
@@ -509,6 +474,41 @@ components:
         errors:
         - field: field_name
           message: error message
+    ParseSetting:
+      title: Parse Setting
+      type: object
+      properties:
+        url:
+          type: string
+          description: The public URL where you would like SendGrid to POST the data parsed from your email. Any emails sent with the given hostname provided (whose MX records have been updated to point to SendGrid) will be parsed and POSTed to this URL.
+        hostname:
+          type: string
+          description: A specific and unique domain or subdomain that you have created to use exclusively to parse your incoming email. For example, `parse.yourdomain.com`.
+        spam_check:
+          type: boolean
+          description: Indicates if you would like SendGrid to check the content parsed from your emails for spam before POSTing them to your domain.
+        send_raw:
+          type: boolean
+          description: Indicates if you would like SendGrid to post the original MIME-type content of your parsed email. When this parameter is set to `true`, SendGrid will send a JSON payload of the content of your email.
+      example:
+        url: http://email.myhostname.com
+        hostname: myhostname.com
+        spam_check: false
+        send_raw: true
+  requestBodies:
+    PostPatchParseSetting:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ParseSetting'
+  parameters:
+    OnBehalfOf:
+      name: on-behalf-of
+      in: header
+      description: 'The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent''s Subusers or customer accounts. You will use the parent account''s API key when using this header. When making a call on behalf of a customer account, the property value should be "account-id" followed by the customer account''s ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser''s username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.'
+      required: false
+      schema:
+        type: string
   securitySchemes:
     BearerAuth:
       type: http

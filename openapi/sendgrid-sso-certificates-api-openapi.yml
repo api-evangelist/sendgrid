@@ -250,7 +250,7 @@ paths:
           $ref: '#/components/responses/Sso500'
 components:
   responses:
-    Sso403:
+    Sso400:
       description: ''
       content:
         application/json:
@@ -268,7 +268,7 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/SsoErrorResponse'
-    Sso400:
+    Sso403:
       description: ''
       content:
         application/json:
@@ -281,6 +281,19 @@ components:
           schema:
             $ref: '#/components/schemas/SsoErrorResponse'
   schemas:
+    SsoErrorResponse:
+      title: SSO Error Response
+      type: array
+      items:
+        type: object
+        properties:
+          message:
+            type: string
+          field:
+            nullable: true
+            type: string
+          error_id:
+            type: string
     SsoCertificateBody:
       title: Single Sign-On Certificate Body
       type: object
@@ -306,19 +319,6 @@ components:
         not_before: 1621289880
         not_after: 1621289880
         intergration_id: b0b98502-9408-4b24-9e3d-31ed7cb15312
-    SsoErrorResponse:
-      title: SSO Error Response
-      type: array
-      items:
-        type: object
-        properties:
-          message:
-            type: string
-          field:
-            nullable: true
-            type: string
-          error_id:
-            type: string
   securitySchemes:
     BearerAuth:
       type: http

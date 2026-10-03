@@ -73,56 +73,6 @@ paths:
           $ref: '#/components/responses/RecipientsDataErasure500'
 components:
   responses:
-    RecipientsDataErasure429:
-      description: User has sent too many requests in a given amount of time
-      headers:
-        X-RateLimit-Limit:
-          description: The number of requests allowed during the  window.
-          schema:
-            type: integer
-        X-RateLimit-Reset:
-          description: The amount of time (in seconds) until the current window is over and the limit is reset
-          schema:
-            type: integer
-        X-RateLimit-Remaining:
-          description: The number of request remaining in the 60-second window before encountering a 429 error.
-          schema:
-            type: integer
-        X-Envoy-Ratelimited:
-          description: Indicating that you've been ratelimited
-          schema:
-            type: boolean
-    RecipientsDataErasure401:
-      description: Request lacks valid authentication credentials
-      headers:
-        X-RateLimit-Limit:
-          description: The number of requests allowed during the  window.
-          schema:
-            type: integer
-        X-RateLimit-Reset:
-          description: The amount of time (in seconds) until the current window is over and the limit is reset
-          schema:
-            type: integer
-        X-RateLimit-Remaining:
-          description: The number of request remaining in the 60-second window before encountering a 429 error.
-          schema:
-            type: integer
-      content:
-        application/json:
-          schema:
-            title: Unauthorized
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  $ref: '#/components/schemas/RecipientsDataErasureErrorV1'
-            required:
-            - errors
-          example:
-            errors:
-            - message: Failed to authenticate
-              field: ''
     RecipientsDataErasure404:
       description: Not Found
       headers:
@@ -154,6 +104,56 @@ components:
             errors:
             - message: Not Found
               field: ''
+    RecipientsDataErasure401:
+      description: Request lacks valid authentication credentials
+      headers:
+        X-RateLimit-Limit:
+          description: The number of requests allowed during the  window.
+          schema:
+            type: integer
+        X-RateLimit-Reset:
+          description: The amount of time (in seconds) until the current window is over and the limit is reset
+          schema:
+            type: integer
+        X-RateLimit-Remaining:
+          description: The number of request remaining in the 60-second window before encountering a 429 error.
+          schema:
+            type: integer
+      content:
+        application/json:
+          schema:
+            title: Unauthorized
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RecipientsDataErasureErrorV1'
+            required:
+            - errors
+          example:
+            errors:
+            - message: Failed to authenticate
+              field: ''
+    RecipientsDataErasure429:
+      description: User has sent too many requests in a given amount of time
+      headers:
+        X-RateLimit-Limit:
+          description: The number of requests allowed during the  window.
+          schema:
+            type: integer
+        X-RateLimit-Reset:
+          description: The amount of time (in seconds) until the current window is over and the limit is reset
+          schema:
+            type: integer
+        X-RateLimit-Remaining:
+          description: The number of request remaining in the 60-second window before encountering a 429 error.
+          schema:
+            type: integer
+        X-Envoy-Ratelimited:
+          description: Indicating that you've been ratelimited
+          schema:
+            type: boolean
     RecipientsDataErasure403:
       description: Not authorized to make the request
       headers:
@@ -184,37 +184,6 @@ components:
           example:
             errors:
             - message: Not authorized
-              field: ''
-    RecipientsDataErasure500:
-      description: Internal Server Error
-      headers:
-        X-RateLimit-Limit:
-          description: The number of requests allowed during the  window.
-          schema:
-            type: integer
-        X-RateLimit-Reset:
-          description: The amount of time (in seconds) until the current window is over and the limit is reset
-          schema:
-            type: integer
-        X-RateLimit-Remaining:
-          description: The number of request remaining in the 60-second window before encountering a 429 error.
-          schema:
-            type: integer
-      content:
-        application/json:
-          schema:
-            title: Internal Server Error
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  $ref: '#/components/schemas/RecipientsDataErasureErrorV1'
-            required:
-            - errors
-          example:
-            errors:
-            - message: Internal Server Error
               field: ''
     RecipientsDataErasure400:
       description: The request was formatted incorrectly or missing required parameters.
@@ -247,7 +216,51 @@ components:
           description: The number of request remaining in the 60-second window before encountering a 429 error.
           schema:
             type: integer
+    RecipientsDataErasure500:
+      description: Internal Server Error
+      headers:
+        X-RateLimit-Limit:
+          description: The number of requests allowed during the  window.
+          schema:
+            type: integer
+        X-RateLimit-Reset:
+          description: The amount of time (in seconds) until the current window is over and the limit is reset
+          schema:
+            type: integer
+        X-RateLimit-Remaining:
+          description: The number of request remaining in the 60-second window before encountering a 429 error.
+          schema:
+            type: integer
+      content:
+        application/json:
+          schema:
+            title: Internal Server Error
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RecipientsDataErasureErrorV1'
+            required:
+            - errors
+          example:
+            errors:
+            - message: Internal Server Error
+              field: ''
   schemas:
+    RecipientsDataErasureErrorV1:
+      title: Error
+      type: object
+      properties:
+        message:
+          type: string
+          description: The message representing the error from the API
+        field:
+          type: string
+          description: The field associated with the error
+      required:
+      - message
+      - field
     RecipientsDataErasureEraseRecipientsRequest:
       title: EmailAddress
       type: object
@@ -265,19 +278,6 @@ components:
         email_addresses:
         - user1@example.com
         - user2@example.com
-    RecipientsDataErasureErrorV1:
-      title: Error
-      type: object
-      properties:
-        message:
-          type: string
-          description: The message representing the error from the API
-        field:
-          type: string
-          description: The field associated with the error
-      required:
-      - message
-      - field
     RecipientsDataErasureJobId:
       title: JobId
       type: object

@@ -309,7 +309,145 @@ paths:
                 required:
                 - errors
 components:
+  responses:
+    Segments404:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Segments401:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Segments403:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: An error message.
+              field:
+                description: When applicable, this property value will be the field that generated the error.
+                nullable: true
+                type: string
+              help:
+                type: object
+                description: When applicable, this property value will be helper text or a link to documentation to help you troubleshoot the error.
+        id:
+          type: string
+          description: When applicable, this property value will be an error ID.
+      example:
+        errors:
+        - field: field_name
+          message: error message
+    FullSegment:
+      title: full_segment
+      example:
+        id: 58567a46-305e-48d1-b4f8-a006c906920e
+        contacts_count: 9266921
+        created_at: '2085-08-08T21:07:05.692Z'
+        sample_updated_at: '3407-09-25T04:25:02.140Z'
+        updated_at: '4431-05-07T22:23:22.352Z'
+        contacts_sample:
+        - id: c1183ada-b784-49ac-9b1f-50e73578a6dc
+          email: ft88@d.izxx
+          external_id: '1234'
+          alternate_emails:
+          - yKDUP11FDch@QoU.vwy
+          - ZNSN5@czAMqPi.at
+          - 7wr51kFVVKlcBSH@DWxOueOZepetzBrku.qosk
+          - iib-ObtO7Fxz5@vLJPRIFKPOqJGCEqcIDab.ypn
+          first_name: est
+          last_name: eiusmod in laboris velit cupidatat
+          address_line_1: sunt aliqua
+          address_line_2: sit proident Lorem veniam labore
+          city: "\x9CȎţȸÛ\tčCŁ"
+          state_province_region: ut proident
+          postal_code: 30296612
+          country: do reprehenderit qui
+          custom_fields:
+            custom_field_name2: in consectetur ut aliqua sint
+            custom_field_name1: esse
+        name: culpa
+        query_dsl: cillum eiusmod
+        parent_list_id: 2357714d-3d82-4c80-826c-b44a4147f81c
+        next_sample_update: ''
+      type: object
+      properties:
+        id:
+          type: string
+          minLength: 36
+          maxLength: 36
+          format: uuid
+        contacts_count:
+          type: integer
+        created_at:
+          type: string
+          description: 'ISO8601 of created timestamp
+
+            '
+          format: date-time
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+          description: Name of the segment.
+        parent_list_id:
+          type: string
+          minLength: 36
+          maxLength: 36
+          format: uuid
+          description: The id of the list if this segment is a child of a list.  This implies the query `AND CONTAINS(list_ids, ${parent_list_id})`
+        sample_updated_at:
+          type: string
+          description: ISO8601 timestamp the sample was last updated
+          format: date-time
+        updated_at:
+          type: string
+          description: ISO8601 timestamp the object was last updated
+          format: date-time
+        next_sample_update:
+          type: string
+          description: ISO8601 string that is equal to `sample_updated_at` plus an internally calculated offset that depends on how often contacts enter or exit segments as the scheduled pipeline updates the samples.
+        contacts_sample:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactResponse'
+        query_json:
+          type: object
+          description: AST representation of the query DSL
+        parent_list_ids:
+          type: array
+          description: The array of list ids to filter contacts on when building this segment. It allows only one such list id for now. We will support more in future
+          uniqueItems: true
+          items:
+            type: string
+        query_dsl:
+          type: string
+          description: SQL query which will filter contacts based on the conditions provided
+      required:
+      - contacts_count
+      - contacts_sample
+      - created_at
+      - id
+      - name
+      - query_dsl
+      - sample_updated_at
+      - updated_at
     ContactResponse:
       title: contact_response
       type: object
@@ -477,144 +615,6 @@ components:
       - created_at
       - sample_updated_at
       - updated_at
-    FullSegment:
-      title: full_segment
-      example:
-        id: 58567a46-305e-48d1-b4f8-a006c906920e
-        contacts_count: 9266921
-        created_at: '2085-08-08T21:07:05.692Z'
-        sample_updated_at: '3407-09-25T04:25:02.140Z'
-        updated_at: '4431-05-07T22:23:22.352Z'
-        contacts_sample:
-        - id: c1183ada-b784-49ac-9b1f-50e73578a6dc
-          email: ft88@d.izxx
-          external_id: '1234'
-          alternate_emails:
-          - yKDUP11FDch@QoU.vwy
-          - ZNSN5@czAMqPi.at
-          - 7wr51kFVVKlcBSH@DWxOueOZepetzBrku.qosk
-          - iib-ObtO7Fxz5@vLJPRIFKPOqJGCEqcIDab.ypn
-          first_name: est
-          last_name: eiusmod in laboris velit cupidatat
-          address_line_1: sunt aliqua
-          address_line_2: sit proident Lorem veniam labore
-          city: "\x9CȎţȸÛ\tčCŁ"
-          state_province_region: ut proident
-          postal_code: 30296612
-          country: do reprehenderit qui
-          custom_fields:
-            custom_field_name2: in consectetur ut aliqua sint
-            custom_field_name1: esse
-        name: culpa
-        query_dsl: cillum eiusmod
-        parent_list_id: 2357714d-3d82-4c80-826c-b44a4147f81c
-        next_sample_update: ''
-      type: object
-      properties:
-        id:
-          type: string
-          minLength: 36
-          maxLength: 36
-          format: uuid
-        contacts_count:
-          type: integer
-        created_at:
-          type: string
-          description: 'ISO8601 of created timestamp
-
-            '
-          format: date-time
-        name:
-          type: string
-          minLength: 1
-          maxLength: 100
-          description: Name of the segment.
-        parent_list_id:
-          type: string
-          minLength: 36
-          maxLength: 36
-          format: uuid
-          description: The id of the list if this segment is a child of a list.  This implies the query `AND CONTAINS(list_ids, ${parent_list_id})`
-        sample_updated_at:
-          type: string
-          description: ISO8601 timestamp the sample was last updated
-          format: date-time
-        updated_at:
-          type: string
-          description: ISO8601 timestamp the object was last updated
-          format: date-time
-        next_sample_update:
-          type: string
-          description: ISO8601 string that is equal to `sample_updated_at` plus an internally calculated offset that depends on how often contacts enter or exit segments as the scheduled pipeline updates the samples.
-        contacts_sample:
-          type: array
-          items:
-            $ref: '#/components/schemas/ContactResponse'
-        query_json:
-          type: object
-          description: AST representation of the query DSL
-        parent_list_ids:
-          type: array
-          description: The array of list ids to filter contacts on when building this segment. It allows only one such list id for now. We will support more in future
-          uniqueItems: true
-          items:
-            type: string
-        query_dsl:
-          type: string
-          description: SQL query which will filter contacts based on the conditions provided
-      required:
-      - contacts_count
-      - contacts_sample
-      - created_at
-      - id
-      - name
-      - query_dsl
-      - sample_updated_at
-      - updated_at
-    ErrorResponse:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-                description: An error message.
-              field:
-                description: When applicable, this property value will be the field that generated the error.
-                nullable: true
-                type: string
-              help:
-                type: object
-                description: When applicable, this property value will be helper text or a link to documentation to help you troubleshoot the error.
-        id:
-          type: string
-          description: When applicable, this property value will be an error ID.
-      example:
-        errors:
-        - field: field_name
-          message: error message
-  responses:
-    Segments401:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Segments403:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Segments404:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     BearerAuth:
       type: http

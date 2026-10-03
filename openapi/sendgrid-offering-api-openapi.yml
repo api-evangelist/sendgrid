@@ -137,7 +137,177 @@ paths:
         '504':
           $ref: '#/components/responses/AccountProvisioningErrorResponse504'
 components:
+  responses:
+    AccountProvisioningErrorResponse504:
+      description: Endpoint request timed out
+      content:
+        application/json:
+          schema:
+            title: Endpoint request timed out
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ErrorResponse'
+          example:
+            errors:
+            - message: Endpoint request timed out
+              field: ''
+              error_id: 10-50400
+    AccountProvisioningErrorResponse502:
+      description: Bad Gateway
+      content:
+        application/json:
+          schema:
+            title: Bad Gateway
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ErrorResponse'
+          example:
+            errors:
+            - message: Bad Gateway
+              field: ''
+              error_id: 10-50200
+    AccountProvisioningErrorResponse401:
+      description: Request lacks valid authentication credentials
+      content:
+        application/json:
+          schema:
+            title: Unauthorized
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ErrorResponse'
+          example:
+            errors:
+            - message: Failed to authenticate user
+              field: ''
+              error_id: 10-40100
+    AccountProvisioningErrorResponse500:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            title: InternalServerError
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ErrorResponse'
+          example:
+            errors:
+            - message: Something went wrong
+              field: ''
+              error_id: 10-50000
+    AccountProvisioningErrorResponse503:
+      description: Service Unavailable
+      content:
+        application/json:
+          schema:
+            title: Service Unavailable
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ErrorResponse'
+          example:
+            errors:
+            - message: Service Unavailable
+              field: ''
+              error_id: 10-50300
+    AccountProvisioningErrorResponse404:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            title: Not Found
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ErrorResponse'
+          example:
+            errors:
+            - message: No such endpoint
+              field: ''
+              error_id: 10-40400
+    AccountProvisioningErrorResponse403:
+      description: Not authorized to make the request
+      content:
+        application/json:
+          schema:
+            title: Forbidden
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ErrorResponse'
+          example:
+            errors:
+            - message: The authenticated user is not authorized to perfrom this request
+              field: ''
+              error_id: 10-40300
+    AccountProvisioningErrorResponse400:
+      description: The request was formatted incorrectly or missing required parameters.
+      content:
+        application/json:
+          schema:
+            title: Bad Request
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ErrorResponse'
+            required:
+            - errors
+          example:
+            errors:
+            - message: Field must be a valid email
+              field: email
+              error_id: 10-40002
+            - message: Field must be formatted using the E.164 standard consisting of [+] [country code] [subscriber number including area code] and can have a maximum of fifteen digits.
+              field: phone
+              error_id: 10-40010
+            - message: Field must be a valid URL
+              field: company_website
+              error_id: 10-40008
   schemas:
+    AccountProvisioningOfferingList:
+      title: OfferingList
+      type: object
+      properties:
+        offerings:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountProvisioningOfferingV1'
+    ErrorResponse:
+      title: Error
+      type: object
+      properties:
+        message:
+          type: string
+          description: The message representing the error from the API.
+        field:
+          type: string
+          description: The field associated with the error.
+        error_id:
+          type: string
+          description: ID representing the error as a unique nubmer.
+      required:
+      - message
+      - field
+      - error_id
     AccountProvisioningOfferingV1:
       title: Offering
       type: object
@@ -206,36 +376,11 @@ components:
             ip_count: 0
             teammates_max_total: 0
             users_max_total: 0
-    AccountProvisioningOfferingList:
-      title: OfferingList
-      type: object
-      properties:
-        offerings:
-          type: array
-          items:
-            $ref: '#/components/schemas/AccountProvisioningOfferingV1'
     Type:
       type: string
       enum:
       - package
       - addon
-    ErrorResponse:
-      title: Error
-      type: object
-      properties:
-        message:
-          type: string
-          description: The message representing the error from the API.
-        field:
-          type: string
-          description: The field associated with the error.
-        error_id:
-          type: string
-          description: ID representing the error as a unique nubmer.
-      required:
-      - message
-      - field
-      - error_id
   parameters:
     AccountProvisioningAccountId:
       name: accountID
@@ -245,151 +390,6 @@ components:
         type: string
       required: true
       example: sg2a2bcd3ef4ab5c67d8efab91c01de2fa
-  responses:
-    AccountProvisioningErrorResponse502:
-      description: Bad Gateway
-      content:
-        application/json:
-          schema:
-            title: Bad Gateway
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ErrorResponse'
-          example:
-            errors:
-            - message: Bad Gateway
-              field: ''
-              error_id: 10-50200
-    AccountProvisioningErrorResponse401:
-      description: Request lacks valid authentication credentials
-      content:
-        application/json:
-          schema:
-            title: Unauthorized
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ErrorResponse'
-          example:
-            errors:
-            - message: Failed to authenticate user
-              field: ''
-              error_id: 10-40100
-    AccountProvisioningErrorResponse404:
-      description: Not Found
-      content:
-        application/json:
-          schema:
-            title: Not Found
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ErrorResponse'
-          example:
-            errors:
-            - message: No such endpoint
-              field: ''
-              error_id: 10-40400
-    AccountProvisioningErrorResponse500:
-      description: Internal Server Error
-      content:
-        application/json:
-          schema:
-            title: InternalServerError
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ErrorResponse'
-          example:
-            errors:
-            - message: Something went wrong
-              field: ''
-              error_id: 10-50000
-    AccountProvisioningErrorResponse403:
-      description: Not authorized to make the request
-      content:
-        application/json:
-          schema:
-            title: Forbidden
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ErrorResponse'
-          example:
-            errors:
-            - message: The authenticated user is not authorized to perfrom this request
-              field: ''
-              error_id: 10-40300
-    AccountProvisioningErrorResponse503:
-      description: Service Unavailable
-      content:
-        application/json:
-          schema:
-            title: Service Unavailable
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ErrorResponse'
-          example:
-            errors:
-            - message: Service Unavailable
-              field: ''
-              error_id: 10-50300
-    AccountProvisioningErrorResponse400:
-      description: The request was formatted incorrectly or missing required parameters.
-      content:
-        application/json:
-          schema:
-            title: Bad Request
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ErrorResponse'
-            required:
-            - errors
-          example:
-            errors:
-            - message: Field must be a valid email
-              field: email
-              error_id: 10-40002
-            - message: Field must be formatted using the E.164 standard consisting of [+] [country code] [subscriber number including area code] and can have a maximum of fifteen digits.
-              field: phone
-              error_id: 10-40010
-            - message: Field must be a valid URL
-              field: company_website
-              error_id: 10-40008
-    AccountProvisioningErrorResponse504:
-      description: Endpoint request timed out
-      content:
-        application/json:
-          schema:
-            title: Endpoint request timed out
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ErrorResponse'
-          example:
-            errors:
-            - message: Endpoint request timed out
-              field: ''
-              error_id: 10-50400
   securitySchemes:
     BearerAuth:
       type: http

@@ -529,14 +529,6 @@ paths:
                 type: object
 components:
   schemas:
-    Operator:
-      type: string
-      enum:
-      - eq
-      - ne
-      - lt
-      - gt
-      - contains
     ContactdbSegmentsConditions:
       title: 'ContactDB: Segments: Conditions'
       type: object
@@ -555,55 +547,6 @@ components:
       - field
       - value
       - operator
-    ContactdbRecipient200:
-      title: 'ContactDB: Recipient'
-      type: object
-      properties:
-        recipients:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-                description: The ID of this recipient.
-              created_at:
-                type: number
-                description: The time this record was created in your contactdb, in unixtime.
-              custom_fields:
-                type: array
-                description: The custom fields assigned to this recipient and their values.
-                items:
-                  $ref: '#/components/schemas/ContactdbCustomFieldIdValue'
-              email:
-                type: string
-                description: The email address of this recipient. This is a default custom field that SendGrid provides.
-                format: email
-              first_name:
-                description: The first name of this recipient. This is a default custom field that SendGrid provides.
-                nullable: true
-                type: string
-              last_name:
-                description: The last name of the recipient.
-                nullable: true
-                type: string
-              last_clicked:
-                description: The last time this recipient clicked a link from one of your campaigns, in unixtime.
-                nullable: true
-                type: number
-              last_emailed:
-                description: The last time this user was emailed by one of your campaigns, in unixtime.
-                nullable: true
-                type: number
-              last_opened:
-                description: The last time this recipient opened an email from you, in unixtime.
-                nullable: true
-                type: number
-              updated_at:
-                type: number
-                description: The last update date for this recipient's record.
-            required:
-            - email
     ContactdbSegmentsId200:
       title: 'ContactDB:: Segments with ID'
       type: object
@@ -629,12 +572,6 @@ components:
       - conditions
       - id
       - name
-    Type:
-      type: string
-      enum:
-      - date
-      - text
-      - number
     ErrorResponse:
       type: object
       properties:
@@ -660,6 +597,12 @@ components:
         errors:
         - field: field_name
           message: error message
+    AndOr:
+      type: string
+      enum:
+      - and
+      - or
+      - ''
     ContactdbCustomFieldIdValue:
       title: ContactDB Custom field schema.
       type: object
@@ -716,12 +659,69 @@ components:
           operator: eq
           and_or: or
         recipient_count: 1234
-    AndOr:
+    Operator:
       type: string
       enum:
-      - and
-      - or
-      - ''
+      - eq
+      - ne
+      - lt
+      - gt
+      - contains
+    ContactdbRecipient200:
+      title: 'ContactDB: Recipient'
+      type: object
+      properties:
+        recipients:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: The ID of this recipient.
+              created_at:
+                type: number
+                description: The time this record was created in your contactdb, in unixtime.
+              custom_fields:
+                type: array
+                description: The custom fields assigned to this recipient and their values.
+                items:
+                  $ref: '#/components/schemas/ContactdbCustomFieldIdValue'
+              email:
+                type: string
+                description: The email address of this recipient. This is a default custom field that SendGrid provides.
+                format: email
+              first_name:
+                description: The first name of this recipient. This is a default custom field that SendGrid provides.
+                nullable: true
+                type: string
+              last_name:
+                description: The last name of the recipient.
+                nullable: true
+                type: string
+              last_clicked:
+                description: The last time this recipient clicked a link from one of your campaigns, in unixtime.
+                nullable: true
+                type: number
+              last_emailed:
+                description: The last time this user was emailed by one of your campaigns, in unixtime.
+                nullable: true
+                type: number
+              last_opened:
+                description: The last time this recipient opened an email from you, in unixtime.
+                nullable: true
+                type: number
+              updated_at:
+                type: number
+                description: The last update date for this recipient's record.
+            required:
+            - email
+    Type:
+      type: string
+      enum:
+      - date
+      - text
+      - number
   parameters:
     OnBehalfOf:
       name: on-behalf-of

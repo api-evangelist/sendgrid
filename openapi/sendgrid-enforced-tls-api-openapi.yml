@@ -97,6 +97,18 @@ paths:
           $ref: '#/components/responses/EnforcedTls500'
 components:
   responses:
+    EnforcedTls403:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    EnforcedTls401:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
     EnforcedTls500:
       description: ''
       content:
@@ -111,53 +123,13 @@ components:
                   properties:
                     message:
                       type: string
-    EnforcedTls403:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     EnforcedTls404:
       description: ''
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    EnforcedTls401:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    OnBehalfOf:
-      name: on-behalf-of
-      in: header
-      description: 'The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent''s Subusers or customer accounts. You will use the parent account''s API key when using this header. When making a call on behalf of a customer account, the property value should be "account-id" followed by the customer account''s ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser''s username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.'
-      required: false
-      schema:
-        type: string
   schemas:
-    EnforcedTlsRequestResponse:
-      title: Enforced TLS Request Response
-      type: object
-      properties:
-        require_tls:
-          type: boolean
-          description: 'Indicates if you want to require your recipients to support TLS. '
-        require_valid_cert:
-          type: boolean
-          description: Indicates if you want to require your recipients to have a valid certificate.
-        version:
-          type: number
-          format: float
-          description: The minimum required TLS certificate version.
-          default: 1.1
-          $ref: '#/components/schemas/Version'
-      example:
-        require_tls: true
-        require_valid_cert: true
-        version: 1.1
     Version:
       type: number
       enum:
@@ -189,6 +161,34 @@ components:
         errors:
         - field: field_name
           message: error message
+    EnforcedTlsRequestResponse:
+      title: Enforced TLS Request Response
+      type: object
+      properties:
+        require_tls:
+          type: boolean
+          description: 'Indicates if you want to require your recipients to support TLS. '
+        require_valid_cert:
+          type: boolean
+          description: Indicates if you want to require your recipients to have a valid certificate.
+        version:
+          type: number
+          format: float
+          description: The minimum required TLS certificate version.
+          default: 1.1
+          $ref: '#/components/schemas/Version'
+      example:
+        require_tls: true
+        require_valid_cert: true
+        version: 1.1
+  parameters:
+    OnBehalfOf:
+      name: on-behalf-of
+      in: header
+      description: 'The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent''s Subusers or customer accounts. You will use the parent account''s API key when using this header. When making a call on behalf of a customer account, the property value should be "account-id" followed by the customer account''s ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser''s username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.'
+      required: false
+      schema:
+        type: string
   securitySchemes:
     BearerAuth:
       type: http

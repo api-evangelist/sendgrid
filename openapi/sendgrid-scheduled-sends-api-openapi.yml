@@ -224,6 +224,18 @@ paths:
           $ref: '#/components/responses/ScheduledSends500'
 components:
   responses:
+    ScheduledSends403:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    ScheduledSends400:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
     ScheduledSends500:
       description: ''
       content:
@@ -238,7 +250,7 @@ components:
                   properties:
                     message:
                       type: string
-    ScheduledSends403:
+    ScheduledSends404:
       description: ''
       content:
         application/json:
@@ -250,46 +262,17 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    ScheduledSends404:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    ScheduledSends400:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    Status:
-      type: string
-      enum:
-      - pause
-      - cancel
-    ScheduledSendStatus:
-      title: User Scheduled Send status
-      example:
-        batch_id: HkJ5yLYULb7Rj8GKSx7u025ouWVlMgAi
-        status: pause
-      type: object
-      properties:
-        batch_id:
-          type: string
-          pattern: ^[a-zA-Z0-9\-\_]
-        status:
-          type: string
-          description: The status of the scheduled send.
-          $ref: '#/components/schemas/Status2'
-      required:
-      - batch_id
-      - status
     Status1:
       type: string
       enum:
       - cancel
       - pause
+    Status:
+      type: string
+      enum:
+      - pause
+      - cancel
     ErrorResponse:
       type: object
       properties:
@@ -315,6 +298,23 @@ components:
         errors:
         - field: field_name
           message: error message
+    ScheduledSendStatus:
+      title: User Scheduled Send status
+      example:
+        batch_id: HkJ5yLYULb7Rj8GKSx7u025ouWVlMgAi
+        status: pause
+      type: object
+      properties:
+        batch_id:
+          type: string
+          pattern: ^[a-zA-Z0-9\-\_]
+        status:
+          type: string
+          description: The status of the scheduled send.
+          $ref: '#/components/schemas/Status2'
+      required:
+      - batch_id
+      - status
     Status2:
       type: string
       enum:

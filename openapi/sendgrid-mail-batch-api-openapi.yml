@@ -92,68 +92,9 @@ paths:
         '500':
           $ref: '#/components/responses/MailBatch500'
 components:
-  parameters:
-    OnBehalfOf:
-      name: on-behalf-of
-      in: header
-      description: Use the `on-behalf-of` header to make API calls for a particular Subuser through the parent account. You can use this header to automate bulk updates or to administer a Subuser without changing the authentication in your code. You will use the parent account's API key when using this header.
-      required: false
-      schema:
-        type: string
-    BatchId:
-      name: batch_id
-      in: path
-      description: Set this parameter to the batch ID that's associated with the mail send you want to retrieve.
-      required: true
-      schema:
-        type: string
-  schemas:
-    MailBatchResponse:
-      title: Mail Batch and Batch ID Response Schema
-      type: object
-      properties:
-        batch_id:
-          type: string
-          description: A mail batch ID.
-      example:
-        batch_id: HkJ5yLYULb7Rj8GKSx7u025ouWVlMgAi
-    ErrorResponse:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-                description: An error message.
-              field:
-                description: When applicable, this property value will be the field that generated the error.
-                nullable: true
-                type: string
-              help:
-                type: object
-                description: When applicable, this property value will be helper text or a link to documentation to help you troubleshoot the error.
-        id:
-          type: string
-          description: When applicable, this property value will be an error ID.
-      example:
-        errors:
-        - field: field_name
-          message: error message
   responses:
-    MailBatch2xx:
-      description: Batch ID success response.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/MailBatchResponse'
-          examples:
-            Success:
-              $ref: '#/components/examples/MailBatch2xx'
-    MailBatch500:
-      description: Get batch ID internal server error response.
+    MailBatch405:
+      description: Get batch ID method not allowed response.
       content:
         application/json:
           schema:
@@ -162,7 +103,7 @@ components:
             Unauthorized request:
               value:
                 errors:
-                - message: internal server error
+                - message: method not allowed
                   field: 'null'
     MailBatch401:
       description: Batch ID unauthorized response.
@@ -176,8 +117,8 @@ components:
                 errors:
                 - message: authorization required
                   field: 'null'
-    MailBatch405:
-      description: Get batch ID method not allowed response.
+    MailBatch500:
+      description: Get batch ID internal server error response.
       content:
         application/json:
           schema:
@@ -186,8 +127,17 @@ components:
             Unauthorized request:
               value:
                 errors:
-                - message: method not allowed
+                - message: internal server error
                   field: 'null'
+    MailBatch2xx:
+      description: Batch ID success response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/MailBatchResponse'
+          examples:
+            Success:
+              $ref: '#/components/examples/MailBatch2xx'
     MailBatch404:
       description: Batch ID not found response.
       content:
@@ -229,6 +179,56 @@ components:
       summary: A mail batch ID.
       value:
         batch_id: 123abc456def789hij0
+  schemas:
+    MailBatchResponse:
+      title: Mail Batch and Batch ID Response Schema
+      type: object
+      properties:
+        batch_id:
+          type: string
+          description: A mail batch ID.
+      example:
+        batch_id: HkJ5yLYULb7Rj8GKSx7u025ouWVlMgAi
+    ErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: An error message.
+              field:
+                description: When applicable, this property value will be the field that generated the error.
+                nullable: true
+                type: string
+              help:
+                type: object
+                description: When applicable, this property value will be helper text or a link to documentation to help you troubleshoot the error.
+        id:
+          type: string
+          description: When applicable, this property value will be an error ID.
+      example:
+        errors:
+        - field: field_name
+          message: error message
+  parameters:
+    BatchId:
+      name: batch_id
+      in: path
+      description: Set this parameter to the batch ID that's associated with the mail send you want to retrieve.
+      required: true
+      schema:
+        type: string
+    OnBehalfOf:
+      name: on-behalf-of
+      in: header
+      description: Use the `on-behalf-of` header to make API calls for a particular Subuser through the parent account. You can use this header to automate bulk updates or to administer a Subuser without changing the authentication in your code. You will use the parent account's API key when using this header.
+      required: false
+      schema:
+        type: string
   securitySchemes:
     BearerAuth:
       type: http

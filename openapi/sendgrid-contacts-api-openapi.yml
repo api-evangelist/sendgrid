@@ -1305,81 +1305,7 @@ paths:
                         message:
                           type: string
 components:
-  responses:
-    MarketingContacts404:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    MarketingContacts403:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    MarketingContacts401:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    MarketingContacts500:
-      description: ''
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    message:
-                      type: string
   schemas:
-    Status:
-      type: string
-      enum:
-      - pending
-      - ready
-      - failure
-    IdentifierType1:
-      type: string
-      enum:
-      - email
-      - phone_number_id
-      - external_id
-      - anonymous_id
-    FileType1:
-      type: string
-      enum:
-      - csv
-    FileType:
-      type: string
-      enum:
-      - csv
-      - json
-    Metadata:
-      title: metadata
-      type: object
-      properties:
-        prev:
-          type: string
-          format: uri
-          description: The URL of the previous page of results. If this field isn't present, you're at the start of the list.
-        self:
-          type: string
-          format: uri
-          description: The URL of the current page of results.
-        next:
-          type: string
-          format: uri
-          description: The URL of the next page of results. If this field isn't present, you're at the end of the list.
-        count:
-          type: number
-          description: The number of items in the entire list, i.e., across all pages.
     ContactRequest:
       title: contact-request
       type: object
@@ -1449,6 +1375,50 @@ components:
             w1: coffee
             w33: '42'
             e2: blue
+    Metadata:
+      title: metadata
+      type: object
+      properties:
+        prev:
+          type: string
+          format: uri
+          description: The URL of the previous page of results. If this field isn't present, you're at the start of the list.
+        self:
+          type: string
+          format: uri
+          description: The URL of the current page of results.
+        next:
+          type: string
+          format: uri
+          description: The URL of the next page of results. If this field isn't present, you're at the end of the list.
+        count:
+          type: number
+          description: The number of items in the entire list, i.e., across all pages.
+    FileType:
+      type: string
+      enum:
+      - csv
+      - json
+    IdentifierType:
+      type: string
+      enum:
+      - EMAIL
+      - PHONENUMBERID
+      - EXTERNALID
+      - ANONYMOUSID
+    IdentifierType1:
+      type: string
+      enum:
+      - email
+      - phone_number_id
+      - external_id
+      - anonymous_id
+    Status:
+      type: string
+      enum:
+      - pending
+      - ready
+      - failure
     ErrorResponse:
       type: object
       properties:
@@ -1515,6 +1485,10 @@ components:
         finished_at:
           description: The ISO8601 timestamp when the job was finished.
           type: string
+    FileType1:
+      type: string
+      enum:
+      - csv
     SelfMetadata:
       title: selfMetadata
       type: object
@@ -1605,13 +1579,6 @@ components:
         message: error message
       required:
       - message
-    IdentifierType:
-      type: string
-      enum:
-      - EMAIL
-      - PHONENUMBERID
-      - EXTERNALID
-      - ANONYMOUSID
     ContactExport:
       title: contact-export
       type: object
@@ -1653,6 +1620,39 @@ components:
       - created_at
       - updated_at
       - expires_at
+  responses:
+    MarketingContacts500:
+      description: ''
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+    MarketingContacts401:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    MarketingContacts404:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    MarketingContacts403:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     BearerAuth:
       type: http

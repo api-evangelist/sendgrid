@@ -926,28 +926,77 @@ paths:
                     - field: null
                       message: not found
 components:
-  parameters:
-    PaginationCommonOffset:
-      name: offset
-      in: query
-      required: false
-      description: The number of items in the list to skip over before starting to retrieve the items for the requested page. The default `offset` of `0` represents the beginning of the list, i.e. the start of the first page. To request the second page of the list, set the `offset` to the page size as determined by `limit`. Use multiples of the page size as your `offset` to request further consecutive pages. E.g. assume your page size is set to `10`. An `offset` of `10` requests the second page, an `offset` of `20` requests the third page and so on, provided there are sufficiently many items in your list.
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    OnBehalfOf:
-      name: on-behalf-of
-      in: header
-      description: 'The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent''s Subusers or customer accounts. You will use the parent account''s API key when using this header. When making a call on behalf of a customer account, the property value should be "account-id" followed by the customer account''s ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser''s username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.'
-      required: false
-      schema:
-        type: string
   schemas:
-    Status:
+    Editor:
       type: string
       enum:
-      - Scheduled
+      - code
+      - design
+    Campaigns2xx:
+      title: Campaigns Response
+      type: object
+      properties:
+        title:
+          type: string
+          description: The display title of your campaign. This will be viewable by you in the Marketing Campaigns UI.
+        subject:
+          description: The subject of your campaign that your recipients will see.
+          nullable: true
+          type: string
+        sender_id:
+          description: The ID of the "sender" identity that you have created. Your recipients will see this as the "from" on your marketing emails.
+          nullable: true
+          type: integer
+        list_ids:
+          description: The IDs of the lists you are sending this campaign to. You can have both segment IDs and list IDs
+          items:
+            type: integer
+          nullable: true
+          type: array
+        segment_ids:
+          description: The segment IDs that you are sending this list to. You can have both segment IDs and list IDs. Segments are limited to 10 segment IDs.
+          items:
+            type: integer
+          nullable: true
+          type: array
+        categories:
+          description: The categories you would like associated to this campaign.
+          items:
+            type: string
+          nullable: true
+          type: array
+        suppression_group_id:
+          description: The suppression group that this marketing email belongs to, allowing recipients to opt-out of emails of this type.
+          nullable: true
+          type: integer
+        custom_unsubscribe_url:
+          description: This is the url of the custom unsubscribe page that you provide for customers to unsubscribe from your suppression groups.
+          nullable: true
+          type: string
+        ip_pool:
+          description: The pool of IPs that you would like to send this email from.
+          nullable: true
+          type: string
+        html_content:
+          description: The HTML of your marketing email.
+          nullable: true
+          type: string
+        plain_content:
+          description: The plain text content of your emails.
+          nullable: true
+          type: string
+        editor:
+          type: string
+          description: The editor used in the UI.
+          $ref: '#/components/schemas/Editor'
+        status:
+          type: string
+          description: The status of your campaign.
+        id:
+          type: integer
+      required:
+      - status
+      - title
     PostCampaignsRequest:
       title: Campaigns Request
       type: object
@@ -1025,71 +1074,10 @@ components:
         html_content: <html><head><title></title></head><body><p>Check out our summer line!</p></body></html>
         plain_content: Check out our summer line!
         status: Draft
-    Campaigns2xx:
-      title: Campaigns Response
-      type: object
-      properties:
-        title:
-          type: string
-          description: The display title of your campaign. This will be viewable by you in the Marketing Campaigns UI.
-        subject:
-          description: The subject of your campaign that your recipients will see.
-          nullable: true
-          type: string
-        sender_id:
-          description: The ID of the "sender" identity that you have created. Your recipients will see this as the "from" on your marketing emails.
-          nullable: true
-          type: integer
-        list_ids:
-          description: The IDs of the lists you are sending this campaign to. You can have both segment IDs and list IDs
-          items:
-            type: integer
-          nullable: true
-          type: array
-        segment_ids:
-          description: The segment IDs that you are sending this list to. You can have both segment IDs and list IDs. Segments are limited to 10 segment IDs.
-          items:
-            type: integer
-          nullable: true
-          type: array
-        categories:
-          description: The categories you would like associated to this campaign.
-          items:
-            type: string
-          nullable: true
-          type: array
-        suppression_group_id:
-          description: The suppression group that this marketing email belongs to, allowing recipients to opt-out of emails of this type.
-          nullable: true
-          type: integer
-        custom_unsubscribe_url:
-          description: This is the url of the custom unsubscribe page that you provide for customers to unsubscribe from your suppression groups.
-          nullable: true
-          type: string
-        ip_pool:
-          description: The pool of IPs that you would like to send this email from.
-          nullable: true
-          type: string
-        html_content:
-          description: The HTML of your marketing email.
-          nullable: true
-          type: string
-        plain_content:
-          description: The plain text content of your emails.
-          nullable: true
-          type: string
-        editor:
-          type: string
-          description: The editor used in the UI.
-          $ref: '#/components/schemas/Editor'
-        status:
-          type: string
-          description: The status of your campaign.
-        id:
-          type: integer
-      required:
-      - status
-      - title
+    Status:
+      type: string
+      enum:
+      - Scheduled
     ErrorResponse:
       type: object
       properties:
@@ -1115,11 +1103,23 @@ components:
         errors:
         - field: field_name
           message: error message
-    Editor:
-      type: string
-      enum:
-      - code
-      - design
+  parameters:
+    PaginationCommonOffset:
+      name: offset
+      in: query
+      required: false
+      description: The number of items in the list to skip over before starting to retrieve the items for the requested page. The default `offset` of `0` represents the beginning of the list, i.e. the start of the first page. To request the second page of the list, set the `offset` to the page size as determined by `limit`. Use multiples of the page size as your `offset` to request further consecutive pages. E.g. assume your page size is set to `10`. An `offset` of `10` requests the second page, an `offset` of `20` requests the third page and so on, provided there are sufficiently many items in your list.
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    OnBehalfOf:
+      name: on-behalf-of
+      in: header
+      description: 'The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent''s Subusers or customer accounts. You will use the parent account''s API key when using this header. When making a call on behalf of a customer account, the property value should be "account-id" followed by the customer account''s ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser''s username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.'
+      required: false
+      schema:
+        type: string
   securitySchemes:
     BearerAuth:
       type: http

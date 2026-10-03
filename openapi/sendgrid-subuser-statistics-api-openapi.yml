@@ -593,129 +593,6 @@ paths:
                       type: category
 components:
   schemas:
-    SubuserStats:
-      title: subuser_stats
-      type: object
-      properties:
-        date:
-          type: string
-          description: The date the statistics were gathered.
-        stats:
-          type: array
-          description: The list of statistics.
-          items:
-            type: object
-            properties:
-              first_name:
-                type: string
-                description: The first name of the subuser.
-              last_name:
-                type: string
-                description: The last name of the subuser.
-              metrics:
-                type: object
-                properties:
-                  blocks:
-                    type: integer
-                    description: The number of emails that were not allowed to be delivered by ISPs.
-                  bounce_drops:
-                    type: integer
-                    description: The number of emails that were dropped because of a bounce.
-                  bounces:
-                    type: integer
-                    description: The number of emails that bounced instead of being delivered.
-                  clicks:
-                    type: integer
-                    description: The number of links that were clicked in your emails.
-                  deferred:
-                    type: integer
-                    description: The number of emails that temporarily could not be delivered.
-                  delivered:
-                    type: integer
-                    description: The number of emails SendGrid was able to confirm were actually delivered to a recipient.
-                  invalid_emails:
-                    type: integer
-                    description: The number of recipients who had malformed email addresses or whose mail provider reported the address as invalid.
-                  opens:
-                    type: integer
-                    description: The total number of times your emails were opened by recipients.
-                  processed:
-                    type: integer
-                    description: Requests from your website, application, or mail client via SMTP Relay or the API that SendGrid processed.
-                  requests:
-                    type: integer
-                    description: The number of emails that were requested to be delivered.
-                  spam_report_drops:
-                    type: integer
-                    description: The number of emails that were dropped due to a recipient previously marking your emails as spam.
-                  spam_reports:
-                    type: integer
-                    description: The number of recipients who marked your email as spam.
-                  unique_clicks:
-                    type: integer
-                    description: The number of unique recipients who clicked links in your emails.
-                  unique_opens:
-                    type: integer
-                    description: The number of unique recipients who opened your emails.
-                  unsubscribe_drops:
-                    type: integer
-                    description: The number of emails dropped due to a recipient unsubscribing from your emails.
-                  unsubscribes:
-                    type: integer
-                    description: The number of recipients who unsubscribed from your emails.
-              name:
-                type: string
-                description: The username of the subuser.
-              type:
-                type: string
-                description: The type of account.
-      example:
-        date: '2016-02-01'
-        stats:
-        - first_name: John
-          last_name: Doe
-          metrics:
-            blocks: 0
-            bounce_drops: 0
-            bounces: 0
-            clicks: 5
-            deferred: 0
-            delivered: 0
-            invalid_emails: 0
-            opens: 10
-            processed: 10
-            requests: 10
-            spam_report_drops: 0
-            spam_reports: 0
-            unique_clicks: 0
-            unique_opens: 0
-            unsubscribe_drops: 0
-            unsubscribes: 0
-          name: user1
-          type: subuser
-    SortByMetric:
-      type: string
-      enum:
-      - blocks
-      - bounces
-      - clicks
-      - delivered
-      - opens
-      - requests
-      - unique_clicks
-      - unique_opens
-      - unsubscribes
-    AggregatedBy:
-      type: string
-      enum:
-      - day
-      - week
-      - month
-    SortByDirection:
-      type: string
-      enum:
-      - desc
-      - asc
     SortByDirection1:
       type: string
       enum:
@@ -852,11 +729,134 @@ components:
             unsubscribes: 0
           name: cat2
           type: category
+    SubuserStats:
+      title: subuser_stats
+      type: object
+      properties:
+        date:
+          type: string
+          description: The date the statistics were gathered.
+        stats:
+          type: array
+          description: The list of statistics.
+          items:
+            type: object
+            properties:
+              first_name:
+                type: string
+                description: The first name of the subuser.
+              last_name:
+                type: string
+                description: The last name of the subuser.
+              metrics:
+                type: object
+                properties:
+                  blocks:
+                    type: integer
+                    description: The number of emails that were not allowed to be delivered by ISPs.
+                  bounce_drops:
+                    type: integer
+                    description: The number of emails that were dropped because of a bounce.
+                  bounces:
+                    type: integer
+                    description: The number of emails that bounced instead of being delivered.
+                  clicks:
+                    type: integer
+                    description: The number of links that were clicked in your emails.
+                  deferred:
+                    type: integer
+                    description: The number of emails that temporarily could not be delivered.
+                  delivered:
+                    type: integer
+                    description: The number of emails SendGrid was able to confirm were actually delivered to a recipient.
+                  invalid_emails:
+                    type: integer
+                    description: The number of recipients who had malformed email addresses or whose mail provider reported the address as invalid.
+                  opens:
+                    type: integer
+                    description: The total number of times your emails were opened by recipients.
+                  processed:
+                    type: integer
+                    description: Requests from your website, application, or mail client via SMTP Relay or the API that SendGrid processed.
+                  requests:
+                    type: integer
+                    description: The number of emails that were requested to be delivered.
+                  spam_report_drops:
+                    type: integer
+                    description: The number of emails that were dropped due to a recipient previously marking your emails as spam.
+                  spam_reports:
+                    type: integer
+                    description: The number of recipients who marked your email as spam.
+                  unique_clicks:
+                    type: integer
+                    description: The number of unique recipients who clicked links in your emails.
+                  unique_opens:
+                    type: integer
+                    description: The number of unique recipients who opened your emails.
+                  unsubscribe_drops:
+                    type: integer
+                    description: The number of emails dropped due to a recipient unsubscribing from your emails.
+                  unsubscribes:
+                    type: integer
+                    description: The number of recipients who unsubscribed from your emails.
+              name:
+                type: string
+                description: The username of the subuser.
+              type:
+                type: string
+                description: The type of account.
+      example:
+        date: '2016-02-01'
+        stats:
+        - first_name: John
+          last_name: Doe
+          metrics:
+            blocks: 0
+            bounce_drops: 0
+            bounces: 0
+            clicks: 5
+            deferred: 0
+            delivered: 0
+            invalid_emails: 0
+            opens: 10
+            processed: 10
+            requests: 10
+            spam_report_drops: 0
+            spam_reports: 0
+            unique_clicks: 0
+            unique_opens: 0
+            unsubscribe_drops: 0
+            unsubscribes: 0
+          name: user1
+          type: subuser
+    AggregatedBy:
+      type: string
+      enum:
+      - day
+      - week
+      - month
+    SortByDirection:
+      type: string
+      enum:
+      - desc
+      - asc
     SortByDirection2:
       type: string
       enum:
       - desc
       - asc
+    SortByMetric:
+      type: string
+      enum:
+      - blocks
+      - bounces
+      - clicks
+      - delivered
+      - opens
+      - requests
+      - unique_clicks
+      - unique_opens
+      - unsubscribes
   parameters:
     UserName:
       name: subuser_name

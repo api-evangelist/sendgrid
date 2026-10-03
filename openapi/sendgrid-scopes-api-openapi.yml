@@ -282,42 +282,6 @@ components:
       required: false
       schema:
         type: string
-  responses:
-    GetScopes404:
-      description: Scopes not found response.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Unauthorized request:
-              value:
-                errors:
-                - message: not found
-                  field: 'null'
-    GetScopes500:
-      description: Scopes internal server error response.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Unauthorized request:
-              value:
-                errors:
-                - message: internal server error
-    GetScopes403:
-      description: Scopes forbidden response.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Unauthorized request:
-              value:
-                errors:
-                - message: access forbidden
-                  field: 'null'
   schemas:
     ErrorResponse:
       type: object
@@ -344,6 +308,42 @@ components:
         errors:
         - field: field_name
           message: error message
+  responses:
+    GetScopes500:
+      description: Scopes internal server error response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Unauthorized request:
+              value:
+                errors:
+                - message: internal server error
+    GetScopes404:
+      description: Scopes not found response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Unauthorized request:
+              value:
+                errors:
+                - message: not found
+                  field: 'null'
+    GetScopes403:
+      description: Scopes forbidden response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Unauthorized request:
+              value:
+                errors:
+                - message: access forbidden
+                  field: 'null'
   securitySchemes:
     BearerAuth:
       type: http

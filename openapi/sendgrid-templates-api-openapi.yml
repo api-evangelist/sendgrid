@@ -257,16 +257,6 @@ paths:
           description: ''
 components:
   schemas:
-    Generation1:
-      type: string
-      enum:
-      - legacy
-      - dynamic
-    Editor1:
-      type: string
-      enum:
-      - code
-      - design
     Metadata:
       title: _metadata
       type: object
@@ -283,53 +273,6 @@ components:
         count:
           type: integer
           minimum: 0
-    Generations:
-      type: string
-      enum:
-      - legacy
-      - dynamic
-      - legacy,dynamic
-    TransactionalTemplate:
-      title: 'Transactional Templates: Template'
-      example:
-        id: 33feeff2-5069-43fe-8853-428651e5be79
-        name: example_name
-        updated_at: '2021-04-28 13:12:46'
-        warning:
-          message: Sample warning message
-        generation: legacy
-      type: object
-      properties:
-        id:
-          type: string
-          description: The ID of the transactional template.
-          minLength: 36
-          maxLength: 36
-          format: uuid
-        name:
-          type: string
-          description: The name for the transactional template.
-          maxLength: 100
-        generation:
-          type: string
-          description: Defines the generation of the template.
-          $ref: '#/components/schemas/Generation1'
-        updated_at:
-          type: string
-          description: The date and time that this transactional template version was updated.
-          pattern: ^(\d{4}-\d{2}-\d{2}) ((\d{2}):(\d{2}):(\d{2}))$
-        versions:
-          type: array
-          description: The different versions of this transactional template.
-          items:
-            $ref: '#/components/schemas/TransactionalTemplatesVersionOutputLean'
-        warning:
-          $ref: '#/components/schemas/TransactionalTemplateWarning'
-      required:
-      - generation
-      - id
-      - name
-      - updated_at
     TransactionalTemplateWarning:
       title: Warning
       type: object
@@ -344,44 +287,12 @@ components:
       enum:
       - 0
       - 1
-    TransactionalTemplatesTemplateLean:
-      title: 'Transactional Templates: Template Lean'
-      type: object
-      properties:
-        id:
-          type: string
-          description: The ID of the transactional template.
-          minLength: 36
-          maxLength: 36
-          format: uuid
-        name:
-          type: string
-          description: The name for the transactional template.
-          maxLength: 100
-        generation:
-          type: string
-          description: Defines the generation of the template.
-          $ref: '#/components/schemas/Generation1'
-        updated_at:
-          type: string
-          description: The date and time that this transactional template version was updated.
-          pattern: ^(\d{4}-\d{2}-\d{2}) ((\d{2}):(\d{2}):(\d{2}))$
-        versions:
-          type: array
-          description: The different versions of this transactional template.
-          items:
-            $ref: '#/components/schemas/TransactionalTemplatesVersionOutputLean'
-      required:
-      - id
-      - name
-      - generation
-      - updated_at
-      example:
-        id: 0c314114-a2b7-4523-8cbc-a293d7d19007
-        name: example_name
-        generation: legacy
-        updated_at: '2021-04-28 13:12:46'
-        versions: []
+    Generations:
+      type: string
+      enum:
+      - legacy
+      - dynamic
+      - legacy,dynamic
     TransactionalTemplatesVersionOutputLean:
       title: 'Transactional Templates: Version Output Lean'
       type: object
@@ -425,6 +336,95 @@ components:
         thumbnail_url:
           type: string
           description: A Thumbnail preview of the template's html content.
+    TransactionalTemplatesTemplateLean:
+      title: 'Transactional Templates: Template Lean'
+      type: object
+      properties:
+        id:
+          type: string
+          description: The ID of the transactional template.
+          minLength: 36
+          maxLength: 36
+          format: uuid
+        name:
+          type: string
+          description: The name for the transactional template.
+          maxLength: 100
+        generation:
+          type: string
+          description: Defines the generation of the template.
+          $ref: '#/components/schemas/Generation1'
+        updated_at:
+          type: string
+          description: The date and time that this transactional template version was updated.
+          pattern: ^(\d{4}-\d{2}-\d{2}) ((\d{2}):(\d{2}):(\d{2}))$
+        versions:
+          type: array
+          description: The different versions of this transactional template.
+          items:
+            $ref: '#/components/schemas/TransactionalTemplatesVersionOutputLean'
+      required:
+      - id
+      - name
+      - generation
+      - updated_at
+      example:
+        id: 0c314114-a2b7-4523-8cbc-a293d7d19007
+        name: example_name
+        generation: legacy
+        updated_at: '2021-04-28 13:12:46'
+        versions: []
+    TransactionalTemplate:
+      title: 'Transactional Templates: Template'
+      example:
+        id: 33feeff2-5069-43fe-8853-428651e5be79
+        name: example_name
+        updated_at: '2021-04-28 13:12:46'
+        warning:
+          message: Sample warning message
+        generation: legacy
+      type: object
+      properties:
+        id:
+          type: string
+          description: The ID of the transactional template.
+          minLength: 36
+          maxLength: 36
+          format: uuid
+        name:
+          type: string
+          description: The name for the transactional template.
+          maxLength: 100
+        generation:
+          type: string
+          description: Defines the generation of the template.
+          $ref: '#/components/schemas/Generation1'
+        updated_at:
+          type: string
+          description: The date and time that this transactional template version was updated.
+          pattern: ^(\d{4}-\d{2}-\d{2}) ((\d{2}):(\d{2}):(\d{2}))$
+        versions:
+          type: array
+          description: The different versions of this transactional template.
+          items:
+            $ref: '#/components/schemas/TransactionalTemplatesVersionOutputLean'
+        warning:
+          $ref: '#/components/schemas/TransactionalTemplateWarning'
+      required:
+      - generation
+      - id
+      - name
+      - updated_at
+    Editor1:
+      type: string
+      enum:
+      - code
+      - design
+    Generation1:
+      type: string
+      enum:
+      - legacy
+      - dynamic
     Generation:
       type: string
       enum:

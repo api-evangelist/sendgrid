@@ -680,37 +680,24 @@ paths:
         '500':
           $ref: '#/components/responses/MailSettingsError500'
 components:
-  parameters:
-    PaginationCommonOffset:
-      name: offset
-      in: query
-      required: false
-      description: The number of items in the list to skip over before starting to retrieve the items for the requested page. The default `offset` of `0` represents the beginning of the list, i.e. the start of the first page. To request the second page of the list, set the `offset` to the page size as determined by `limit`. Use multiples of the page size as your `offset` to request further consecutive pages. E.g. assume your page size is set to `10`. An `offset` of `10` requests the second page, an `offset` of `20` requests the third page and so on, provided there are sufficiently many items in your list.
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    OnBehalfOf:
-      name: on-behalf-of
-      in: header
-      description: 'The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent''s Subusers or customer accounts. You will use the parent account''s API key when using this header. When making a call on behalf of a customer account, the property value should be "account-id" followed by the customer account''s ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser''s username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.'
-      required: false
-      schema:
-        type: string
   schemas:
-    MailSettingsForwardSpam:
-      title: 'Mail Settings: Forward Spam'
+    MailSettingsAddressWhitelabel200:
+      title: 'Mail Settings: Address Whitelabel'
       type: object
       properties:
-        email:
-          type: string
-          description: The email address where you would like the spam reports to be forwarded.
         enabled:
           type: boolean
-          description: Indicates if the Forward Spam setting is enabled.
+          description: 'Indicates if you have an email address whitelist enabled. '
+        list:
+          type: array
+          description: All email addresses that are currently on the whitelist.
+          items:
+            type: string
       example:
-        email: ''
         enabled: true
+        list:
+        - email1@example.com
+        - example.com
     MailSettingsTemplate200:
       title: 'Mail Settings: Template'
       type: object
@@ -726,6 +713,36 @@ components:
         html_content: '<p><% body %>Example</p>
 
           '
+    MailSettingsFooter:
+      title: 'Mail Settings: Footer'
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: Indicates if the Footer mail setting is currently enabled.
+        html_content:
+          type: string
+          description: The custom HTML content of your email footer.
+        plain_content:
+          type: string
+          description: The plain text content of your email footer.
+      example:
+        enabled: true
+        html_content: Example HTML content
+        plain_content: Example plain content
+    MailSettingsForwardSpam:
+      title: 'Mail Settings: Forward Spam'
+      type: object
+      properties:
+        email:
+          type: string
+          description: The email address where you would like the spam reports to be forwarded.
+        enabled:
+          type: boolean
+          description: Indicates if the Forward Spam setting is enabled.
+      example:
+        email: ''
+        enabled: true
     MailSettingsForwardBounce:
       title: 'Mail Settings: Forward Bounce'
       type: object
@@ -759,94 +776,8 @@ components:
         enabled: false
         soft_bounces: 1234
         hard_bounces: 1234
-    MailSettingsFooter:
-      title: 'Mail Settings: Footer'
-      type: object
-      properties:
-        enabled:
-          type: boolean
-          description: Indicates if the Footer mail setting is currently enabled.
-        html_content:
-          type: string
-          description: The custom HTML content of your email footer.
-        plain_content:
-          type: string
-          description: The plain text content of your email footer.
-      example:
-        enabled: true
-        html_content: Example HTML content
-        plain_content: Example plain content
-    MailSettingsAddressWhitelabel200:
-      title: 'Mail Settings: Address Whitelabel'
-      type: object
-      properties:
-        enabled:
-          type: boolean
-          description: 'Indicates if you have an email address whitelist enabled. '
-        list:
-          type: array
-          description: All email addresses that are currently on the whitelist.
-          items:
-            type: string
-      example:
-        enabled: true
-        list:
-        - email1@example.com
-        - example.com
   responses:
-    MailSettingsError500:
-      description: ''
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    error_id:
-                      type: string
-                      description: The ID associated with the error.
-                    field:
-                      description: The field that generated the error.
-                      nullable: true
-                      type: string
-                    message:
-                      type: string
-                      description: The error message.
-                    parameter:
-                      type: string
-                  required:
-                  - message
     MailSettingsError400:
-      description: ''
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    error_id:
-                      type: string
-                      description: The ID associated with the error.
-                    field:
-                      description: The field that generated the error.
-                      nullable: true
-                      type: string
-                    message:
-                      type: string
-                      description: The error message.
-                    parameter:
-                      type: string
-                  required:
-                  - message
-    MailSettingsError403:
       description: ''
       content:
         application/json:
@@ -924,6 +855,75 @@ components:
                       type: string
                   required:
                   - message
+    MailSettingsError403:
+      description: ''
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    error_id:
+                      type: string
+                      description: The ID associated with the error.
+                    field:
+                      description: The field that generated the error.
+                      nullable: true
+                      type: string
+                    message:
+                      type: string
+                      description: The error message.
+                    parameter:
+                      type: string
+                  required:
+                  - message
+    MailSettingsError500:
+      description: ''
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    error_id:
+                      type: string
+                      description: The ID associated with the error.
+                    field:
+                      description: The field that generated the error.
+                      nullable: true
+                      type: string
+                    message:
+                      type: string
+                      description: The error message.
+                    parameter:
+                      type: string
+                  required:
+                  - message
+  parameters:
+    PaginationCommonOffset:
+      name: offset
+      in: query
+      required: false
+      description: The number of items in the list to skip over before starting to retrieve the items for the requested page. The default `offset` of `0` represents the beginning of the list, i.e. the start of the first page. To request the second page of the list, set the `offset` to the page size as determined by `limit`. Use multiples of the page size as your `offset` to request further consecutive pages. E.g. assume your page size is set to `10`. An `offset` of `10` requests the second page, an `offset` of `20` requests the third page and so on, provided there are sufficiently many items in your list.
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    OnBehalfOf:
+      name: on-behalf-of
+      in: header
+      description: 'The `on-behalf-of` header allows you to make API calls from a parent account on behalf of the parent''s Subusers or customer accounts. You will use the parent account''s API key when using this header. When making a call on behalf of a customer account, the property value should be "account-id" followed by the customer account''s ID (e.g., `on-behalf-of: account-id <account-id>`). When making a call on behalf of a Subuser, the property value should be the Subuser''s username (e.g., `on-behalf-of: <subuser-username>`). See [**On Behalf Of**](https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/on-behalf-of) for more information.'
+      required: false
+      schema:
+        type: string
   securitySchemes:
     BearerAuth:
       type: http
