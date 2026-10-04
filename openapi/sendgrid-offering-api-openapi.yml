@@ -138,57 +138,6 @@ paths:
           $ref: '#/components/responses/AccountProvisioningErrorResponse504'
 components:
   responses:
-    AccountProvisioningErrorResponse504:
-      description: Endpoint request timed out
-      content:
-        application/json:
-          schema:
-            title: Endpoint request timed out
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ErrorResponse'
-          example:
-            errors:
-            - message: Endpoint request timed out
-              field: ''
-              error_id: 10-50400
-    AccountProvisioningErrorResponse502:
-      description: Bad Gateway
-      content:
-        application/json:
-          schema:
-            title: Bad Gateway
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ErrorResponse'
-          example:
-            errors:
-            - message: Bad Gateway
-              field: ''
-              error_id: 10-50200
-    AccountProvisioningErrorResponse401:
-      description: Request lacks valid authentication credentials
-      content:
-        application/json:
-          schema:
-            title: Unauthorized
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ErrorResponse'
-          example:
-            errors:
-            - message: Failed to authenticate user
-              field: ''
-              error_id: 10-40100
     AccountProvisioningErrorResponse500:
       description: Internal Server Error
       content:
@@ -206,23 +155,6 @@ components:
             - message: Something went wrong
               field: ''
               error_id: 10-50000
-    AccountProvisioningErrorResponse503:
-      description: Service Unavailable
-      content:
-        application/json:
-          schema:
-            title: Service Unavailable
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ErrorResponse'
-          example:
-            errors:
-            - message: Service Unavailable
-              field: ''
-              error_id: 10-50300
     AccountProvisioningErrorResponse404:
       description: Not Found
       content:
@@ -240,6 +172,23 @@ components:
             - message: No such endpoint
               field: ''
               error_id: 10-40400
+    AccountProvisioningErrorResponse502:
+      description: Bad Gateway
+      content:
+        application/json:
+          schema:
+            title: Bad Gateway
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ErrorResponse'
+          example:
+            errors:
+            - message: Bad Gateway
+              field: ''
+              error_id: 10-50200
     AccountProvisioningErrorResponse403:
       description: Not authorized to make the request
       content:
@@ -257,6 +206,57 @@ components:
             - message: The authenticated user is not authorized to perfrom this request
               field: ''
               error_id: 10-40300
+    AccountProvisioningErrorResponse503:
+      description: Service Unavailable
+      content:
+        application/json:
+          schema:
+            title: Service Unavailable
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ErrorResponse'
+          example:
+            errors:
+            - message: Service Unavailable
+              field: ''
+              error_id: 10-50300
+    AccountProvisioningErrorResponse504:
+      description: Endpoint request timed out
+      content:
+        application/json:
+          schema:
+            title: Endpoint request timed out
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ErrorResponse'
+          example:
+            errors:
+            - message: Endpoint request timed out
+              field: ''
+              error_id: 10-50400
+    AccountProvisioningErrorResponse401:
+      description: Request lacks valid authentication credentials
+      content:
+        application/json:
+          schema:
+            title: Unauthorized
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ErrorResponse'
+          example:
+            errors:
+            - message: Failed to authenticate user
+              field: ''
+              error_id: 10-40100
     AccountProvisioningErrorResponse400:
       description: The request was formatted incorrectly or missing required parameters.
       content:
@@ -283,6 +283,29 @@ components:
               field: company_website
               error_id: 10-40008
   schemas:
+    AccountProvisioningOfferingV1:
+      title: Offering
+      type: object
+      description: An offering is a package (email infrastructure) or add-on (marketing campaigns, dedicated IP addresses, EASE) that an account can acquire. Each offering has a list of entitlements that indicate the benefits the account receives from the acquisition.
+      properties:
+        name:
+          type: string
+          description: Name of the offering
+        type:
+          type: string
+          description: Defines the type of offering (e.g., package or addon).
+          $ref: '#/components/schemas/Type'
+        quantity:
+          type: integer
+          format: int64
+          description: Quantity of the specified addon to be added. If offering type is `package`, quantity must be 1.
+      required:
+      - name
+      - type
+      example:
+        name: org.ei.free.v1
+        type: package
+        quantity: 1
     AccountProvisioningOfferingList:
       title: OfferingList
       type: object
@@ -308,29 +331,6 @@ components:
       - message
       - field
       - error_id
-    AccountProvisioningOfferingV1:
-      title: Offering
-      type: object
-      description: An offering is a package (email infrastructure) or add-on (marketing campaigns, dedicated IP addresses, EASE) that an account can acquire. Each offering has a list of entitlements that indicate the benefits the account receives from the acquisition.
-      properties:
-        name:
-          type: string
-          description: Name of the offering
-        type:
-          type: string
-          description: Defines the type of offering (e.g., package or addon).
-          $ref: '#/components/schemas/Type'
-        quantity:
-          type: integer
-          format: int64
-          description: Quantity of the specified addon to be added. If offering type is `package`, quantity must be 1.
-      required:
-      - name
-      - type
-      example:
-        name: org.ei.free.v1
-        type: package
-        quantity: 1
     AccountProvisioningCatalog:
       title: Catalog
       type: object

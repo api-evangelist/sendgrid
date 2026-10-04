@@ -518,82 +518,6 @@ paths:
                     reputation: 95.2
 components:
   schemas:
-    Subuser:
-      title: List all Subusers for a parent response
-      type: object
-      properties:
-        disabled:
-          type: boolean
-          description: Whether or not the user is enabled or disabled.
-        id:
-          type: number
-          description: The ID of this subuser.
-        username:
-          type: string
-          description: The name by which this subuser will be referred.
-        email:
-          type: string
-          description: The email address to contact this subuser.
-          format: email
-        region:
-          type: string
-          description: The region this Subuser is assigned to. This property is returned only if the `include_region` parameter was included and set to `true` in the API request.
-          $ref: '#/components/schemas/Region2'
-      required:
-      - disabled
-      - id
-      - username
-      - email
-      example:
-        disabled: false
-        email: example@example.com
-        id: 1234
-        username: example_subuser
-    SubuserCredits:
-      title: Credits of a Subuser
-      type: object
-      properties:
-        type:
-          type: string
-          description: Type determines how credits are reset for a Subuser. `unlimited` indicates that there is no limit to the Subuser's credits. `recurring` indicates that the credits for the Subuser are reset according to the frequency determined by `reset_frequency`. `nonrecurring` indicates that there is no recurring schedule to reset credits and resets must be done on an ad hoc basis.
-          $ref: '#/components/schemas/Type'
-        reset_frequency:
-          type: string
-          nullable: true
-          description: The frequency with which a Subuser's credits are reset if `type` is set to `recurring`, otherwise `null`.
-          $ref: '#/components/schemas/ResetFrequency'
-        remain:
-          type: integer
-          nullable: true
-          description: Total number of remaining credits. `remain` is `null` if the reset `type` for the Subuser's credits is set to `unlimited`.
-          minimum: 0
-        total:
-          type: integer
-          nullable: true
-          description: Total number of allowable credits. `total` is `null` if the reset `type` for the Subuser's credits is set to `unlimited` or `nonrecurring`.
-          minimum: 0
-        used:
-          type: integer
-          nullable: true
-          description: Total number of used credits. `used` is `null` if the reset `type` for the Subuser's credits is set to `unlimited` or `nonrecurring`.
-          minimum: 0
-      required:
-      - type
-      - reset_frequency
-      - remain
-      - total
-      - used
-      example:
-        type: recurring
-        reset_frequency: monthly
-        remain: 99
-        total: 100
-        used: 1
-    Region3:
-      type: string
-      enum:
-      - global
-      - eu
     SubuserCreditsRequest:
       title: Subuser Credits reset request body
       type: object
@@ -612,41 +536,6 @@ components:
           minimum: 1
       required:
       - type
-    Region1:
-      type: string
-      enum:
-      - global
-      - eu
-    ErrorResponse:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-                description: An error message.
-              field:
-                description: When applicable, this property value will be the field that generated the error.
-                nullable: true
-                type: string
-              help:
-                type: object
-                description: When applicable, this property value will be helper text or a link to documentation to help you troubleshoot the error.
-        id:
-          type: string
-          description: When applicable, this property value will be an error ID.
-      example:
-        errors:
-        - field: field_name
-          message: error message
-    Region2:
-      type: string
-      enum:
-      - global
-      - eu
     SubuserPost:
       title: Subuser::POST
       type: object
@@ -688,30 +577,141 @@ components:
       - unlimited
       - recurring
       - nonrecurring
-    ResetFrequency1:
-      type: string
-      enum:
-      - monthly
-      - weekly
-      - daily
+    ErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: An error message.
+              field:
+                description: When applicable, this property value will be the field that generated the error.
+                nullable: true
+                type: string
+              help:
+                type: object
+                description: When applicable, this property value will be helper text or a link to documentation to help you troubleshoot the error.
+        id:
+          type: string
+          description: When applicable, this property value will be an error ID.
+      example:
+        errors:
+        - field: field_name
+          message: error message
     ResetFrequency:
       type: string
       enum:
       - monthly
       - weekly
       - daily
-    Region:
+    SubuserCredits:
+      title: Credits of a Subuser
+      type: object
+      properties:
+        type:
+          type: string
+          description: Type determines how credits are reset for a Subuser. `unlimited` indicates that there is no limit to the Subuser's credits. `recurring` indicates that the credits for the Subuser are reset according to the frequency determined by `reset_frequency`. `nonrecurring` indicates that there is no recurring schedule to reset credits and resets must be done on an ad hoc basis.
+          $ref: '#/components/schemas/Type'
+        reset_frequency:
+          type: string
+          nullable: true
+          description: The frequency with which a Subuser's credits are reset if `type` is set to `recurring`, otherwise `null`.
+          $ref: '#/components/schemas/ResetFrequency'
+        remain:
+          type: integer
+          nullable: true
+          description: Total number of remaining credits. `remain` is `null` if the reset `type` for the Subuser's credits is set to `unlimited`.
+          minimum: 0
+        total:
+          type: integer
+          nullable: true
+          description: Total number of allowable credits. `total` is `null` if the reset `type` for the Subuser's credits is set to `unlimited` or `nonrecurring`.
+          minimum: 0
+        used:
+          type: integer
+          nullable: true
+          description: Total number of used credits. `used` is `null` if the reset `type` for the Subuser's credits is set to `unlimited` or `nonrecurring`.
+          minimum: 0
+      required:
+      - type
+      - reset_frequency
+      - remain
+      - total
+      - used
+      example:
+        type: recurring
+        reset_frequency: monthly
+        remain: 99
+        total: 100
+        used: 1
+    Region2:
       type: string
       enum:
-      - all
       - global
       - eu
+    Region3:
+      type: string
+      enum:
+      - global
+      - eu
+    ResetFrequency1:
+      type: string
+      enum:
+      - monthly
+      - weekly
+      - daily
     Type:
       type: string
       enum:
       - unlimited
       - recurring
       - nonrecurring
+    Region1:
+      type: string
+      enum:
+      - global
+      - eu
+    Subuser:
+      title: List all Subusers for a parent response
+      type: object
+      properties:
+        disabled:
+          type: boolean
+          description: Whether or not the user is enabled or disabled.
+        id:
+          type: number
+          description: The ID of this subuser.
+        username:
+          type: string
+          description: The name by which this subuser will be referred.
+        email:
+          type: string
+          description: The email address to contact this subuser.
+          format: email
+        region:
+          type: string
+          description: The region this Subuser is assigned to. This property is returned only if the `include_region` parameter was included and set to `true` in the API request.
+          $ref: '#/components/schemas/Region2'
+      required:
+      - disabled
+      - id
+      - username
+      - email
+      example:
+        disabled: false
+        email: example@example.com
+        id: 1234
+        username: example_subuser
+    Region:
+      type: string
+      enum:
+      - all
+      - global
+      - eu
   parameters:
     PaginationCommonOffset:
       name: offset

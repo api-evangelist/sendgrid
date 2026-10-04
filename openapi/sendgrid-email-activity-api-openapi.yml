@@ -623,22 +623,27 @@ paths:
                     - message: internal server error
 components:
   schemas:
-    OutboundIpType:
+    BounceType:
       type: string
       enum:
-      - dedicated
-      - shared
+      - soft
+      - hard
+    Status2:
+      type: string
+      enum:
+      - pending
     Status3:
       type: string
       enum:
       - processed
       - delivered
       - not_delivered
-    BounceType:
+    Status:
       type: string
       enum:
-      - soft
-      - hard
+      - processed
+      - delivered
+      - not_delivered
     EventName:
       type: string
       enum:
@@ -653,16 +658,11 @@ components:
       - unsubscribe
       - group_unsubscribe
       - group_resubscribe
-    Status:
+    OutboundIpType:
       type: string
       enum:
-      - processed
-      - delivered
-      - not_delivered
-    Status2:
-      type: string
-      enum:
-      - pending
+      - dedicated
+      - shared
   securitySchemes:
     BearerAuth:
       type: http

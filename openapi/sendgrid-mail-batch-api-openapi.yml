@@ -92,9 +92,29 @@ paths:
         '500':
           $ref: '#/components/responses/MailBatch500'
 components:
+  examples:
+    MailBatch2xx:
+      summary: A mail batch ID.
+      value:
+        batch_id: 123abc456def789hij0
+  parameters:
+    BatchId:
+      name: batch_id
+      in: path
+      description: Set this parameter to the batch ID that's associated with the mail send you want to retrieve.
+      required: true
+      schema:
+        type: string
+    OnBehalfOf:
+      name: on-behalf-of
+      in: header
+      description: Use the `on-behalf-of` header to make API calls for a particular Subuser through the parent account. You can use this header to automate bulk updates or to administer a Subuser without changing the authentication in your code. You will use the parent account's API key when using this header.
+      required: false
+      schema:
+        type: string
   responses:
-    MailBatch405:
-      description: Get batch ID method not allowed response.
+    MailBatch500:
+      description: Get batch ID internal server error response.
       content:
         application/json:
           schema:
@@ -103,7 +123,7 @@ components:
             Unauthorized request:
               value:
                 errors:
-                - message: method not allowed
+                - message: internal server error
                   field: 'null'
     MailBatch401:
       description: Batch ID unauthorized response.
@@ -117,8 +137,8 @@ components:
                 errors:
                 - message: authorization required
                   field: 'null'
-    MailBatch500:
-      description: Get batch ID internal server error response.
+    MailBatch403:
+      description: Batch ID forbidden response.
       content:
         application/json:
           schema:
@@ -127,7 +147,7 @@ components:
             Unauthorized request:
               value:
                 errors:
-                - message: internal server error
+                - message: access forbidden
                   field: 'null'
     MailBatch2xx:
       description: Batch ID success response.
@@ -162,8 +182,8 @@ components:
                 errors:
                 - message: invalid batch id
                   field: 'null'
-    MailBatch403:
-      description: Batch ID forbidden response.
+    MailBatch405:
+      description: Get batch ID method not allowed response.
       content:
         application/json:
           schema:
@@ -172,23 +192,9 @@ components:
             Unauthorized request:
               value:
                 errors:
-                - message: access forbidden
+                - message: method not allowed
                   field: 'null'
-  examples:
-    MailBatch2xx:
-      summary: A mail batch ID.
-      value:
-        batch_id: 123abc456def789hij0
   schemas:
-    MailBatchResponse:
-      title: Mail Batch and Batch ID Response Schema
-      type: object
-      properties:
-        batch_id:
-          type: string
-          description: A mail batch ID.
-      example:
-        batch_id: HkJ5yLYULb7Rj8GKSx7u025ouWVlMgAi
     ErrorResponse:
       type: object
       properties:
@@ -214,21 +220,15 @@ components:
         errors:
         - field: field_name
           message: error message
-  parameters:
-    BatchId:
-      name: batch_id
-      in: path
-      description: Set this parameter to the batch ID that's associated with the mail send you want to retrieve.
-      required: true
-      schema:
-        type: string
-    OnBehalfOf:
-      name: on-behalf-of
-      in: header
-      description: Use the `on-behalf-of` header to make API calls for a particular Subuser through the parent account. You can use this header to automate bulk updates or to administer a Subuser without changing the authentication in your code. You will use the parent account's API key when using this header.
-      required: false
-      schema:
-        type: string
+    MailBatchResponse:
+      title: Mail Batch and Batch ID Response Schema
+      type: object
+      properties:
+        batch_id:
+          type: string
+          description: A mail batch ID.
+      example:
+        batch_id: HkJ5yLYULb7Rj8GKSx7u025ouWVlMgAi
   securitySchemes:
     BearerAuth:
       type: http

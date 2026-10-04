@@ -681,23 +681,6 @@ paths:
           $ref: '#/components/responses/MailSettingsError500'
 components:
   schemas:
-    MailSettingsAddressWhitelabel200:
-      title: 'Mail Settings: Address Whitelabel'
-      type: object
-      properties:
-        enabled:
-          type: boolean
-          description: 'Indicates if you have an email address whitelist enabled. '
-        list:
-          type: array
-          description: All email addresses that are currently on the whitelist.
-          items:
-            type: string
-      example:
-        enabled: true
-        list:
-        - email1@example.com
-        - example.com
     MailSettingsTemplate200:
       title: 'Mail Settings: Template'
       type: object
@@ -713,6 +696,19 @@ components:
         html_content: '<p><% body %>Example</p>
 
           '
+    MailSettingsForwardSpam:
+      title: 'Mail Settings: Forward Spam'
+      type: object
+      properties:
+        email:
+          type: string
+          description: The email address where you would like the spam reports to be forwarded.
+        enabled:
+          type: boolean
+          description: Indicates if the Forward Spam setting is enabled.
+      example:
+        email: ''
+        enabled: true
     MailSettingsFooter:
       title: 'Mail Settings: Footer'
       type: object
@@ -730,19 +726,23 @@ components:
         enabled: true
         html_content: Example HTML content
         plain_content: Example plain content
-    MailSettingsForwardSpam:
-      title: 'Mail Settings: Forward Spam'
+    MailSettingsAddressWhitelabel200:
+      title: 'Mail Settings: Address Whitelabel'
       type: object
       properties:
-        email:
-          type: string
-          description: The email address where you would like the spam reports to be forwarded.
         enabled:
           type: boolean
-          description: Indicates if the Forward Spam setting is enabled.
+          description: 'Indicates if you have an email address whitelist enabled. '
+        list:
+          type: array
+          description: All email addresses that are currently on the whitelist.
+          items:
+            type: string
       example:
-        email: ''
         enabled: true
+        list:
+        - email1@example.com
+        - example.com
     MailSettingsForwardBounce:
       title: 'Mail Settings: Forward Bounce'
       type: object
@@ -777,6 +777,58 @@ components:
         soft_bounces: 1234
         hard_bounces: 1234
   responses:
+    MailSettingsError404:
+      description: ''
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    error_id:
+                      type: string
+                      description: The ID associated with the error.
+                    field:
+                      description: The field that generated the error.
+                      nullable: true
+                      type: string
+                    message:
+                      type: string
+                      description: The error message.
+                    parameter:
+                      type: string
+                  required:
+                  - message
+    MailSettingsError500:
+      description: ''
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    error_id:
+                      type: string
+                      description: The ID associated with the error.
+                    field:
+                      description: The field that generated the error.
+                      nullable: true
+                      type: string
+                    message:
+                      type: string
+                      description: The error message.
+                    parameter:
+                      type: string
+                  required:
+                  - message
     MailSettingsError400:
       description: ''
       content:
@@ -829,59 +881,7 @@ components:
                       type: string
                   required:
                   - message
-    MailSettingsError404:
-      description: ''
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    error_id:
-                      type: string
-                      description: The ID associated with the error.
-                    field:
-                      description: The field that generated the error.
-                      nullable: true
-                      type: string
-                    message:
-                      type: string
-                      description: The error message.
-                    parameter:
-                      type: string
-                  required:
-                  - message
     MailSettingsError403:
-      description: ''
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    error_id:
-                      type: string
-                      description: The ID associated with the error.
-                    field:
-                      description: The field that generated the error.
-                      nullable: true
-                      type: string
-                    message:
-                      type: string
-                      description: The error message.
-                    parameter:
-                      type: string
-                  required:
-                  - message
-    MailSettingsError500:
       description: ''
       content:
         application/json:

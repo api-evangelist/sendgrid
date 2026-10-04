@@ -202,12 +202,12 @@ paths:
           $ref: '#/components/responses/AccountProvisioningErrorResponse504'
 components:
   responses:
-    AccountProvisioningErrorResponse504:
-      description: Endpoint request timed out
+    AccountProvisioningErrorResponse403:
+      description: Not authorized to make the request
       content:
         application/json:
           schema:
-            title: Endpoint request timed out
+            title: Forbidden
             type: object
             properties:
               errors:
@@ -216,9 +216,9 @@ components:
                   $ref: '#/components/schemas/ErrorResponse'
           example:
             errors:
-            - message: Endpoint request timed out
+            - message: The authenticated user is not authorized to perfrom this request
               field: ''
-              error_id: 10-50400
+              error_id: 10-40300
     AccountProvisioningErrorResponse502:
       description: Bad Gateway
       content:
@@ -236,12 +236,12 @@ components:
             - message: Bad Gateway
               field: ''
               error_id: 10-50200
-    AccountProvisioningErrorResponse401:
-      description: Request lacks valid authentication credentials
+    AccountProvisioningErrorResponse504:
+      description: Endpoint request timed out
       content:
         application/json:
           schema:
-            title: Unauthorized
+            title: Endpoint request timed out
             type: object
             properties:
               errors:
@@ -250,26 +250,9 @@ components:
                   $ref: '#/components/schemas/ErrorResponse'
           example:
             errors:
-            - message: Failed to authenticate user
+            - message: Endpoint request timed out
               field: ''
-              error_id: 10-40100
-    AccountProvisioningErrorResponse404:
-      description: Not Found
-      content:
-        application/json:
-          schema:
-            title: Not Found
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ErrorResponse'
-          example:
-            errors:
-            - message: No such endpoint
-              field: ''
-              error_id: 10-40400
+              error_id: 10-50400
     AccountProvisioningErrorResponse400:
       description: The request was formatted incorrectly or missing required parameters.
       content:
@@ -295,40 +278,6 @@ components:
             - message: Field must be a valid URL
               field: company_website
               error_id: 10-40008
-    AccountProvisioningErrorResponse503:
-      description: Service Unavailable
-      content:
-        application/json:
-          schema:
-            title: Service Unavailable
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ErrorResponse'
-          example:
-            errors:
-            - message: Service Unavailable
-              field: ''
-              error_id: 10-50300
-    AccountProvisioningErrorResponse403:
-      description: Not authorized to make the request
-      content:
-        application/json:
-          schema:
-            title: Forbidden
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ErrorResponse'
-          example:
-            errors:
-            - message: The authenticated user is not authorized to perfrom this request
-              field: ''
-              error_id: 10-40300
     AccountProvisioningErrorResponse500:
       description: Internal Server Error
       content:
@@ -346,14 +295,65 @@ components:
             - message: Something went wrong
               field: ''
               error_id: 10-50000
+    AccountProvisioningErrorResponse404:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            title: Not Found
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ErrorResponse'
+          example:
+            errors:
+            - message: No such endpoint
+              field: ''
+              error_id: 10-40400
+    AccountProvisioningErrorResponse503:
+      description: Service Unavailable
+      content:
+        application/json:
+          schema:
+            title: Service Unavailable
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ErrorResponse'
+          example:
+            errors:
+            - message: Service Unavailable
+              field: ''
+              error_id: 10-50300
+    AccountProvisioningErrorResponse401:
+      description: Request lacks valid authentication credentials
+      content:
+        application/json:
+          schema:
+            title: Unauthorized
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ErrorResponse'
+          example:
+            errors:
+            - message: Failed to authenticate user
+              field: ''
+              error_id: 10-40100
   parameters:
-    AccountProvisioningAccountId:
-      name: accountID
-      in: path
-      description: Twilio SendGrid account ID
+    AccountProvisioningLastParam:
+      name: offset
+      in: query
+      description: The last item successfully retrieved
       schema:
         type: string
-      required: true
+      required: false
       example: sg2a2bcd3ef4ab5c67d8efab91c01de2fa
     AccountProvisioningTestHeader:
       name: T-Test-Account
@@ -372,15 +372,80 @@ components:
         maximum: 100
       required: false
       example: 2
-    AccountProvisioningLastParam:
-      name: offset
-      in: query
-      description: The last item successfully retrieved
+    AccountProvisioningAccountId:
+      name: accountID
+      in: path
+      description: Twilio SendGrid account ID
       schema:
         type: string
-      required: false
+      required: true
       example: sg2a2bcd3ef4ab5c67d8efab91c01de2fa
   schemas:
+    ErrorResponse:
+      title: Error
+      type: object
+      properties:
+        message:
+          type: string
+          description: The message representing the error from the API.
+        field:
+          type: string
+          description: The field associated with the error.
+        error_id:
+          type: string
+          description: ID representing the error as a unique nubmer.
+      required:
+      - message
+      - field
+      - error_id
+    AccountProvisioningAccountId:
+      title: AccountID
+      type: object
+      properties:
+        account_id:
+          type: string
+          description: Twilio SendGrid account ID
+      required:
+      - account_id
+      example:
+        account_id: sg2a2bcd3ef4ab5c67d8efab91c01de2fa
+    AccountProvisioningProfile:
+      title: Profile
+      type: object
+      properties:
+        first_name:
+          type: string
+          description: First name of the account holder
+        last_name:
+          type: string
+          description: Last name of the account holder
+        company_name:
+          type: string
+          description: Company name of the account holder
+        company_website:
+          type: string
+          description: Company website of the account holder
+        email:
+          type: string
+          description: Email of the account holder
+        phone:
+          type: string
+          description: Phone number with a maximum of fifteen digits formatted using the E.164 standard consisting of [+] [country code] [subscriber number including area code]
+        timezone:
+          type: string
+          description: Area/Location as listed in the [IANA Time Zone database](https://www.iana.org/time-zones)
+      example:
+        first_name: Sender
+        last_name: Wiz
+        company_name: Example Co
+        company_website: https://example.com
+        email: mail@example.com
+        timezone: Asia/Tokyo
+    Type:
+      type: string
+      enum:
+      - package
+      - addon
     AccountProvisioningAccount:
       title: Account
       type: object
@@ -421,71 +486,6 @@ components:
         name: org.ei.free.v1
         type: package
         quantity: 1
-    AccountProvisioningAccountId:
-      title: AccountID
-      type: object
-      properties:
-        account_id:
-          type: string
-          description: Twilio SendGrid account ID
-      required:
-      - account_id
-      example:
-        account_id: sg2a2bcd3ef4ab5c67d8efab91c01de2fa
-    Type:
-      type: string
-      enum:
-      - package
-      - addon
-    AccountProvisioningProfile:
-      title: Profile
-      type: object
-      properties:
-        first_name:
-          type: string
-          description: First name of the account holder
-        last_name:
-          type: string
-          description: Last name of the account holder
-        company_name:
-          type: string
-          description: Company name of the account holder
-        company_website:
-          type: string
-          description: Company website of the account holder
-        email:
-          type: string
-          description: Email of the account holder
-        phone:
-          type: string
-          description: Phone number with a maximum of fifteen digits formatted using the E.164 standard consisting of [+] [country code] [subscriber number including area code]
-        timezone:
-          type: string
-          description: Area/Location as listed in the [IANA Time Zone database](https://www.iana.org/time-zones)
-      example:
-        first_name: Sender
-        last_name: Wiz
-        company_name: Example Co
-        company_website: https://example.com
-        email: mail@example.com
-        timezone: Asia/Tokyo
-    ErrorResponse:
-      title: Error
-      type: object
-      properties:
-        message:
-          type: string
-          description: The message representing the error from the API.
-        field:
-          type: string
-          description: The field associated with the error.
-        error_id:
-          type: string
-          description: ID representing the error as a unique nubmer.
-      required:
-      - message
-      - field
-      - error_id
     AccountProvisioningPagination:
       title: Pagination
       type: object

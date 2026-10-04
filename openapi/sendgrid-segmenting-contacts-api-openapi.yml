@@ -310,6 +310,12 @@ paths:
                 - errors
 components:
   responses:
+    Segments403:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
     Segments404:
       description: ''
       content:
@@ -322,38 +328,7 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Segments403:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-                description: An error message.
-              field:
-                description: When applicable, this property value will be the field that generated the error.
-                nullable: true
-                type: string
-              help:
-                type: object
-                description: When applicable, this property value will be helper text or a link to documentation to help you troubleshoot the error.
-        id:
-          type: string
-          description: When applicable, this property value will be an error ID.
-      example:
-        errors:
-        - field: field_name
-          message: error message
     FullSegment:
       title: full_segment
       example:
@@ -615,6 +590,31 @@ components:
       - created_at
       - sample_updated_at
       - updated_at
+    ErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: An error message.
+              field:
+                description: When applicable, this property value will be the field that generated the error.
+                nullable: true
+                type: string
+              help:
+                type: object
+                description: When applicable, this property value will be helper text or a link to documentation to help you troubleshoot the error.
+        id:
+          type: string
+          description: When applicable, this property value will be an error ID.
+      example:
+        errors:
+        - field: field_name
+          message: error message
   securitySchemes:
     BearerAuth:
       type: http

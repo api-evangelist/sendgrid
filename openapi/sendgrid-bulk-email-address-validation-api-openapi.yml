@@ -178,6 +178,33 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    ErrorResponse:
+      title: Error
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: The message representing the error from the API.
+              field:
+                type: string
+                description: The field associated with the error.
+              help:
+                type: object
+                description: Helper text or docs for troubleshooting.
+            required:
+            - message
+        id:
+          type: string
+          description: ID representing the error.
+      example:
+        errors:
+        - field: field_name
+          message: error message
     GetValidationsEmailJobsJobId200Response:
       title: GET Validations Email Jobs job_id 200 Response
       type: object
@@ -217,11 +244,42 @@ components:
                   message:
                     type: string
                     description: Description of the error encountered during execution of the Bulk Email Address Validation Job.
+    PutValidationsEmailJobs200Response:
+      title: Update Email Validations Jobs 200 Response
+      type: object
+      properties:
+        job_id:
+          type: string
+          description: The unique ID of the Bulk Email Address Validation Job.
+        upload_uri:
+          type: string
+          description: The URI to use for the request to upload your list of email addresses.
+        upload_headers:
+          type: array
+          description: Array containing headers and header values.
+          items:
+            type: object
+            properties:
+              header:
+                type: string
+                description: The name of the header that must be included in the upload request.
+              value:
+                type: string
+                description: The value of the header that must be included in the upload request.
     FileType:
       type: string
       enum:
       - csv
       - zip
+    Status:
+      type: string
+      enum:
+      - Initiated
+      - Queued
+      - Ready
+      - Processing
+      - Done
+      - Error
     GetValidationsEmailJobs200Response:
       title: GET Validations Email Jobs 200 Response
       type: object
@@ -254,64 +312,6 @@ components:
       - Processing
       - Done
       - Error
-    Status:
-      type: string
-      enum:
-      - Initiated
-      - Queued
-      - Ready
-      - Processing
-      - Done
-      - Error
-    ErrorResponse:
-      title: Error
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-                description: The message representing the error from the API.
-              field:
-                type: string
-                description: The field associated with the error.
-              help:
-                type: object
-                description: Helper text or docs for troubleshooting.
-            required:
-            - message
-        id:
-          type: string
-          description: ID representing the error.
-      example:
-        errors:
-        - field: field_name
-          message: error message
-    PutValidationsEmailJobs200Response:
-      title: Update Email Validations Jobs 200 Response
-      type: object
-      properties:
-        job_id:
-          type: string
-          description: The unique ID of the Bulk Email Address Validation Job.
-        upload_uri:
-          type: string
-          description: The URI to use for the request to upload your list of email addresses.
-        upload_headers:
-          type: array
-          description: Array containing headers and header values.
-          items:
-            type: object
-            properties:
-              header:
-                type: string
-                description: The name of the header that must be included in the upload request.
-              value:
-                type: string
-                description: The value of the header that must be included in the upload request.
   securitySchemes:
     BearerAuth:
       type: http

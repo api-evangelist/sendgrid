@@ -198,20 +198,54 @@ components:
       enum:
       - code
       - design
-    TransactionalTemplateWarning:
-      title: Warning
+    TransactionalTemplateVersionCreate:
+      title: 'Transactional Templates: Version Create'
       type: object
       properties:
-        message:
+        active:
+          type: integer
+          description: Set the version as the active version associated with the template (0 is inactive, 1 is active). Only one version of a template can be active. The first version created for a template will automatically be set to Active.
+          $ref: '#/components/schemas/Active'
+        name:
           type: string
-          description: Warning message for the user
+          description: Name of the transactional template version.
+          maxLength: 100
+        html_content:
+          type: string
+          description: The HTML content of the version. Maximum of 1048576 bytes allowed.
+          maxLength: 1048576
+        plain_content:
+          type: string
+          description: Text/plain content of the transactional template version. Maximum of 1048576 bytes allowed.
+          maxLength: 1048576
+          default: <generated from html_content if left empty>
+        generate_plain_content:
+          type: boolean
+          description: If true, plain_content is always generated from html_content. If false, plain_content is not altered.
+          default: true
+        subject:
+          type: string
+          description: Subject of the new transactional template version.
+          maxLength: 255
+        editor:
+          type: string
+          description: The editor used in the UI.
+          $ref: '#/components/schemas/Editor'
+        test_data:
+          type: string
+          description: For dynamic templates only, the mock json data that will be used for template preview and test sends.
+      required:
+      - name
+      - subject
       example:
-        message: A sample warning message.
-    Active1:
-      type: integer
-      enum:
-      - 0
-      - 1
+        template_id: Excepteur Ut qui
+        active: 1
+        name: pariatur non incididunt commodo
+        html_content: dolor
+        generate_plain_content: false
+        subject: aliquip nulla Ut
+        editor: design
+        plain_content: labore dolore
     TransactionalTemplateVersionOutput:
       title: 'Transactional Templates: Version Output'
       type: object
@@ -265,64 +299,30 @@ components:
       required:
       - name
       - subject
-    Editor1:
-      type: string
-      enum:
-      - code
-      - design
-    TransactionalTemplateVersionCreate:
-      title: 'Transactional Templates: Version Create'
+    TransactionalTemplateWarning:
+      title: Warning
       type: object
       properties:
-        active:
-          type: integer
-          description: Set the version as the active version associated with the template (0 is inactive, 1 is active). Only one version of a template can be active. The first version created for a template will automatically be set to Active.
-          $ref: '#/components/schemas/Active'
-        name:
+        message:
           type: string
-          description: Name of the transactional template version.
-          maxLength: 100
-        html_content:
-          type: string
-          description: The HTML content of the version. Maximum of 1048576 bytes allowed.
-          maxLength: 1048576
-        plain_content:
-          type: string
-          description: Text/plain content of the transactional template version. Maximum of 1048576 bytes allowed.
-          maxLength: 1048576
-          default: <generated from html_content if left empty>
-        generate_plain_content:
-          type: boolean
-          description: If true, plain_content is always generated from html_content. If false, plain_content is not altered.
-          default: true
-        subject:
-          type: string
-          description: Subject of the new transactional template version.
-          maxLength: 255
-        editor:
-          type: string
-          description: The editor used in the UI.
-          $ref: '#/components/schemas/Editor'
-        test_data:
-          type: string
-          description: For dynamic templates only, the mock json data that will be used for template preview and test sends.
-      required:
-      - name
-      - subject
+          description: Warning message for the user
       example:
-        template_id: Excepteur Ut qui
-        active: 1
-        name: pariatur non incididunt commodo
-        html_content: dolor
-        generate_plain_content: false
-        subject: aliquip nulla Ut
-        editor: design
-        plain_content: labore dolore
+        message: A sample warning message.
     Active:
       type: integer
       enum:
       - 0
       - 1
+    Active1:
+      type: integer
+      enum:
+      - 0
+      - 1
+    Editor1:
+      type: string
+      enum:
+      - code
+      - design
   requestBodies:
     PostPatchTransactionalTemplateVersion:
       content:

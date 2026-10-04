@@ -60,8 +60,8 @@ paths:
           $ref: '#/components/responses/PostMailSend500'
 components:
   responses:
-    PostMailSend404:
-      description: Mail Send not found response.
+    PostMailSend400:
+      description: Mail Send bad response.
       content:
         application/json:
           schema:
@@ -70,19 +70,7 @@ components:
             Unauthorized request:
               value:
                 errors:
-                - message: not found
-                  field: 'null'
-    PostMailSend405:
-      description: Mail Send method not allowed response.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Unauthorized request:
-              value:
-                errors:
-                - message: method not allowed
+                - message: invalid request
                   field: 'null'
     PostMailSend500:
       description: Mail send internal server error response.
@@ -107,8 +95,8 @@ components:
                 errors:
                 - message: authorization required
                   field: 'null'
-    PostMailSend400:
-      description: Mail Send bad response.
+    PostMailSend404:
+      description: Mail Send not found response.
       content:
         application/json:
           schema:
@@ -117,10 +105,10 @@ components:
             Unauthorized request:
               value:
                 errors:
-                - message: invalid request
+                - message: not found
                   field: 'null'
-    PostMailSend413:
-      description: Mail Send content too large response.
+    PostMailSend405:
+      description: Mail Send method not allowed response.
       content:
         application/json:
           schema:
@@ -129,7 +117,7 @@ components:
             Unauthorized request:
               value:
                 errors:
-                - message: content too large
+                - message: method not allowed
                   field: 'null'
     PostMailSend403:
       description: Mail Send forbidden response.
@@ -143,29 +131,41 @@ components:
                 errors:
                 - message: access forbidden
                   field: 'null'
+    PostMailSend413:
+      description: Mail Send content too large response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Unauthorized request:
+              value:
+                errors:
+                - message: content too large
+                  field: 'null'
+  parameters:
+    MailBodyCompression:
+      name: Content-Encoding
+      in: header
+      description: Use this header when sending a gzip compressed mail body. Mail body compression is available to some high volume accounts. Submit a [request to support](https://support.sendgrid.com/hc/en-us) to have gzip enabled on your account.
+      required: false
+      schema:
+        type: string
+        $ref: '#/components/schemas/ContentEncoding'
   schemas:
-    MailFrom:
-      title: From Email Object
+    MailTo:
+      title: To Email Object
       type: object
       properties:
         email:
           type: string
           format: email
-          description: The email address from which messages are sent. This address should be a verified sender in your Twilio SendGrid account. Email addresses specified in `personalizations` will override addresses set at the message level outside of the `personalizations` object.
+          description: An email address to which a message is sent. Email addresses specified in `personalizations` will override addresses set at the message level outside of the `personalizations` object.
         name:
           type: string
-          description: A name or title associated with the email address such as "Support" or "Alex".
+          description: A name or title associated with the email address such as "Alex".
       required:
       - email
-    Disposition:
-      type: string
-      enum:
-      - inline
-      - attachment
-    ContentEncoding:
-      type: string
-      enum:
-      - gzip
     ErrorResponse:
       type: object
       properties:
@@ -191,19 +191,28 @@ components:
         errors:
         - field: field_name
           message: error message
-    MailTo:
-      title: To Email Object
+    ContentEncoding:
+      type: string
+      enum:
+      - gzip
+    MailFrom:
+      title: From Email Object
       type: object
       properties:
         email:
           type: string
           format: email
-          description: An email address to which a message is sent. Email addresses specified in `personalizations` will override addresses set at the message level outside of the `personalizations` object.
+          description: The email address from which messages are sent. This address should be a verified sender in your Twilio SendGrid account. Email addresses specified in `personalizations` will override addresses set at the message level outside of the `personalizations` object.
         name:
           type: string
-          description: A name or title associated with the email address such as "Alex".
+          description: A name or title associated with the email address such as "Support" or "Alex".
       required:
       - email
+    Disposition:
+      type: string
+      enum:
+      - inline
+      - attachment
   requestBodies:
     PostMailSend:
       content:
@@ -602,15 +611,6 @@ components:
                     substitution_tag: '%open-track%'
                   subscription_tracking:
                     enable: false
-  parameters:
-    MailBodyCompression:
-      name: Content-Encoding
-      in: header
-      description: Use this header when sending a gzip compressed mail body. Mail body compression is available to some high volume accounts. Submit a [request to support](https://support.sendgrid.com/hc/en-us) to have gzip enabled on your account.
-      required: false
-      schema:
-        type: string
-        $ref: '#/components/schemas/ContentEncoding'
   securitySchemes:
     BearerAuth:
       type: http

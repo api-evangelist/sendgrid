@@ -1073,98 +1073,7 @@ paths:
         '500':
           $ref: '#/components/responses/MarketingRecipients500'
 components:
-  responses:
-    MarketingRecipients404:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    MarketingRecipients403:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    MarketingRecipients500:
-      description: ''
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    message:
-                      type: string
-    MarketingRecipients401:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    ContactdbSegmentsConditions:
-      title: 'ContactDB: Segments: Conditions'
-      type: object
-      properties:
-        field:
-          type: string
-        value:
-          type: string
-        operator:
-          type: string
-          $ref: '#/components/schemas/Operator'
-        and_or:
-          type: string
-          $ref: '#/components/schemas/AndOr'
-      required:
-      - field
-      - value
-      - operator
-    ContactdbList2xx:
-      title: ContactDB lists
-      type: object
-      properties:
-        id:
-          type: integer
-          description: The reference ID of your list.
-        name:
-          type: string
-          description: The name of your list. Must be unique against all other list and segment names.
-        recipient_count:
-          type: integer
-          description: The count of recipients currently in the list.
-      required:
-      - id
-      - name
-      - recipient_count
-      example:
-        id: 1
-        name: listname
-        recipient_count: 0
-    FileType:
-      type: string
-      enum:
-      - csv
-      - json
-    AndOr:
-      type: string
-      enum:
-      - and
-      - or
-      - ''
-    Operator:
-      type: string
-      enum:
-      - eq
-      - ne
-      - lt
-      - gt
-      - contains
     ContactdbRecipient200:
       title: 'ContactDB: Recipient'
       type: object
@@ -1214,6 +1123,85 @@ components:
                 description: The last update date for this recipient's record.
             required:
             - email
+    ErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: An error message.
+              field:
+                description: When applicable, this property value will be the field that generated the error.
+                nullable: true
+                type: string
+              help:
+                type: object
+                description: When applicable, this property value will be helper text or a link to documentation to help you troubleshoot the error.
+        id:
+          type: string
+          description: When applicable, this property value will be an error ID.
+      example:
+        errors:
+        - field: field_name
+          message: error message
+    Operator:
+      type: string
+      enum:
+      - eq
+      - ne
+      - lt
+      - gt
+      - contains
+    ContactdbList2xx:
+      title: ContactDB lists
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The reference ID of your list.
+        name:
+          type: string
+          description: The name of your list. Must be unique against all other list and segment names.
+        recipient_count:
+          type: integer
+          description: The count of recipients currently in the list.
+      required:
+      - id
+      - name
+      - recipient_count
+      example:
+        id: 1
+        name: listname
+        recipient_count: 0
+    Metadata:
+      title: metadata
+      type: object
+      properties:
+        prev:
+          type: string
+          format: uri
+          description: The URL of the previous page of results. If this field isn't present, you're at the start of the list.
+        self:
+          type: string
+          format: uri
+          description: The URL of the current page of results.
+        next:
+          type: string
+          format: uri
+          description: The URL of the next page of results. If this field isn't present, you're at the end of the list.
+        count:
+          type: number
+          description: The number of items in the entire list, i.e., across all pages.
+    Type:
+      type: string
+      enum:
+      - date
+      - text
+      - number
     RecipientExport:
       title: recipient-export
       type: object
@@ -1255,23 +1243,6 @@ components:
       - created_at
       - updated_at
       - expires_at
-    ContactdbRecipientCount200:
-      title: 'ContactDB: Recipient Count'
-      type: object
-      properties:
-        recipient_count:
-          type: number
-          description: The count of recipients.
-      required:
-      - recipient_count
-      example:
-        recipient_count: 1234
-    Type:
-      type: string
-      enum:
-      - date
-      - text
-      - number
     ContactdbRecipientResponse201:
       title: 'ContactDB: Recipient response'
       type: object
@@ -1329,73 +1300,24 @@ components:
         - message: Invalid email.
           error_indices:
           - 2
-    Metadata:
-      title: metadata
+    ContactdbSegmentsConditions:
+      title: 'ContactDB: Segments: Conditions'
       type: object
       properties:
-        prev:
-          type: string
-          format: uri
-          description: The URL of the previous page of results. If this field isn't present, you're at the start of the list.
-        self:
-          type: string
-          format: uri
-          description: The URL of the current page of results.
-        next:
-          type: string
-          format: uri
-          description: The URL of the next page of results. If this field isn't present, you're at the end of the list.
-        count:
-          type: number
-          description: The number of items in the entire list, i.e., across all pages.
-    RecipientsError:
-      title: error
-      type: object
-      properties:
-        message:
-          type: string
         field:
           type: string
-        error_id:
+        value:
           type: string
-        parameter:
+        operator:
           type: string
-      example:
-        field: field_name
-        message: error message
+          $ref: '#/components/schemas/Operator'
+        and_or:
+          type: string
+          $ref: '#/components/schemas/AndOr'
       required:
-      - message
-    Status:
-      type: string
-      enum:
-      - pending
-      - ready
-      - failure
-    ErrorResponse:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-                description: An error message.
-              field:
-                description: When applicable, this property value will be the field that generated the error.
-                nullable: true
-                type: string
-              help:
-                type: object
-                description: When applicable, this property value will be helper text or a link to documentation to help you troubleshoot the error.
-        id:
-          type: string
-          description: When applicable, this property value will be an error ID.
-      example:
-        errors:
-        - field: field_name
-          message: error message
+      - field
+      - value
+      - operator
     ContactdbCustomFieldIdValue:
       title: ContactDB Custom field schema.
       type: object
@@ -1414,6 +1336,84 @@ components:
           description: The value of this recipient's custom field
           nullable: true
           type: string
+    AndOr:
+      type: string
+      enum:
+      - and
+      - or
+      - ''
+    FileType:
+      type: string
+      enum:
+      - csv
+      - json
+    RecipientsError:
+      title: error
+      type: object
+      properties:
+        message:
+          type: string
+        field:
+          type: string
+        error_id:
+          type: string
+        parameter:
+          type: string
+      example:
+        field: field_name
+        message: error message
+      required:
+      - message
+    ContactdbRecipientCount200:
+      title: 'ContactDB: Recipient Count'
+      type: object
+      properties:
+        recipient_count:
+          type: number
+          description: The count of recipients.
+      required:
+      - recipient_count
+      example:
+        recipient_count: 1234
+    Status:
+      type: string
+      enum:
+      - pending
+      - ready
+      - failure
+  responses:
+    MarketingRecipients404:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    MarketingRecipients403:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    MarketingRecipients401:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    MarketingRecipients500:
+      description: ''
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
   parameters:
     OnBehalfOf:
       name: on-behalf-of

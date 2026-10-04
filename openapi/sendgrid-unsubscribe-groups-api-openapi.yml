@@ -223,6 +223,21 @@ paths:
           description: ''
 components:
   schemas:
+    SuppressionGroupRequestBaseProps:
+      title: Suppression Group Request Base
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of your suppression group. Required when creating a group.
+          maxLength: 30
+        description:
+          type: string
+          description: A brief description of your suppression group. Required when creating a group.
+          maxLength: 100
+        is_default:
+          type: boolean
+          description: Indicates if you would like this to be your default suppression group.
     SuppressionGroup:
       title: 'Suppressions: Suppression Group'
       type: object
@@ -249,21 +264,6 @@ components:
       - id
       - name
       - description
-    SuppressionGroupRequestBaseProps:
-      title: Suppression Group Request Base
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of your suppression group. Required when creating a group.
-          maxLength: 30
-        description:
-          type: string
-          description: A brief description of your suppression group. Required when creating a group.
-          maxLength: 100
-        is_default:
-          type: boolean
-          description: Indicates if you would like this to be your default suppression group.
   parameters:
     OnBehalfOf:
       name: on-behalf-of

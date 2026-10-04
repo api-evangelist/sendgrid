@@ -660,12 +660,6 @@ components:
         id:
           type: number
           description: The ID of the custom field.
-    Type:
-      type: string
-      enum:
-      - date
-      - text
-      - number
     ErrorResponse:
       type: object
       properties:
@@ -691,29 +685,13 @@ components:
         errors:
         - field: field_name
           message: error message
-    Metadata:
-      title: _metadata
-      type: object
-      properties:
-        prev:
-          type: string
-          format: uri
-        self:
-          type: string
-          format: uri
-        next:
-          type: string
-          format: uri
-        count:
-          type: integer
-          minimum: 0
-    FieldType2:
+    Type:
       type: string
       enum:
-      - Text
-      - Number
-      - Date
-    FieldType:
+      - date
+      - text
+      - number
+    FieldType2:
       type: string
       enum:
       - Text
@@ -744,20 +722,6 @@ components:
         name: automation_id
         field_type: Text
         read_only: true
-    CustomFieldsError:
-      title: error
-      type: object
-      properties:
-        message:
-          type: string
-        field:
-          type: string
-        error_id:
-          type: string
-        parameter:
-          type: string
-      required:
-      - message
     CustomFieldDefinitionsResponse:
       title: custom_field_definitions_response
       type: object
@@ -779,7 +743,43 @@ components:
         id: a1_D
         name: custom_field_name
         field_type: Date
+    Metadata:
+      title: _metadata
+      type: object
+      properties:
+        prev:
+          type: string
+          format: uri
+        self:
+          type: string
+          format: uri
+        next:
+          type: string
+          format: uri
+        count:
+          type: integer
+          minimum: 0
+    CustomFieldsError:
+      title: error
+      type: object
+      properties:
+        message:
+          type: string
+        field:
+          type: string
+        error_id:
+          type: string
+        parameter:
+          type: string
+      required:
+      - message
     FieldType1:
+      type: string
+      enum:
+      - Text
+      - Number
+      - Date
+    FieldType:
       type: string
       enum:
       - Text

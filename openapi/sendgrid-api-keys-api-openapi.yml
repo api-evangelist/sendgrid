@@ -341,7 +341,7 @@ paths:
           $ref: '#/components/responses/GlobalError500'
 components:
   responses:
-    ApiKeysError403:
+    ApiKeysError400:
       description: ''
       content:
         application/json:
@@ -361,6 +361,18 @@ components:
                   properties:
                     message:
                       type: string
+    ApiKeysError404:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    ApiKeysError403:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
     GlobalError404:
       description: ''
       content:
@@ -373,56 +385,13 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    ApiKeysError404:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     GlobalError401:
       description: ''
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    ApiKeysError400:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    ApiKeyScopesResponse:
-      title: API Key Name, ID, and Scopes
-      example:
-        api_key_id: qfTQ6KG0QBiwWdJ0-pCLCA
-        name: Mail Send
-        scopes:
-        - mail.send
-        - mail.batch.create
-        - mail.batch.read
-        - mail.batch.update
-        - mail.batch.delete
-        - user.scheduled_sends.create
-        - user.scheduled_sends.read
-        - user.scheduled_sends.update
-        - user.scheduled_sends.delete
-        - sender_verification_eligible
-        - sender_verification_legacy
-        - 2fa_required
-      type: object
-      properties:
-        scopes:
-          type: array
-          description: The permissions this API Key has access to.
-          items:
-            type: string
-        api_key_id:
-          type: string
-          description: 'The ID of your API Key. '
-        name:
-          type: string
-          description: The name of your API Key.
     ErrorResponse:
       type: object
       properties:
@@ -461,6 +430,37 @@ components:
       example:
         api_key_id: qfTQ6KG0QBiwWdJ0-pCLCA
         name: Mail Send
+    ApiKeyScopesResponse:
+      title: API Key Name, ID, and Scopes
+      example:
+        api_key_id: qfTQ6KG0QBiwWdJ0-pCLCA
+        name: Mail Send
+        scopes:
+        - mail.send
+        - mail.batch.create
+        - mail.batch.read
+        - mail.batch.update
+        - mail.batch.delete
+        - user.scheduled_sends.create
+        - user.scheduled_sends.read
+        - user.scheduled_sends.update
+        - user.scheduled_sends.delete
+        - sender_verification_eligible
+        - sender_verification_legacy
+        - 2fa_required
+      type: object
+      properties:
+        scopes:
+          type: array
+          description: The permissions this API Key has access to.
+          items:
+            type: string
+        api_key_id:
+          type: string
+          description: 'The ID of your API Key. '
+        name:
+          type: string
+          description: The name of your API Key.
   parameters:
     OnBehalfOf:
       name: on-behalf-of

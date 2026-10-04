@@ -249,51 +249,7 @@ paths:
         '500':
           $ref: '#/components/responses/Sso500'
 components:
-  responses:
-    Sso400:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SsoErrorResponse'
-    Sso500:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SsoErrorResponse'
-    Sso401:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SsoErrorResponse'
-    Sso403:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SsoErrorResponse'
-    Sso429:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SsoErrorResponse'
   schemas:
-    SsoErrorResponse:
-      title: SSO Error Response
-      type: array
-      items:
-        type: object
-        properties:
-          message:
-            type: string
-          field:
-            nullable: true
-            type: string
-          error_id:
-            type: string
     SsoCertificateBody:
       title: Single Sign-On Certificate Body
       type: object
@@ -319,6 +275,50 @@ components:
         not_before: 1621289880
         not_after: 1621289880
         intergration_id: b0b98502-9408-4b24-9e3d-31ed7cb15312
+    SsoErrorResponse:
+      title: SSO Error Response
+      type: array
+      items:
+        type: object
+        properties:
+          message:
+            type: string
+          field:
+            nullable: true
+            type: string
+          error_id:
+            type: string
+  responses:
+    Sso500:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SsoErrorResponse'
+    Sso401:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SsoErrorResponse'
+    Sso403:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SsoErrorResponse'
+    Sso429:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SsoErrorResponse'
+    Sso400:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SsoErrorResponse'
   securitySchemes:
     BearerAuth:
       type: http

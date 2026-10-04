@@ -653,8 +653,8 @@ components:
       enum:
       - code
       - design
-    DesignDuplicateInput:
-      title: Design Duplicate Design Input
+    DesignOutput:
+      title: Design Output
       type: object
       properties:
         name:
@@ -665,39 +665,17 @@ components:
           type: string
           description: The editor used in the UI.
           $ref: '#/components/schemas/Editor'
-      example:
-        name: Ahoy, Cake or Pie Cafe!
-        editor: design
-    Metadata:
-      title: _metadata
-      type: object
-      properties:
-        prev:
+        html_content:
           type: string
-          format: uri
-        self:
+          description: The HTML content of the Design.
+          maxLength: 1048576
+        plain_content:
           type: string
-          format: uri
-        next:
-          type: string
-          format: uri
-        count:
-          type: integer
-          minimum: 0
-    ApiError:
-      title: error
-      type: object
-      properties:
-        message:
-          type: string
-        field:
-          type: string
-        error_id:
-          type: string
+          description: Plain text content of the Design.
+          maxLength: 1048576
+          default: <generated from html_content if left empty>
       required:
-      - message
-      - field
-      - error_id
+      - html_content
     DesignInput:
       title: Design Input
       example:
@@ -736,16 +714,8 @@ components:
           default: <generated from html_content if left empty>
       required:
       - html_content
-    ApiErrors:
-      title: errors
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ApiError'
-    DesignOutput:
-      title: Design Output
+    DesignDuplicateInput:
+      title: Design Duplicate Design Input
       type: object
       properties:
         name:
@@ -756,17 +726,31 @@ components:
           type: string
           description: The editor used in the UI.
           $ref: '#/components/schemas/Editor'
-        html_content:
+      example:
+        name: Ahoy, Cake or Pie Cafe!
+        editor: design
+    ApiErrors:
+      title: errors
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+    ApiError:
+      title: error
+      type: object
+      properties:
+        message:
           type: string
-          description: The HTML content of the Design.
-          maxLength: 1048576
-        plain_content:
+        field:
           type: string
-          description: Plain text content of the Design.
-          maxLength: 1048576
-          default: <generated from html_content if left empty>
+        error_id:
+          type: string
       required:
-      - html_content
+      - message
+      - field
+      - error_id
     DesignOutputSummary:
       title: Design Output - Summary
       example:
@@ -830,7 +814,29 @@ components:
           type: string
           description: The editor used in the UI.
           $ref: '#/components/schemas/Editor'
+    Metadata:
+      title: _metadata
+      type: object
+      properties:
+        prev:
+          type: string
+          format: uri
+        self:
+          type: string
+          format: uri
+        next:
+          type: string
+          format: uri
+        count:
+          type: integer
+          minimum: 0
   parameters:
+    DesignsQueryStringsPageToken:
+      name: page_token
+      in: query
+      description: token corresponding to a specific page of results, as provided by metadata
+      schema:
+        type: string
     DesignsQueryStringsPageSize:
       name: page_size
       in: query
@@ -846,12 +852,6 @@ components:
       schema:
         type: boolean
         default: true
-    DesignsQueryStringsPageToken:
-      name: page_token
-      in: query
-      description: token corresponding to a specific page of results, as provided by metadata
-      schema:
-        type: string
   requestBodies:
     DesignDuplicateInput:
       content:
