@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/sendgrid/main/json-schema/sendgrid-contact-import-schema.json",
+  "title": "contact-import",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/sendgrid-contacts-api-openapi.yml#/components/schemas/ContactImport",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The job ID."
+    },
+    "status": {
+      "type": "string",
+      "description": "The job state. Allowed values: `pending`, `completed`, `errored`, or `failed`."
+    },
+    "job_type": {
+      "type": "string",
+      "description": "The job type. Allowed values: `upsert`, or `delete`."
+    },
+    "results": {
+      "type": "object",
+      "description": "Result map of the import job.",
+      "properties": {
+        "requested_count": {
+          "description": "Requested contact count from the import.",
+          "type": "number"
+        },
+        "created_count": {
+          "description": "Created contact count from the import.",
+          "type": "number"
+        },
+        "updated_count": {
+          "description": "Updated contact count from the import.",
+          "type": "number"
+        },
+        "deleted_count": {
+          "description": "Count of deleted contacts that resulted in error.",
+          "type": "number"
+        },
+        "errored_count": {
+          "description": "Count of imported contacts that resulted in error.",
+          "type": "number"
+        },
+        "errors_url": {
+          "type": "string",
+          "description": "The download URL of the file which provides information about any errors."
+        }
+      }
+    },
+    "started_at": {
+      "description": "The ISO8601 timestamp when the job was created.",
+      "type": "string"
+    },
+    "finished_at": {
+      "description": "The ISO8601 timestamp when the job was finished.",
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,169 @@
+generated: '2026-10-12'
+method: derived
+source: the pre-flight dossier, apis.yml pointers, spec servers, well-known, vendors -- nothing fetched here
+generator: derive-hosts.py
+summary:
+  hosts: 13
+  own: 7
+  other_domain: 2
+  platform: 4
+  roles:
+  - api
+  - docs
+  - identity
+  - other
+  - source
+  - status
+  - support
+  - website
+hosts:
+- host: api.sendgrid.com
+  found_by:
+  - apis[]
+  types: []
+  serves:
+  - api
+  registrable_domain: sendgrid.com
+  role: api
+  relation: own
+- host: apis.io
+  found_by:
+  - pointer
+  types:
+  - ParentCompany
+  serves: []
+  registrable_domain: apis.io
+  role: api
+  relation: other-domain
+- host: app.sendgrid.com
+  found_by:
+  - pointer
+  - vendor-detect
+  types:
+  - Portal
+  serves:
+  - cdn
+  vendor: cloudfront
+  registrable_domain: sendgrid.com
+  role: other
+  relation: own
+- host: github.com
+  found_by:
+  - pointer
+  types:
+  - GitHubOrg
+  - Python SDK
+  - Node.js SDK
+  - Java SDK
+  - C# SDK
+  - Go SDK
+  - Ruby SDK
+  - PHP SDK
+  - GitHubOrganization
+  serves: []
+  registrable_domain: github.com
+  role: source
+  relation: platform
+- host: login.sendgrid.com
+  found_by:
+  - pointer
+  types:
+  - Login
+  serves: []
+  registrable_domain: sendgrid.com
+  role: identity
+  relation: own
+- host: sendgrid.com
+  found_by:
+  - pointer
+  types:
+  - Pricing
+  - Blog
+  - GettingStarted
+  - TermsOfService
+  - PrivacyPolicy
+  - Security
+  - Website
+  serves: []
+  registrable_domain: sendgrid.com
+  role: website
+  relation: own
+- host: signup.sendgrid.com
+  found_by:
+  - pointer
+  types:
+  - Signup
+  serves: []
+  registrable_domain: sendgrid.com
+  role: other
+  relation: own
+- host: stackoverflow.com
+  found_by:
+  - pointer
+  types:
+  - StackOverflow
+  serves: []
+  registrable_domain: stackoverflow.com
+  role: other
+  relation: platform
+- host: status.sendgrid.com
+  found_by:
+  - pointer
+  types:
+  - StatusPage
+  serves: []
+  registrable_domain: sendgrid.com
+  role: status
+  relation: own
+- host: support.sendgrid.com
+  found_by:
+  - pointer
+  - vendor-detect
+  types:
+  - Support
+  serves:
+  - support
+  vendor: zendesk
+  registrable_domain: sendgrid.com
+  role: support
+  relation: own
+- host: www.postman.com
+  found_by:
+  - pointer
+  types:
+  - PostmanWorkspace
+  serves: []
+  registrable_domain: postman.com
+  role: other
+  relation: platform
+- host: www.twilio.com
+  found_by:
+  - pointer
+  - apis[]
+  - vendor-detect
+  types:
+  - Newsroom
+  - Leadership
+  - Documentation
+  - APIReference
+  - GettingStarted
+  - Authentication
+  - Libraries
+  - ChangeLog
+  - RateLimits
+  serves:
+  - docs
+  - cdn
+  vendor: fastly
+  registrable_domain: twilio.com
+  role: docs
+  relation: other-domain
+- host: x.com
+  found_by:
+  - pointer
+  types:
+  - X (Twitter)
+  serves: []
+  registrable_domain: x.com
+  role: other
+  relation: platform

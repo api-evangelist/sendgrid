@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/sendgrid/main/json-schema/sendgrid-all-segments200-schema.json",
+  "title": "all_segments_response",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/sendgrid-segmenting-contacts-v2-api-openapi.yml#/components/schemas/AllSegments200",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 36,
+      "maxLength": 36,
+      "format": "uuid",
+      "description": "ID assigned to the segment when created."
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "description": "Name of the segment."
+    },
+    "contacts_count": {
+      "type": "integer",
+      "description": "Total number of contacts present in the segment"
+    },
+    "created_at": {
+      "type": "string",
+      "description": "ISO8601 timestamp of when the object was created"
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "ISO8601 timestamp of when the object was last updated"
+    },
+    "sample_updated_at": {
+      "type": "string",
+      "description": "ISO8601 timestamp of when the samples were last updated"
+    },
+    "next_sample_update": {
+      "type": "string",
+      "description": "ISO8601 timestamp of when the samples will be next updated"
+    },
+    "parent_list_ids": {
+      "type": "array",
+      "description": "The array of list ids to filter contacts on when building this segment. It allows only one such list id for now. We will support more in future",
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "query_version": {
+      "type": "string",
+      "description": "If not set, segment contains a query for use with Segment v1 APIs. If set to '2', segment contains a SQL query for use in v2."
+    },
+    "_metadata": {
+      "$ref": "#/$defs/Metadata"
+    },
+    "status": {
+      "$ref": "#/$defs/SegmentStatusResponse"
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "contacts_count",
+    "created_at",
+    "updated_at",
+    "sample_updated_at",
+    "next_sample_update",
+    "parent_list_ids",
+    "query_version",
+    "status"
+  ],
+  "$defs": {
+    "Metadata": {
+      "title": "_metadata",
+      "type": "object",
+      "properties": {
+        "prev": {
+          "type": "string",
+          "format": "uri"
+        },
+        "self": {
+          "type": "string",
+          "format": "uri"
+        },
+        "next": {
+          "type": "string",
+          "format": "uri"
+        },
+        "count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "SegmentStatusResponse": {
+      "title": "segment_status_response",
+      "type": "object",
+      "description": "Segment status indicates whether the segment's contacts will be updated periodically",
+      "properties": {
+        "query_validation": {
+          "type": "string",
+          "description": "Status of query validation. PENDING, VALID, or INVALID"
+        },
+        "error_message": {
+          "type": "string",
+          "description": "Describes any errors that were encountered during query validation"
+        }
+      },
+      "required": [
+        "query_validation"
+      ]
+    }
+  }
+}

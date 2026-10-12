@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/sendgrid/main/json-schema/sendgrid-integration-input-schema.json",
+  "title": "IntegrationInput",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/sendgrid-external-integration-endpoints-api-openapi.yml#/components/schemas/IntegrationInput",
+  "type": "object",
+  "required": [
+    "destination",
+    "filters",
+    "properties"
+  ],
+  "properties": {
+    "destination": {
+      "type": "string",
+      "description": "The third-party application you would like to forward your events to.",
+      "$ref": "#/$defs/Destination2"
+    },
+    "filters": {
+      "type": "object",
+      "required": [
+        "email_events"
+      ],
+      "description": "The configurable filters for SendGrid to destination email event forwarding.",
+      "properties": {
+        "email_events": {
+          "type": "array",
+          "description": "The possible SendGrid email event types for event forwarding. Specify all the email event types that you would like to forward to the Integration's destination.",
+          "items": {
+            "type": "string",
+            "$ref": "#/$defs/Items1"
+          }
+        }
+      }
+    },
+    "properties": {
+      "type": "object",
+      "description": "The properties of an Integration required to send events to a specific third-party application.",
+      "required": [
+        "write_key",
+        "destination_region"
+      ],
+      "properties": {
+        "write_key": {
+          "description": "The write key provided by the Segment Source you'd like to have events forwarded to. Must be between 6 and 51 characters.",
+          "type": "string"
+        },
+        "destination_region": {
+          "description": "The workspace region where the Segment Source write key lives.",
+          "type": "string",
+          "$ref": "#/$defs/DestinationRegion1"
+        }
+      }
+    },
+    "label": {
+      "type": "string",
+      "default": "Untitled Integration",
+      "description": "The nickname for the Integration."
+    }
+  },
+  "$defs": {
+    "Destination2": {
+      "type": "string",
+      "enum": [
+        "Segment"
+      ]
+    },
+    "DestinationRegion1": {
+      "type": "string",
+      "enum": [
+        "EU",
+        "US"
+      ]
+    },
+    "Items1": {
+      "type": "string",
+      "enum": [
+        "drop",
+        "processed",
+        "deferred",
+        "group_unsubscribe",
+        "bounce",
+        "delivered",
+        "click",
+        "unsubscribe",
+        "open",
+        "group_resubscribe",
+        "spamreport",
+        "machine_opened"
+      ]
+    }
+  }
+}

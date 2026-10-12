@@ -1,0 +1,169 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/sendgrid/main/json-schema/sendgrid-authenticated-domain-schema.json",
+  "title": "Domain Authentication - Mandatory Subdomain",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/sendgrid-domain-authentication-api-openapi.yml#/components/schemas/AuthenticatedDomain",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "number",
+      "description": "The ID of the authenticated domain."
+    },
+    "user_id": {
+      "type": "number",
+      "description": "The ID of the user that this domain is associated with."
+    },
+    "subdomain": {
+      "type": "string",
+      "description": "The subdomain or custom return-path to use for this authenticated domain."
+    },
+    "domain": {
+      "type": "string",
+      "description": "The domain to be authenticated."
+    },
+    "username": {
+      "type": "string",
+      "description": "The username that this domain will be associated with."
+    },
+    "ips": {
+      "type": "array",
+      "description": "The IPs to be included in the custom SPF record for this authenticated domain.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "custom_spf": {
+      "type": "boolean",
+      "description": "Indicates whether this authenticated domain uses custom SPF."
+    },
+    "default": {
+      "type": "boolean",
+      "description": "Indicates if this is the default authenticated domain."
+    },
+    "legacy": {
+      "type": "boolean",
+      "description": "Indicates if this authenticated domain was created using the legacy whitelabel tool. If it is a legacy whitelabel, it will still function, but you'll need to create a new authenticated domain if you need to update it."
+    },
+    "automatic_security": {
+      "type": "boolean",
+      "description": "Indicates if this authenticated domain uses automated security."
+    },
+    "valid": {
+      "type": "boolean",
+      "description": "Indicates if this is a valid authenticated domain."
+    },
+    "dns": {
+      "type": "object",
+      "description": "The DNS records used to authenticate the sending domain.",
+      "required": [
+        "mail_cname",
+        "dkim1",
+        "dkim2"
+      ],
+      "properties": {
+        "mail_cname": {
+          "type": "object",
+          "description": "The CNAME for your sending domain that points to sendgrid.net.",
+          "required": [
+            "valid",
+            "type",
+            "host",
+            "data"
+          ],
+          "properties": {
+            "valid": {
+              "type": "boolean",
+              "description": "Indicates if this is a valid CNAME."
+            },
+            "type": {
+              "type": "string",
+              "description": "The type of DNS record."
+            },
+            "host": {
+              "type": "string",
+              "description": "The domain that this CNAME is created for.",
+              "format": "hostname"
+            },
+            "data": {
+              "type": "string",
+              "description": "The CNAME record."
+            }
+          }
+        },
+        "dkim1": {
+          "type": "object",
+          "description": "A DNS record.",
+          "required": [
+            "valid",
+            "type",
+            "host",
+            "data"
+          ],
+          "properties": {
+            "valid": {
+              "type": "boolean",
+              "description": "Indicates if this is a valid DNS record."
+            },
+            "type": {
+              "type": "string",
+              "description": "The type of DNS record."
+            },
+            "host": {
+              "type": "string",
+              "description": "The domain that this DNS record was created for."
+            },
+            "data": {
+              "type": "string",
+              "description": "The DNS record."
+            }
+          }
+        },
+        "dkim2": {
+          "type": "object",
+          "description": "A DNS record.",
+          "required": [
+            "valid",
+            "type",
+            "host",
+            "data"
+          ],
+          "properties": {
+            "valid": {
+              "type": "boolean",
+              "description": "Indicates if this is a valid DNS record."
+            },
+            "type": {
+              "type": "string",
+              "description": "The type of DNS record."
+            },
+            "host": {
+              "type": "string",
+              "description": "The domain that this DNS record was created for."
+            },
+            "data": {
+              "type": "string",
+              "description": "The DNS record."
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "id",
+    "user_id",
+    "subdomain",
+    "domain",
+    "username",
+    "ips",
+    "custom_spf",
+    "default",
+    "legacy",
+    "automatic_security",
+    "valid",
+    "dns"
+  ]
+}

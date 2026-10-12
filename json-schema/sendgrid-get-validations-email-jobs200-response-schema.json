@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/sendgrid/main/json-schema/sendgrid-get-validations-email-jobs200-response-schema.json",
+  "title": "GET Validations Email Jobs 200 Response",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/sendgrid-bulk-email-address-validation-api-openapi.yml#/components/schemas/GetValidationsEmailJobs200Response",
+  "type": "object",
+  "properties": {
+    "result": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique ID of the Bulk Email Address Validation Job."
+          },
+          "status": {
+            "type": "string",
+            "description": "The status of the Bulk Email Address Validation Job.",
+            "$ref": "#/$defs/Status"
+          },
+          "started_at": {
+            "description": "The ISO8601 timestamp when the Job was created. This is the time at which the upload request was sent to the `upload_uri`.",
+            "type": "number"
+          },
+          "finished_at": {
+            "description": "The ISO8601 timestamp when the Job was finished.",
+            "type": "number"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "Status": {
+      "type": "string",
+      "enum": [
+        "Initiated",
+        "Queued",
+        "Ready",
+        "Processing",
+        "Done",
+        "Error"
+      ]
+    }
+  }
+}

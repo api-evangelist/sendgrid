@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/sendgrid/main/json-schema/sendgrid-account-provisioning-offering-list-schema.json",
+  "title": "OfferingList",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/sendgrid-offering-api-openapi.yml#/components/schemas/AccountProvisioningOfferingList",
+  "type": "object",
+  "properties": {
+    "offerings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/AccountProvisioningOfferingV1"
+      }
+    }
+  },
+  "$defs": {
+    "AccountProvisioningOfferingV1": {
+      "title": "Offering",
+      "type": "object",
+      "description": "An offering is a package (email infrastructure) or add-on (marketing campaigns, dedicated IP addresses, EASE) that an account can acquire. Each offering has a list of entitlements that indicate the benefits the account receives from the acquisition.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the offering"
+        },
+        "type": {
+          "type": "string",
+          "description": "Defines the type of offering (e.g., package or addon).",
+          "$ref": "#/$defs/Type"
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Quantity of the specified addon to be added. If offering type is `package`, quantity must be 1."
+        }
+      },
+      "required": [
+        "name",
+        "type"
+      ]
+    },
+    "Type": {
+      "type": "string",
+      "enum": [
+        "package",
+        "addon"
+      ]
+    }
+  }
+}

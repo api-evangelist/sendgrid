@@ -1,0 +1,80 @@
+arazzo: 1.0.1
+info:
+  title: Send SendGrid emails with new Google Sheets rows
+  version: 1.0.0
+  description: 'Send SendGrid emails with new Google Sheets rows (Zapier template).
+    Reads new items from google-sheets with getValues, then sends an email with SendGrid
+    SendMail. Mapping item fields into the message is left to the caller: the google-sheets
+    response schema does not fix which field holds the recipient address.'
+sourceDescriptions:
+- name: google_sheets
+  url: https://raw.githubusercontent.com/api-evangelist/google-sheets/refs/heads/main/openapi/google-sheets-values-api-openapi.yml
+  type: openapi
+- name: sendgrid
+  url: https://raw.githubusercontent.com/api-evangelist/sendgrid/refs/heads/main/openapi/sendgrid-mail-send-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: googlesheetsToSendgridEmail
+  summary: Send SendGrid emails with new Google Sheets rows
+  inputs:
+    type: object
+    properties:
+      spreadsheetId:
+        type: string
+      range:
+        type: string
+      to_email:
+        type: string
+      from_email:
+        type: string
+      subject:
+        type: string
+      content:
+        type: string
+  steps:
+  - stepId: fetch-rows
+    description: Read new rows
+    operationId: $sourceDescriptions.google_sheets.getValues
+    parameters:
+    - name: spreadsheetId
+      in: path
+      value: $inputs.spreadsheetId
+    - name: range
+      in: path
+      value: $inputs.range
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      items: $response.body#/values
+  - stepId: send-email
+    description: Send the email through SendGrid
+    operationId: $sourceDescriptions.sendgrid.SendMail
+    requestBody:
+      contentType: application/json
+      payload:
+        personalizations:
+        - to:
+          - email: $inputs.to_email
+        from:
+          email: $inputs.from_email
+        subject: $inputs.subject
+        content:
+        - type: text/plain
+          value: $inputs.content
+    successCriteria:
+    - condition: $statusCode == 202
+  outputs:
+    items: $steps.fetch-rows.outputs.items
+x-integration:
+  partner: google-sheets
+  template: https://zapier.com/apps/google-sheets/integrations/sendgrid/4783/send-sendgrid-emails-with-new-google-sheets-rows
+  edge_evidence: https://zapier.com/apps/google-sheets/integrations/sendgrid/4783/send-sendgrid-emails-with-new-google-sheets-rows
+  edge_type: marketplace
+  method: generated
+  generated: '2026-10-12'
+  generator: claude-opus-5-5
+  guessed_steps:
+  - step: send-email
+    cause: partner-contract
+    why: the google-sheets getValues response does not define which field carries
+      the recipient address, so to_email is an input

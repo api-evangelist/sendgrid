@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/sendgrid/main/json-schema/sendgrid-parse-setting-schema.json",
+  "title": "Parse Setting",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/sendgrid-parse-webhook-api-openapi.yml#/components/schemas/ParseSetting",
+  "type": "object",
+  "properties": {
+    "url": {
+      "type": "string",
+      "description": "The public URL where you would like SendGrid to POST the data parsed from your email. Any emails sent with the given hostname provided (whose MX records have been updated to point to SendGrid) will be parsed and POSTed to this URL."
+    },
+    "hostname": {
+      "type": "string",
+      "description": "A specific and unique domain or subdomain that you have created to use exclusively to parse your incoming email. For example, `parse.yourdomain.com`."
+    },
+    "spam_check": {
+      "type": "boolean",
+      "description": "Indicates if you would like SendGrid to check the content parsed from your emails for spam before POSTing them to your domain."
+    },
+    "send_raw": {
+      "type": "boolean",
+      "description": "Indicates if you would like SendGrid to post the original MIME-type content of your parsed email. When this parameter is set to `true`, SendGrid will send a JSON payload of the content of your email."
+    }
+  }
+}

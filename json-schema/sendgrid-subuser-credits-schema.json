@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/sendgrid/main/json-schema/sendgrid-subuser-credits-schema.json",
+  "title": "Credits of a Subuser",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/sendgrid-subusers-api-openapi.yml#/components/schemas/SubuserCredits",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "Type determines how credits are reset for a Subuser. `unlimited` indicates that there is no limit to the Subuser's credits. `recurring` indicates that the credits for the Subuser are reset according to the frequency determined by `reset_frequency`. `nonrecurring` indicates that there is no recurring schedule to reset credits and resets must be done on an ad hoc basis.",
+      "$ref": "#/$defs/Type"
+    },
+    "reset_frequency": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The frequency with which a Subuser's credits are reset if `type` is set to `recurring`, otherwise `null`.",
+      "$ref": "#/$defs/ResetFrequency"
+    },
+    "remain": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "description": "Total number of remaining credits. `remain` is `null` if the reset `type` for the Subuser's credits is set to `unlimited`.",
+      "minimum": 0
+    },
+    "total": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "description": "Total number of allowable credits. `total` is `null` if the reset `type` for the Subuser's credits is set to `unlimited` or `nonrecurring`.",
+      "minimum": 0
+    },
+    "used": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "description": "Total number of used credits. `used` is `null` if the reset `type` for the Subuser's credits is set to `unlimited` or `nonrecurring`.",
+      "minimum": 0
+    }
+  },
+  "required": [
+    "type",
+    "reset_frequency",
+    "remain",
+    "total",
+    "used"
+  ],
+  "$defs": {
+    "ResetFrequency": {
+      "type": "string",
+      "enum": [
+        "monthly",
+        "weekly",
+        "daily"
+      ]
+    },
+    "Type": {
+      "type": "string",
+      "enum": [
+        "unlimited",
+        "recurring",
+        "nonrecurring"
+      ]
+    }
+  }
+}

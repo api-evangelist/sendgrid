@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/sendgrid/main/json-schema/sendgrid-reserved-field-definitions-response-schema.json",
+  "title": "reserved_field_definitions_response",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/sendgrid-custom-fields-api-openapi.yml#/components/schemas/ReservedFieldDefinitionsResponse",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 100
+      },
+      "field_type": {
+        "type": "string",
+        "$ref": "#/$defs/FieldType1"
+      },
+      "read_only": {
+        "type": "boolean",
+        "default": false,
+        "description": "When `true` this means API consumers are unable to set the value of this field on contacts."
+      }
+    }
+  },
+  "required": [
+    "name",
+    "field_type"
+  ],
+  "$defs": {
+    "FieldType1": {
+      "type": "string",
+      "enum": [
+        "Text",
+        "Number",
+        "Date"
+      ]
+    }
+  }
+}

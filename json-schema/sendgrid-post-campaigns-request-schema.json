@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/sendgrid/main/json-schema/sendgrid-post-campaigns-request-schema.json",
+  "title": "Campaigns Request",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/sendgrid-campaigns-api-api-openapi.yml#/components/schemas/PostCampaignsRequest",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "The display title of your campaign. This will be viewable by you in the Marketing Campaigns UI."
+    },
+    "subject": {
+      "description": "The subject of your campaign that your recipients will see.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "sender_id": {
+      "description": "The ID of the \"sender\" identity that you have created. Your recipients will see this as the \"from\" on your marketing emails.",
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "list_ids": {
+      "description": "The IDs of the lists you are sending this campaign to. You can have both segment IDs and list IDs",
+      "items": {
+        "type": "integer"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "segment_ids": {
+      "description": "The segment IDs that you are sending this list to. You can have both segment IDs and list IDs. Segments are limited to 10 segment IDs.",
+      "items": {
+        "type": "integer"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "categories": {
+      "description": "The categories you would like associated to this campaign.",
+      "items": {
+        "type": "string"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "suppression_group_id": {
+      "description": "The suppression group that this marketing email belongs to, allowing recipients to opt-out of emails of this type.",
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "custom_unsubscribe_url": {
+      "description": "This is the url of the custom unsubscribe page that you provide for customers to unsubscribe from your suppression groups.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "ip_pool": {
+      "description": "The pool of IPs that you would like to send this email from.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "html_content": {
+      "description": "The HTML of your marketing email.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "plain_content": {
+      "description": "The plain text content of your emails.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "editor": {
+      "type": "string",
+      "description": "The editor used in the UI.",
+      "$ref": "#/$defs/Editor"
+    }
+  },
+  "required": [
+    "title"
+  ],
+  "$defs": {
+    "Editor": {
+      "type": "string",
+      "enum": [
+        "code",
+        "design"
+      ]
+    }
+  }
+}

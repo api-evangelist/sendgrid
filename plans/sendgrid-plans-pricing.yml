@@ -1,209 +1,237 @@
+name: SendGrid API Plans
 specification: API Commons Plans
 specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
 provider: SendGrid
 providerId: sendgrid
 created: '2026-05-04'
-generated: '2026-08-13'
+generated: '2026-10-12'
 method: searched
 source: https://www.twilio.com/en-us/products/email-api/pricing
 modified: '2026-08-13'
 reconciled: true
 tags:
-  - Email
-  - Transactional
-  - Marketing
-description: >-
-  Twilio SendGrid Email API plans, re-read from the live pricing page on
-  2026-08-13 (the 2026-05-04 values were a bulk-sweep generation and are now
-  confirmed and extended with the published overage rates and per-tier limits).
-  URL NOTE WORTH RECORDING: the historic pricing URLs have collapsed into the
-  Twilio site — sendgrid.com/en-us/pricing and twilio.com/en-us/sendgrid/pricing
-  both 301 to https://www.twilio.com/en-us/sendgrid, a marketing landing page
-  that shows no prices; the only surface still carrying the tier table is
-  https://www.twilio.com/en-us/products/email-api/pricing. Any integrator or
-  agent following the pricing link recorded in older catalogs lands on a page
-  with no pricing on it.
+- Email
+- Transactional
+- Marketing
+description: 'Twilio SendGrid Email API plans, re-read from the live pricing page on 2026-08-13 (the 2026-05-04 values were a bulk-sweep generation and are now confirmed and extended with the published
+  overage rates and per-tier limits). URL NOTE WORTH RECORDING: the historic pricing URLs have collapsed into the Twilio site — sendgrid.com/en-us/pricing and twilio.com/en-us/sendgrid/pricing both 301
+  to https://www.twilio.com/en-us/sendgrid, a marketing landing page that shows no prices; the only surface still carrying the tier table is https://www.twilio.com/en-us/products/email-api/pricing. Any
+  integrator or agent following the pricing link recorded in older catalogs lands on a page with no pricing on it.'
 plan_count: 4
 currency: USD
 billing_period: month
-overage_model: >-
-  Per-email overage charged beyond the tier's included volume. The rate falls as
-  the committed volume rises — $0.0013/email at the Essentials 50K tier down to
-  $0.0005/email at the top Pro tier.
+overage_model: Per-email overage charged beyond the tier's included volume. The rate falls as the committed volume rises — $0.0013/email at the Essentials 50K tier down to $0.0005/email at the top Pro tier.
 sources:
-  - https://www.twilio.com/en-us/products/email-api/pricing
-  - https://www.twilio.com/en-us/sendgrid
+- https://www.twilio.com/en-us/products/email-api/pricing
+- https://www.twilio.com/en-us/sendgrid
 redirect_evidence:
-  - {url: 'https://sendgrid.com/en-us/pricing', status: 301, lands_on: 'https://www.twilio.com/en-us/sendgrid', pricing_shown: false}
-  - {url: 'https://www.twilio.com/en-us/sendgrid/pricing', status: 301, lands_on: 'https://www.twilio.com/en-us/sendgrid', pricing_shown: false}
-  - {url: 'https://www.twilio.com/en-us/products/email-api/pricing', status: 200, pricing_shown: true}
+- url: https://sendgrid.com/en-us/pricing
+  status: 301
+  lands_on: https://www.twilio.com/en-us/sendgrid
+  pricing_shown: false
+- url: https://www.twilio.com/en-us/sendgrid/pricing
+  status: 301
+  lands_on: https://www.twilio.com/en-us/sendgrid
+  pricing_shown: false
+- url: https://www.twilio.com/en-us/products/email-api/pricing
+  status: 200
+  pricing_shown: true
 plans:
-  - id: sendgrid-free
-    name: Free Trial
-    type: freemium
-    description: '60-day trial: 100 emails/day, no credit card required.'
+- id: sendgrid-free
+  name: Free Trial
+  type: freemium
+  description: '60-day trial: 100 emails/day, no credit card required.'
+  price: '0.00'
+  entries:
+  - label: Emails per day
+    name: emails_day
+    type: quota
+    metric: email
+    limit: 100
+    timeFrame: day
+    geo: global
+    unit: 1
     price: '0.00'
-    entries:
-      - label: Emails per day
-        name: emails_day
-        type: quota
-        metric: email
-        limit: 100
-        timeFrame: day
-        geo: global
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Trial duration
-        name: trial
-        type: subscription
-        metric: day
-        limit: 60
-        timeFrame: one-time
-        geo: global
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    limits:
-      teammates: 1
-      event_webhooks: 1
-      email_validations: 0
-      dedicated_ip: false
-      sso: false
-    elements:
-      - name: API and SMTP relay
-      - name: Analytics and deliverability optimization
-      - name: Dynamic templates (Editor)
-      - name: 60-day duration
-  - id: sendgrid-essentials
-    name: Essentials
-    type: paid
-    description: 'Starts at $19.95 per month; volume tiers at 50K and 100K emails/month.'
+    userMultiplied: false
+  - label: Trial duration
+    name: trial
+    type: subscription
+    metric: day
+    limit: 60
+    timeFrame: one-time
+    geo: global
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  limits:
+  - name: teammates
+    value: 1
+  - name: event_webhooks
+    value: 1
+  - name: email_validations
+    value: 0
+  - name: dedicated_ip
+    value: false
+  - name: sso
+    value: false
+  elements:
+  - name: API and SMTP relay
+  - name: Analytics and deliverability optimization
+  - name: Dynamic templates (Editor)
+  - name: 60-day duration
+  price_text: $0/mo for 60 days
+- id: sendgrid-essentials
+  name: Essentials
+  type: paid
+  description: Starts at $19.95 per month; volume tiers at 50K and 100K emails/month.
+  price: '19.95'
+  entries:
+  - label: Monthly base
+    name: base
+    type: subscription
+    metric: month
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
     price: '19.95'
-    entries:
-      - label: Monthly base
-        name: base
-        type: subscription
-        metric: month
-        limit: -1
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: '19.95'
-        userMultiplied: false
-      - label: Emails included
-        name: emails
-        type: quota
-        metric: email
-        limit: 100000
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    volume_tiers:
-      - {included_emails: 50000, overage_per_email: '0.0013'}
-      - {included_emails: 100000, overage_per_email: '0.0009'}
-    limits:
-      teammates: 1
-      event_webhooks: 2
-      email_validations: 0
-      dedicated_ip: false
-      sso: false
-      subusers: false
-    elements:
-      - name: Email API
-      - name: SMTP relay
-      - name: Analytics and deliverability optimization
-      - name: Dynamic templates (Editor)
-      - name: SPF/DKIM/DMARC domain authentication
-      - name: 3-day activity feed
-  - id: sendgrid-pro
-    name: Pro
-    type: paid
-    description: 'Starts at $89.95 per month; volume tiers from 100K to 2.5M emails/month.'
+    userMultiplied: false
+  - label: Emails included
+    name: emails
+    type: quota
+    metric: email
+    limit: 100000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  volume_tiers:
+  - included_emails: 50000
+    overage_per_email: '0.0013'
+  - included_emails: 100000
+    overage_per_email: '0.0009'
+  limits:
+  - name: teammates
+    value: 1
+  - name: event_webhooks
+    value: 2
+  - name: email_validations
+    value: 0
+  - name: dedicated_ip
+    value: false
+  - name: sso
+    value: false
+  - name: subusers
+    value: false
+  elements:
+  - name: Email API
+  - name: SMTP relay
+  - name: Analytics and deliverability optimization
+  - name: Dynamic templates (Editor)
+  - name: SPF/DKIM/DMARC domain authentication
+  - name: 3-day activity feed
+  price_text: starting at $19.95/mo
+- id: sendgrid-pro
+  name: Pro
+  type: paid
+  description: Starts at $89.95 per month; volume tiers from 100K to 2.5M emails/month.
+  price: '89.95'
+  entries:
+  - label: Monthly base
+    name: base
+    type: subscription
+    metric: month
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
     price: '89.95'
-    entries:
-      - label: Monthly base
-        name: base
-        type: subscription
-        metric: month
-        limit: -1
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: '89.95'
-        userMultiplied: false
-      - label: Emails included
-        name: emails
-        type: quota
-        metric: email
-        limit: 2500000
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    volume_tiers:
-      note: >-
-        Published as a range on the pricing page rather than an enumerated
-        table — 100K to 2.5M emails/month with the overage rate declining from
-        $0.0011 to $0.0005 per email as committed volume rises.
-      included_emails_min: 100000
-      included_emails_max: 2500000
-      overage_per_email_max: '0.0011'
-      overage_per_email_min: '0.0005'
-    limits:
-      teammates: 1000
-      event_webhooks: 5
-      email_validations_min: 2500
-      email_validations_max: 5000
-      dedicated_ip: true
-      dedicated_ip_count: 1
-      sso: true
-      subusers: true
-    elements:
-      - name: 1 dedicated IP included
-      - name: Subuser management
-      - name: Single sign-on (SSO)
-      - name: Advanced stats
-      - name: 7-day activity feed
-      - name: Send Time Optimization
-      - name: Dynamic templates with testing
-  - id: sendgrid-premier
-    name: Premier
-    type: enterprise
-    description: 'Custom pricing and custom volume; contact sales.'
-    price: null
-    price_note: >-
-      No public price. The $12,000/year invoicing minimum recorded by the
-      2026-05-04 sweep is NOT stated on the current pricing page and is retained
-      below as an unverified legacy claim rather than as a published figure.
-    entries: []
-    limits:
-      teammates: 1000
-      event_webhooks: 5
-      email_validations: 5000
-      dedicated_ip: true
-      dedicated_ip_count: multiple
-      sso: true
-      subusers: true
-    elements:
-      - name: Custom volume
-      - name: Dedicated IPs included (multiple)
-      - name: Tiered IP warm-up
-      - name: Subuser management
-      - name: Single sign-on (SSO)
-      - name: Customer Success Manager
-      - name: Priority support
-      - name: Email expert services
+    userMultiplied: false
+  - label: Emails included
+    name: emails
+    type: quota
+    metric: email
+    limit: 2500000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  volume_tiers:
+    note: Published as a range on the pricing page rather than an enumerated table — 100K to 2.5M emails/month with the overage rate declining from $0.0011 to $0.0005 per email as committed volume rises.
+    included_emails_min: 100000
+    included_emails_max: 2500000
+    overage_per_email_max: '0.0011'
+    overage_per_email_min: '0.0005'
+  limits:
+  - name: teammates
+    value: 1000
+  - name: event_webhooks
+    value: 5
+  - name: email_validations_min
+    value: 2500
+  - name: email_validations_max
+    value: 5000
+  - name: dedicated_ip
+    value: true
+  - name: dedicated_ip_count
+    value: 1
+  - name: sso
+    value: true
+  - name: subusers
+    value: true
+  elements:
+  - name: 1 dedicated IP included
+  - name: Subuser management
+  - name: Single sign-on (SSO)
+  - name: Advanced stats
+  - name: 7-day activity feed
+  - name: Send Time Optimization
+  - name: Dynamic templates with testing
+  price_text: starting at $89.95/mo
+- id: sendgrid-premier
+  name: Premier
+  type: enterprise
+  description: Custom pricing and custom volume; contact sales.
+  price: custom pricing
+  price_note: No public price. The $12,000/year invoicing minimum recorded by the 2026-05-04 sweep is NOT stated on the current pricing page and is retained below as an unverified legacy claim rather than
+    as a published figure.
+  entries: []
+  limits:
+  - name: teammates
+    value: 1000
+  - name: event_webhooks
+    value: 5
+  - name: email_validations
+    value: 5000
+  - name: dedicated_ip
+    value: true
+  - name: dedicated_ip_count
+    value: multiple
+  - name: sso
+    value: true
+  - name: subusers
+    value: true
+  elements:
+  - name: Custom volume
+  - name: Dedicated IPs included (multiple)
+  - name: Tiered IP warm-up
+  - name: Subuser management
+  - name: Single sign-on (SSO)
+  - name: Customer Success Manager
+  - name: Priority support
+  - name: Email expert services
+  price_text: custom pricing
 unverified_legacy_claims:
-  note: >-
-    Written by the 2026-05-04 bulk sweep, not found on the 2026-08-13 read of the
-    published pricing page. Quarantined rather than deleted.
+  note: Written by the 2026-05-04 bulk sweep, not found on the 2026-08-13 read of the published pricing page. Quarantined rather than deleted.
   claims:
-    - {plan: sendgrid-premier, field: annual_minimum, value: '12000.00', currency: USD, timeFrame: year}
+  - plan: sendgrid-premier
+    field: annual_minimum
+    value: '12000.00'
+    currency: USD
+    timeFrame: year
 see_also:
   rate_limits: rate-limits/sendgrid-rate-limits.yml
   finops: finops/sendgrid-finops.yml
@@ -255,3 +283,8 @@ x-canonical:
     model_how: derived
     units: []
     periods: []
+audience: business-product
+pricing_basis: tiered-subscription
+published: true
+delivery:
+  delivery: managed

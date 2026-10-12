@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/sendgrid/main/json-schema/sendgrid-reverse-dns-schema.json",
+  "title": "Reverse DNS",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/sendgrid-reverse-dns-api-openapi.yml#/components/schemas/ReverseDns",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "The ID of the Reverse DNS."
+    },
+    "ip": {
+      "type": "string",
+      "description": "The IP address that this Reverse DNS was created for."
+    },
+    "rdns": {
+      "type": "string",
+      "description": "The reverse DNS record for the IP address. This points to the Reverse DNS subdomain."
+    },
+    "users": {
+      "type": "array",
+      "description": "The users who are able to send mail from the IP address.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "description": "The username of a user who can send mail from the IP address."
+          },
+          "user_id": {
+            "type": "integer",
+            "description": "The ID of a user who can send mail from the IP address."
+          }
+        },
+        "required": [
+          "username",
+          "user_id"
+        ]
+      }
+    },
+    "subdomain": {
+      "type": "string",
+      "description": "The subdomain created for this reverse DNS. This is where the rDNS record points."
+    },
+    "domain": {
+      "type": "string",
+      "description": "The root, or sending, domain."
+    },
+    "valid": {
+      "type": "boolean",
+      "description": "Indicates if this is a valid Reverse DNS."
+    },
+    "legacy": {
+      "type": "boolean",
+      "description": "Indicates if this Reverse DNS was created using the legacy whitelabel tool. If it is a legacy whitelabel, it will still function, but you'll need to create a new Reverse DNS if you need to update it."
+    },
+    "last_validation_attempt_at": {
+      "type": "integer",
+      "description": "A Unix epoch timestamp representing the last time of a validation attempt."
+    },
+    "a_record": {
+      "type": "object",
+      "required": [
+        "valid",
+        "type",
+        "host",
+        "data"
+      ],
+      "properties": {
+        "valid": {
+          "type": "boolean",
+          "description": "Indicates if the a_record is valid."
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of DNS record."
+        },
+        "host": {
+          "type": "string",
+          "description": "This is the web address that will be mapped to the IP address."
+        },
+        "data": {
+          "type": "string",
+          "description": "The IP address being set up with Reverse DNS."
+        }
+      }
+    }
+  },
+  "required": [
+    "id",
+    "ip",
+    "rdns",
+    "users",
+    "domain",
+    "valid",
+    "legacy",
+    "a_record"
+  ]
+}

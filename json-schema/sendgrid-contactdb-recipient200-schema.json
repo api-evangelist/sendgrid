@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/sendgrid/main/json-schema/sendgrid-contactdb-recipient200-schema.json",
+  "title": "ContactDB: Recipient",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/sendgrid-lists-api-openapi.yml#/components/schemas/ContactdbRecipient200",
+  "type": "object",
+  "properties": {
+    "recipients": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The ID of this recipient."
+          },
+          "created_at": {
+            "type": "number",
+            "description": "The time this record was created in your contactdb, in unixtime."
+          },
+          "custom_fields": {
+            "type": "array",
+            "description": "The custom fields assigned to this recipient and their values.",
+            "items": {
+              "$ref": "#/$defs/ContactdbCustomFieldIdValue"
+            }
+          },
+          "email": {
+            "type": "string",
+            "description": "The email address of this recipient. This is a default custom field that SendGrid provides.",
+            "format": "email"
+          },
+          "first_name": {
+            "description": "The first name of this recipient. This is a default custom field that SendGrid provides.",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "last_name": {
+            "description": "The last name of the recipient.",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "last_clicked": {
+            "description": "The last time this recipient clicked a link from one of your campaigns, in unixtime.",
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "last_emailed": {
+            "description": "The last time this user was emailed by one of your campaigns, in unixtime.",
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "last_opened": {
+            "description": "The last time this recipient opened an email from you, in unixtime.",
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "updated_at": {
+            "type": "number",
+            "description": "The last update date for this recipient's record."
+          }
+        },
+        "required": [
+          "email"
+        ]
+      }
+    }
+  },
+  "$defs": {
+    "ContactdbCustomFieldIdValue": {
+      "title": "ContactDB Custom field schema.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the field"
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the field.",
+          "$ref": "#/$defs/Type"
+        },
+        "id": {
+          "type": "number",
+          "description": "The ID of the custom field."
+        },
+        "value": {
+          "description": "The value of this recipient's custom field",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "Type": {
+      "type": "string",
+      "enum": [
+        "date",
+        "text",
+        "number"
+      ]
+    }
+  }
+}

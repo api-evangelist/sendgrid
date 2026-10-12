@@ -1,0 +1,178 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/sendgrid/main/json-schema/sendgrid-singlesend-response-schema.json",
+  "title": "singlesend_response",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/sendgrid-single-sends-api-openapi.yml#/components/schemas/SinglesendResponse",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The unique ID for the Single Send.",
+      "format": "uuid"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "description": "The name of the Single Send."
+    },
+    "status": {
+      "type": "string",
+      "description": "The current status of the Single Send. The status may be `draft`, `scheduled`, or `triggered`.",
+      "$ref": "#/$defs/Status2"
+    },
+    "categories": {
+      "type": "array",
+      "uniqueItems": true,
+      "maxItems": 10,
+      "description": "The categories associated with this Single Send.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "send_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "An ISO 8601 formatted date-time when the Single Send is set to be sent. Please note that any `send_at` property value will have no effect while the Single Send `status` is `draft`. You must update the Single Send with the [**Schedule Single Send**](https://docs.sendgrid.com/api-reference/single-sends/schedule-single-send) endpoint or SendGrid application UI to schedule it.",
+      "format": "date-time"
+    },
+    "send_to": {
+      "type": "object",
+      "properties": {
+        "list_ids": {
+          "type": "array",
+          "description": "The IDs of each contact list to which the Single Send will be sent.",
+          "maxItems": 50,
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "segment_ids": {
+          "type": "array",
+          "description": "The IDs of each segment to which the Single Send will be sent.",
+          "maxItems": 10,
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "all": {
+          "type": "boolean",
+          "description": "If this property is set to `true`, the Single Send will be sent to all of your contacts. If it's set to `false`, at least one `list_ids` or `segment_ids` value must be provided before the Single Send is scheduled to be sent.",
+          "default": false
+        }
+      }
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "the ISO 8601 time at which the Single Send was last updated.",
+      "format": "date-time"
+    },
+    "created_at": {
+      "type": "string",
+      "description": "the ISO 8601 time at which the Single Send was created.",
+      "format": "date-time"
+    },
+    "email_config": {
+      "type": "object",
+      "properties": {
+        "subject": {
+          "type": "string",
+          "description": "The subject line of the Single Send. This property is not used when a `design_id` value is set."
+        },
+        "html_content": {
+          "type": "string",
+          "description": "The HTML content of the Single Send. This property is not used when a `design_id` value is set."
+        },
+        "plain_content": {
+          "type": "string",
+          "description": "The plain text content of the Single Send. This property is not used when a `design_id` value is set."
+        },
+        "generate_plain_content": {
+          "type": "boolean",
+          "description": "If this property is set to `true`, `plain_content` is always generated from `html_content`. If it's set to false, `plain_content` is not altered.",
+          "default": true
+        },
+        "design_id": {
+          "type": "string",
+          "description": "A `design_id` can be used in place of `html_content`, `plain_content`, and/or `subject`. You can retrieve a design's ID from the [**List Designs** endpoint](https://docs.sendgrid.com/api-reference/designs-api/list-designs) or by pulling it from the design's detail page URL in the Marketing Campaigns App."
+        },
+        "editor": {
+          "type": "string",
+          "description": "The editor, `design` or `code`, used to modify the Single Send's design in the Marketing Campaigns application user interface.",
+          "default": "code",
+          "$ref": "#/$defs/Editor1"
+        },
+        "suppression_group_id": {
+          "description": "The ID of the Suppression Group to allow recipients to unsubscribe. You must provide a `suppression_group_id` or the `custom_unsubscribe_url` with your Single Send.",
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "custom_unsubscribe_url": {
+          "description": "The URL allowing recipients to unsubscribe. You must provide a `custom_unsubscribe_url` or a `suppression_group_id` with your Single Send.",
+          "format": "uri",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sender_id": {
+          "description": "The ID of the verified sender from whom the Single Send will be sent. You can retrieve a verified sender's ID from the [**Get Verified Senders** endpoint](https://www.twilio.com/docs/sendgrid/api-reference/sender-verification/get-all-verified-senders) or by pulling it from the sender's detail page URL in the SendGrid App.",
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "ip_pool": {
+          "description": "The name of the IP Pool from which the Single Send emails are sent.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "field": {
+            "type": "string"
+          },
+          "warning_id": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "Editor1": {
+      "type": "string",
+      "enum": [
+        "code",
+        "design"
+      ]
+    },
+    "Status2": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "scheduled",
+        "triggered"
+      ]
+    }
+  }
+}

@@ -1,0 +1,219 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/sendgrid/main/json-schema/sendgrid-full-segment-schema.json",
+  "title": "full_segment",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/sendgrid-segmenting-contacts-api-openapi.yml#/components/schemas/FullSegment",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 36,
+      "maxLength": 36,
+      "format": "uuid"
+    },
+    "contacts_count": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "description": "ISO8601 of created timestamp\n",
+      "format": "date-time"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "description": "Name of the segment."
+    },
+    "parent_list_id": {
+      "type": "string",
+      "minLength": 36,
+      "maxLength": 36,
+      "format": "uuid",
+      "description": "The id of the list if this segment is a child of a list.  This implies the query `AND CONTAINS(list_ids, ${parent_list_id})`"
+    },
+    "sample_updated_at": {
+      "type": "string",
+      "description": "ISO8601 timestamp the sample was last updated",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "ISO8601 timestamp the object was last updated",
+      "format": "date-time"
+    },
+    "next_sample_update": {
+      "type": "string",
+      "description": "ISO8601 string that is equal to `sample_updated_at` plus an internally calculated offset that depends on how often contacts enter or exit segments as the scheduled pipeline updates the samples."
+    },
+    "contacts_sample": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ContactResponse"
+      }
+    },
+    "query_json": {
+      "type": "object",
+      "description": "AST representation of the query DSL"
+    },
+    "parent_list_ids": {
+      "type": "array",
+      "description": "The array of list ids to filter contacts on when building this segment. It allows only one such list id for now. We will support more in future",
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "query_dsl": {
+      "type": "string",
+      "description": "SQL query which will filter contacts based on the conditions provided"
+    }
+  },
+  "required": [
+    "contacts_count",
+    "contacts_sample",
+    "created_at",
+    "id",
+    "name",
+    "query_dsl",
+    "sample_updated_at",
+    "updated_at"
+  ],
+  "$defs": {
+    "ContactResponse": {
+      "title": "contact_response",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "maxLength": 36,
+          "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
+          "format": "uuid",
+          "description": "ID assigned to a contact when added to the system."
+        },
+        "email": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 254,
+          "format": "email",
+          "description": "Email of the contact. This is a reserved field."
+        },
+        "phone_number_id": {
+          "type": "string",
+          "description": "The contact's Phone Number ID. This must be a valid phone number."
+        },
+        "external_id": {
+          "type": "string",
+          "description": "The contact's External ID.",
+          "maxLength": 254
+        },
+        "anonymous_id": {
+          "type": "string",
+          "description": "The contact's Anonymous ID.",
+          "maxLength": 254
+        },
+        "alternate_emails": {
+          "type": "array",
+          "uniqueItems": true,
+          "minItems": 0,
+          "description": "Alternate emails of the contact. This is a reserved field.",
+          "items": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 254,
+            "format": "email"
+          }
+        },
+        "first_name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "First name of the contact. This is a reserved field."
+        },
+        "last_name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Last name of the contact. This is a reserved field."
+        },
+        "address_line_1": {
+          "type": "string",
+          "minLength": 0,
+          "description": "First line of address of the contact. This is a reserved field."
+        },
+        "address_line_2": {
+          "type": "string",
+          "minLength": 0,
+          "description": "Second line of address of the contact. This is a reserved field."
+        },
+        "city": {
+          "type": "string",
+          "minLength": 0,
+          "pattern": "^[a-zA-Z\\u0080-\\u024F\\s\\/\\-\\)\\(\\`\\.\\\"\\']+$",
+          "description": "City associated with the contact. This is a reserved field."
+        },
+        "state_province_region": {
+          "type": "string",
+          "minLength": 0,
+          "description": "State associated with the contact. This is a reserved field."
+        },
+        "postal_code": {
+          "type": "integer",
+          "description": "Zipcode associated with the address of the contact. This is a reserved field."
+        },
+        "country": {
+          "type": "string",
+          "minLength": 0,
+          "description": "Country associated with the address of the contact. This is a reserved field."
+        },
+        "list_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "description": "IDs of all lists the contact is part of",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "custom_fields": {
+          "type": "object",
+          "minProperties": 0,
+          "description": "The user may choose to create up to 120 custom fields or none at all. This is not a reserved field.",
+          "properties": {
+            "custom_field_name1": {
+              "type": "string",
+              "minLength": 0
+            },
+            "custom_field_name2": {
+              "type": "string",
+              "minLength": 0
+            }
+          }
+        },
+        "segment_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "description": "IDs of all segments the contact is part of",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "alternate_emails",
+        "first_name",
+        "last_name",
+        "address_line_1",
+        "address_line_2",
+        "city",
+        "state_province_region",
+        "postal_code",
+        "country",
+        "custom_fields"
+      ]
+    }
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/sendgrid/main/json-schema/sendgrid-singlesends-response-schema.json",
+  "title": "SinglesendsResponse",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/sendgrid-stats-api-openapi.yml#/components/schemas/SinglesendsResponse",
+  "type": "object",
+  "properties": {
+    "results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "This is the ID of the Single Send you require stats for.",
+            "format": "uuid"
+          },
+          "ab_variation": {
+            "type": "string",
+            "default": "a14dcc63-d651-4c57-9826-4a3705f5c78d",
+            "description": "This is the A/B variation of the Single Send stat returned. If the `group_by` parameter doesn't include `ab_variation` in the request, then the value is \"all\".",
+            "format": "uuid"
+          },
+          "ab_phase": {
+            "type": "string",
+            "default": "all",
+            "description": "This is the A/B phase of the Single Send stat returned. If the `group_by` parameter doesn't include `ab_phase` in the request, then the value is \"all\".",
+            "$ref": "#/$defs/AbPhase"
+          },
+          "aggregation": {
+            "type": "string",
+            "description": "This describes the time unit to which the stat is rolled up. It is based on the `aggregated_by` parameter included in the request. It can be \"total\" or the date (in YYYY-MM-DD format) the stats are for.",
+            "default": "total"
+          },
+          "stats": {
+            "$ref": "#/$defs/Metrics"
+          }
+        },
+        "required": [
+          "id",
+          "ab_variation",
+          "ab_phase"
+        ]
+      }
+    },
+    "_metadata": {
+      "$ref": "#/$defs/Metadata"
+    }
+  },
+  "required": [
+    "results",
+    "_metadata"
+  ],
+  "$defs": {
+    "AbPhase": {
+      "type": "string",
+      "enum": [
+        "send",
+        "test",
+        "all"
+      ]
+    },
+    "Metadata": {
+      "title": "metadata",
+      "type": "object",
+      "properties": {
+        "prev": {
+          "type": "string",
+          "format": "uri",
+          "description": "The URL of the previous page of results. If this field isn't present, you're at the start of the list."
+        },
+        "self": {
+          "type": "string",
+          "format": "uri",
+          "description": "The URL of the current page of results."
+        },
+        "next": {
+          "type": "string",
+          "format": "uri",
+          "description": "The URL of the next page of results. If this field isn't present, you're at the end of the list."
+        },
+        "count": {
+          "type": "number",
+          "description": "The number of items in the entire list, i.e., across all pages."
+        }
+      }
+    },
+    "Metrics": {
+      "title": "metrics",
+      "type": "object",
+      "properties": {
+        "bounce_drops": {
+          "type": "integer"
+        },
+        "bounces": {
+          "type": "integer"
+        },
+        "clicks": {
+          "type": "integer"
+        },
+        "delivered": {
+          "type": "integer"
+        },
+        "invalid_emails": {
+          "type": "integer"
+        },
+        "opens": {
+          "type": "integer"
+        },
+        "requests": {
+          "type": "integer"
+        },
+        "spam_report_drops": {
+          "type": "integer"
+        },
+        "spam_reports": {
+          "type": "integer"
+        },
+        "unique_clicks": {
+          "type": "integer"
+        },
+        "unique_opens": {
+          "type": "integer"
+        },
+        "unsubscribes": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "bounce_drops",
+        "bounces",
+        "clicks",
+        "delivered",
+        "invalid_emails",
+        "opens",
+        "requests",
+        "spam_report_drops",
+        "spam_reports",
+        "unique_clicks",
+        "unique_opens",
+        "unsubscribes"
+      ]
+    }
+  }
+}

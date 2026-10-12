@@ -1,0 +1,249 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/sendgrid/main/json-schema/sendgrid-segment2xx-schema.json",
+  "title": "segment_response",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/sendgrid-segmenting-contacts-v2-api-openapi.yml#/components/schemas/Segment2xx",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 36,
+      "maxLength": 36,
+      "format": "uuid",
+      "description": "ID assigned to the segment when created."
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "description": "Name of the segment."
+    },
+    "query_dsl": {
+      "type": "string",
+      "description": "SQL query which will filter contacts based on the conditions provided"
+    },
+    "contacts_count": {
+      "type": "integer",
+      "description": "Total number of contacts present in the segment"
+    },
+    "contacts_sample": {
+      "type": "array",
+      "description": "A subset of all contacts that are in this segment",
+      "items": {
+        "$ref": "#/$defs/ContactResponse"
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "description": "ISO8601 timestamp of when the object was created"
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "ISO8601 timestamp of when the object was last updated"
+    },
+    "sample_updated_at": {
+      "type": "string",
+      "description": "ISO8601 timestamp of when the samples were last updated"
+    },
+    "next_sample_update": {
+      "type": "string",
+      "description": "ISO8601 timestamp of when the samples will be next updated"
+    },
+    "parent_list_ids": {
+      "type": "array",
+      "description": "The array of list ids to filter contacts on when building this segment. It allows only one such list id for now. We will support more in future",
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "query_version": {
+      "type": "string",
+      "description": "If not set, segment contains a Query for use with Segment v1 APIs. If set to '2', segment contains a SQL query for use in v2."
+    },
+    "status": {
+      "$ref": "#/$defs/SegmentStatusResponse"
+    },
+    "refreshes_used": {
+      "type": "integer",
+      "description": "The number of times a segment has been manually refreshed since start of today in the user's timezone."
+    },
+    "max_refreshes": {
+      "type": "integer",
+      "description": "The maximum number of manual refreshes allowed per day for this segment. Currently, only 2 are allowed."
+    },
+    "last_refreshed_at": {
+      "type": "string",
+      "description": "The ISO8601 timestamp when the segment was last refreshed in UTC time."
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "query_dsl",
+    "contacts_count",
+    "contacts_sample",
+    "created_at",
+    "updated_at",
+    "sample_updated_at",
+    "next_sample_update",
+    "parent_list_ids",
+    "query_version",
+    "status"
+  ],
+  "$defs": {
+    "ContactResponse": {
+      "title": "contact_response",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "maxLength": 36,
+          "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
+          "format": "uuid",
+          "description": "ID assigned to a contact when added to the system."
+        },
+        "email": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 254,
+          "format": "email",
+          "description": "Email of the contact. This is a reserved field."
+        },
+        "phone_number_id": {
+          "type": "string",
+          "description": "The contact's Phone Number ID. This must be a valid phone number."
+        },
+        "external_id": {
+          "type": "string",
+          "description": "The contact's External ID.",
+          "maxLength": 254
+        },
+        "anonymous_id": {
+          "type": "string",
+          "description": "The contact's Anonymous ID.",
+          "maxLength": 254
+        },
+        "alternate_emails": {
+          "type": "array",
+          "uniqueItems": true,
+          "minItems": 0,
+          "description": "Alternate emails of the contact. This is a reserved field.",
+          "items": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 254,
+            "format": "email"
+          }
+        },
+        "first_name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "First name of the contact. This is a reserved field."
+        },
+        "last_name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Last name of the contact. This is a reserved field."
+        },
+        "address_line_1": {
+          "type": "string",
+          "minLength": 0,
+          "description": "First line of address of the contact. This is a reserved field."
+        },
+        "address_line_2": {
+          "type": "string",
+          "minLength": 0,
+          "description": "Second line of address of the contact. This is a reserved field."
+        },
+        "city": {
+          "type": "string",
+          "minLength": 0,
+          "pattern": "^[a-zA-Z\\u0080-\\u024F\\s\\/\\-\\)\\(\\`\\.\\\"\\']+$",
+          "description": "City associated with the contact. This is a reserved field."
+        },
+        "state_province_region": {
+          "type": "string",
+          "minLength": 0,
+          "description": "State associated with the contact. This is a reserved field."
+        },
+        "postal_code": {
+          "type": "integer",
+          "description": "Zipcode associated with the address of the contact. This is a reserved field."
+        },
+        "country": {
+          "type": "string",
+          "minLength": 0,
+          "description": "Country associated with the address of the contact. This is a reserved field."
+        },
+        "list_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "description": "IDs of all lists the contact is part of",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "custom_fields": {
+          "type": "object",
+          "minProperties": 0,
+          "description": "The user may choose to create up to 120 custom fields or none at all. This is not a reserved field.",
+          "properties": {
+            "custom_field_name1": {
+              "type": "string",
+              "minLength": 0
+            },
+            "custom_field_name2": {
+              "type": "string",
+              "minLength": 0
+            }
+          }
+        },
+        "segment_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "description": "IDs of all segments the contact is part of",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "alternate_emails",
+        "first_name",
+        "last_name",
+        "address_line_1",
+        "address_line_2",
+        "city",
+        "state_province_region",
+        "postal_code",
+        "country",
+        "custom_fields"
+      ]
+    },
+    "SegmentStatusResponse": {
+      "title": "segment_status_response",
+      "type": "object",
+      "description": "Segment status indicates whether the segment's contacts will be updated periodically",
+      "properties": {
+        "query_validation": {
+          "type": "string",
+          "description": "Status of query validation. PENDING, VALID, or INVALID"
+        },
+        "error_message": {
+          "type": "string",
+          "description": "Describes any errors that were encountered during query validation"
+        }
+      },
+      "required": [
+        "query_validation"
+      ]
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/sendgrid/main/json-schema/sendgrid-singlesend-schedule-schema.json",
+  "title": "singlesend-schedule",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/sendgrid-single-sends-api-openapi.yml#/components/schemas/SinglesendSchedule",
+  "type": "object",
+  "properties": {
+    "send_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The ISO 8601 time at which to send the Single Send. This must be in future or the string `now`. SendGrid [Mail Send](https://docs.sendgrid.com/api-reference/mail-send/mail-send) emails can be scheduled up to 72 hours in advance. However, this scheduling constraint does not apply to emails sent via [Marketing Campaigns](https://docs.sendgrid.com/ui/sending-email/how-to-send-email-with-marketing-campaigns/)."
+    },
+    "status": {
+      "type": "string",
+      "$ref": "#/$defs/Status1"
+    }
+  },
+  "required": [
+    "send_at"
+  ],
+  "$defs": {
+    "Status1": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "scheduled",
+        "triggered"
+      ]
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/sendgrid/main/json-schema/sendgrid-design-input-schema.json",
+  "title": "Design Input",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/sendgrid-designs-api-openapi.yml#/components/schemas/DesignInput",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the new design.",
+      "default": "Duplicate: <original design name>"
+    },
+    "editor": {
+      "type": "string",
+      "description": "The editor used in the UI.",
+      "$ref": "#/$defs/Editor"
+    },
+    "html_content": {
+      "type": "string",
+      "description": "The HTML content of the Design.",
+      "maxLength": 1048576
+    },
+    "plain_content": {
+      "type": "string",
+      "description": "Plain text content of the Design.",
+      "maxLength": 1048576,
+      "default": "<generated from html_content if left empty>"
+    }
+  },
+  "required": [
+    "html_content"
+  ],
+  "$defs": {
+    "Editor": {
+      "type": "string",
+      "enum": [
+        "code",
+        "design"
+      ]
+    }
+  }
+}

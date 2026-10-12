@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/sendgrid/main/json-schema/sendgrid-contact-request-schema.json",
+  "title": "contact-request",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/sendgrid-contacts-api-openapi.yml#/components/schemas/ContactRequest",
+  "type": "object",
+  "properties": {
+    "address_line_1": {
+      "type": "string",
+      "description": "The first line of the address.",
+      "maxLength": 100
+    },
+    "address_line_2": {
+      "type": "string",
+      "description": "An optional second line for the address.",
+      "maxLength": 100
+    },
+    "alternate_emails": {
+      "type": "array",
+      "description": "Additional emails associated with the contact.",
+      "minItems": 0,
+      "maxItems": 5,
+      "items": {
+        "type": "string",
+        "maxLength": 254
+      }
+    },
+    "city": {
+      "type": "string",
+      "description": "The contact's city.",
+      "maxLength": 60
+    },
+    "country": {
+      "type": "string",
+      "description": "The contact's country. Can be a full name or an abbreviation.",
+      "maxLength": 50
+    },
+    "email": {
+      "type": "string",
+      "description": "The contact's primary email. This is required to be a valid email.",
+      "maxLength": 254
+    },
+    "phone_number_id": {
+      "type": "string",
+      "description": "The contact's Phone Number ID. This must be a valid phone number."
+    },
+    "external_id": {
+      "type": "string",
+      "description": "The contact's External ID.",
+      "maxLength": 254
+    },
+    "anonymous_id": {
+      "type": "string",
+      "description": "The contact's Anonymous ID.",
+      "maxLength": 254
+    },
+    "first_name": {
+      "type": "string",
+      "description": "The contact's personal name.",
+      "maxLength": 50
+    },
+    "last_name": {
+      "type": "string",
+      "description": "The contact's family name.",
+      "maxLength": 50
+    },
+    "postal_code": {
+      "type": "string",
+      "description": "The contact's ZIP code or other postal code."
+    },
+    "state_province_region": {
+      "type": "string",
+      "description": "The contact's state, province, or region.",
+      "maxLength": 50
+    },
+    "custom_fields": {
+      "type": "object",
+      "description": "An object of custom field IDs and the values you want to associate with those custom fields. You can retrieve the IDs of your custom fields from the [Get All Field Definitions endpoint](https://docs.sendgrid.com/api-reference/custom-fields/get-all-field-definitions).",
+      "properties": {
+        "w1": {
+          "type": "string",
+          "description": "The properties in this object are made up of a key (the custom field ID) and value you want associated with that custom field. For example `{\"w1\": \"coffee\"}`."
+        }
+      }
+    }
+  }
+}

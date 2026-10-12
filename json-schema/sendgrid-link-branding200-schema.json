@@ -1,0 +1,178 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/sendgrid/main/json-schema/sendgrid-link-branding200-schema.json",
+  "title": "Link Branding 200 Response",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/sendgrid-link-branding-api-openapi.yml#/components/schemas/LinkBranding200",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "The ID of the branded link."
+    },
+    "domain": {
+      "type": "string",
+      "description": "The root domain of the branded link."
+    },
+    "subdomain": {
+      "type": "string",
+      "description": "The subdomain used to generate the DNS records for this link branding. This subdomain must be different from the subdomain used for your authenticated domain."
+    },
+    "username": {
+      "type": "string",
+      "description": "The username of the account that this link branding is associated with."
+    },
+    "user_id": {
+      "type": "integer",
+      "description": "The ID of the user that this link branding is associated with."
+    },
+    "default": {
+      "type": "boolean",
+      "description": "Indicates if this is the default link branding.",
+      "$ref": "#/$defs/Default2"
+    },
+    "valid": {
+      "type": "boolean",
+      "description": "Indicates if this link branding is valid.",
+      "$ref": "#/$defs/Valid3"
+    },
+    "legacy": {
+      "type": "boolean",
+      "description": "Indicates if this link branding was created using the legacy whitelabel tool. If it is a legacy whitelabel, it will still function, but you'll need to create new link branding if you need to update it.",
+      "$ref": "#/$defs/Legacy"
+    },
+    "dns": {
+      "type": "object",
+      "description": "The DNS records generated for this link branding.",
+      "required": [
+        "domain_cname"
+      ],
+      "properties": {
+        "domain_cname": {
+          "type": "object",
+          "description": "The DNS record generated to point to your link branding subdomain.",
+          "required": [
+            "valid",
+            "type",
+            "host",
+            "data"
+          ],
+          "properties": {
+            "valid": {
+              "type": "boolean",
+              "description": "Indicates if the DNS record is valid.",
+              "$ref": "#/$defs/Valid4"
+            },
+            "type": {
+              "type": "string",
+              "description": "The type of DNS record that was generated.",
+              "$ref": "#/$defs/Type"
+            },
+            "host": {
+              "type": "string",
+              "description": "The domain that this link branding will use for the links in your email."
+            },
+            "data": {
+              "type": "string",
+              "description": "The domain that the DNS record points to."
+            }
+          }
+        },
+        "owner_cname": {
+          "type": "object",
+          "description": "The DNS record generated to verify who created the link branding.",
+          "properties": {
+            "valid": {
+              "type": "boolean",
+              "description": "Indicates if the DNS record is valid.",
+              "$ref": "#/$defs/Valid5"
+            },
+            "type": {
+              "type": "string",
+              "description": "The type of DNS record generated.",
+              "$ref": "#/$defs/Type1"
+            },
+            "host": {
+              "type": "string",
+              "description": "Used to verify the link branding. The subdomain of this domain is the ID of the user who created the link branding."
+            },
+            "data": {
+              "type": "string",
+              "description": "The domain that the DNS record points to."
+            }
+          },
+          "required": [
+            "valid",
+            "host",
+            "data"
+          ]
+        }
+      }
+    }
+  },
+  "required": [
+    "id",
+    "domain",
+    "username",
+    "user_id",
+    "default",
+    "valid",
+    "legacy",
+    "dns"
+  ],
+  "$defs": {
+    "Default2": {
+      "type": "boolean",
+      "enum": [
+        true,
+        false
+      ]
+    },
+    "Legacy": {
+      "type": "boolean",
+      "enum": [
+        true,
+        false
+      ]
+    },
+    "Type": {
+      "type": "string",
+      "enum": [
+        "cname",
+        "txt",
+        "mx"
+      ]
+    },
+    "Type1": {
+      "type": "string",
+      "enum": [
+        "cname",
+        "txt",
+        "mx"
+      ]
+    },
+    "Valid3": {
+      "type": "boolean",
+      "enum": [
+        true,
+        false
+      ]
+    },
+    "Valid4": {
+      "type": "boolean",
+      "enum": [
+        true,
+        false
+      ]
+    },
+    "Valid5": {
+      "type": "boolean",
+      "enum": [
+        true,
+        false
+      ]
+    }
+  }
+}

@@ -1,0 +1,75 @@
+arazzo: 1.0.1
+info:
+  title: Send emails from SendGrid for new Unbounce submissions
+  version: 1.0.0
+  description: 'Send emails from SendGrid for new Unbounce submissions (Zapier template).
+    Reads new items from unbounce with listLeadsForPage, then sends an email with
+    SendGrid SendMail. Mapping item fields into the message is left to the caller:
+    the unbounce response schema does not fix which field holds the recipient address.'
+sourceDescriptions:
+- name: unbounce
+  url: https://raw.githubusercontent.com/api-evangelist/unbounce/refs/heads/main/openapi/unbounce-leads-api-openapi.yml
+  type: openapi
+- name: sendgrid
+  url: https://raw.githubusercontent.com/api-evangelist/sendgrid/refs/heads/main/openapi/sendgrid-mail-send-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: unbounceToSendgridEmail
+  summary: Send emails from SendGrid for new Unbounce submissions
+  inputs:
+    type: object
+    properties:
+      pageId:
+        type: string
+      to_email:
+        type: string
+      from_email:
+        type: string
+      subject:
+        type: string
+      content:
+        type: string
+  steps:
+  - stepId: fetch-leads
+    description: List page leads
+    operationId: $sourceDescriptions.unbounce.listLeadsForPage
+    parameters:
+    - name: page_id
+      in: path
+      value: $inputs.pageId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      items: $response.body
+  - stepId: send-email
+    description: Send the email through SendGrid
+    operationId: $sourceDescriptions.sendgrid.SendMail
+    requestBody:
+      contentType: application/json
+      payload:
+        personalizations:
+        - to:
+          - email: $inputs.to_email
+        from:
+          email: $inputs.from_email
+        subject: $inputs.subject
+        content:
+        - type: text/plain
+          value: $inputs.content
+    successCriteria:
+    - condition: $statusCode == 202
+  outputs:
+    items: $steps.fetch-leads.outputs.items
+x-integration:
+  partner: unbounce
+  template: https://zapier.com/apps/sendgrid/integrations/unbounce/4791/send-emails-from-sendgrid-for-new-unbounce-submissions
+  edge_evidence: https://zapier.com/apps/sendgrid/integrations/unbounce/4791/send-emails-from-sendgrid-for-new-unbounce-submissions
+  edge_type: marketplace
+  method: generated
+  generated: '2026-10-12'
+  generator: claude-opus-5-5
+  guessed_steps:
+  - step: send-email
+    cause: partner-contract
+    why: the unbounce listLeadsForPage response does not define which field carries
+      the recipient address, so to_email is an input

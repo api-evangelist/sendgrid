@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/sendgrid/main/json-schema/sendgrid-contactdb-recipient-response201-schema.json",
+  "title": "ContactDB: Recipient response",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/sendgrid-recipients-api-openapi.yml#/components/schemas/ContactdbRecipientResponse201",
+  "type": "object",
+  "properties": {
+    "error_count": {
+      "type": "number",
+      "default": 0,
+      "description": "The number of errors found while adding recipients."
+    },
+    "error_indices": {
+      "type": "array",
+      "default": [],
+      "description": "The indices of the recipient(s) sent that caused the error. ",
+      "items": {
+        "type": "number"
+      }
+    },
+    "new_count": {
+      "type": "number",
+      "default": 0,
+      "description": "The count of new recipients added to the contactdb."
+    },
+    "persisted_recipients": {
+      "type": "array",
+      "default": [],
+      "description": "The recipient IDs of the recipients that already existed from this request.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "updated_count": {
+      "type": "number",
+      "default": 0,
+      "description": "The recipients who were updated from this request."
+    },
+    "errors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "error_indices": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "error_count",
+    "new_count",
+    "persisted_recipients",
+    "updated_count"
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/sendgrid/main/json-schema/sendgrid-contact-export-schema.json",
+  "title": "contact-export",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/sendgrid-contacts-api-openapi.yml#/components/schemas/ContactExport",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "description": "The export job's status. Allowed values: `pending`, `ready`, or `failure`.",
+      "$ref": "#/$defs/Status"
+    },
+    "created_at": {
+      "type": "string",
+      "description": "The ISO8601 timestamp when the export was begun."
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "The ISO8601 timestamp when the export was updated."
+    },
+    "completed_at": {
+      "type": "string",
+      "description": "The ISO8601 timestamp when the export was completed."
+    },
+    "expires_at": {
+      "type": "string",
+      "description": "The ISO8601 timestamp when the exported file on S3 will expire."
+    },
+    "urls": {
+      "type": "array",
+      "description": "One or more download URLs for the contact file if the status is `ready`.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "message": {
+      "type": "string",
+      "description": "A human readable message if the status is `failure`."
+    },
+    "_metadata": {
+      "$ref": "#/$defs/Metadata"
+    },
+    "contact_count": {
+      "type": "integer",
+      "description": "The total number of exported contacts."
+    }
+  },
+  "required": [
+    "id",
+    "status",
+    "created_at",
+    "updated_at",
+    "expires_at"
+  ],
+  "$defs": {
+    "Metadata": {
+      "title": "metadata",
+      "type": "object",
+      "properties": {
+        "prev": {
+          "type": "string",
+          "format": "uri",
+          "description": "The URL of the previous page of results. If this field isn't present, you're at the start of the list."
+        },
+        "self": {
+          "type": "string",
+          "format": "uri",
+          "description": "The URL of the current page of results."
+        },
+        "next": {
+          "type": "string",
+          "format": "uri",
+          "description": "The URL of the next page of results. If this field isn't present, you're at the end of the list."
+        },
+        "count": {
+          "type": "number",
+          "description": "The number of items in the entire list, i.e., across all pages."
+        }
+      }
+    },
+    "Status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "ready",
+        "failure"
+      ]
+    }
+  }
+}

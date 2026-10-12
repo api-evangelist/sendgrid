@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/sendgrid/main/json-schema/sendgrid-subuser-post-schema.json",
+  "title": "Subuser::POST",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/sendgrid-subusers-api-openapi.yml#/components/schemas/SubuserPost",
+  "type": "object",
+  "properties": {
+    "username": {
+      "type": "string",
+      "description": "The username of the subuser."
+    },
+    "user_id": {
+      "type": "number",
+      "description": "The user ID for this subuser."
+    },
+    "email": {
+      "type": "string",
+      "description": "The email address for this subuser.",
+      "format": "email"
+    },
+    "credit_allocation": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "region": {
+      "type": "string",
+      "description": "The region this Subuser is assigned to. The property is returned only if the `include_region` parameter is included and set to `true` in the API request.",
+      "default": "global",
+      "$ref": "#/$defs/Region3"
+    }
+  },
+  "required": [
+    "username",
+    "user_id",
+    "email"
+  ],
+  "$defs": {
+    "Region3": {
+      "type": "string",
+      "enum": [
+        "global",
+        "eu"
+      ]
+    }
+  }
+}
