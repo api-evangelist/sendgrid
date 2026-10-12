@@ -1,0 +1,212 @@
+# DERIVED by derive-integration-map.py (roadmap#949): each integration workflow, step by step,
+# resolved to spec file -> tag -> business capability (Turbo EA, CC BY 4.0) and the operation's
+# phrasing intent. Read from our own files; an unmapped link says why.
+slug: sendgrid
+workflows:
+- file: sendgrid-airtable-new-items-send-email.yml
+  title: Send emails via SendGrid for new Airtable records in view
+  partner: airtable
+  template: https://zapier.com/apps/airtable/integrations/sendgrid/72756/send-emails-via-sendgrid-for-new-airtable-records-in-view
+  repos:
+  - airtable
+  - sendgrid
+  steps:
+  - step: fetch-records
+    repo: airtable
+    spec_file: airtable-records-api-openapi.yml
+    operationId: listRecords
+    tag: Records
+    capability_id: null
+    capability: null
+    capability_l1: null
+    intent: null
+    effect: null
+    unmapped: no capability edge for this spec file
+  - step: send-email
+    repo: sendgrid
+    spec_file: sendgrid-mail-send-api-openapi.yml
+    operationId: SendMail
+    tag: Mail Send
+    capability_id: null
+    capability: null
+    capability_l1: null
+    intent: Send an email
+    effect: write
+    unmapped: no capability edge for this spec file
+  connects:
+    airtable:
+      capabilities: []
+      tags:
+      - Records
+    sendgrid:
+      capabilities: []
+      tags:
+      - Mail Send
+  intents:
+  - Send an email
+- file: sendgrid-google-sheets-new-items-send-email.yml
+  title: Send SendGrid emails with new Google Sheets rows
+  partner: google-sheets
+  template: https://zapier.com/apps/google-sheets/integrations/sendgrid/4783/send-sendgrid-emails-with-new-google-sheets-rows
+  repos:
+  - google-sheets
+  - sendgrid
+  steps:
+  - step: fetch-rows
+    repo: google-sheets
+    spec_file: google-sheets-values-api-openapi.yml
+    operationId: getValues
+    tag: Values
+    capability_id: null
+    capability: null
+    capability_l1: null
+    intent: null
+    effect: null
+    unmapped: no capability edge for this spec file
+  - step: send-email
+    repo: sendgrid
+    spec_file: sendgrid-mail-send-api-openapi.yml
+    operationId: SendMail
+    tag: Mail Send
+    capability_id: null
+    capability: null
+    capability_l1: null
+    intent: Send an email
+    effect: write
+    unmapped: no capability edge for this spec file
+  connects:
+    google-sheets:
+      capabilities: []
+      tags:
+      - Values
+    sendgrid:
+      capabilities: []
+      tags:
+      - Mail Send
+  intents:
+  - Send an email
+- file: sendgrid-tally-new-items-send-email.yml
+  title: Send emails with SendGrid for new Tally submissions
+  partner: tally
+  template: https://zapier.com/apps/sendgrid/integrations/tally/1309322/send-emails-with-sendgrid-for-new-tally-submissions
+  repos:
+  - tally
+  - sendgrid
+  steps:
+  - step: fetch-submissions
+    repo: tally
+    spec_file: tally-submissions-api-openapi.yml
+    operationId: listSubmissions
+    tag: Submissions
+    capability_id: null
+    capability: null
+    capability_l1: null
+    intent: null
+    effect: null
+    unmapped: no capability edge for this spec file
+  - step: send-email
+    repo: sendgrid
+    spec_file: sendgrid-mail-send-api-openapi.yml
+    operationId: SendMail
+    tag: Mail Send
+    capability_id: null
+    capability: null
+    capability_l1: null
+    intent: Send an email
+    effect: write
+    unmapped: no capability edge for this spec file
+  connects:
+    tally:
+      capabilities: []
+      tags:
+      - Submissions
+    sendgrid:
+      capabilities: []
+      tags:
+      - Mail Send
+  intents:
+  - Send an email
+- file: sendgrid-unbounce-new-items-send-email.yml
+  title: Send emails from SendGrid for new Unbounce submissions
+  partner: unbounce
+  template: https://zapier.com/apps/sendgrid/integrations/unbounce/4791/send-emails-from-sendgrid-for-new-unbounce-submissions
+  repos:
+  - unbounce
+  - sendgrid
+  steps:
+  - step: fetch-leads
+    repo: unbounce
+    spec_file: unbounce-leads-api-openapi.yml
+    operationId: listLeadsForPage
+    tag: Leads
+    capability_id: BC-400.40
+    capability: Demand Generation Management
+    capability_l1: BC-400
+    intent: List the leads captured by a page
+    effect: read
+    unmapped: null
+  - step: send-email
+    repo: sendgrid
+    spec_file: sendgrid-mail-send-api-openapi.yml
+    operationId: SendMail
+    tag: Mail Send
+    capability_id: null
+    capability: null
+    capability_l1: null
+    intent: Send an email
+    effect: write
+    unmapped: no capability edge for this spec file
+  connects:
+    unbounce:
+      capabilities:
+      - BC-400.40
+      tags:
+      - Leads
+    sendgrid:
+      capabilities: []
+      tags:
+      - Mail Send
+  intents:
+  - List the leads captured by a page
+  - Send an email
+- file: sendgrid-webflow-new-items-send-email.yml
+  title: Send SendGrid emails from new Webflow submissions
+  partner: webflow
+  template: https://zapier.com/apps/sendgrid/integrations/webflow/72894/send-sendgrid-emails-from-new-webflow-submissions
+  repos:
+  - webflow
+  - sendgrid
+  steps:
+  - step: fetch-submissions
+    repo: webflow
+    spec_file: webflow-forms-api-openapi.yml
+    operationId: getSitesBySiteIdFormsByFormIdSubmissions
+    tag: Forms
+    capability_id: null
+    capability: null
+    capability_l1: null
+    intent: null
+    effect: null
+    unmapped: no capability edge for this spec file
+  - step: send-email
+    repo: sendgrid
+    spec_file: sendgrid-mail-send-api-openapi.yml
+    operationId: SendMail
+    tag: Mail Send
+    capability_id: null
+    capability: null
+    capability_l1: null
+    intent: Send an email
+    effect: write
+    unmapped: no capability edge for this spec file
+  connects:
+    webflow:
+      capabilities: []
+      tags:
+      - Forms
+    sendgrid:
+      capabilities: []
+      tags:
+      - Mail Send
+  intents:
+  - Send an email
