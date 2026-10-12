@@ -403,3 +403,41 @@
     detected: '2026-10-12'
   status: not-a-workflow
   arazzo: null
+- slug: sendgrid-telnyx
+  label: telnyx
+  partner: telnyx
+  partner_name: telnyx
+  type: contract
+  channel: contract-enum
+  evidence: https://github.com/api-evangelist/telnyx/blob/main/openapi/telnyx-email-suppression-imports-api-openapi.yml
+  source: edge
+  relationship: migration-import
+  contract_reference:
+    repo: telnyx
+    spec_file: telnyx-email-suppression-imports-api-openapi.yml
+    value: sendgrid
+    property: schemas.EmailBlockImport.provider
+    matched_domain: sendgrid.com
+    detected_by: sweep-cpaas.py
+    detected: '2026-10-12'
+  status: pending-generation
+  arazzo: null
+- slug: sendgrid-novu
+  label: novu
+  partner: novu
+  partner_name: novu
+  type: contract
+  channel: contract-enum
+  evidence: https://github.com/api-evangelist/novu/blob/main/openapi/novu-channel-connections-api-openapi.yml
+  source: edge
+  relationship: delivery-provider
+  contract_reference:
+    repo: novu
+    spec_file: novu-channel-connections-api-openapi.yml
+    value: sendgrid
+    property: schemas.GetChannelConnectionResponseDto.providerId
+    matched_domain: sendgrid.com
+    detected_by: sweep-cpaas.py
+    detected: '2026-10-12'
+  status: pending-generation
+  arazzo: null
