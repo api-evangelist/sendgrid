@@ -917,22 +917,21 @@ edges:
     property: schemas.EmailProviderNameEnum
     detected_by: detect-payment-method-edges.py
     detected: '2026-10-12'
-- partner_name: telnyx
-  partner: telnyx
-  partner_match: domain
-  type: contract
-  channel: contract-enum
-  relationship: migration-import
-  direction: partner-built
-  evidence: https://github.com/api-evangelist/telnyx/blob/main/openapi/telnyx-email-suppression-imports-api-openapi.yml
-  contract_reference:
-    repo: telnyx
-    spec_file: telnyx-email-suppression-imports-api-openapi.yml
-    value: sendgrid
-    property: schemas.EmailBlockImport.provider
-    matched_domain: sendgrid.com
-    detected_by: sweep-cpaas.py
-    detected: '2026-10-13'
+- partner_name: Microsoft Azure Marketplace
+  partner: microsoft-azure
+  partner_match: aggregator
+  type: marketplace
+  marketplace: azure-marketplace
+  channel: distribution
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://azuremarketplace.microsoft.com/en-us/marketplace/apps?search=SendGrid
+  listing_count: 1
+  apps:
+  - Twilio SendGrid
+  seller_name: SendGrid
+  detected_by: sweep-cloud-marketplaces.py
+  detected: '2026-10-13'
 - partner_name: novu
   partner: novu
   partner_match: domain
@@ -949,21 +948,22 @@ edges:
     matched_domain: sendgrid.com
     detected_by: sweep-cpaas.py
     detected: '2026-10-13'
-- partner_name: Microsoft Azure Marketplace
-  partner: microsoft-azure
-  partner_match: aggregator
-  type: marketplace
-  marketplace: azure-marketplace
-  channel: distribution
-  relationship: platform-app
-  direction: provider-built
-  evidence: https://azuremarketplace.microsoft.com/en-us/marketplace/apps?search=SendGrid
-  listing_count: 1
-  apps:
-  - Twilio SendGrid
-  seller_name: SendGrid
-  detected_by: sweep-cloud-marketplaces.py
-  detected: '2026-10-13'
+- partner_name: telnyx
+  partner: telnyx
+  partner_match: domain
+  type: contract
+  channel: contract-enum
+  relationship: migration-import
+  direction: partner-built
+  evidence: https://github.com/api-evangelist/telnyx/blob/main/openapi/telnyx-email-suppression-imports-api-openapi.yml
+  contract_reference:
+    repo: telnyx
+    spec_file: telnyx-email-suppression-imports-api-openapi.yml
+    value: sendgrid
+    property: schemas.EmailBlockImport.provider
+    matched_domain: sendgrid.com
+    detected_by: sweep-cpaas.py
+    detected: '2026-10-13'
 templates:
 - title: Send emails through SendGrid for new Typeform entries
   url: https://zapier.com/apps/sendgrid/integrations/typeform/4787/send-emails-through-sendgrid-for-new-typeform-entries
