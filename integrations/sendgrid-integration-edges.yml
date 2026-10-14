@@ -13,6 +13,7 @@ checked:
 - https://n8n.io/integrations/sendgrid/
 - https://www.twilio.com/docs/segment/connections/sources/catalog/cloud-apps/sendgrid
 - https://zapier.com/apps/sendgrid/integrations
+- okta/integrations/okta-integration-edges.yml
 summary: null
 marketplace_apps:
 - marketplace: zapier
@@ -1033,6 +1034,29 @@ edges:
       - upsert
   detected_by: sweep-cdp.py
   first_seen: '2026-10-14'
+- partner_name: Okta (own)
+  partner: okta
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.okta.com/integrations/sendgrid/
+  mirror_of: okta/integrations/okta-integration-edges.yml
+  apps:
+  - SendGrid
+  listing_count: 1
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+  category: Single Sign-On
+  badges:
+  - OKTA_VERIFIED
+  features:
+  - SAML
+  - SWA
+  - WORKFLOWS_CONNECTORS
 templates:
 - title: Send emails through SendGrid for new Typeform entries
   url: https://zapier.com/apps/sendgrid/integrations/typeform/4787/send-emails-through-sendgrid-for-new-typeform-entries
