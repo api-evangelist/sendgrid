@@ -92,11 +92,6 @@ paths:
         '500':
           $ref: '#/components/responses/MailBatch500'
 components:
-  examples:
-    MailBatch2xx:
-      summary: A mail batch ID.
-      value:
-        batch_id: 123abc456def789hij0
   parameters:
     BatchId:
       name: batch_id
@@ -113,6 +108,18 @@ components:
       schema:
         type: string
   responses:
+    MailBatch403:
+      description: Batch ID forbidden response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Unauthorized request:
+              value:
+                errors:
+                - message: access forbidden
+                  field: 'null'
     MailBatch500:
       description: Get batch ID internal server error response.
       content:
@@ -124,6 +131,18 @@ components:
               value:
                 errors:
                 - message: internal server error
+                  field: 'null'
+    MailBatch405:
+      description: Get batch ID method not allowed response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Unauthorized request:
+              value:
+                errors:
+                - message: method not allowed
                   field: 'null'
     MailBatch401:
       description: Batch ID unauthorized response.
@@ -137,17 +156,17 @@ components:
                 errors:
                 - message: authorization required
                   field: 'null'
-    MailBatch403:
-      description: Batch ID forbidden response.
+    MailBatch400:
+      description: Batch ID bad response.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
           examples:
-            Unauthorized request:
+            Bad request:
               value:
                 errors:
-                - message: access forbidden
+                - message: invalid batch id
                   field: 'null'
     MailBatch2xx:
       description: Batch ID success response.
@@ -170,30 +189,11 @@ components:
                 errors:
                 - message: batch id not found
                   field: 'null'
-    MailBatch400:
-      description: Batch ID bad response.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Bad request:
-              value:
-                errors:
-                - message: invalid batch id
-                  field: 'null'
-    MailBatch405:
-      description: Get batch ID method not allowed response.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Unauthorized request:
-              value:
-                errors:
-                - message: method not allowed
-                  field: 'null'
+  examples:
+    MailBatch2xx:
+      summary: A mail batch ID.
+      value:
+        batch_id: 123abc456def789hij0
   schemas:
     ErrorResponse:
       type: object

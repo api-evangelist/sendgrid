@@ -364,6 +364,163 @@ paths:
                       $ref: '#/components/schemas/InternalError'
 components:
   schemas:
+    Integration:
+      type: object
+      properties:
+        integration_id:
+          type: string
+          description: The unique ID of an Integration.
+          example: '12345'
+        user_id:
+          type: string
+          example: '123456'
+          description: Your Twilio SendGrid account ID.
+        filters:
+          type: object
+          description: The configurable filters for SendGrid to destination email event forwarding.
+          properties:
+            email_events:
+              type: array
+              description: The possible SendGrid email event types for event forwarding. Specify all the email event types that you would like to forward to the Integration's destination.
+              items:
+                type: string
+                $ref: '#/components/schemas/Items2'
+        properties:
+          type: object
+          description: The properties of an Integration required to send events to a specific third-party application.
+          properties:
+            write_key:
+              description: The write key provided by the Segment Source you'd like to have events forwarded to. Must be between 6 and 51 characters.
+              type: string
+              example: 1234-abc
+            destination_region:
+              description: The workspace region where the Segment Source write key lives.
+              type: string
+              $ref: '#/components/schemas/DestinationRegion2'
+        label:
+          type: string
+          default: Untitled Integration
+          example: My New Segment Integration!
+          description: The nickname for the Integration.
+        destination:
+          type: string
+          description: The third-party application you would like to forward your events to.
+          $ref: '#/components/schemas/Destination3'
+    Items:
+      type: string
+      enum:
+      - drop
+      - processed
+      - deferred
+      - group_unsubscribe
+      - bounce
+      - delivered
+      - click
+      - unsubscribe
+      - open
+      - group_resubscribe
+      - spamreport
+      - machine_opened
+    Destination3:
+      type: string
+      enum:
+      - Segment
+    Items2:
+      type: string
+      enum:
+      - drop
+      - processed
+      - deferred
+      - group_unsubscribe
+      - bounce
+      - delivered
+      - click
+      - unsubscribe
+      - open
+      - group_resubscribe
+      - spamreport
+      - machine_opened
+    InternalError:
+      type: object
+      properties:
+        message:
+          type: string
+          description: The error message tells you the cause of failure.
+          example: internal error
+    Items1:
+      type: string
+      enum:
+      - drop
+      - processed
+      - deferred
+      - group_unsubscribe
+      - bounce
+      - delivered
+      - click
+      - unsubscribe
+      - open
+      - group_resubscribe
+      - spamreport
+      - machine_opened
+    IntegrationNotFound:
+      type: object
+      properties:
+        message:
+          type: string
+          description: The error message tells you the cause of failure.
+          example: integration does not exist (abc)
+    IntegrationPatch:
+      type: object
+      properties:
+        destination:
+          type: string
+          description: The third-party application you would like to forward your email events to.
+          $ref: '#/components/schemas/Destination1'
+        filters:
+          type: object
+          description: The configurable filters for SendGrid to destination email event forwarding.
+          properties:
+            email_events:
+              type: array
+              description: The possible SendGrid email event types for event forwarding. Specify all the email event types that you would like to forward to the Integration's destination.
+              items:
+                type: string
+                $ref: '#/components/schemas/Items'
+        properties:
+          type: object
+          description: The properties of an Integration required to send events to a specific third-party application.
+          properties:
+            write_key:
+              description: The write key provided by the Segment Source you'd like to have events forwarded to. Must be between 6 and 51 characters.
+              type: string
+              example: 1234-abc
+            destination_region:
+              description: The workspace region where the Segment Source write key lives.
+              type: string
+              $ref: '#/components/schemas/DestinationRegion'
+        label:
+          type: string
+          default: Untitled Integration
+          example: My New Segment Integration!
+          description: The nickname for the Integration.
+    InvalidDeleteRequest:
+      type: object
+      properties:
+        message:
+          type: string
+          description: The error message tells you the cause of failure.
+          example: IDs cannot be an empty string
+        parameter:
+          type: string
+          example: ids[1]
+          description: The parameter shows more information about where the error is. The number in the brackets is the invalid ID indexed.
+    Id:
+      type: string
+      description: The unique ID of an Integration.
+      properties:
+        integration_id:
+          type: string
+          example: '12345'
     IntegrationInput:
       type: object
       required:
@@ -407,79 +564,6 @@ components:
           default: Untitled Integration
           example: My New Segment Integration!
           description: The nickname for the Integration.
-    InvalidDeleteRequest:
-      type: object
-      properties:
-        message:
-          type: string
-          description: The error message tells you the cause of failure.
-          example: IDs cannot be an empty string
-        parameter:
-          type: string
-          example: ids[1]
-          description: The parameter shows more information about where the error is. The number in the brackets is the invalid ID indexed.
-    IntegrationNotFound:
-      type: object
-      properties:
-        message:
-          type: string
-          description: The error message tells you the cause of failure.
-          example: integration does not exist (abc)
-    DestinationRegion:
-      type: string
-      enum:
-      - EU
-      - US
-    Items2:
-      type: string
-      enum:
-      - drop
-      - processed
-      - deferred
-      - group_unsubscribe
-      - bounce
-      - delivered
-      - click
-      - unsubscribe
-      - open
-      - group_resubscribe
-      - spamreport
-      - machine_opened
-    DestinationRegion1:
-      type: string
-      enum:
-      - EU
-      - US
-    Destination2:
-      type: string
-      enum:
-      - Segment
-    Items:
-      type: string
-      enum:
-      - drop
-      - processed
-      - deferred
-      - group_unsubscribe
-      - bounce
-      - delivered
-      - click
-      - unsubscribe
-      - open
-      - group_resubscribe
-      - spamreport
-      - machine_opened
-    Destination1:
-      type: string
-      enum:
-      - Segment
-    Id:
-      type: string
-      description: The unique ID of an Integration.
-      properties:
-        integration_id:
-          type: string
-          example: '12345'
     InvalidRequest:
       type: object
       properties:
@@ -491,113 +575,10 @@ components:
           type: string
           example: request
           description: The field shows more information on where the error is when available.
-    Items1:
-      type: string
-      enum:
-      - drop
-      - processed
-      - deferred
-      - group_unsubscribe
-      - bounce
-      - delivered
-      - click
-      - unsubscribe
-      - open
-      - group_resubscribe
-      - spamreport
-      - machine_opened
-    Destination3:
+    Destination1:
       type: string
       enum:
       - Segment
-    InternalError:
-      type: object
-      properties:
-        message:
-          type: string
-          description: The error message tells you the cause of failure.
-          example: internal error
-    Integration:
-      type: object
-      properties:
-        integration_id:
-          type: string
-          description: The unique ID of an Integration.
-          example: '12345'
-        user_id:
-          type: string
-          example: '123456'
-          description: Your Twilio SendGrid account ID.
-        filters:
-          type: object
-          description: The configurable filters for SendGrid to destination email event forwarding.
-          properties:
-            email_events:
-              type: array
-              description: The possible SendGrid email event types for event forwarding. Specify all the email event types that you would like to forward to the Integration's destination.
-              items:
-                type: string
-                $ref: '#/components/schemas/Items2'
-        properties:
-          type: object
-          description: The properties of an Integration required to send events to a specific third-party application.
-          properties:
-            write_key:
-              description: The write key provided by the Segment Source you'd like to have events forwarded to. Must be between 6 and 51 characters.
-              type: string
-              example: 1234-abc
-            destination_region:
-              description: The workspace region where the Segment Source write key lives.
-              type: string
-              $ref: '#/components/schemas/DestinationRegion2'
-        label:
-          type: string
-          default: Untitled Integration
-          example: My New Segment Integration!
-          description: The nickname for the Integration.
-        destination:
-          type: string
-          description: The third-party application you would like to forward your events to.
-          $ref: '#/components/schemas/Destination3'
-    DestinationRegion2:
-      type: string
-      enum:
-      - EU
-      - US
-    IntegrationPatch:
-      type: object
-      properties:
-        destination:
-          type: string
-          description: The third-party application you would like to forward your email events to.
-          $ref: '#/components/schemas/Destination1'
-        filters:
-          type: object
-          description: The configurable filters for SendGrid to destination email event forwarding.
-          properties:
-            email_events:
-              type: array
-              description: The possible SendGrid email event types for event forwarding. Specify all the email event types that you would like to forward to the Integration's destination.
-              items:
-                type: string
-                $ref: '#/components/schemas/Items'
-        properties:
-          type: object
-          description: The properties of an Integration required to send events to a specific third-party application.
-          properties:
-            write_key:
-              description: The write key provided by the Segment Source you'd like to have events forwarded to. Must be between 6 and 51 characters.
-              type: string
-              example: 1234-abc
-            destination_region:
-              description: The workspace region where the Segment Source write key lives.
-              type: string
-              $ref: '#/components/schemas/DestinationRegion'
-        label:
-          type: string
-          default: Untitled Integration
-          example: My New Segment Integration!
-          description: The nickname for the Integration.
     Forbidden:
       type: object
       properties:
@@ -605,6 +586,25 @@ components:
           type: string
           description: The error message tells you the cause of failure.
           example: access forbidden. please ensure you have the correct scopes defined. see https://docs.sendgrid.com/api-reference/how-to-use-the-sendgrid-v3-api/authorization#api-key-permissions-list
+    DestinationRegion2:
+      type: string
+      enum:
+      - EU
+      - US
+    Destination2:
+      type: string
+      enum:
+      - Segment
+    DestinationRegion:
+      type: string
+      enum:
+      - EU
+      - US
+    DestinationRegion1:
+      type: string
+      enum:
+      - EU
+      - US
   securitySchemes:
     BearerAuth:
       type: http

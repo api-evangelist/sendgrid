@@ -769,182 +769,12 @@ paths:
                           type: string
 components:
   schemas:
-    Editor:
-      type: string
-      enum:
-      - code
-      - design
-    SinglesendResponseShort:
-      title: singlesend_response_short
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-          minLength: 1
-          maxLength: 100
-          description: name of the Single Send
-        abtest:
-          $ref: '#/components/schemas/AbTestSummary'
-        status:
-          type: string
-          description: current status of the Single Send
-          $ref: '#/components/schemas/Status3'
-        categories:
-          type: array
-          uniqueItems: true
-          maxItems: 10
-          description: categories to associate with this Single Send
-          items:
-            type: string
-        send_at:
-          type: string
-          format: date-time
-          description: The ISO 8601 time at which to send the Single Send. This must be in future or the string `now`. SendGrid [Mail Send](https://docs.sendgrid.com/api-reference/mail-send/mail-send) emails can be scheduled up to 72 hours in advance. However, this scheduling constraint does not apply to emails sent via [Marketing Campaigns](https://docs.sendgrid.com/ui/sending-email/how-to-send-email-with-marketing-campaigns/).
-        is_abtest:
-          type: boolean
-          description: true if the Single Send's AB Test functionality has been toggled on
-        updated_at:
-          type: string
-          description: the ISO 8601 time at which the Single Send was last updated
-          format: date-time
-        created_at:
-          type: string
-          description: the ISO 8601 time at which the Single Send was created
-          format: date-time
-      required:
-      - id
-      - name
-      - abtest
-      - status
-      - categories
-      - is_abtest
-      - updated_at
-      - created_at
-    Status2:
-      type: string
-      enum:
-      - draft
-      - scheduled
-      - triggered
-    Items:
-      type: string
-      enum:
-      - draft
-      - scheduled
-      - triggered
-    Status3:
-      type: string
-      enum:
-      - draft
-      - scheduled
-      - triggered
     WinnerCriteria:
       type: string
       enum:
       - open
       - click
       - manual
-    SinglesendSearch:
-      title: singlesend_search
-      type: object
-      properties:
-        name:
-          type: string
-          minLength: 1
-          maxLength: 100
-          description: leading and trailing wildcard search on name of the Single Send
-        status:
-          type: array
-          description: current status of the Single Send
-          uniqueItems: true
-          items:
-            type: string
-            $ref: '#/components/schemas/Items'
-        categories:
-          type: array
-          description: categories to associate with this Single Send, match any single send that has at least one of the categories
-          uniqueItems: true
-          items:
-            type: string
-    Status:
-      type: string
-      enum:
-      - scheduled
-    SinglesendSchedule:
-      title: singlesend-schedule
-      type: object
-      properties:
-        send_at:
-          type: string
-          format: date-time
-          description: The ISO 8601 time at which to send the Single Send. This must be in future or the string `now`. SendGrid [Mail Send](https://docs.sendgrid.com/api-reference/mail-send/mail-send) emails can be scheduled up to 72 hours in advance. However, this scheduling constraint does not apply to emails sent via [Marketing Campaigns](https://docs.sendgrid.com/ui/sending-email/how-to-send-email-with-marketing-campaigns/).
-        status:
-          type: string
-          $ref: '#/components/schemas/Status1'
-      required:
-      - send_at
-    Metadata:
-      title: _metadata
-      type: object
-      properties:
-        prev:
-          type: string
-          format: uri
-        self:
-          type: string
-          format: uri
-        next:
-          type: string
-          format: uri
-        count:
-          type: integer
-          minimum: 0
-    AbTestSummary:
-      title: abTest_summary
-      properties:
-        type:
-          type: string
-          description: What differs between the A/B tests
-          $ref: '#/components/schemas/Type'
-        winner_criteria:
-          type: string
-          description: How the winner will be decided
-          $ref: '#/components/schemas/WinnerCriteria'
-        test_percentage:
-          type: integer
-          description: What percentage of your recipient will be included in your A/B testing
-        duration:
-          type: string
-          description: How long the A/B Testing will last
-        winning_template_id:
-          type: string
-          description: Winner of the A/B Test
-        winner_selected_at:
-          description: When the winner was selected
-          nullable: true
-          type: string
-        expiration_date:
-          description: Last day to select an A/B Test Winner
-          nullable: true
-          type: string
-      required:
-      - type
-      - winner_criteria
-      - test_percentage
-      - duration
-      - winning_template_id
-      - winner_selected_at
-      - expiration_date
-      nullable: true
-      type: object
-    Type:
-      type: string
-      enum:
-      - subject
-      - content
     SinglesendRequest:
       title: singlesend_request
       type: object
@@ -1030,6 +860,100 @@ components:
               type: string
       required:
       - name
+    Status1:
+      type: string
+      enum:
+      - draft
+      - scheduled
+      - triggered
+    Items:
+      type: string
+      enum:
+      - draft
+      - scheduled
+      - triggered
+    Status:
+      type: string
+      enum:
+      - scheduled
+    Editor1:
+      type: string
+      enum:
+      - code
+      - design
+    SinglesendSchedule:
+      title: singlesend-schedule
+      type: object
+      properties:
+        send_at:
+          type: string
+          format: date-time
+          description: The ISO 8601 time at which to send the Single Send. This must be in future or the string `now`. SendGrid [Mail Send](https://docs.sendgrid.com/api-reference/mail-send/mail-send) emails can be scheduled up to 72 hours in advance. However, this scheduling constraint does not apply to emails sent via [Marketing Campaigns](https://docs.sendgrid.com/ui/sending-email/how-to-send-email-with-marketing-campaigns/).
+        status:
+          type: string
+          $ref: '#/components/schemas/Status1'
+      required:
+      - send_at
+    Status3:
+      type: string
+      enum:
+      - draft
+      - scheduled
+      - triggered
+    Status2:
+      type: string
+      enum:
+      - draft
+      - scheduled
+      - triggered
+    SinglesendSearch:
+      title: singlesend_search
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+          description: leading and trailing wildcard search on name of the Single Send
+        status:
+          type: array
+          description: current status of the Single Send
+          uniqueItems: true
+          items:
+            type: string
+            $ref: '#/components/schemas/Items'
+        categories:
+          type: array
+          description: categories to associate with this Single Send, match any single send that has at least one of the categories
+          uniqueItems: true
+          items:
+            type: string
+    Metadata:
+      title: _metadata
+      type: object
+      properties:
+        prev:
+          type: string
+          format: uri
+        self:
+          type: string
+          format: uri
+        next:
+          type: string
+          format: uri
+        count:
+          type: integer
+          minimum: 0
+    Editor:
+      type: string
+      enum:
+      - code
+      - design
+    Type:
+      type: string
+      enum:
+      - subject
+      - content
     SinglesendResponse:
       title: singlesend_response
       type: object
@@ -1140,17 +1064,93 @@ components:
                 type: string
               warning_id:
                 type: string
-    Editor1:
-      type: string
-      enum:
-      - code
-      - design
-    Status1:
-      type: string
-      enum:
-      - draft
-      - scheduled
-      - triggered
+    SinglesendResponseShort:
+      title: singlesend_response_short
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+          description: name of the Single Send
+        abtest:
+          $ref: '#/components/schemas/AbTestSummary'
+        status:
+          type: string
+          description: current status of the Single Send
+          $ref: '#/components/schemas/Status3'
+        categories:
+          type: array
+          uniqueItems: true
+          maxItems: 10
+          description: categories to associate with this Single Send
+          items:
+            type: string
+        send_at:
+          type: string
+          format: date-time
+          description: The ISO 8601 time at which to send the Single Send. This must be in future or the string `now`. SendGrid [Mail Send](https://docs.sendgrid.com/api-reference/mail-send/mail-send) emails can be scheduled up to 72 hours in advance. However, this scheduling constraint does not apply to emails sent via [Marketing Campaigns](https://docs.sendgrid.com/ui/sending-email/how-to-send-email-with-marketing-campaigns/).
+        is_abtest:
+          type: boolean
+          description: true if the Single Send's AB Test functionality has been toggled on
+        updated_at:
+          type: string
+          description: the ISO 8601 time at which the Single Send was last updated
+          format: date-time
+        created_at:
+          type: string
+          description: the ISO 8601 time at which the Single Send was created
+          format: date-time
+      required:
+      - id
+      - name
+      - abtest
+      - status
+      - categories
+      - is_abtest
+      - updated_at
+      - created_at
+    AbTestSummary:
+      title: abTest_summary
+      properties:
+        type:
+          type: string
+          description: What differs between the A/B tests
+          $ref: '#/components/schemas/Type'
+        winner_criteria:
+          type: string
+          description: How the winner will be decided
+          $ref: '#/components/schemas/WinnerCriteria'
+        test_percentage:
+          type: integer
+          description: What percentage of your recipient will be included in your A/B testing
+        duration:
+          type: string
+          description: How long the A/B Testing will last
+        winning_template_id:
+          type: string
+          description: Winner of the A/B Test
+        winner_selected_at:
+          description: When the winner was selected
+          nullable: true
+          type: string
+        expiration_date:
+          description: Last day to select an A/B Test Winner
+          nullable: true
+          type: string
+      required:
+      - type
+      - winner_criteria
+      - test_percentage
+      - duration
+      - winning_template_id
+      - winner_selected_at
+      - expiration_date
+      nullable: true
+      type: object
   requestBodies:
     SinglesendRequestBody:
       content:

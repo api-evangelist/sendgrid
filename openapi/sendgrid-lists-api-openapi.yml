@@ -1030,11 +1030,27 @@ paths:
       description: The Twilio SendGrid v3 API
 components:
   schemas:
-    DeleteContacts:
-      type: boolean
-      enum:
-      - true
-      - false
+    ContactdbList2xx:
+      title: ContactDB lists
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The reference ID of your list.
+        name:
+          type: string
+          description: The name of your list. Must be unique against all other list and segment names.
+        recipient_count:
+          type: integer
+          description: The count of recipients currently in the list.
+      required:
+      - id
+      - name
+      - recipient_count
+      example:
+        id: 1
+        name: listname
+        recipient_count: 0
     ContactdbRecipient200:
       title: 'ContactDB: Recipient'
       type: object
@@ -1084,6 +1100,12 @@ components:
                 description: The last update date for this recipient's record.
             required:
             - email
+    Type:
+      type: string
+      enum:
+      - date
+      - text
+      - number
     ErrorResponse:
       type: object
       properties:
@@ -1109,33 +1131,11 @@ components:
         errors:
         - field: field_name
           message: error message
-    ContactdbList2xx:
-      title: ContactDB lists
-      type: object
-      properties:
-        id:
-          type: integer
-          description: The reference ID of your list.
-        name:
-          type: string
-          description: The name of your list. Must be unique against all other list and segment names.
-        recipient_count:
-          type: integer
-          description: The count of recipients currently in the list.
-      required:
-      - id
-      - name
-      - recipient_count
-      example:
-        id: 1
-        name: listname
-        recipient_count: 0
-    Type:
-      type: string
+    DeleteContacts:
+      type: boolean
       enum:
-      - date
-      - text
-      - number
+      - true
+      - false
     ContactdbCustomFieldIdValue:
       title: ContactDB Custom field schema.
       type: object
@@ -1154,23 +1154,6 @@ components:
           description: The value of this recipient's custom field
           nullable: true
           type: string
-    List:
-      title: list
-      type: object
-      properties:
-        id:
-          type: string
-          description: The generated ID for your list.
-          minLength: 36
-          maxLength: 36
-        name:
-          type: string
-          description: The name you gave your list.
-        contact_count:
-          type: integer
-          description: The number of contacts currently stored on the list.
-        _metadata:
-          $ref: '#/components/schemas/SelfMetadata'
     Error:
       title: error
       type: object
@@ -1260,6 +1243,30 @@ components:
       - list_ids
       - created_at
       - updated_at
+    List:
+      title: list
+      type: object
+      properties:
+        id:
+          type: string
+          description: The generated ID for your list.
+          minLength: 36
+          maxLength: 36
+        name:
+          type: string
+          description: The name you gave your list.
+        contact_count:
+          type: integer
+          description: The number of contacts currently stored on the list.
+        _metadata:
+          $ref: '#/components/schemas/SelfMetadata'
+    SelfMetadata:
+      title: selfMetadata
+      type: object
+      properties:
+        self:
+          type: string
+          description: A link to this object.
     Metadata:
       title: metadata
       type: object
@@ -1279,13 +1286,6 @@ components:
         count:
           type: number
           description: The number of items in the entire list, i.e., across all pages.
-    SelfMetadata:
-      title: selfMetadata
-      type: object
-      properties:
-        self:
-          type: string
-          description: A link to this object.
   parameters:
     OnBehalfOf:
       name: on-behalf-of

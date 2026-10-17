@@ -409,6 +409,45 @@ paths:
                     - metrics:
                         received: 0
 components:
+  requestBodies:
+    PostPatchParseSetting:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ParseSetting'
+  responses:
+    Webhook403:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Webhook500:
+      description: ''
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+    Webhook404:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Webhook401:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
     ParseSetting:
       title: Parse Setting
@@ -462,45 +501,6 @@ components:
       - day
       - week
       - month
-  requestBodies:
-    PostPatchParseSetting:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ParseSetting'
-  responses:
-    Webhook500:
-      description: ''
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    message:
-                      type: string
-    Webhook403:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Webhook404:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Webhook401:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   parameters:
     OnBehalfOf:
       name: on-behalf-of

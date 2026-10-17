@@ -96,39 +96,6 @@ paths:
         '500':
           $ref: '#/components/responses/EnforcedTls500'
 components:
-  responses:
-    EnforcedTls403:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    EnforcedTls401:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    EnforcedTls500:
-      description: ''
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    message:
-                      type: string
-    EnforcedTls404:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
     ErrorResponse:
       type: object
@@ -155,6 +122,12 @@ components:
         errors:
         - field: field_name
           message: error message
+    Version:
+      type: number
+      enum:
+      - 1.1
+      - 1.2
+      - 1.3
     EnforcedTlsRequestResponse:
       title: Enforced TLS Request Response
       type: object
@@ -175,12 +148,39 @@ components:
         require_tls: true
         require_valid_cert: true
         version: 1.1
-    Version:
-      type: number
-      enum:
-      - 1.1
-      - 1.2
-      - 1.3
+  responses:
+    EnforcedTls403:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    EnforcedTls401:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    EnforcedTls404:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    EnforcedTls500:
+      description: ''
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
   parameters:
     OnBehalfOf:
       name: on-behalf-of

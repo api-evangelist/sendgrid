@@ -73,68 +73,6 @@ paths:
           $ref: '#/components/responses/RecipientsDataErasure500'
 components:
   responses:
-    RecipientsDataErasure404:
-      description: Not Found
-      headers:
-        X-RateLimit-Limit:
-          description: The number of requests allowed during the  window.
-          schema:
-            type: integer
-        X-RateLimit-Reset:
-          description: The amount of time (in seconds) until the current window is over and the limit is reset
-          schema:
-            type: integer
-        X-RateLimit-Remaining:
-          description: The number of request remaining in the 60-second window before encountering a 429 error.
-          schema:
-            type: integer
-      content:
-        application/json:
-          schema:
-            title: Not Found
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  $ref: '#/components/schemas/RecipientsDataErasureErrorV1'
-            required:
-            - errors
-          example:
-            errors:
-            - message: Not Found
-              field: ''
-    RecipientsDataErasure500:
-      description: Internal Server Error
-      headers:
-        X-RateLimit-Limit:
-          description: The number of requests allowed during the  window.
-          schema:
-            type: integer
-        X-RateLimit-Reset:
-          description: The amount of time (in seconds) until the current window is over and the limit is reset
-          schema:
-            type: integer
-        X-RateLimit-Remaining:
-          description: The number of request remaining in the 60-second window before encountering a 429 error.
-          schema:
-            type: integer
-      content:
-        application/json:
-          schema:
-            title: Internal Server Error
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  $ref: '#/components/schemas/RecipientsDataErasureErrorV1'
-            required:
-            - errors
-          example:
-            errors:
-            - message: Internal Server Error
-              field: ''
     RecipientsDataErasure403:
       description: Not authorized to make the request
       headers:
@@ -166,6 +104,25 @@ components:
             errors:
             - message: Not authorized
               field: ''
+    RecipientsDataErasure429:
+      description: User has sent too many requests in a given amount of time
+      headers:
+        X-RateLimit-Limit:
+          description: The number of requests allowed during the  window.
+          schema:
+            type: integer
+        X-RateLimit-Reset:
+          description: The amount of time (in seconds) until the current window is over and the limit is reset
+          schema:
+            type: integer
+        X-RateLimit-Remaining:
+          description: The number of request remaining in the 60-second window before encountering a 429 error.
+          schema:
+            type: integer
+        X-Envoy-Ratelimited:
+          description: Indicating that you've been ratelimited
+          schema:
+            type: boolean
     RecipientsDataErasure400:
       description: The request was formatted incorrectly or missing required parameters.
       content:
@@ -228,8 +185,8 @@ components:
             errors:
             - message: Failed to authenticate
               field: ''
-    RecipientsDataErasure429:
-      description: User has sent too many requests in a given amount of time
+    RecipientsDataErasure404:
+      description: Not Found
       headers:
         X-RateLimit-Limit:
           description: The number of requests allowed during the  window.
@@ -243,35 +200,54 @@ components:
           description: The number of request remaining in the 60-second window before encountering a 429 error.
           schema:
             type: integer
-        X-Envoy-Ratelimited:
-          description: Indicating that you've been ratelimited
+      content:
+        application/json:
           schema:
-            type: boolean
+            title: Not Found
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RecipientsDataErasureErrorV1'
+            required:
+            - errors
+          example:
+            errors:
+            - message: Not Found
+              field: ''
+    RecipientsDataErasure500:
+      description: Internal Server Error
+      headers:
+        X-RateLimit-Limit:
+          description: The number of requests allowed during the  window.
+          schema:
+            type: integer
+        X-RateLimit-Reset:
+          description: The amount of time (in seconds) until the current window is over and the limit is reset
+          schema:
+            type: integer
+        X-RateLimit-Remaining:
+          description: The number of request remaining in the 60-second window before encountering a 429 error.
+          schema:
+            type: integer
+      content:
+        application/json:
+          schema:
+            title: Internal Server Error
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RecipientsDataErasureErrorV1'
+            required:
+            - errors
+          example:
+            errors:
+            - message: Internal Server Error
+              field: ''
   schemas:
-    RecipientsDataErasureJobId:
-      title: JobId
-      type: object
-      properties:
-        job_id:
-          type: string
-          description: The job ID associated with the data erasure request.
-      required:
-      - job_id
-      example:
-        job_id: 12a975bd-c742-4713-8f47-cb3ae4e56c74
-    RecipientsDataErasureErrorV1:
-      title: Error
-      type: object
-      properties:
-        message:
-          type: string
-          description: The message representing the error from the API
-        field:
-          type: string
-          description: The field associated with the error
-      required:
-      - message
-      - field
     RecipientsDataErasureEraseRecipientsRequest:
       title: EmailAddress
       type: object
@@ -289,6 +265,30 @@ components:
         email_addresses:
         - user1@example.com
         - user2@example.com
+    RecipientsDataErasureErrorV1:
+      title: Error
+      type: object
+      properties:
+        message:
+          type: string
+          description: The message representing the error from the API
+        field:
+          type: string
+          description: The field associated with the error
+      required:
+      - message
+      - field
+    RecipientsDataErasureJobId:
+      title: JobId
+      type: object
+      properties:
+        job_id:
+          type: string
+          description: The job ID associated with the data erasure request.
+      required:
+      - job_id
+      example:
+        job_id: 12a975bd-c742-4713-8f47-cb3ae4e56c74
   parameters:
     OnBehalfOf:
       name: on-behalf-of

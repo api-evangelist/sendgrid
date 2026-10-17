@@ -263,6 +263,135 @@ paths:
                 error: Please check [our status page](https://status.sendgrid.com/) for updates or [contact support](https://support.sendgrid.com/) if the issue is not listed.
 components:
   schemas:
+    SegmentRefresh202:
+      title: segment_refresh_response
+      type: object
+      properties:
+        job_id:
+          type: string
+          description: The ID of the manual refresh job. Used only for internal purposes.
+      example:
+        job_id: 1588e03b-50aa-454a-97d1-e1530345a5ec
+    SegmentWriteV2:
+      title: segment_write
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+          description: Name of the segment.
+        parent_list_ids:
+          type: array
+          description: The array of list ids to filter contacts on when building this segment. It allows only one such list id for now. We will support more in future
+          uniqueItems: true
+          items:
+            type: string
+        query_dsl:
+          type: string
+          description: SQL query which will filter contacts based on the conditions provided
+      required:
+      - name
+      - query_dsl
+    ErrorsSegmentV2:
+      title: errors-seg
+      type: object
+      description: If the request is incorrect, an array of errors will be returned.
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: the field in the request body that is incorrect
+              message:
+                type: string
+                description: a description of what is specifically wrong with the field passed in the request
+            required:
+            - field
+            - message
+      required:
+      - errors
+    SegmentStatusResponse:
+      title: segment_status_response
+      type: object
+      description: Segment status indicates whether the segment's contacts will be updated periodically
+      properties:
+        query_validation:
+          type: string
+          description: Status of query validation. PENDING, VALID, or INVALID
+        error_message:
+          type: string
+          description: Describes any errors that were encountered during query validation
+      required:
+      - query_validation
+    AllSegments200:
+      title: all_segments_response
+      type: object
+      properties:
+        id:
+          type: string
+          minLength: 36
+          maxLength: 36
+          format: uuid
+          description: ID assigned to the segment when created.
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+          description: Name of the segment.
+        contacts_count:
+          type: integer
+          description: Total number of contacts present in the segment
+        created_at:
+          type: string
+          description: ISO8601 timestamp of when the object was created
+        updated_at:
+          type: string
+          description: ISO8601 timestamp of when the object was last updated
+        sample_updated_at:
+          type: string
+          description: ISO8601 timestamp of when the samples were last updated
+        next_sample_update:
+          type: string
+          description: ISO8601 timestamp of when the samples will be next updated
+        parent_list_ids:
+          type: array
+          description: The array of list ids to filter contacts on when building this segment. It allows only one such list id for now. We will support more in future
+          uniqueItems: true
+          items:
+            type: string
+        query_version:
+          type: string
+          description: If not set, segment contains a query for use with Segment v1 APIs. If set to '2', segment contains a SQL query for use in v2.
+        _metadata:
+          $ref: '#/components/schemas/Metadata'
+        status:
+          $ref: '#/components/schemas/SegmentStatusResponse'
+      required:
+      - id
+      - name
+      - contacts_count
+      - created_at
+      - updated_at
+      - sample_updated_at
+      - next_sample_update
+      - parent_list_ids
+      - query_version
+      - status
+    SegmentRefreshRequest:
+      title: segment_refresh_request
+      required:
+      - user_time_zone
+      type: object
+      properties:
+        user_time_zone:
+          type: string
+          description: The user's timezone. The timezone is used to reset the refresh count at midnight in the user's local time. Only [IANA time zone format](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) is accepted.
+      example:
+        user_time_zone: America/Chicago
     ContactResponse:
       title: contact_response
       type: object
@@ -386,48 +515,34 @@ components:
         custom_fields:
           custom_field_name1: custom_field_value1
           custom_field_name2: custom_field_value2
-    SegmentRefresh202:
-      title: segment_refresh_response
+    Metadata:
+      title: _metadata
       type: object
       properties:
-        job_id:
+        prev:
           type: string
-          description: The ID of the manual refresh job. Used only for internal purposes.
-      example:
-        job_id: 1588e03b-50aa-454a-97d1-e1530345a5ec
-    SegmentError:
-      title: error
-      required:
-      - error
+          format: uri
+        self:
+          type: string
+          format: uri
+        next:
+          type: string
+          format: uri
+        count:
+          type: integer
+          minimum: 0
+    SegmentUpdate:
+      title: segment_update
       type: object
       properties:
-        error:
+        name:
           type: string
-          description: A description of the error.
-    SegmentStatusResponse:
-      title: segment_status_response
-      type: object
-      description: Segment status indicates whether the segment's contacts will be updated periodically
-      properties:
-        query_validation:
+          minLength: 1
+          maxLength: 100
+          description: Name of the segment.
+        query_dsl:
           type: string
-          description: Status of query validation. PENDING, VALID, or INVALID
-        error_message:
-          type: string
-          description: Describes any errors that were encountered during query validation
-      required:
-      - query_validation
-    SegmentRefreshRequest:
-      title: segment_refresh_request
-      required:
-      - user_time_zone
-      type: object
-      properties:
-        user_time_zone:
-          type: string
-          description: The user's timezone. The timezone is used to reset the refresh count at midnight in the user's local time. Only [IANA time zone format](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) is accepted.
-      example:
-        user_time_zone: America/Chicago
+          description: SQL query which will filter contacts based on the conditions provided
     Segment2xx:
       title: segment_response
       type: object
@@ -499,142 +614,27 @@ components:
       - parent_list_ids
       - query_version
       - status
-    ErrorsSegmentV2:
-      title: errors-seg
-      type: object
-      description: If the request is incorrect, an array of errors will be returned.
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-                description: the field in the request body that is incorrect
-              message:
-                type: string
-                description: a description of what is specifically wrong with the field passed in the request
-            required:
-            - field
-            - message
+    SegmentError:
+      title: error
       required:
-      - errors
-    Metadata:
-      title: _metadata
+      - error
       type: object
       properties:
-        prev:
+        error:
           type: string
-          format: uri
-        self:
-          type: string
-          format: uri
-        next:
-          type: string
-          format: uri
-        count:
-          type: integer
-          minimum: 0
-    SegmentUpdate:
-      title: segment_update
-      type: object
-      properties:
-        name:
-          type: string
-          minLength: 1
-          maxLength: 100
-          description: Name of the segment.
-        query_dsl:
-          type: string
-          description: SQL query which will filter contacts based on the conditions provided
-    SegmentWriteV2:
-      title: segment_write
-      type: object
-      properties:
-        name:
-          type: string
-          minLength: 1
-          maxLength: 100
-          description: Name of the segment.
-        parent_list_ids:
-          type: array
-          description: The array of list ids to filter contacts on when building this segment. It allows only one such list id for now. We will support more in future
-          uniqueItems: true
-          items:
-            type: string
-        query_dsl:
-          type: string
-          description: SQL query which will filter contacts based on the conditions provided
-      required:
-      - name
-      - query_dsl
-    AllSegments200:
-      title: all_segments_response
-      type: object
-      properties:
-        id:
-          type: string
-          minLength: 36
-          maxLength: 36
-          format: uuid
-          description: ID assigned to the segment when created.
-        name:
-          type: string
-          minLength: 1
-          maxLength: 100
-          description: Name of the segment.
-        contacts_count:
-          type: integer
-          description: Total number of contacts present in the segment
-        created_at:
-          type: string
-          description: ISO8601 timestamp of when the object was created
-        updated_at:
-          type: string
-          description: ISO8601 timestamp of when the object was last updated
-        sample_updated_at:
-          type: string
-          description: ISO8601 timestamp of when the samples were last updated
-        next_sample_update:
-          type: string
-          description: ISO8601 timestamp of when the samples will be next updated
-        parent_list_ids:
-          type: array
-          description: The array of list ids to filter contacts on when building this segment. It allows only one such list id for now. We will support more in future
-          uniqueItems: true
-          items:
-            type: string
-        query_version:
-          type: string
-          description: If not set, segment contains a query for use with Segment v1 APIs. If set to '2', segment contains a SQL query for use in v2.
-        _metadata:
-          $ref: '#/components/schemas/Metadata'
-        status:
-          $ref: '#/components/schemas/SegmentStatusResponse'
-      required:
-      - id
-      - name
-      - contacts_count
-      - created_at
-      - updated_at
-      - sample_updated_at
-      - next_sample_update
-      - parent_list_ids
-      - query_version
-      - status
+          description: A description of the error.
   requestBodies:
-    SegmentWriteV2:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SegmentWriteV2'
     SegmentRefresh:
       required: true
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/SegmentRefreshRequest'
+    SegmentWriteV2:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SegmentWriteV2'
   securitySchemes:
     BearerAuth:
       type: http

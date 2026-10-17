@@ -517,97 +517,24 @@ paths:
                   - username: example_subuser2
                     reputation: 95.2
 components:
+  parameters:
+    PaginationCommonOffset:
+      name: offset
+      in: query
+      required: false
+      description: The number of items in the list to skip over before starting to retrieve the items for the requested page. The default `offset` of `0` represents the beginning of the list, i.e. the start of the first page. To request the second page of the list, set the `offset` to the page size as determined by `limit`. Use multiples of the page size as your `offset` to request further consecutive pages. E.g. assume your page size is set to `10`. An `offset` of `10` requests the second page, an `offset` of `20` requests the third page and so on, provided there are sufficiently many items in your list.
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    UserName:
+      name: subuser_name
+      in: path
+      required: true
+      description: The username of the Subuser.
+      schema:
+        type: string
   schemas:
-    SubuserCreditsRequest:
-      title: Subuser Credits reset request body
-      type: object
-      properties:
-        type:
-          type: string
-          description: Type determines how credits are reset for a Subuser. `unlimited` indicates that there is no limit to the Subuser's credits. `recurring` indicates that the credits for the Subuser are reset according to the frequency determined by `reset_frequency`. `nonrecurring` indicates that there is no recurring schedule to reset credits and resets must be done on an ad hoc basis.
-          $ref: '#/components/schemas/Type1'
-        reset_frequency:
-          type: string
-          description: The frequency with which a Subuser's credits are reset if `type` is set to `recurring`. Do _not_ include `reset_frequency` if you choose a reset `type` value of `unlimited` or `nonrecurring`.
-          $ref: '#/components/schemas/ResetFrequency1'
-        total:
-          type: integer
-          description: Total number of credits to which the Subuser is to be reset. If `type` is `nonrecurring` then the Subuser's credits will be reset to `total` on a one-time basis. If `type` is `recurring` then the Subuser's credits will be reset to `total` every time a reset is scheduled in accordance with the `reset_frequency`. Do _not_ include `total` if you choose a reset `type` value of `unlimited`.
-          minimum: 1
-      required:
-      - type
-    SubuserPost:
-      title: Subuser::POST
-      type: object
-      properties:
-        username:
-          type: string
-          description: The username of the subuser.
-        user_id:
-          type: number
-          description: The user ID for this subuser.
-        email:
-          type: string
-          description: The email address for this subuser.
-          format: email
-        credit_allocation:
-          type: object
-          properties:
-            type:
-              type: string
-        region:
-          type: string
-          description: The region this Subuser is assigned to. The property is returned only if the `include_region` parameter is included and set to `true` in the API request.
-          default: global
-          $ref: '#/components/schemas/Region3'
-      required:
-      - username
-      - user_id
-      - email
-      example:
-        username: example_subuser
-        user_id: 1234
-        email: example@example.com
-        credit_allocation:
-          type: unlimited
-        region: global
-    Type1:
-      type: string
-      enum:
-      - unlimited
-      - recurring
-      - nonrecurring
-    ErrorResponse:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-                description: An error message.
-              field:
-                description: When applicable, this property value will be the field that generated the error.
-                nullable: true
-                type: string
-              help:
-                type: object
-                description: When applicable, this property value will be helper text or a link to documentation to help you troubleshoot the error.
-        id:
-          type: string
-          description: When applicable, this property value will be an error ID.
-      example:
-        errors:
-        - field: field_name
-          message: error message
-    ResetFrequency:
-      type: string
-      enum:
-      - monthly
-      - weekly
-      - daily
     SubuserCredits:
       title: Credits of a Subuser
       type: object
@@ -648,33 +575,12 @@ components:
         remain: 99
         total: 100
         used: 1
-    Region2:
-      type: string
-      enum:
-      - global
-      - eu
-    Region3:
-      type: string
-      enum:
-      - global
-      - eu
     ResetFrequency1:
       type: string
       enum:
       - monthly
       - weekly
       - daily
-    Type:
-      type: string
-      enum:
-      - unlimited
-      - recurring
-      - nonrecurring
-    Region1:
-      type: string
-      enum:
-      - global
-      - eu
     Subuser:
       title: List all Subusers for a parent response
       type: object
@@ -706,29 +612,123 @@ components:
         email: example@example.com
         id: 1234
         username: example_subuser
+    Type:
+      type: string
+      enum:
+      - unlimited
+      - recurring
+      - nonrecurring
+    Region3:
+      type: string
+      enum:
+      - global
+      - eu
+    ErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: An error message.
+              field:
+                description: When applicable, this property value will be the field that generated the error.
+                nullable: true
+                type: string
+              help:
+                type: object
+                description: When applicable, this property value will be helper text or a link to documentation to help you troubleshoot the error.
+        id:
+          type: string
+          description: When applicable, this property value will be an error ID.
+      example:
+        errors:
+        - field: field_name
+          message: error message
+    SubuserPost:
+      title: Subuser::POST
+      type: object
+      properties:
+        username:
+          type: string
+          description: The username of the subuser.
+        user_id:
+          type: number
+          description: The user ID for this subuser.
+        email:
+          type: string
+          description: The email address for this subuser.
+          format: email
+        credit_allocation:
+          type: object
+          properties:
+            type:
+              type: string
+        region:
+          type: string
+          description: The region this Subuser is assigned to. The property is returned only if the `include_region` parameter is included and set to `true` in the API request.
+          default: global
+          $ref: '#/components/schemas/Region3'
+      required:
+      - username
+      - user_id
+      - email
+      example:
+        username: example_subuser
+        user_id: 1234
+        email: example@example.com
+        credit_allocation:
+          type: unlimited
+        region: global
+    SubuserCreditsRequest:
+      title: Subuser Credits reset request body
+      type: object
+      properties:
+        type:
+          type: string
+          description: Type determines how credits are reset for a Subuser. `unlimited` indicates that there is no limit to the Subuser's credits. `recurring` indicates that the credits for the Subuser are reset according to the frequency determined by `reset_frequency`. `nonrecurring` indicates that there is no recurring schedule to reset credits and resets must be done on an ad hoc basis.
+          $ref: '#/components/schemas/Type1'
+        reset_frequency:
+          type: string
+          description: The frequency with which a Subuser's credits are reset if `type` is set to `recurring`. Do _not_ include `reset_frequency` if you choose a reset `type` value of `unlimited` or `nonrecurring`.
+          $ref: '#/components/schemas/ResetFrequency1'
+        total:
+          type: integer
+          description: Total number of credits to which the Subuser is to be reset. If `type` is `nonrecurring` then the Subuser's credits will be reset to `total` on a one-time basis. If `type` is `recurring` then the Subuser's credits will be reset to `total` every time a reset is scheduled in accordance with the `reset_frequency`. Do _not_ include `total` if you choose a reset `type` value of `unlimited`.
+          minimum: 1
+      required:
+      - type
     Region:
       type: string
       enum:
       - all
       - global
       - eu
-  parameters:
-    PaginationCommonOffset:
-      name: offset
-      in: query
-      required: false
-      description: The number of items in the list to skip over before starting to retrieve the items for the requested page. The default `offset` of `0` represents the beginning of the list, i.e. the start of the first page. To request the second page of the list, set the `offset` to the page size as determined by `limit`. Use multiples of the page size as your `offset` to request further consecutive pages. E.g. assume your page size is set to `10`. An `offset` of `10` requests the second page, an `offset` of `20` requests the third page and so on, provided there are sufficiently many items in your list.
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    UserName:
-      name: subuser_name
-      in: path
-      required: true
-      description: The username of the Subuser.
-      schema:
-        type: string
+    Type1:
+      type: string
+      enum:
+      - unlimited
+      - recurring
+      - nonrecurring
+    Region1:
+      type: string
+      enum:
+      - global
+      - eu
+    Region2:
+      type: string
+      enum:
+      - global
+      - eu
+    ResetFrequency:
+      type: string
+      enum:
+      - monthly
+      - weekly
+      - daily
   securitySchemes:
     BearerAuth:
       type: http

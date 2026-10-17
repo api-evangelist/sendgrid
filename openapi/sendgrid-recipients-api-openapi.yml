@@ -1074,6 +1074,95 @@ paths:
           $ref: '#/components/responses/MarketingRecipients500'
 components:
   schemas:
+    Status:
+      type: string
+      enum:
+      - pending
+      - ready
+      - failure
+    RecipientExport:
+      title: recipient-export
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+          description: 'The export job''s status. Allowed values: `pending`, `ready`, or `failure`.'
+          $ref: '#/components/schemas/Status'
+        created_at:
+          type: string
+          description: The ISO8601 timestamp when the export was begun.
+        updated_at:
+          type: string
+          description: The ISO8601 timestamp when the export was updated.
+        completed_at:
+          type: string
+          description: The ISO8601 timestamp when the export was completed.
+        expires_at:
+          type: string
+          description: The ISO8601 timestamp when the exported file on S3 will expire.
+        urls:
+          type: array
+          description: One or more download URLs for the recipient file if the status is `ready`.
+          items:
+            type: string
+        message:
+          type: string
+          description: A human readable message if the status is `failure`.
+        _metadata:
+          $ref: '#/components/schemas/Metadata'
+        recipient_count:
+          type: integer
+          description: The total number of exported recipients.
+      required:
+      - id
+      - status
+      - created_at
+      - updated_at
+      - expires_at
+    ContactdbSegmentsConditions:
+      title: 'ContactDB: Segments: Conditions'
+      type: object
+      properties:
+        field:
+          type: string
+        value:
+          type: string
+        operator:
+          type: string
+          $ref: '#/components/schemas/Operator'
+        and_or:
+          type: string
+          $ref: '#/components/schemas/AndOr'
+      required:
+      - field
+      - value
+      - operator
+    Type:
+      type: string
+      enum:
+      - date
+      - text
+      - number
+    ContactdbCustomFieldIdValue:
+      title: ContactDB Custom field schema.
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the field
+        type:
+          type: string
+          description: The type of the field.
+          $ref: '#/components/schemas/Type'
+        id:
+          type: number
+          description: The ID of the custom field.
+        value:
+          description: The value of this recipient's custom field
+          nullable: true
+          type: string
     ContactdbRecipient200:
       title: 'ContactDB: Recipient'
       type: object
@@ -1123,60 +1212,6 @@ components:
                 description: The last update date for this recipient's record.
             required:
             - email
-    ErrorResponse:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-                description: An error message.
-              field:
-                description: When applicable, this property value will be the field that generated the error.
-                nullable: true
-                type: string
-              help:
-                type: object
-                description: When applicable, this property value will be helper text or a link to documentation to help you troubleshoot the error.
-        id:
-          type: string
-          description: When applicable, this property value will be an error ID.
-      example:
-        errors:
-        - field: field_name
-          message: error message
-    Operator:
-      type: string
-      enum:
-      - eq
-      - ne
-      - lt
-      - gt
-      - contains
-    ContactdbList2xx:
-      title: ContactDB lists
-      type: object
-      properties:
-        id:
-          type: integer
-          description: The reference ID of your list.
-        name:
-          type: string
-          description: The name of your list. Must be unique against all other list and segment names.
-        recipient_count:
-          type: integer
-          description: The count of recipients currently in the list.
-      required:
-      - id
-      - name
-      - recipient_count
-      example:
-        id: 1
-        name: listname
-        recipient_count: 0
     Metadata:
       title: metadata
       type: object
@@ -1196,53 +1231,6 @@ components:
         count:
           type: number
           description: The number of items in the entire list, i.e., across all pages.
-    Type:
-      type: string
-      enum:
-      - date
-      - text
-      - number
-    RecipientExport:
-      title: recipient-export
-      type: object
-      properties:
-        id:
-          type: string
-        status:
-          type: string
-          description: 'The export job''s status. Allowed values: `pending`, `ready`, or `failure`.'
-          $ref: '#/components/schemas/Status'
-        created_at:
-          type: string
-          description: The ISO8601 timestamp when the export was begun.
-        updated_at:
-          type: string
-          description: The ISO8601 timestamp when the export was updated.
-        completed_at:
-          type: string
-          description: The ISO8601 timestamp when the export was completed.
-        expires_at:
-          type: string
-          description: The ISO8601 timestamp when the exported file on S3 will expire.
-        urls:
-          type: array
-          description: One or more download URLs for the recipient file if the status is `ready`.
-          items:
-            type: string
-        message:
-          type: string
-          description: A human readable message if the status is `failure`.
-        _metadata:
-          $ref: '#/components/schemas/Metadata'
-        recipient_count:
-          type: integer
-          description: The total number of exported recipients.
-      required:
-      - id
-      - status
-      - created_at
-      - updated_at
-      - expires_at
     ContactdbRecipientResponse201:
       title: 'ContactDB: Recipient response'
       type: object
@@ -1300,48 +1288,17 @@ components:
         - message: Invalid email.
           error_indices:
           - 2
-    ContactdbSegmentsConditions:
-      title: 'ContactDB: Segments: Conditions'
+    ContactdbRecipientCount200:
+      title: 'ContactDB: Recipient Count'
       type: object
       properties:
-        field:
-          type: string
-        value:
-          type: string
-        operator:
-          type: string
-          $ref: '#/components/schemas/Operator'
-        and_or:
-          type: string
-          $ref: '#/components/schemas/AndOr'
-      required:
-      - field
-      - value
-      - operator
-    ContactdbCustomFieldIdValue:
-      title: ContactDB Custom field schema.
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the field
-        type:
-          type: string
-          description: The type of the field.
-          $ref: '#/components/schemas/Type'
-        id:
+        recipient_count:
           type: number
-          description: The ID of the custom field.
-        value:
-          description: The value of this recipient's custom field
-          nullable: true
-          type: string
-    AndOr:
-      type: string
-      enum:
-      - and
-      - or
-      - ''
+          description: The count of recipients.
+      required:
+      - recipient_count
+      example:
+        recipient_count: 1234
     FileType:
       type: string
       enum:
@@ -1364,37 +1321,68 @@ components:
         message: error message
       required:
       - message
-    ContactdbRecipientCount200:
-      title: 'ContactDB: Recipient Count'
+    ContactdbList2xx:
+      title: ContactDB lists
       type: object
       properties:
+        id:
+          type: integer
+          description: The reference ID of your list.
+        name:
+          type: string
+          description: The name of your list. Must be unique against all other list and segment names.
         recipient_count:
-          type: number
-          description: The count of recipients.
+          type: integer
+          description: The count of recipients currently in the list.
       required:
+      - id
+      - name
       - recipient_count
       example:
-        recipient_count: 1234
-    Status:
+        id: 1
+        name: listname
+        recipient_count: 0
+    Operator:
       type: string
       enum:
-      - pending
-      - ready
-      - failure
+      - eq
+      - ne
+      - lt
+      - gt
+      - contains
+    ErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: An error message.
+              field:
+                description: When applicable, this property value will be the field that generated the error.
+                nullable: true
+                type: string
+              help:
+                type: object
+                description: When applicable, this property value will be helper text or a link to documentation to help you troubleshoot the error.
+        id:
+          type: string
+          description: When applicable, this property value will be an error ID.
+      example:
+        errors:
+        - field: field_name
+          message: error message
+    AndOr:
+      type: string
+      enum:
+      - and
+      - or
+      - ''
   responses:
-    MarketingRecipients404:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     MarketingRecipients403:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    MarketingRecipients401:
       description: ''
       content:
         application/json:
@@ -1414,6 +1402,18 @@ components:
                   properties:
                     message:
                       type: string
+    MarketingRecipients401:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    MarketingRecipients404:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   parameters:
     OnBehalfOf:
       name: on-behalf-of

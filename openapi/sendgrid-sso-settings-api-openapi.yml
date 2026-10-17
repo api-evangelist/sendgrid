@@ -227,6 +227,19 @@ paths:
           $ref: '#/components/responses/Sso500'
 components:
   schemas:
+    SsoErrorResponse:
+      title: SSO Error Response
+      type: array
+      items:
+        type: object
+        properties:
+          message:
+            type: string
+          field:
+            nullable: true
+            type: string
+          error_id:
+            type: string
     PostPatchIntegrationRequest:
       title: Create Integration Request
       type: object
@@ -296,33 +309,8 @@ components:
       - name
       - signin_url
       - signout_url
-    SsoErrorResponse:
-      title: SSO Error Response
-      type: array
-      items:
-        type: object
-        properties:
-          message:
-            type: string
-          field:
-            nullable: true
-            type: string
-          error_id:
-            type: string
   responses:
     Sso500:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SsoErrorResponse'
-    Sso401:
-      description: ''
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SsoErrorResponse'
-    Sso403:
       description: ''
       content:
         application/json:
@@ -334,7 +322,19 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/SsoErrorResponse'
+    Sso403:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SsoErrorResponse'
     Sso400:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SsoErrorResponse'
+    Sso401:
       description: ''
       content:
         application/json:

@@ -90,74 +90,6 @@ paths:
           $ref: '#/components/responses/AccountProvisioningErrorResponse504'
 components:
   responses:
-    AccountProvisioningErrorResponse500:
-      description: Internal Server Error
-      content:
-        application/json:
-          schema:
-            title: InternalServerError
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ErrorResponse'
-          example:
-            errors:
-            - message: Something went wrong
-              field: ''
-              error_id: 10-50000
-    AccountProvisioningErrorResponse404:
-      description: Not Found
-      content:
-        application/json:
-          schema:
-            title: Not Found
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ErrorResponse'
-          example:
-            errors:
-            - message: No such endpoint
-              field: ''
-              error_id: 10-40400
-    AccountProvisioningErrorResponse502:
-      description: Bad Gateway
-      content:
-        application/json:
-          schema:
-            title: Bad Gateway
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ErrorResponse'
-          example:
-            errors:
-            - message: Bad Gateway
-              field: ''
-              error_id: 10-50200
-    AccountProvisioningErrorResponse403:
-      description: Not authorized to make the request
-      content:
-        application/json:
-          schema:
-            title: Forbidden
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ErrorResponse'
-          example:
-            errors:
-            - message: The authenticated user is not authorized to perfrom this request
-              field: ''
-              error_id: 10-40300
     AccountProvisioningErrorResponse503:
       description: Service Unavailable
       content:
@@ -175,23 +107,6 @@ components:
             - message: Service Unavailable
               field: ''
               error_id: 10-50300
-    AccountProvisioningErrorResponse504:
-      description: Endpoint request timed out
-      content:
-        application/json:
-          schema:
-            title: Endpoint request timed out
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ErrorResponse'
-          example:
-            errors:
-            - message: Endpoint request timed out
-              field: ''
-              error_id: 10-50400
     AccountProvisioningErrorResponse401:
       description: Request lacks valid authentication credentials
       content:
@@ -209,6 +124,91 @@ components:
             - message: Failed to authenticate user
               field: ''
               error_id: 10-40100
+    AccountProvisioningErrorResponse403:
+      description: Not authorized to make the request
+      content:
+        application/json:
+          schema:
+            title: Forbidden
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ErrorResponse'
+          example:
+            errors:
+            - message: The authenticated user is not authorized to perfrom this request
+              field: ''
+              error_id: 10-40300
+    AccountProvisioningErrorResponse500:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            title: InternalServerError
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ErrorResponse'
+          example:
+            errors:
+            - message: Something went wrong
+              field: ''
+              error_id: 10-50000
+    AccountProvisioningErrorResponse502:
+      description: Bad Gateway
+      content:
+        application/json:
+          schema:
+            title: Bad Gateway
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ErrorResponse'
+          example:
+            errors:
+            - message: Bad Gateway
+              field: ''
+              error_id: 10-50200
+    AccountProvisioningErrorResponse504:
+      description: Endpoint request timed out
+      content:
+        application/json:
+          schema:
+            title: Endpoint request timed out
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ErrorResponse'
+          example:
+            errors:
+            - message: Endpoint request timed out
+              field: ''
+              error_id: 10-50400
+    AccountProvisioningErrorResponse404:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            title: Not Found
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ErrorResponse'
+          example:
+            errors:
+            - message: No such endpoint
+              field: ''
+              error_id: 10-40400
     AccountProvisioningErrorResponse400:
       description: The request was formatted incorrectly or missing required parameters.
       content:
@@ -235,27 +235,14 @@ components:
               field: company_website
               error_id: 10-40008
   schemas:
-    State:
-      type: string
-      enum:
-      - activated
-      - deactivated
-      - suspended
-      - banned
-      - indeterminate
-    State1:
-      type: string
-      enum:
-      - activated
-      - deactivated
-    AccountProvisioningStateRead:
-      title: StateRead
+    AccountProvisioningStateWrite:
+      title: StateWrite
       type: object
       properties:
         state:
           type: string
-          description: The state of the account (e.g., `activated`, `deactivated`, `suspended`, `banned`, or `indeterminate`)
-          $ref: '#/components/schemas/State'
+          description: The state of the account (e.g., `activated`, `deactivated`)
+          $ref: '#/components/schemas/State1'
       required:
       - state
       example:
@@ -277,18 +264,31 @@ components:
       - message
       - field
       - error_id
-    AccountProvisioningStateWrite:
-      title: StateWrite
+    AccountProvisioningStateRead:
+      title: StateRead
       type: object
       properties:
         state:
           type: string
-          description: The state of the account (e.g., `activated`, `deactivated`)
-          $ref: '#/components/schemas/State1'
+          description: The state of the account (e.g., `activated`, `deactivated`, `suspended`, `banned`, or `indeterminate`)
+          $ref: '#/components/schemas/State'
       required:
       - state
       example:
         state: activated
+    State:
+      type: string
+      enum:
+      - activated
+      - deactivated
+      - suspended
+      - banned
+      - indeterminate
+    State1:
+      type: string
+      enum:
+      - activated
+      - deactivated
   parameters:
     AccountProvisioningAccountId:
       name: accountID
