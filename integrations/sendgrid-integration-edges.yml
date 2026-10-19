@@ -5,10 +5,12 @@ source:
 - https://n8n.io/integrations/sendgrid/
 - https://composio.dev/toolkits/sendgrid
 checked:
+- https://api.nuget.org/v3
 - https://azuremarketplace.microsoft.com/
 - https://composio.dev/toolkits/sendgrid
 - https://connectors.airbyte.com/files/registries/v0/cloud_registry.json
 - https://connectors.airbyte.com/files/registries/v0/oss_registry.json
+- https://crates.io/api/v1
 - https://docs.mparticle.com/integrations/sendgrid/audience/
 - https://fivetran.com/docs-sitemap.xml
 - https://fivetran.com/docs/connectors/partner-built-program
@@ -18,6 +20,11 @@ checked:
 - https://hightouch.com/docs/destinations/sendgrid
 - https://monid.ai/tools/sendgrid
 - https://n8n.io/integrations/sendgrid/
+- https://proxy.golang.org
+- https://pypi.org/pypi
+- https://registry.npmjs.org
+- https://repo1.maven.org/maven2
+- https://rubygems.org/api/v1
 - https://www.twilio.com/docs/segment/connections/sources/catalog/cloud-apps/sendgrid
 - https://zapier.com/api/v4/apps/
 - https://zapier.com/apps/sendgrid/integrations
@@ -1236,6 +1243,123 @@ edges:
     - silver
     builder: 'community (Meltano Hub variant maintainers: airbyte, codyss, singer-io)'
   detected_by: sweep-data-integration.py
+  first_seen: '2026-10-18'
+- partner_name: Go module proxy
+  partner: null
+  partner_match: null
+  type: register
+  direction: provider-built
+  category: official SDK (Go)
+  evidence: https://pkg.go.dev/github.com/sendgrid/sendgrid-go
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: Go module proxy (public registry JSON)
+    spec_file: null
+    language: Go
+    packages:
+    - name: github.com/sendgrid/sendgrid-go
+      version: v3.16.1+incompatible
+      released: '2025-05-29'
+      released_field: Time
+      lapsed: false
+      page: https://pkg.go.dev/github.com/sendgrid/sendgrid-go
+      repo_leg: github-org:sendgrid
+      publisher_leg: org:sendgrid
+      matched_by: github-org
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  detected_by: sweep-official-sdks.py
+  first_seen: '2026-10-18'
+- partner_name: Maven Central
+  partner: maven-central
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: official SDK (Java/JVM)
+  evidence: https://central.sonatype.com/artifact/com.sendgrid/sendgrid-java
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: Maven Central (public registry JSON)
+    spec_file: null
+    language: Java/JVM
+    packages:
+    - name: com.sendgrid:sendgrid-java
+      version: 5.0.0-rc.1
+      released: '2024-09-18'
+      released_field: lastUpdated
+      lapsed: true
+      page: https://central.sonatype.com/artifact/com.sendgrid/sendgrid-java
+      repo_leg: github-org:sendgrid
+      publisher_leg: groupId:sendgrid.com
+      matched_by: domain
+    current: false
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  detected_by: sweep-official-sdks.py
+  first_seen: '2026-10-18'
+- partner_name: npm registry
+  partner: npm
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: official SDK (JavaScript/TypeScript)
+  evidence: https://www.npmjs.com/package/@sendgrid/client
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: npm registry (public registry JSON)
+    spec_file: null
+    language: JavaScript/TypeScript
+    packages:
+    - name: '@sendgrid/client'
+      version: 8.1.6
+      released: '2026-06-11'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@sendgrid/client
+      repo_leg: domain:sendgrid.com
+      publisher_leg: org:sendgrid
+      matched_by: domain
+    - name: '@sendgrid/eventwebhook'
+      version: 8.0.0
+      released: '2026-06-11'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@sendgrid/eventwebhook
+      repo_leg: domain:sendgrid.com
+      publisher_leg: org:sendgrid
+      matched_by: domain
+    - name: '@sendgrid/inbound-mail-parser'
+      version: 8.0.0
+      released: '2026-06-11'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@sendgrid/inbound-mail-parser
+      repo_leg: domain:sendgrid.com
+      publisher_leg: org:sendgrid
+      matched_by: domain
+    - name: '@sendgrid/mail'
+      version: 8.1.6
+      released: '2026-06-11'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@sendgrid/mail
+      repo_leg: domain:sendgrid.com
+      publisher_leg: org:sendgrid
+      matched_by: domain
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  detected_by: sweep-official-sdks.py
   first_seen: '2026-10-18'
 templates:
 - title: Send emails through SendGrid for new Typeform entries
